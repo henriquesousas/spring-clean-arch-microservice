@@ -1,18 +1,17 @@
 package com.jobee.admin.service.infrastructure.category.repository;
 
-import com.jobee.admin.service.MysqlRepositorylTest;
+import com.jobee.admin.service.MysqlRepositoryTest;
 import com.jobee.admin.service.domain.category.Category;
 import com.jobee.admin.service.domain.category.CategoryId;
 import com.jobee.admin.service.domain.category.CategorySearch;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
 
-@MysqlRepositorylTest
+@MysqlRepositoryTest
 public class CategoryRepositoryMysqlTest {
 
     @Autowired
@@ -21,10 +20,6 @@ public class CategoryRepositoryMysqlTest {
     @Autowired
     private CategoryRepository repository;
 
-    @BeforeEach
-    void cleanUp() {
-        this.repository.deleteAll();
-    }
 
     @Test
     public void testInjectDependencies() {

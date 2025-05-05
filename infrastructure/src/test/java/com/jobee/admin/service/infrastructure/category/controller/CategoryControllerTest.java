@@ -1,6 +1,5 @@
 package com.jobee.admin.service.infrastructure.category.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jobee.admin.service.ControllerTest;
 import com.jobee.admin.service.application.category.cretate.CreateCategoryOutputDto;
@@ -13,7 +12,6 @@ import com.jobee.admin.service.application.category.update.UpdateCategoryOutputD
 import com.jobee.admin.service.application.category.update.UpdateCategoryUseCase;
 import com.jobee.admin.service.domain.category.Category;
 import com.jobee.admin.service.domain.category.CategoryId;
-import com.jobee.admin.service.domain.category.CategorySearch;
 import com.jobee.admin.service.domain.exceptions.DomainException;
 import com.jobee.admin.service.domain.exceptions.NotFoundException;
 import com.jobee.admin.service.domain.pagination.Pagination;

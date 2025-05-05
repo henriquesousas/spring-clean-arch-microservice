@@ -21,7 +21,7 @@ import java.util.Objects;
 import java.util.function.Function;
 
 
-@RestController("categories")
+@RestController
 public class CategoryController implements BaseCategoryController {
 
     private final CreateCategoryUseCase createCategoryUseCase;
