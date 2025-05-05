@@ -1,0 +1,19 @@
+version: '3.7'
+
+services:
+  mysql:
+    container_name: admin-service-mysql
+    image: mysql:latest
+    environment:
+      - MYSQL_ROOT_PASSWORD=admin
+      - MYSQL_DATABASE=services
+    security_opt:
+      - seccomp:unconfined
+    ports:
+      - 3307:3306
+    networks:
+      - jobee_network
+
+networks:
+  jobee_network:
+

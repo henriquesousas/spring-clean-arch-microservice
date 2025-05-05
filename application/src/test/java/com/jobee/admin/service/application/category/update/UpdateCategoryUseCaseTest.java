@@ -1,0 +1,144 @@
+package com.jobee.admin.service.application.category.update;
+
+
+import com.jobee.admin.service.domain.category.Category;
+import com.jobee.admin.service.domain.category.CategoryRepositoryGateway;
+import com.jobee.admin.service.domain.validation.handler.Notification;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentMatchers;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.util.Objects;
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.when;
+
+@ExtendWith(MockitoExtension.class)
+public class UpdateCategoryUseCaseTest {
+
+    @InjectMocks
+    private UpdateCategoryUseCase sut;
+
+    @Mock
+    private CategoryRepositoryGateway repository;
+
+    @BeforeEach
+    public void cleanup() {
+        Mockito.reset(repository);
+    }
+
+    @Test
+    public void giveAnValidCommand_whenCallsUpdateCategory_thenShouldReturnCategory() {
+        final var expectedName = "UpdatedName";
+        final var expectedDescription = "UpdatedDesc";
+        final var expectedCategory = Category.newCategory("any name", "description", true);
+        final var expectedUpdatedAt = expectedCategory.getUpdatedAt();
+
+        final var updateCategoryInputDto = new UpdateCategoryInputDto(
+                expectedCategory.getId().getValue(),
+                expectedName,
+                expectedDescription);
+
+        when(repository.findById(any()))
+                .thenReturn(Optional.of(expectedCategory));
+
+        when(repository.update(any()))
+                .thenReturn(expectedCategory.clone());
+
+        UpdateCategoryOutputDto outputDto = this.sut.execute(updateCategoryInputDto).get();
+
+        assertEquals(outputDto.id(), expectedCategory.getId().getValue());
+        assertEquals(expectedCategory.getName(), expectedName);
+        assertEquals(expectedCategory.getDescription(), expectedDescription);
+        assertNull(expectedCategory.getDeletedAt());
+
+        Mockito.verify(repository, times(1)).findById(expectedCategory.getId());
+        Mockito.verify(repository, times(1)).update(
+                ArgumentMatchers.argThat(
+                        categoryUpdated -> Objects.equals(categoryUpdated.getName(), expectedName)
+                                && Objects.equals(categoryUpdated.getDescription(), expectedDescription)
+                                && Objects.equals(categoryUpdated.isActive(), true)
+                                && Objects.equals(categoryUpdated.getUpdatedAt().isAfter(expectedUpdatedAt), true)
+                                && Objects.isNull(categoryUpdated.getDeletedAt())
+                )
+        );
+    }
+
+    @Test
+    public void giveAnInvalidCategoryId_whenCallsUpdateCategory_thenShouldReturnNotification() {
+        final var expectedCategoryId = "123";
+        final var expectedError = "%s with ID %s was not found".formatted(
+                Category.class.getSimpleName(),
+                expectedCategoryId
+        );
+        final var updateCategoryInputDto = new UpdateCategoryInputDto(
+                expectedCategoryId,
+                "any",
+                "description");
+
+        when(repository.findById(any()))
+                .thenReturn(Optional.empty());
+
+        Notification notification = this.sut.execute(updateCategoryInputDto).getLeft();
+
+        assertTrue(notification.hasError());
+        assertEquals(notification.getErrors().size(), 1);
+        assertEquals(notification.firstError().message(), expectedError);
+
+        Mockito.verify(repository, times(0)).update(any());
+
+    }
+
+    @Test
+    public void giveAnInvalidName_whenCallsUpdateCategory_thenShouldReturnNotification() {
+        final var expectedError = "'name' should not be null or empty";
+        final var category = Category.newCategory("any name", "description", true);
+        final var updateCategoryInputDto = new UpdateCategoryInputDto(
+                category.getId().getValue(),
+                "",
+                category.getDescription());
+
+        when(repository.findById(any()))
+                .thenReturn(Optional.of(category));
+
+        Notification notification = this.sut.execute(updateCategoryInputDto).getLeft();
+
+        assertTrue(notification.hasError());
+        assertEquals(notification.getErrors().size(), 1);
+        assertEquals(notification.firstError().message(), expectedError);
+
+        Mockito.verify(repository, times(0)).update(any());
+    }
+
+    @Test
+    public void giveAnValidCommand_whenCallsUpdateCategoryAndRepositoryThrowsAnException_thenShouldReturnNotification() {
+
+        final var expectedError = "any error";
+
+        final var category = Category.newCategory("any name", "description", true);
+        final var updateCategoryInputDto = new UpdateCategoryInputDto(
+                category.getId().getValue(),
+                category.getName(),
+                category.getDescription());
+
+        when(repository.findById(any()))
+                .thenReturn(Optional.of(category));
+
+        when(repository.update(any()))
+                .thenThrow(new IllegalArgumentException(expectedError));
+
+        Notification notification = this.sut.execute(updateCategoryInputDto).getLeft();
+
+        assertTrue(notification.hasError());
+        assertEquals(notification.getErrors().size(), 1);
+        assertEquals(notification.firstError().message(), expectedError);
+    }
+}

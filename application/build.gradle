@@ -1,0 +1,27 @@
+plugins {
+    id 'java'
+}
+
+group = 'com.jobee.admin.service.application'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation("org.mockito:mockito-junit-jupiter:5.17.0")
+
+    // Para testes
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+
+    // Pasar usar o Either e outros recursos
+    implementation("io.vavr:vavr:0.10.6")
+
+    implementation(project(":domain"))
+}
+
+test {
+    useJUnitPlatform()
+}

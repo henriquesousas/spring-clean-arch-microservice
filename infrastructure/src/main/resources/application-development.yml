@@ -1,0 +1,13 @@
+mysql:
+  username: root
+  password: admin
+  schema: services
+  url: localhost:3307
+
+
+server:
+  port: 8081
+  undertow:
+    threads:
+      worker: 10 # recommned 10 per cpu
+      io: 2      # One IO threadr per cpu

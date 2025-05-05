@@ -1,0 +1,141 @@
+package com.jobee.admin.service.domain.category;
+
+import com.jobee.admin.service.domain.AggregateRoot;
+import com.jobee.admin.service.domain.validation.ValidationHandler;
+
+import java.time.Instant;
+import java.util.Objects;
+
+public class Category extends AggregateRoot<CategoryId> implements Cloneable {
+
+    private String name;
+    private String description;
+    private boolean isActive;
+    private Instant createdAt;
+    private Instant updatedAt;
+    private Instant deletedAt;
+
+    private Category(
+            CategoryId id,
+            String name,
+            String description,
+            boolean isActive,
+            Instant createdAt,
+            Instant updatedAt,
+            Instant deletedAt
+    ) {
+        super(id);
+        this.name = name;
+        this.description = description;
+        this.isActive = isActive;
+        this.createdAt = Objects.requireNonNull(createdAt);
+        this.updatedAt = Objects.requireNonNull(updatedAt);
+        this.deletedAt = deletedAt;
+    }
+
+    // TODO: Create a  builder for this
+    public static Category newCategory(final String name, final String description, final boolean isActive) {
+        var now = Instant.now();
+        return new Category(
+                CategoryId.unique(),
+                name,
+                description,
+                isActive,
+                now,
+                now,
+                null
+        );
+    }
+
+    // TODO: Create a  builder for this
+    public static Category with(
+            final CategoryId id,
+            final String name,
+            final String description,
+            final boolean isActive,
+            final Instant createdAt,
+            final Instant updatedAt,
+            final Instant deletedAt
+    ) {
+        return new Category(
+                id,
+                name,
+                description,
+                isActive,
+                createdAt,
+                updatedAt,
+                deletedAt
+        );
+    }
+
+    public Category activate() {
+        if (this.isActive) return this;
+
+        this.isActive = true;
+        this.updatedAt = Instant.now();
+        this.deletedAt = null;
+        return this;
+    }
+
+    public Category deactivate() {
+        if (!this.isActive) return this;
+
+        final var now = Instant.now();
+        this.isActive = false;
+        this.updatedAt = now;
+        this.deletedAt = now;
+        return this;
+    }
+
+    public Category update(String name, String description) {
+        if (this.isActive) {
+            this.name = name;
+            this.description = description;
+            this.updatedAt = Instant.now();
+        }
+        return this;
+    }
+
+    // TODO: Lombok
+    public CategoryId getId() {
+        return this.id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public Instant getCreatedAt() {
+        return createdAt;
+    }
+
+    public Instant getUpdatedAt() {
+        return this.updatedAt;
+    }
+
+    public Instant getDeletedAt() {
+        return deletedAt;
+    }
+
+    @Override
+    public void validate(ValidationHandler handler) {
+        new CategoryValidator(this, handler).validate();
+    }
+
+    @Override
+    public Category clone() {
+        try {
+            return (Category) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
+    }
+}

@@ -1,0 +1,72 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'org.flywaydb:flyway-mysql:9.11.0'
+    }
+}
+
+
+plugins {
+    id 'java'
+//    Nencessario para usar o spring
+    id 'application'
+    id 'org.springframework.boot' version '2.6.7'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'org.flywaydb.flyway' version '9.11.0'
+}
+
+group = 'com.jobee.admin.service.infrastructure'
+version = '1.0-SNAPSHOT'
+
+//Para buildar o modulo Infrastructure dentro da pasta build da raiz do projeto
+bootJar {
+    archiveFileName = 'application.jar'
+    destinationDirectory = rootProject.layout.buildDirectory.dir('libs').get().asFile
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation(project(":domain"))
+    implementation(project(":application"))
+
+    // Pasar usar o Either e outros recursos
+    implementation("io.vavr:vavr:0.10.6")
+
+    implementation('org.springframework.boot:spring-boot-starter-web') {
+        exclude module: 'spring-boot-starter-tomcat'
+    }
+    // Starter do spring para Servidor
+    implementation('org.springframework.boot:spring-boot-starter-undertow')
+    // Starter do spring para JPA (abstracoes para persistir informacoes)
+    implementation('org.springframework.boot:spring-boot-starter-data-jpa')
+    // Spring docs
+    implementation('org.springdoc:springdoc-openapi-webmvc-core:1.6.8')
+    implementation('org.springdoc:springdoc-openapi-ui:1.6.8')
+    // Driver Mysql
+    implementation('mysql:mysql-connector-java')
+    // Mapper
+    implementation('com.fasterxml.jackson.module:jackson-module-afterburner')
+    // H2 para testes local
+    testRuntimeOnly('com.h2database:h2')
+    // Tests
+    implementation('org.flywaydb:flyway-core')
+    implementation('org.springframework.boot:spring-boot-starter-test')
+
+}
+
+// Flyway é um gerenciador de migrações do nosso banco de dados
+flyway {
+    url = System.getenv('FLYWAY_DB') ?: 'jdbc:mysql://localhost:3307/services'
+    user = System.getenv('FLYWAY_USER') ?: 'root'
+    password = System.getenv('FLYWAY_PASSWORD') ?: 'admin'
+}
+
+test {
+    useJUnitPlatform()
+}

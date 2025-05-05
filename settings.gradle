@@ -1,0 +1,5 @@
+rootProject.name = 'Jobee-admin-service'
+include 'domain'
+include 'application'
+include 'infrastructure'
+
