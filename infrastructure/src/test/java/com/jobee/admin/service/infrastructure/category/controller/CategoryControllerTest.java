@@ -6,17 +6,20 @@ import com.jobee.admin.service.application.category.cretate.CreateCategoryOutput
 import com.jobee.admin.service.application.category.cretate.CreateCategoryUseCase;
 import com.jobee.admin.service.application.category.delete.DeleteCategoryUseCase;
 import com.jobee.admin.service.application.category.retrieve.GetCategoryByIdUseCase;
-import com.jobee.admin.service.application.category.retrieve.GetCategoryOutput;
+import com.jobee.admin.service.application.category.retrieve.CategoryOutput;
 import com.jobee.admin.service.application.category.retrieve.ListCategoryUseCase;
 import com.jobee.admin.service.application.category.update.UpdateCategoryOutputDto;
 import com.jobee.admin.service.application.category.update.UpdateCategoryUseCase;
 import com.jobee.admin.service.domain.category.Category;
+import com.jobee.admin.service.domain.category.CategoryBuilder;
 import com.jobee.admin.service.domain.category.CategoryId;
 import com.jobee.admin.service.domain.exceptions.DomainException;
 import com.jobee.admin.service.domain.exceptions.NotFoundException;
+import com.jobee.admin.service.domain.exceptions.ValidationException;
 import com.jobee.admin.service.domain.pagination.Pagination;
 import com.jobee.admin.service.domain.validation.Error;
 import com.jobee.admin.service.domain.validation.handler.Notification;
+import com.jobee.admin.service.infrastructure.category.models.CreateCategoryRequest;
 import io.vavr.API;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
@@ -36,7 +39,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
-@ControllerTest(controllers = BaseCategoryController.class)
+@ControllerTest(controllers = HttpCategoryController.class)
 public class CategoryControllerTest {
 
     @Autowired
@@ -68,7 +71,7 @@ public class CategoryControllerTest {
         final var expectedDescription = "any description";
         final var expectedIsActive = true;
 
-        final var command = new CreateCategoryRequestDto(
+        final var command = new CreateCategoryRequest(
                 expectedName,
                 expectedDescription,
                 expectedIsActive
@@ -96,19 +99,20 @@ public class CategoryControllerTest {
     }
 
     @Test
-    public void giveAnInvalidName_whenCallsCreateCategoryUseCase_thenShouldReturnNotificationError() throws Exception {
+    public void givenAnInvalidName_whenCallsCreateCategoryUseCase_thenShouldReturnValidationError() throws Exception {
         final String expectedName = null;
         final var expectedDescription = "any description";
         final var expectedIsActive = true;
 
-        final var command = new CreateCategoryRequestDto(
+        final var command = new CreateCategoryRequest(
                 expectedName,
                 expectedDescription,
                 expectedIsActive
         );
 
         Mockito.when(createCategoryUseCase.execute(any()))
-                .thenReturn(API.Left(Notification.create().append(new Error("'name' should not be null or empty"))));
+//                .thenReturn(API.Left(  Notification.create().append(new Error("'name' should not be null or empty"))));
+                .thenReturn(API.Left(ValidationException.with(new Error("'name' should not be null or empty"))));
 
         final var request = MockMvcRequestBuilders.post("/categories")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -120,7 +124,7 @@ public class CategoryControllerTest {
                 .andExpect(MockMvcResultMatchers.header().string("Content-Type", MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(MockMvcResultMatchers.header().string("Location", Matchers.nullValue()))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.errors.size()", Matchers.equalTo(1)))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.errors[0].message", Matchers.equalTo("'name' should not be null or empty")));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errors[0]", Matchers.equalTo("'name' should not be null or empty")));
 
         Mockito.verify(createCategoryUseCase, Mockito.times(1)).execute(
                 argThat(cmd -> Objects.equals(expectedName, cmd.name()) &&
@@ -135,7 +139,7 @@ public class CategoryControllerTest {
         final var expectedDescription = "any description";
         final var expectedIsActive = true;
 
-        final var command = new CreateCategoryRequestDto(
+        final var command = new CreateCategoryRequest(
                 expectedName,
                 expectedDescription,
                 expectedIsActive
@@ -155,7 +159,7 @@ public class CategoryControllerTest {
                 .andExpect(MockMvcResultMatchers.header().string("Content-Type", MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(MockMvcResultMatchers.header().string("Location", Matchers.nullValue()))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.errors.size()", Matchers.equalTo(1)))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.errors[0].message", Matchers.equalTo("'name' should not be null or empty")));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errors[0]", Matchers.equalTo("'name' should not be null or empty")));
 
         Mockito.verify(createCategoryUseCase, Mockito.times(1)).execute(
                 argThat(cmd -> Objects.equals(expectedName, cmd.name()) &&
@@ -166,14 +170,15 @@ public class CategoryControllerTest {
 
     //GetById
     @Test
-    public void givenInvalidCategoryId_whenCallsGetCategory_thenReturnNotification() throws Exception {
+    public void givenInvalidCategoryId_whenCallsGetCategory_thenReturnValidationError() throws Exception {
 
         //given
         final var identifier = CategoryId.unique();
         final var expectedError = "Category with ID " + identifier.getValue() + " was not found";
-        final var notification = Notification.create().append(NotFoundException.with(Category.class, identifier));
+        final var notification = Notification.create(). append(new Error(expectedError));
+
         Mockito.when(getCategoryByIdUseCase.execute(any()))
-                .thenReturn(API.Left(notification));
+                .thenReturn(API.Left(ValidationException.with(notification.getErrors())));
 
         //when
         final var request = MockMvcRequestBuilders
@@ -184,8 +189,8 @@ public class CategoryControllerTest {
                 .andDo(print());
 
         //then
-        response.andExpect(MockMvcResultMatchers.status().isNotFound())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.errors[0].message", Matchers.equalTo(expectedError)))
+        response.andExpect(MockMvcResultMatchers.status().isUnprocessableEntity())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errors[0]", Matchers.equalTo(expectedError)))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.errors.size()", Matchers.equalTo(1)));
 
         Mockito.verify(getCategoryByIdUseCase, times(1)).execute(
@@ -196,7 +201,7 @@ public class CategoryControllerTest {
     //GetAll
     @Test
     public void givenAValidCommand_whenCallsListCategory_thenShouldReturnCategories() throws Exception {
-        final var category = Category.newCategory("movie", "desc", true);
+        final var category = CategoryBuilder.newCategory("movie", "desc").build();
 
         final var expectedPage = 0;
         final var expectedPerPage = 10;
@@ -205,7 +210,7 @@ public class CategoryControllerTest {
         final var expectedDirection = "desc";
         final var expectedItemCount = 1;
         final var expectedTotal = 1;
-        final var expectedItem = List.of(GetCategoryOutput.from(category));
+        final var expectedItem = List.of(CategoryOutput.from(category));
 
         //when
         when(listCategoryUseCase.execute(any()))
@@ -235,10 +240,10 @@ public class CategoryControllerTest {
     @Test
     public void givenAValidCategoryId_whenCallsGetCategory_thenReturnCategory() throws Exception {
 
-        final var expectedCategory = Category.newCategory("any nam", "any des", true);
+        final var expectedCategory = CategoryBuilder.newCategory("any nam", "any des").build();
 
         Mockito.when(getCategoryByIdUseCase.execute(any()))
-                .thenReturn(API.Right(GetCategoryOutput.from(expectedCategory)));
+                .thenReturn(API.Right(CategoryOutput.from(expectedCategory)));
 
         //when
         final var request = MockMvcRequestBuilders
@@ -265,18 +270,20 @@ public class CategoryControllerTest {
 
     //Update
     @Test
-    public void giveAnInValidCategoryId_whenCallsUpdateCategory_thenShouldReturnNotification() throws Exception {
+    public void givenAnInValidCategoryId_whenCallsUpdateCategory_thenShouldReturnValidationError() throws Exception {
 
         //given
         final var expectedId = CategoryId.unique();
         final var expectedName = "any name";
         final var expectedDescription = "any desc";
-        final var expectedMessageError = String.format("Category with ID %s was not found", expectedId.getValue());
+        final var expectedMessage = "UnprocessableEntity";
+        final var expectedError = String.format("Category with ID %s was not found", expectedId.getValue());
 
-        CreateCategoryRequestDto command = new CreateCategoryRequestDto(expectedName, expectedDescription, true);
+        CreateCategoryRequest command = new CreateCategoryRequest(expectedName, expectedDescription, true);
 
         Mockito.when(updateCategoryUseCase.execute(any()))
-                .thenReturn(API.Left(Notification.create().append(NotFoundException.with(Category.class, expectedId))));
+//                .thenReturn(API.Left(Notification.create().append(NotFoundException.with(Category.class, expectedId))));
+                .thenReturn(API.Left(ValidationException.with(NotFoundException.with(Category.class, expectedId).getErrors())));
 
         //when
         final var request = MockMvcRequestBuilders
@@ -289,8 +296,9 @@ public class CategoryControllerTest {
                 .andDo(print());
 
         //then
-        response.andExpect(MockMvcResultMatchers.status().isNotFound())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.errors[0].message", Matchers.equalTo(expectedMessageError)))
+        response.andExpect(MockMvcResultMatchers.status().isUnprocessableEntity())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.message", Matchers.equalTo(expectedMessage)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errors[0]", Matchers.equalTo(expectedError)))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.errors.size()", Matchers.equalTo(1)));
 
         Mockito.verify(updateCategoryUseCase, times(1)).execute(
@@ -309,8 +317,8 @@ public class CategoryControllerTest {
         final var expectedName = "any name";
         final var expectedDescription = "any desc";
 
-        final var expectedCategory = Category.newCategory(expectedName, expectedDescription, true);
-        final var command = new CreateCategoryRequestDto(expectedName, expectedDescription, true);
+        final var expectedCategory = CategoryBuilder.newCategory(expectedName, expectedDescription).build();
+        final var command = new CreateCategoryRequest(expectedName, expectedDescription, true);
 
         Mockito.when(updateCategoryUseCase.execute(any()))
                 .thenReturn(API.Right(UpdateCategoryOutputDto.from(expectedCategory)));

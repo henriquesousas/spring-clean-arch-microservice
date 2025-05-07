@@ -2,10 +2,12 @@ package com.jobee.admin.service.infrastructure.category.repository;
 
 import com.jobee.admin.service.domain.category.Category;
 import com.jobee.admin.service.domain.category.CategoryId;
-import com.jobee.admin.service.domain.category.CategoryRepositoryGateway;
+import com.jobee.admin.service.domain.category.CategoryRepository;
 import com.jobee.admin.service.domain.category.CategorySearch;
+import com.jobee.admin.service.domain.exceptions.NotFoundException;
 import com.jobee.admin.service.domain.pagination.Pagination;
-import com.jobee.admin.service.infrastructure.category.SpecificationUtils;
+import com.jobee.admin.service.domain.validation.Error;
+import com.jobee.admin.service.infrastructure.shared.SpecificationUtils;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -14,11 +16,11 @@ import java.util.Optional;
 
 
 @Service
-public class CategoryRepositoryMysql implements CategoryRepositoryGateway {
+public class CategoryRepositoryMysql implements CategoryRepository {
 
-    private final CategoryRepository repository;
+    private final CategoryJpaRepository repository;
 
-    public CategoryRepositoryMysql(final CategoryRepository repository) {
+    public CategoryRepositoryMysql(final CategoryJpaRepository repository) {
         this.repository = repository;
     }
 

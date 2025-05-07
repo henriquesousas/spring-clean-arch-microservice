@@ -1,16 +1,13 @@
 package com.jobee.admin.service;
 
-import com.jobee.admin.service.infrastructure.category.repository.CategoryRepository;
 import org.junit.jupiter.api.extension.BeforeEachCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.Collection;
-import java.util.List;
 
-//TODO: rename to MYSQL clean nup extension
-public class CleanupExtension implements BeforeEachCallback {
+public class MysqlCleanupExtension implements BeforeEachCallback {
     @Override
     public void beforeEach(final ExtensionContext context) throws Exception {
         final var repositories = SpringExtension

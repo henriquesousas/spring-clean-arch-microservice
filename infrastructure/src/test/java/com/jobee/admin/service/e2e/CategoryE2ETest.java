@@ -3,8 +3,8 @@ package com.jobee.admin.service.e2e;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jobee.admin.service.E2ETest;
 import com.jobee.admin.service.domain.category.CategoryId;
-import com.jobee.admin.service.infrastructure.category.controller.CreateCategoryRequestDto;
-import com.jobee.admin.service.infrastructure.category.repository.CategoryRepository;
+import com.jobee.admin.service.infrastructure.category.models.CreateCategoryRequest;
+import com.jobee.admin.service.infrastructure.category.repository.CategoryJpaRepository;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -14,7 +14,6 @@ import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.testcontainers.containers.MySQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
@@ -33,7 +32,7 @@ public class CategoryE2ETest {
     private MockMvc mvc;
 
     @Autowired
-    private CategoryRepository categoryRepository;
+    private CategoryJpaRepository categoryRepository;
 
 
     @Autowired
@@ -157,7 +156,7 @@ public class CategoryE2ETest {
     }
 
     private CategoryId givenACategory(final String name, final String description, final boolean isActive) throws Exception {
-        final var aRequestBody = new CreateCategoryRequestDto(name, description, isActive);
+        final var aRequestBody = new CreateCategoryRequest(name, description, isActive);
 
         final var aRequest = post("/categories")
                 .contentType(MediaType.APPLICATION_JSON)

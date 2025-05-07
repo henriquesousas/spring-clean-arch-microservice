@@ -2,6 +2,7 @@ package com.jobee.admin.service.infrastructure.category.repository;
 
 import com.jobee.admin.service.MysqlRepositoryTest;
 import com.jobee.admin.service.domain.category.Category;
+import com.jobee.admin.service.domain.category.CategoryBuilder;
 import com.jobee.admin.service.domain.category.CategoryId;
 import com.jobee.admin.service.domain.category.CategorySearch;
 import org.junit.jupiter.api.Assertions;
@@ -18,7 +19,7 @@ public class CategoryRepositoryMysqlTest {
     private CategoryRepositoryMysql categoryRepositoryMysql;
 
     @Autowired
-    private CategoryRepository repository;
+    private CategoryJpaRepository repository;
 
 
     @Test
@@ -33,7 +34,8 @@ public class CategoryRepositoryMysqlTest {
         final var expectedDescription = "Acao";
         final var expectedIsActive = true;
 
-        Category category = Category.newCategory(expectedName, expectedDescription, expectedIsActive);
+        Category category = CategoryBuilder.newCategory(expectedName, expectedDescription)
+                .withActive(expectedIsActive).build();
 
         Assertions.assertEquals(repository.count(), 0);
 
@@ -56,7 +58,7 @@ public class CategoryRepositoryMysqlTest {
         final var expectedDescription = "Descricao";
         final var expectedIsActive = true;
 
-        Category category = Category.newCategory("film", "desc", expectedIsActive);
+        Category category = CategoryBuilder.newCategory("film", "desc").withActive(expectedIsActive).build();
         categoryRepositoryMysql.create(category);
 
         final var expectedUpdatedAt = category.getUpdatedAt();
@@ -81,7 +83,7 @@ public class CategoryRepositoryMysqlTest {
     @Test
     public void givenAValidCategory_whenCallDelete_shouldDeleteCategory() {
 
-        Category newCategory = Category.newCategory("Filme", "Descricao", true);
+        Category newCategory = CategoryBuilder .newCategory("Filme", "Descricao").build();
 
         categoryRepositoryMysql.create(newCategory);
 
@@ -103,7 +105,9 @@ public class CategoryRepositoryMysqlTest {
         final var expectedDescription = "Descricao";
         final var expectedIsActive = true;
 
-        Category newCategory = Category.newCategory(expectedName, expectedDescription, expectedIsActive);
+        Category newCategory = CategoryBuilder .newCategory(expectedName, expectedDescription)
+                .withActive(expectedIsActive)
+                .build();
         categoryRepositoryMysql.create(newCategory);
 
         Category category = categoryRepositoryMysql.findById(newCategory.getId()).get();
@@ -129,9 +133,9 @@ public class CategoryRepositoryMysqlTest {
         final var expectedPerPage = 1;
         final var expectedTotal = 3;
 
-        final var movies = Category.newCategory("Filmes", "any value", true);
-        final var series = Category.newCategory("Series", "any value", true);
-        final var documentaries = Category.newCategory("Documentarios", "any value", true);
+        final var movies = CategoryBuilder.newCategory("Filmes", "any value").build();
+        final var series = CategoryBuilder.newCategory("Series", "any value").build();
+        final var documentaries = CategoryBuilder.newCategory("Documentarios", "any value").build();
 
         Assertions.assertEquals(0, repository.count());
 
@@ -176,9 +180,9 @@ public class CategoryRepositoryMysqlTest {
         var expectedPerPage = 1;
         var expectedTotal = 3;
 
-        final var movies = Category.newCategory("Filmes", "any value", true);
-        final var series = Category.newCategory("Series", "any value", true);
-        final var documentaries = Category.newCategory("Documentarios", "any value", true);
+        final var movies = CategoryBuilder.newCategory("Filmes", "any value").build();
+        final var series = CategoryBuilder.newCategory("Series", "any value").build();
+        final var documentaries = CategoryBuilder.newCategory("Documentarios", "any value").build();
 
         Assertions.assertEquals(0, repository.count());
 

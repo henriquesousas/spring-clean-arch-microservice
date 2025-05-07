@@ -5,9 +5,10 @@ import com.jobee.admin.service.application.category.update.UpdateCategoryInputDt
 import com.jobee.admin.service.application.category.update.UpdateCategoryOutputDto;
 import com.jobee.admin.service.application.category.update.UpdateCategoryUseCase;
 import com.jobee.admin.service.domain.category.Category;
-import com.jobee.admin.service.domain.category.CategoryRepositoryGateway;
+import com.jobee.admin.service.domain.category.CategoryBuilder;
+import com.jobee.admin.service.domain.category.CategoryRepository;
+import com.jobee.admin.service.infrastructure.category.repository.CategoryJpaRepository;
 import com.jobee.admin.service.infrastructure.category.repository.CategoryModel;
-import com.jobee.admin.service.infrastructure.category.repository.CategoryRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -25,17 +26,17 @@ public class UpdateCategoryUseCaseTestIT {
     private UpdateCategoryUseCase sut;
 
     @Autowired
-    private CategoryRepository repository;
+    private CategoryJpaRepository repository;
 
     @SpyBean
-    private CategoryRepositoryGateway categoryRepositoryGateway;
+    private CategoryRepository categoryRepositoryGateway;
 
 
     @Test
     public void giveAnInvalidCommand_whenCallsUpdateCategory_thenShouldReturnCategory() {
         final var expectedName = "UpdatedName";
         final var expectedDescription = "UpdatedDesc";
-        final var expectedCategory = Category.newCategory("any name", "description", true);
+        final var expectedCategory = CategoryBuilder.newCategory("any name", "description").build();
         final var expectedUpdatedAt = expectedCategory.getUpdatedAt();
 
         Assertions.assertEquals(0, repository.count());

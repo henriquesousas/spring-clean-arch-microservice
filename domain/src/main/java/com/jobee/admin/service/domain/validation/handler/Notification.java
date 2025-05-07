@@ -35,6 +35,11 @@ public class Notification implements ValidationHandler {
     }
 
     @Override
+    public void copy(Notification notification) {
+        notification.errors.forEach(this::append);
+    }
+
+    @Override
     public List<Error> getErrors() {
         return errors;
     }

@@ -8,8 +8,6 @@ import java.util.Collections;
 import java.util.List;
 
 public class NotFoundException extends DomainException {
-    //TODO: Ver como pegar esse error na controller
-    public int statusCode = 404;
 
     protected NotFoundException(final String message, final List<Error> errors) {
         super(message, errors);
@@ -23,10 +21,15 @@ public class NotFoundException extends DomainException {
                 aggregateRoot.getSimpleName(),
                 identifier.getValue()
         );
-        return new NotFoundException(anError, Collections.emptyList());
+        return new NotFoundException("NotFound",List.of(new Error(anError)));
     }
 
     public static NotFoundException with(Error error) {
         return  new NotFoundException(error.message(), List.of(error));
+    }
+
+    @Override
+    public int getStatus() {
+        return 404;
     }
 }

@@ -13,7 +13,7 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
 // Configuração de teste posso colocar direto na classe que vai testar
-// Usar essa anotação  @SpringBootTest quando for fazer um test E2E, como esse é um teste que não precisa levantar todo o spring vamos usar o @DataJpaTest
+// Usar essa anotação  @SpringBootTest quando for fazer um test E2E, como esse é um teste que não precisa levantar  o spring vamos usar o @DataJpaTest
 // @SpringBootTest => que sobe toda a aplicação spring
 // @DataJpaTest => sobe o necessário menos as classes injetaveis, neste caso precisa ler manualmente via REGEX
 @ActiveProfiles("test-integration")
@@ -25,6 +25,6 @@ import java.lang.annotation.*;
         }
 )
 @DataJpaTest
-@ExtendWith(CleanupExtension.class)
+@ExtendWith(MysqlCleanupExtension.class)
 public @interface MysqlRepositoryTest {
 }

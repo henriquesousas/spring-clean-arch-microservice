@@ -1,6 +1,7 @@
 package com.jobee.admin.service.infrastructure.category.repository;
 
 import com.jobee.admin.service.domain.category.Category;
+import com.jobee.admin.service.domain.category.CategoryBuilder;
 import com.jobee.admin.service.domain.category.CategoryId;
 
 import javax.persistence.Column;
@@ -69,16 +70,14 @@ public class CategoryModel {
         );
     }
 
-    public  Category toAggregate() {
-        return Category.with(
-                CategoryId.from(this.getId()),
-                this.getName(),
-                this.getDescription(),
-                this.getActive(),
-                this.getCreatedAt(),
-                this.getUpdatedAt(),
-                this.getDeletedAt()
-        );
+    public Category toAggregate() {
+        return new CategoryBuilder(this.getName(), this.getDescription())
+                .withCategoryId(this.getId())
+                .withActive(this.getActive())
+                .withCreatedAt(this.getCreatedAt())
+                .withUpdatedAt(this.getUpdatedAt())
+                .withDeletedAt(this.getDeletedAt())
+                .build();
     }
 
     public String getId() {

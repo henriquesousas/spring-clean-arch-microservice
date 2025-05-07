@@ -1,7 +1,7 @@
 package com.jobee.admin.service.domain.validation;
 
 public abstract class Validator {
-    private ValidationHandler handler;
+    private final ValidationHandler handler;
 
     protected Validator(ValidationHandler handler) {
         this.handler = handler;

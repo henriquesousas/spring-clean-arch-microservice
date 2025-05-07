@@ -1,7 +1,8 @@
 package com.jobee.admin.service.application.category.retrieve;
 
 import com.jobee.admin.service.domain.category.Category;
-import com.jobee.admin.service.domain.category.CategoryRepositoryGateway;
+import com.jobee.admin.service.domain.category.CategoryBuilder;
+import com.jobee.admin.service.domain.category.CategoryRepository;
 import com.jobee.admin.service.domain.category.CategorySearch;
 import com.jobee.admin.service.domain.pagination.Pagination;
 import org.junit.jupiter.api.Assertions;
@@ -25,7 +26,7 @@ public class ListCategoryUseCaseTest {
     private ListCategoryUseCase sut;
 
     @Mock
-    private CategoryRepositoryGateway repository;
+    private CategoryRepository repository;
 
     @BeforeEach
     public void cleanup() {
@@ -34,9 +35,9 @@ public class ListCategoryUseCaseTest {
 
     @Test
     public void givenAValidCommand_whenCallsListCategory_thenShouldReturnCategories() throws InterruptedException {
-        Category category1 = Category.newCategory("Vendas", "desc", true);
+        Category category1 = new CategoryBuilder("Vendas", "desc").build();
         Thread.sleep(0,1);
-        Category category2 = Category.newCategory("Marketing", "desc", true);
+        Category category2 =  new CategoryBuilder("Marketing", "desc").build();
         var categories = List.of(category1, category2);
 
         final var expectedPage = 0;
@@ -52,26 +53,15 @@ public class ListCategoryUseCaseTest {
                 new Pagination<>(expectedPage, expectedPerPage, categories.size(), categories);
 
 
-        final var expectedResult = expectedPagination.map(GetCategoryOutput::from);
+        final var expectedResult = expectedPagination.map(CategoryOutput::from);
 
         Mockito.when(repository.findAll(any())).thenReturn(expectedPagination);
 
-        Pagination<GetCategoryOutput> actualResult = this.sut.execute(query);
+        Pagination<CategoryOutput> actualResult = this.sut.execute(query);
 
         Assertions.assertEquals(actualResult.items().size(), expectedItemCount);
         Assertions.assertEquals(actualResult.currentPage(), actualResult.currentPage());
         Assertions.assertEquals(actualResult.perPage(), actualResult.perPage());
         Assertions.assertEquals(actualResult.items(), expectedResult.items());
-        //TODO: Pagination
-        //Assertions.assertEquals(actualResult.items().get(0).name(), "Marketing");
     }
-
-    // TODO: tests
-    public void givenAValidCommand_whenCallsHasNoResults_thenShouldReturnEmptyCategories() {
-    }
-
-    // TODO: tests
-    public void givenAValidCommand_whenRepositoryThrows_thenShouldReturnEmptyCategories() {
-    }
-
 }

@@ -1,13 +1,14 @@
 package com.jobee.admin.service.application.category;
 
 import com.jobee.admin.service.IntegrationTest;
-import com.jobee.admin.service.application.category.retrieve.GetCategoryOutput;
+import com.jobee.admin.service.application.category.retrieve.CategoryOutput;
 import com.jobee.admin.service.application.category.retrieve.ListCategoryUseCase;
 import com.jobee.admin.service.domain.category.Category;
+import com.jobee.admin.service.domain.category.CategoryBuilder;
 import com.jobee.admin.service.domain.category.CategorySearch;
 import com.jobee.admin.service.domain.pagination.Pagination;
 import com.jobee.admin.service.infrastructure.category.repository.CategoryModel;
-import com.jobee.admin.service.infrastructure.category.repository.CategoryRepository;
+import com.jobee.admin.service.infrastructure.category.repository.CategoryJpaRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,14 +23,14 @@ public class ListCategoryUseCaseTestIT {
     private ListCategoryUseCase sut;
 
     @Autowired
-    private CategoryRepository repository;
+    private CategoryJpaRepository repository;
 
 
     @Test
     public void givenAValidCommand_whenCallsListCategory_thenShouldReturnCategories()  {
-        Category category1 = Category.newCategory("Filmes", "desc", true);
-        Category category2 = Category.newCategory("Series", "desc", true);
-        Category category3 = Category.newCategory("Documentarios", "desc", true);
+        Category category1 = CategoryBuilder.newCategory("Filmes", "desc").build();
+        Category category2 = CategoryBuilder.newCategory("Series", "desc").build();
+        Category category3 = CategoryBuilder.newCategory("Documentarios", "desc").build();
 
         var expectedPage = 0;
         var expectedPerPage = 1;
@@ -47,7 +48,7 @@ public class ListCategoryUseCaseTestIT {
         for (int i = 0; i < categories.size(); i++) {
             expectedPage = i;
             CategorySearch query = new CategorySearch(expectedPage, expectedPerPage, expectedTerms, expectedSort, expectedDirection);
-            Pagination<GetCategoryOutput> actualResult = this.sut.execute(query);
+            Pagination<CategoryOutput> actualResult = this.sut.execute(query);
 
             Assertions.assertEquals(actualResult.total(), expectedItemCount);
             Assertions.assertEquals(actualResult.currentPage(), expectedPage);

@@ -11,7 +11,7 @@ public record CreateCategoryOutputDto(
         return new CreateCategoryOutputDto(identifier);
     }
 
-    public static CreateCategoryOutputDto from (Category category) {
-        return  new CreateCategoryOutputDto(category.getId().getValue());
+    public static CreateCategoryOutputDto from(Category category) {
+        return new CreateCategoryOutputDto(category.getId().getValue());
     }
 }

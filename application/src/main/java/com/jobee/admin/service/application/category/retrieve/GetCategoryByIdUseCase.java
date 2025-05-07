@@ -3,33 +3,36 @@ package com.jobee.admin.service.application.category.retrieve;
 import com.jobee.admin.service.application.UseCase;
 import com.jobee.admin.service.domain.category.Category;
 import com.jobee.admin.service.domain.category.CategoryId;
-import com.jobee.admin.service.domain.category.CategoryRepositoryGateway;
+import com.jobee.admin.service.domain.category.CategoryRepository;
+import com.jobee.admin.service.domain.exceptions.DomainException;
 import com.jobee.admin.service.domain.exceptions.NotFoundException;
 import com.jobee.admin.service.domain.validation.handler.Notification;
 import io.vavr.API;
 import io.vavr.control.Either;
 
-public class GetCategoryByIdUseCase extends UseCase<String, Either<Notification, GetCategoryOutput>> {
+import java.util.Optional;
 
-    private CategoryRepositoryGateway repository;
+import static io.vavr.API.Right;
+import static io.vavr.control.Either.left;
+import static io.vavr.control.Either.right;
 
-    public GetCategoryByIdUseCase(CategoryRepositoryGateway repository) {
+public class GetCategoryByIdUseCase extends UseCase<String, Either<DomainException, CategoryOutput>> {
+
+    private final CategoryRepository repository;
+
+    public GetCategoryByIdUseCase(CategoryRepository repository) {
         this.repository = repository;
     }
 
 
     @Override
-    public Either<Notification, GetCategoryOutput> execute(String id) {
+    public Either<DomainException, CategoryOutput> execute(String id) {
 
         CategoryId categoryId = CategoryId.from(id);
 
-        final var orEleThrow = NotFoundException.with(
-                Category.class,
-                categoryId);
+        return repository.findById(categoryId)
+                .<Either<DomainException, CategoryOutput>>map(category -> right(CategoryOutput.from(category)))
+                .orElseGet(() -> left(NotFoundException.with(Category.class, categoryId)));
 
-        return API.Try(() -> this.repository.findById(categoryId).orElseThrow(() -> orEleThrow))
-                .toEither()
-                .map((GetCategoryOutput::from))
-                .mapLeft(Notification::create);
     }
 }

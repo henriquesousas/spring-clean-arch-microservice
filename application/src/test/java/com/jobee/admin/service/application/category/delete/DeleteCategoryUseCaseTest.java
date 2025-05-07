@@ -2,8 +2,9 @@ package com.jobee.admin.service.application.category.delete;
 
 import com.jobee.admin.service.application.Unit;
 import com.jobee.admin.service.domain.category.Category;
+import com.jobee.admin.service.domain.category.CategoryBuilder;
 import com.jobee.admin.service.domain.category.CategoryId;
-import com.jobee.admin.service.domain.category.CategoryRepositoryGateway;
+import com.jobee.admin.service.domain.category.CategoryRepository;
 import com.jobee.admin.service.domain.exceptions.NotFoundException;
 import com.jobee.admin.service.domain.validation.handler.Notification;
 import org.junit.jupiter.api.Assertions;
@@ -27,7 +28,7 @@ public class DeleteCategoryUseCaseTest {
     private DeleteCategoryUseCase sut;
 
     @Mock
-    private CategoryRepositoryGateway repository;
+    private CategoryRepository repository;
 
     @Test
     public void giveAnInvalidCategoryId_whenCallDeleteCategory_thenShouldReturnNotification() {
@@ -35,11 +36,11 @@ public class DeleteCategoryUseCaseTest {
         final var categoryId = CategoryId.unique();
         final var expectedError = NotFoundException.with(Category.class,categoryId);
 
-        Notification notification = this.sut.execute(categoryId).getLeft();
+        Notification notification = this.sut.execute(categoryId.getValue()).getLeft();
 
         Assertions.assertTrue(notification.hasError());
         Assertions.assertEquals(notification.getErrors().size(), 1);
-        Assertions.assertEquals(notification.firstError().message(), expectedError.getMessage());
+        Assertions.assertEquals(notification.getFirstError().message(), expectedError.getMessage());
 
         Mockito.verify(repository, Mockito.times(1)).findById(categoryId);
         Mockito.verify(repository, Mockito.times(0)).delete(categoryId);
@@ -51,7 +52,7 @@ public class DeleteCategoryUseCaseTest {
 
         final var expectedError = "any";
         final var categoryId = CategoryId.unique();
-        final var expectedCategory = Category.newCategory("any name","any des", true);
+        final var expectedCategory = new CategoryBuilder("any name","any des").build();
 
         when(repository.findById(any()))
                 .thenReturn(Optional.of(expectedCategory));
@@ -61,11 +62,11 @@ public class DeleteCategoryUseCaseTest {
                .delete(any());
 
 
-        Notification notification = this.sut.execute(categoryId).getLeft();
+        Notification notification = this.sut.execute(categoryId.getValue()).getLeft();
 
         Assertions.assertTrue(notification.hasError());
         Assertions.assertEquals(notification.getErrors().size(), 1);
-        Assertions.assertEquals(notification.firstError().message(),expectedError);
+        Assertions.assertEquals(notification.getFirstError().message(),expectedError);
 
         Mockito.verify(repository, Mockito.times(1)).findById(categoryId);
         Mockito.verify(repository, Mockito.times(1)).delete(categoryId);
@@ -76,12 +77,12 @@ public class DeleteCategoryUseCaseTest {
 
         final var expectedError = "any";
         final var categoryId = CategoryId.unique();
-        final var expectedCategory = Category.newCategory("any name","any des", true);
+        final var expectedCategory = new CategoryBuilder("any name","any des").build();
 
         when(repository.findById(any()))
                 .thenReturn(Optional.of(expectedCategory));
 
-        Unit unit = this.sut.execute(categoryId).get();
+        Unit unit = this.sut.execute(categoryId.getValue()).get();
 
         Assertions.assertInstanceOf(Unit.class, unit);
 

@@ -3,19 +3,21 @@ package com.jobee.admin.service.domain.category;
 import com.jobee.admin.service.domain.AggregateRoot;
 import com.jobee.admin.service.domain.validation.ValidationHandler;
 
+
 import java.time.Instant;
 import java.util.Objects;
+
 
 public class Category extends AggregateRoot<CategoryId> implements Cloneable {
 
     private String name;
     private String description;
     private boolean isActive;
-    private Instant createdAt;
+    private final Instant createdAt;
     private Instant updatedAt;
     private Instant deletedAt;
 
-    private Category(
+    public Category(
             CategoryId id,
             String name,
             String description,
@@ -31,41 +33,6 @@ public class Category extends AggregateRoot<CategoryId> implements Cloneable {
         this.createdAt = Objects.requireNonNull(createdAt);
         this.updatedAt = Objects.requireNonNull(updatedAt);
         this.deletedAt = deletedAt;
-    }
-
-    // TODO: Create a  builder for this
-    public static Category newCategory(final String name, final String description, final boolean isActive) {
-        var now = Instant.now();
-        return new Category(
-                CategoryId.unique(),
-                name,
-                description,
-                isActive,
-                now,
-                now,
-                null
-        );
-    }
-
-    // TODO: Create a  builder for this
-    public static Category with(
-            final CategoryId id,
-            final String name,
-            final String description,
-            final boolean isActive,
-            final Instant createdAt,
-            final Instant updatedAt,
-            final Instant deletedAt
-    ) {
-        return new Category(
-                id,
-                name,
-                description,
-                isActive,
-                createdAt,
-                updatedAt,
-                deletedAt
-        );
     }
 
     public Category activate() {
@@ -96,7 +63,20 @@ public class Category extends AggregateRoot<CategoryId> implements Cloneable {
         return this;
     }
 
-    // TODO: Lombok
+    @Override
+    public void validate(ValidationHandler handler) {
+        new CategoryValidator(this, handler).validate();
+    }
+
+    @Override
+    public Category clone() {
+        try {
+            return (Category) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
+    }
+
     public CategoryId getId() {
         return this.id;
     }
@@ -125,17 +105,4 @@ public class Category extends AggregateRoot<CategoryId> implements Cloneable {
         return deletedAt;
     }
 
-    @Override
-    public void validate(ValidationHandler handler) {
-        new CategoryValidator(this, handler).validate();
-    }
-
-    @Override
-    public Category clone() {
-        try {
-            return (Category) super.clone();
-        } catch (CloneNotSupportedException e) {
-            throw new AssertionError();
-        }
-    }
 }
