@@ -95,7 +95,7 @@ public class CategoryController implements BaseCategoryController {
     }
 
     @Override
-    public ResponseEntity<?> delete(String id) {
+    public ResponseEntity<?> delete(@PathVariable String id) {
         final var response = this.deleteCategoryUseCase.execute(CategoryId.from(id));
         return response.fold(
                 error -> ResponseEntity.status(HttpStatus.NOT_FOUND).body(error),

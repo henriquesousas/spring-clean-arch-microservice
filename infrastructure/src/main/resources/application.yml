@@ -1,6 +1,8 @@
 
 server:
   port: 8080
+  servlet:
+    context-path: /api
   compression:
     enabled: true
     mime-types: text/html,text/xml,text/plan,text/css,text/javascript,application/javascript,text/json

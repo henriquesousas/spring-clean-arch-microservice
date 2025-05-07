@@ -67,6 +67,8 @@ public interface BaseCategoryController {
             @RequestParam(name = "dir", required = false, defaultValue = "asc") final String dir
     );
 
+
+    @DeleteMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Operation(summary = "Delete a category")
     @ApiResponses(value = {

@@ -52,13 +52,23 @@ dependencies {
     implementation('mysql:mysql-connector-java')
     // Mapper
     implementation('com.fasterxml.jackson.module:jackson-module-afterburner')
+    //Flyway
+    implementation('org.flywaydb:flyway-core')
+
     // H2 para testes local
     testRuntimeOnly('com.h2database:h2')
     // Tests
-    implementation('org.flywaydb:flyway-core')
-    implementation('org.springframework.boot:spring-boot-starter-test')
+    testImplementation('org.springframework.boot:spring-boot-starter-test')
+    // Tests container
+    testImplementation('org.testcontainers:testcontainers:1.21.0')
+    testImplementation('org.testcontainers:mysql:1.21.0')
+    testImplementation('org.testcontainers:junit-jupiter:1.21.0')
+
+//    testImplementation('org.junit.jupiter:junit-jupiter-api:5.10.0')
+//    testRuntimeOnly('org.junit.jupiter:junit-jupiter-engine:5.10.0')
 
 }
+
 
 // Flyway é um gerenciador de migrações do nosso banco de dados
 flyway {
