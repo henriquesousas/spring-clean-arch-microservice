@@ -22,4 +22,15 @@ public class CategoryIdTest {
         Assertions.assertEquals(categoryId.getNotification().getErrors().size(), 1);
         Assertions.assertEquals(categoryId.getNotification().getFirstError().message(), "CategoryId must be a valid UUID");
     }
+
+    @Test
+    public void givenAn2ValidCategory_whenEquals_shouldReturnTrue()    {
+        CategoryId unique = CategoryId.unique();
+
+        CategoryId categoryId1 = CategoryId.from(unique.getValue());
+        CategoryId categoryId2 = CategoryId.from(unique.getValue());
+
+        Assertions.assertEquals(categoryId1,categoryId2);
+    }
+
 }
