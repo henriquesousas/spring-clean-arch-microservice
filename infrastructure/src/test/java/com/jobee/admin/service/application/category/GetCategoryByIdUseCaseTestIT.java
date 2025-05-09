@@ -7,15 +7,12 @@ import com.jobee.admin.service.domain.category.Category;
 import com.jobee.admin.service.domain.category.CategoryBuilder;
 import com.jobee.admin.service.domain.category.CategoryId;
 import com.jobee.admin.service.domain.category.CategoryRepository;
-import com.jobee.admin.service.domain.exceptions.DomainException;
-import com.jobee.admin.service.domain.exceptions.NotFoundException;
-import com.jobee.admin.service.domain.validation.Error;
-import com.jobee.admin.service.domain.validation.handler.Notification;
+import com.jobee.admin.service.domain.shared.exceptions.DomainException;
+import com.jobee.admin.service.domain.shared.exceptions.NotFoundException;
 import com.jobee.admin.service.infrastructure.category.repository.CategoryJpaRepository;
 import com.jobee.admin.service.infrastructure.category.repository.CategoryModel;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.SpyBean;
 

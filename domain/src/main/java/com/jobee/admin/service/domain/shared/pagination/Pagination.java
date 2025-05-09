@@ -1,4 +1,4 @@
-package com.jobee.admin.service.domain.pagination;
+package com.jobee.admin.service.domain.shared.pagination;
 
 import java.util.Comparator;
 import java.util.List;

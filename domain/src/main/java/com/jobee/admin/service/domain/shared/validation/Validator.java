@@ -1,4 +1,4 @@
-package com.jobee.admin.service.domain.validation;
+package com.jobee.admin.service.domain.shared.validation;
 
 public abstract class Validator {
     private final ValidationHandler handler;

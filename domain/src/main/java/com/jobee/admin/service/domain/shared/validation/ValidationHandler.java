@@ -1,8 +1,8 @@
-package com.jobee.admin.service.domain.validation;
+package com.jobee.admin.service.domain.shared.validation;
 
 
-import com.jobee.admin.service.domain.exceptions.DomainException;
-import com.jobee.admin.service.domain.validation.handler.Notification;
+import com.jobee.admin.service.domain.shared.exceptions.DomainException;
+import com.jobee.admin.service.domain.shared.validation.handler.Notification;
 
 import java.util.List;
 

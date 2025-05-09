@@ -2,10 +2,10 @@ package com.jobee.admin.service.application.category.retrieve;
 
 import com.jobee.admin.service.application.UseCase;
 import com.jobee.admin.service.domain.category.CategoryRepository;
-import com.jobee.admin.service.domain.category.CategorySearch;
-import com.jobee.admin.service.domain.pagination.Pagination;
+import com.jobee.admin.service.domain.shared.pagination.Search;
+import com.jobee.admin.service.domain.shared.pagination.Pagination;
 
-public class ListCategoryUseCase extends UseCase<CategorySearch, Pagination<CategoryOutput>> {
+public class ListCategoryUseCase extends UseCase<Search, Pagination<CategoryOutput>> {
 
     private final CategoryRepository repository;
 
@@ -14,7 +14,7 @@ public class ListCategoryUseCase extends UseCase<CategorySearch, Pagination<Cate
     }
 
     @Override
-    public Pagination<CategoryOutput> execute(CategorySearch categorySearch) {
+    public Pagination<CategoryOutput> execute(Search categorySearch) {
         return this.repository
                 .findAll(categorySearch)
                 .map(CategoryOutput::from);

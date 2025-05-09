@@ -1,10 +1,9 @@
 package com.jobee.admin.service.domain.category;
 
-import com.jobee.admin.service.domain.Identifier;
-import com.jobee.admin.service.domain.exceptions.ValidationException;
-import com.jobee.admin.service.domain.exceptions.ValueObjectValidationError;
-import com.jobee.admin.service.domain.validation.Error;
-import com.jobee.admin.service.domain.validation.handler.Notification;
+import com.jobee.admin.service.domain.shared.Identifier;
+import com.jobee.admin.service.domain.shared.exceptions.ValidationException;
+import com.jobee.admin.service.domain.shared.validation.Error;
+import com.jobee.admin.service.domain.shared.validation.handler.Notification;
 
 
 import java.util.Objects;

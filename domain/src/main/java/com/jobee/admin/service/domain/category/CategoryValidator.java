@@ -1,10 +1,8 @@
 package com.jobee.admin.service.domain.category;
 
-import com.jobee.admin.service.domain.validation.Error;
-import com.jobee.admin.service.domain.validation.ValidationHandler;
-import com.jobee.admin.service.domain.validation.Validator;
-
-import java.util.List;
+import com.jobee.admin.service.domain.shared.validation.Error;
+import com.jobee.admin.service.domain.shared.validation.ValidationHandler;
+import com.jobee.admin.service.domain.shared.validation.Validator;
 
 public class CategoryValidator extends Validator {
 

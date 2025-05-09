@@ -1,6 +1,6 @@
-package com.jobee.admin.service.domain;
+package com.jobee.admin.service.domain.shared;
 
-import com.jobee.admin.service.domain.validation.ValidationHandler;
+import com.jobee.admin.service.domain.shared.validation.ValidationHandler;
 
 import java.util.Objects;
 

@@ -1,7 +1,7 @@
 package com.jobee.admin.service.domain.category;
 
-import com.jobee.admin.service.domain.AggregateRoot;
-import com.jobee.admin.service.domain.validation.ValidationHandler;
+import com.jobee.admin.service.domain.shared.AggregateRoot;
+import com.jobee.admin.service.domain.shared.validation.ValidationHandler;
 
 
 import java.time.Instant;

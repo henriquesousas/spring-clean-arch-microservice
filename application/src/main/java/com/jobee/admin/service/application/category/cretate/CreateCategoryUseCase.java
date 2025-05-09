@@ -3,9 +3,9 @@ package com.jobee.admin.service.application.category.cretate;
 import com.jobee.admin.service.application.UseCase;
 import com.jobee.admin.service.domain.category.CategoryBuilder;
 import com.jobee.admin.service.domain.category.CategoryRepository;
-import com.jobee.admin.service.domain.exceptions.ValidationException;
-import com.jobee.admin.service.domain.exceptions.DomainException;
-import com.jobee.admin.service.domain.validation.handler.Notification;
+import com.jobee.admin.service.domain.shared.exceptions.ValidationException;
+import com.jobee.admin.service.domain.shared.exceptions.DomainException;
+import com.jobee.admin.service.domain.shared.validation.handler.Notification;
 import io.vavr.control.Either;
 
 import static io.vavr.control.Either.left;

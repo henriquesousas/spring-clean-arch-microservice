@@ -3,10 +3,8 @@ package com.jobee.admin.service.application.category.retrieve;
 import com.jobee.admin.service.domain.category.Category;
 import com.jobee.admin.service.domain.category.CategoryId;
 import com.jobee.admin.service.domain.category.CategoryRepository;
-import com.jobee.admin.service.domain.exceptions.DomainException;
-import com.jobee.admin.service.domain.exceptions.NotFoundException;
-import com.jobee.admin.service.domain.validation.Error;
-import com.jobee.admin.service.domain.validation.handler.Notification;
+import com.jobee.admin.service.domain.shared.exceptions.DomainException;
+import com.jobee.admin.service.domain.shared.exceptions.NotFoundException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,7 +13,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class GetCategoryByIdUseCaseTest {

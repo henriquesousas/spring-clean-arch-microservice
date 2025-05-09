@@ -4,7 +4,7 @@ import com.jobee.admin.service.MysqlRepositoryTest;
 import com.jobee.admin.service.domain.category.Category;
 import com.jobee.admin.service.domain.category.CategoryBuilder;
 import com.jobee.admin.service.domain.category.CategoryId;
-import com.jobee.admin.service.domain.category.CategorySearch;
+import com.jobee.admin.service.domain.shared.pagination.Search;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -147,7 +147,7 @@ public class CategoryRepositoryMysqlTest {
 
         Assertions.assertEquals(3, repository.count());
 
-        final var query = new CategorySearch(0, 1, "", "name", "asc");
+        final var query = new Search(0, 1, "", "name", "asc");
         final var actualResult = categoryRepositoryMysql.findAll(query);
 
         Assertions.assertEquals(expectedPage, actualResult.currentPage());
@@ -165,7 +165,7 @@ public class CategoryRepositoryMysqlTest {
 
         Assertions.assertEquals(0, repository.count());
 
-        final var query = new CategorySearch(0, 1, "", "name", "asc");
+        final var query = new Search(0, 1, "", "name", "asc");
         final var actualResult = categoryRepositoryMysql.findAll(query);
 
         Assertions.assertEquals(expectedPage, actualResult.currentPage());
@@ -195,7 +195,7 @@ public class CategoryRepositoryMysqlTest {
         Assertions.assertEquals(3, repository.count());
 
         // Pagina 1
-        var query = new CategorySearch(0, 1, "", "name", "asc");
+        var query = new Search(0, 1, "", "name", "asc");
         var actualResult = categoryRepositoryMysql.findAll(query);
 
         Assertions.assertEquals(expectedPage, actualResult.currentPage());
@@ -206,7 +206,7 @@ public class CategoryRepositoryMysqlTest {
 
 //        //Pagina 2
         expectedPage = 1;
-        query = new CategorySearch(1, 1, "", "name", "asc");
+        query = new Search(1, 1, "", "name", "asc");
         actualResult = categoryRepositoryMysql.findAll(query);
 
         Assertions.assertEquals(expectedPage, actualResult.currentPage());
@@ -217,7 +217,7 @@ public class CategoryRepositoryMysqlTest {
 
         //Pagina 2
         expectedPage = 2;
-        query = new CategorySearch(2, 1, "", "name", "asc");
+        query = new Search(2, 1, "", "name", "asc");
         actualResult = categoryRepositoryMysql.findAll(query);
 
         Assertions.assertEquals(expectedPage, actualResult.currentPage());

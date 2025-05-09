@@ -1,6 +1,6 @@
-package com.jobee.admin.service.domain.exceptions;
+package com.jobee.admin.service.domain.shared.exceptions;
 
-import com.jobee.admin.service.domain.validation.Error;
+import com.jobee.admin.service.domain.shared.validation.Error;
 
 import java.util.List;
 

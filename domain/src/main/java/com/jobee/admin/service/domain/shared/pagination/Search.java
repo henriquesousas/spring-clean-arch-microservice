@@ -1,6 +1,6 @@
-package com.jobee.admin.service.domain.category;
+package com.jobee.admin.service.domain.shared.pagination;
 
-public record CategorySearch(
+public record Search(
         int page,       // Página corrente
         int perPage,   // Numero de item por página
         String terms, // filtro que vai ser pesquisa

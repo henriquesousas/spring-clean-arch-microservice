@@ -1,10 +1,9 @@
-package com.jobee.admin.service.domain.exceptions;
+package com.jobee.admin.service.domain.shared.exceptions;
 
-import com.jobee.admin.service.domain.AggregateRoot;
-import com.jobee.admin.service.domain.Identifier;
-import com.jobee.admin.service.domain.validation.Error;
+import com.jobee.admin.service.domain.shared.AggregateRoot;
+import com.jobee.admin.service.domain.shared.Identifier;
+import com.jobee.admin.service.domain.shared.validation.Error;
 
-import java.util.Collections;
 import java.util.List;
 
 public class NotFoundException extends DomainException {

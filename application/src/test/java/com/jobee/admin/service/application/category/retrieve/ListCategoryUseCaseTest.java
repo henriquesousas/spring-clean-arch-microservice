@@ -3,8 +3,8 @@ package com.jobee.admin.service.application.category.retrieve;
 import com.jobee.admin.service.domain.category.Category;
 import com.jobee.admin.service.domain.category.CategoryBuilder;
 import com.jobee.admin.service.domain.category.CategoryRepository;
-import com.jobee.admin.service.domain.category.CategorySearch;
-import com.jobee.admin.service.domain.pagination.Pagination;
+import com.jobee.admin.service.domain.shared.pagination.Search;
+import com.jobee.admin.service.domain.shared.pagination.Pagination;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -47,7 +47,7 @@ public class ListCategoryUseCaseTest {
         final var expectedDirection = "asc";
         final var expectedItemCount = 2;
 
-        CategorySearch query = new CategorySearch(expectedPage, expectedPerPage, expectedTerms, expectedSort, expectedDirection);
+        Search query = new Search(expectedPage, expectedPerPage, expectedTerms, expectedSort, expectedDirection);
 
         final var expectedPagination =
                 new Pagination<>(expectedPage, expectedPerPage, categories.size(), categories);

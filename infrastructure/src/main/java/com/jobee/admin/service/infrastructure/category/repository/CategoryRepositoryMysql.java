@@ -3,10 +3,8 @@ package com.jobee.admin.service.infrastructure.category.repository;
 import com.jobee.admin.service.domain.category.Category;
 import com.jobee.admin.service.domain.category.CategoryId;
 import com.jobee.admin.service.domain.category.CategoryRepository;
-import com.jobee.admin.service.domain.category.CategorySearch;
-import com.jobee.admin.service.domain.exceptions.NotFoundException;
-import com.jobee.admin.service.domain.pagination.Pagination;
-import com.jobee.admin.service.domain.validation.Error;
+import com.jobee.admin.service.domain.shared.pagination.Search;
+import com.jobee.admin.service.domain.shared.pagination.Pagination;
 import com.jobee.admin.service.infrastructure.shared.SpecificationUtils;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -50,7 +48,7 @@ public class CategoryRepositoryMysql implements CategoryRepository {
     }
 
     @Override
-    public Pagination<Category> findAll(CategorySearch query) {
+    public Pagination<Category> findAll(Search query) {
         // Paginação
         final var page = PageRequest.of(
                 query.page(),

@@ -4,16 +4,11 @@ import com.jobee.admin.service.application.category.cretate.CreateCategoryInputD
 import com.jobee.admin.service.application.category.cretate.CreateCategoryOutputDto;
 import com.jobee.admin.service.application.category.cretate.CreateCategoryUseCase;
 import com.jobee.admin.service.application.category.delete.DeleteCategoryUseCase;
-import com.jobee.admin.service.application.category.retrieve.CategoryOutput;
 import com.jobee.admin.service.application.category.retrieve.GetCategoryByIdUseCase;
 import com.jobee.admin.service.application.category.retrieve.ListCategoryUseCase;
 import com.jobee.admin.service.application.category.update.UpdateCategoryInputDto;
 import com.jobee.admin.service.application.category.update.UpdateCategoryUseCase;
-import com.jobee.admin.service.domain.category.CategoryId;
-import com.jobee.admin.service.domain.category.CategorySearch;
-import com.jobee.admin.service.domain.exceptions.NotFoundException;
-import com.jobee.admin.service.domain.validation.Error;
-import com.jobee.admin.service.domain.validation.handler.Notification;
+import com.jobee.admin.service.domain.shared.pagination.Search;
 import com.jobee.admin.service.infrastructure.category.models.CreateCategoryRequest;
 import com.jobee.admin.service.infrastructure.category.models.CategoryResponse;
 import com.jobee.admin.service.infrastructure.category.models.PaginationCategoryResponse;
@@ -23,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.util.Objects;
-import java.util.function.Function;
 
 
 @RestController
@@ -80,7 +74,7 @@ public class CategoryController implements HttpCategoryController {
 
     @Override
     public ResponseEntity<?> listAll(final String search, final int page, final int perPage, final String sort, final String dir) {
-        final var response = this.listCategoryUseCase.execute(new CategorySearch(
+        final var response = this.listCategoryUseCase.execute(new Search(
                 page,
                 perPage,
                 search,

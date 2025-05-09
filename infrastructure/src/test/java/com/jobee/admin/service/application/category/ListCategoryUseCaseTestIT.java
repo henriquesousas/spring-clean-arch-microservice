@@ -5,8 +5,8 @@ import com.jobee.admin.service.application.category.retrieve.CategoryOutput;
 import com.jobee.admin.service.application.category.retrieve.ListCategoryUseCase;
 import com.jobee.admin.service.domain.category.Category;
 import com.jobee.admin.service.domain.category.CategoryBuilder;
-import com.jobee.admin.service.domain.category.CategorySearch;
-import com.jobee.admin.service.domain.pagination.Pagination;
+import com.jobee.admin.service.domain.shared.pagination.Search;
+import com.jobee.admin.service.domain.shared.pagination.Pagination;
 import com.jobee.admin.service.infrastructure.category.repository.CategoryModel;
 import com.jobee.admin.service.infrastructure.category.repository.CategoryJpaRepository;
 import org.junit.jupiter.api.Assertions;
@@ -47,7 +47,7 @@ public class ListCategoryUseCaseTestIT {
 
         for (int i = 0; i < categories.size(); i++) {
             expectedPage = i;
-            CategorySearch query = new CategorySearch(expectedPage, expectedPerPage, expectedTerms, expectedSort, expectedDirection);
+            Search query = new Search(expectedPage, expectedPerPage, expectedTerms, expectedSort, expectedDirection);
             Pagination<CategoryOutput> actualResult = this.sut.execute(query);
 
             Assertions.assertEquals(actualResult.total(), expectedItemCount);

@@ -1,6 +1,7 @@
 package com.jobee.admin.service.domain.category;
 
-import com.jobee.admin.service.domain.pagination.Pagination;
+import com.jobee.admin.service.domain.shared.pagination.Search;
+import com.jobee.admin.service.domain.shared.pagination.Pagination;
 
 import java.util.Optional;
 
@@ -10,5 +11,5 @@ public interface CategoryRepository {
     Category update(Category category);
     void delete(CategoryId identifier);
     Optional<Category> findById(CategoryId identifier);
-    Pagination<Category> findAll(CategorySearch query);
+    Pagination<Category> findAll(Search query);
 }
