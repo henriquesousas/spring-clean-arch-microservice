@@ -1,19 +1,27 @@
 package com.jobee.admin.service.domain.shared;
 
 import com.jobee.admin.service.domain.shared.validation.ValidationHandler;
+import com.jobee.admin.service.domain.shared.validation.handler.Notification;
+import lombok.Getter;
 
 import java.util.Objects;
 
+@Getter
 public abstract class Entity<ID extends Identifier> {
     protected final ID id;
+    protected Notification notification = Notification.create();
+
 
     protected Entity(final ID id) {
         Objects.requireNonNull(id, "id should not be null");
         this.id = id;
     }
 
-
     public abstract void validate(ValidationHandler handler);
+
+    public ID getAggregateId() {
+        return this.id;
+    }
 
     @Override
     public boolean equals(final Object o) {
