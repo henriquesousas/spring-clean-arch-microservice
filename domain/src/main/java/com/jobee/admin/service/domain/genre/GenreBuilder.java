@@ -22,7 +22,6 @@ public class GenreBuilder {
         this.name = Objects.requireNonNull(name, "'Name' should not be null");
         this.description = Objects.requireNonNull(description, "'Description' should not be null");
         this.categories = requireNonNullOrEmpty(categories);
-
     }
 
     public GenreBuilder withName(String name) {
@@ -53,6 +52,10 @@ public class GenreBuilder {
     public GenreBuilder withId(GenreId genreId) {
         this.genreId = genreId;
         return this;
+    }
+
+    public Genre build() {
+        return Genre.newGenre(this);
     }
 
     private <T> List<T> requireNonNullOrEmpty(List<T> list) {

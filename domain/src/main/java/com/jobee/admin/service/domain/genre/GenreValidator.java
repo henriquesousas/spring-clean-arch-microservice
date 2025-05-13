@@ -1,6 +1,7 @@
 package com.jobee.admin.service.domain.genre;
 
 import com.jobee.admin.service.domain.shared.validation.Error;
+import com.jobee.admin.service.domain.shared.validation.FluentValidator;
 import com.jobee.admin.service.domain.shared.validation.ValidationHandler;
 import com.jobee.admin.service.domain.shared.validation.Validator;
 
@@ -24,23 +25,15 @@ public class GenreValidator extends Validator {
     }
 
     private void descriptionConstraint() {
-        if (this.genre.getDescription() == null || this.genre.getDescription().isBlank()) {
-            this.handler.append(new Error("'description' should not be null or empty"));
-        }
-
-        if (this.genre.getDescription().length() < 3) {
-            this.handler.append(new Error("'description' should be at least 3 characters"));
-        }
+        new FluentValidator(this.genre.getDescription(), this.handler)
+                .minLength(3, "'description' should be at least 3 characters")
+                .notNullOrEmpty("'description' should not be null or empty");
     }
 
     private void nameConstraint() {
-        if (this.genre.getName() == null || this.genre.getName().isBlank()) {
-            this.handler.append(new Error("'name' should not be null or empty"));
-        }
-
-        if (this.genre.getName().length() < 3) {
-            this.handler.append(new Error("'name' should be at least 3 characters"));
-        }
+        new FluentValidator(this.genre.getName(), this.handler)
+                .notNullOrEmpty("'name' should not be null or empty")
+                .minLength(3, "'name' should be at least 3 characters");
     }
 
     private void categoriesConstraint() {

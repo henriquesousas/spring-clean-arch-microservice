@@ -1,8 +1,6 @@
 package com.jobee.admin.service.infrastructure.category.controller;
 
-import com.jobee.admin.service.application.category.cretate.CreateCategoryOutputDto;
-import com.jobee.admin.service.application.category.retrieve.CategoryOutput;
-import com.jobee.admin.service.domain.category.CategoryId;
+import com.jobee.admin.service.application.category.create.CreateCategoryOutputDto;
 import com.jobee.admin.service.infrastructure.category.models.CategoryResponse;
 import com.jobee.admin.service.infrastructure.category.models.CreateCategoryRequest;
 import io.swagger.v3.oas.annotations.Operation;

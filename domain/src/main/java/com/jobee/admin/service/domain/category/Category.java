@@ -2,12 +2,13 @@ package com.jobee.admin.service.domain.category;
 
 import com.jobee.admin.service.domain.shared.AggregateRoot;
 import com.jobee.admin.service.domain.shared.validation.ValidationHandler;
+import lombok.Getter;
 
 
 import java.time.Instant;
 import java.util.Objects;
 
-
+@Getter
 public class Category extends AggregateRoot<CategoryId> implements Cloneable {
 
     private String name;
@@ -79,30 +80,6 @@ public class Category extends AggregateRoot<CategoryId> implements Cloneable {
 
     public CategoryId getId() {
         return this.id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public boolean isActive() {
-        return isActive;
-    }
-
-    public Instant getCreatedAt() {
-        return createdAt;
-    }
-
-    public Instant getUpdatedAt() {
-        return this.updatedAt;
-    }
-
-    public Instant getDeletedAt() {
-        return deletedAt;
     }
 
 }

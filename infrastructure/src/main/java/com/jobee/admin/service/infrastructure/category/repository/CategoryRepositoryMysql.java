@@ -10,6 +10,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -75,5 +76,10 @@ public class CategoryRepositoryMysql implements CategoryRepository {
                 pageResult.map(CategoryModel::toAggregate).toList()
 
         );
+    }
+
+    @Override
+    public List<CategoryId> findExists(Iterable<CategoryId> ids) {
+        return List.of();
     }
 }

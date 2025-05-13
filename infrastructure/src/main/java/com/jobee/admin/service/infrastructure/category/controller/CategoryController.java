@@ -1,8 +1,8 @@
 package com.jobee.admin.service.infrastructure.category.controller;
 
-import com.jobee.admin.service.application.category.cretate.CreateCategoryInputDto;
-import com.jobee.admin.service.application.category.cretate.CreateCategoryOutputDto;
-import com.jobee.admin.service.application.category.cretate.CreateCategoryUseCase;
+import com.jobee.admin.service.application.category.create.CreateCategoryInputDto;
+import com.jobee.admin.service.application.category.create.CreateCategoryOutputDto;
+import com.jobee.admin.service.application.category.create.CreateCategoryUseCase;
 import com.jobee.admin.service.application.category.delete.DeleteCategoryUseCase;
 import com.jobee.admin.service.application.category.retrieve.GetCategoryByIdUseCase;
 import com.jobee.admin.service.application.category.retrieve.ListCategoryUseCase;

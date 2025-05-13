@@ -30,7 +30,8 @@ public class CategoryValidator extends Validator {
 
     private void nameConstraint() {
 
-        if (this.category.getName() == null || this.category.getName().isEmpty()) {
+        if (this.category
+                .getName() == null || this.category.getName().isEmpty()) {
             this.validationHandler().append(new Error("'name' should not be null or empty"));
         }
 

@@ -1,7 +1,5 @@
 package com.jobee.admin.service.application.category.create;
 
-import com.jobee.admin.service.application.category.cretate.CreateCategoryInputDto;
-import com.jobee.admin.service.application.category.cretate.CreateCategoryUseCase;
 import com.jobee.admin.service.domain.category.CategoryBuilder;
 import com.jobee.admin.service.domain.category.CategoryRepository;
 import com.jobee.admin.service.domain.shared.exceptions.DomainException;

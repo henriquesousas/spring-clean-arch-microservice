@@ -67,10 +67,10 @@ public class GenreTest {
                 "'Categories' should not be null or empty"
         );
 
-        final var builder = new GenreBuilder("", "", List.of(CategoryId.unique()))
-                .withId(GenreId.from("123"));
 
-        final var sut = Genre.newGenre(builder);
+        final var sut = new GenreBuilder("", "", List.of(CategoryId.unique()))
+                .withId(GenreId.from("123")).build();
+
 
         final var notification = Notification.create();
         sut.validate(notification);

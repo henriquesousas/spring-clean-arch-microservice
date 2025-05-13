@@ -1,8 +1,8 @@
 package com.jobee.admin.service.application.category;
 
 import com.jobee.admin.service.IntegrationTest;
-import com.jobee.admin.service.application.category.cretate.CreateCategoryInputDto;
-import com.jobee.admin.service.application.category.cretate.CreateCategoryUseCase;
+import com.jobee.admin.service.application.category.create.CreateCategoryInputDto;
+import com.jobee.admin.service.application.category.create.CreateCategoryUseCase;
 import com.jobee.admin.service.domain.category.CategoryBuilder;
 import com.jobee.admin.service.domain.category.CategoryRepository;
 import com.jobee.admin.service.infrastructure.category.repository.CategoryJpaRepository;

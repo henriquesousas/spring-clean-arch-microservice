@@ -9,6 +9,7 @@ import lombok.Getter;
 
 import java.time.Instant;
 import java.util.*;
+import java.util.stream.Stream;
 
 @Getter
 public class Genre extends AggregateRoot<GenreId> {
@@ -35,10 +36,10 @@ public class Genre extends AggregateRoot<GenreId> {
         this.description = description;
         this.active = active == null || active;
         this.createdAt = Objects.requireNonNullElse(createdAt, InstantUtils.now());
-        this.updatedAt = Objects.requireNonNullElse(updatedAt, this.createdAt);;
+        this.updatedAt = Objects.requireNonNullElse(updatedAt, this.createdAt);
         this.deletedAt = deletedAt;
         this.categories = new ArrayList<>(Objects.requireNonNullElse(categories, new ArrayList<>()));
-        ;
+        validate(notification);
     }
 
     @Override
@@ -86,21 +87,24 @@ public class Genre extends AggregateRoot<GenreId> {
         this.deletedAt = null;
     }
 
-    public void addCategories(List<CategoryId> categories) {
+    public void addCategories(List<CategoryId> newCategories) {
         if (!checkIfActive("Could not add categories to a deactivated genre")) return;
 
-        Set<CategoryId> safeList = new HashSet<>(this.categories);
-        safeList.addAll(categories);
-        this.categories = new ArrayList<>(safeList);
+        this.categories = Stream.concat(this.categories.stream(), newCategories.stream())
+                .distinct()
+                .toList();
+
         this.updatedAt = InstantUtils.now();
     }
 
     public void removeCategory(CategoryId categoryId) {
         if (!checkIfActive("Could not remove a category from a deactivated genre")) return;
 
-        Set<CategoryId> safeList = new HashSet<>(this.categories);
-        safeList.remove(categoryId);
-        this.categories = new ArrayList<>(safeList);
+        this.categories =  this.categories.stream()
+                .filter(id -> !id.equals(categoryId))
+                .distinct()
+                .toList();
+
         this.updatedAt = InstantUtils.now();
     }
 

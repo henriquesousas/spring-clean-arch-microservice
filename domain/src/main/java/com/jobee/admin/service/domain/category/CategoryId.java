@@ -6,6 +6,8 @@ import com.jobee.admin.service.domain.shared.validation.Error;
 import com.jobee.admin.service.domain.shared.validation.handler.Notification;
 
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -28,6 +30,14 @@ public class CategoryId extends Identifier {
 
     public static CategoryId from(final UUID uuid) {
         return new CategoryId(uuid.toString().toLowerCase());
+    }
+
+    public static List<CategoryId> from(final String[] categories) {
+        return Arrays.stream(categories)
+                .map(CategoryId::from)
+                .filter(c -> !c.getNotification().hasError())
+                .distinct()
+                .toList();
     }
 
     @Override

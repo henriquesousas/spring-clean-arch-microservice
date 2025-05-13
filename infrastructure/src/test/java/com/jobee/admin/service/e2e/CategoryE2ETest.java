@@ -112,8 +112,7 @@ public class CategoryE2ETest {
                 .andExpect(jsonPath("$.total", Matchers.equalTo(3)))
                 .andExpect(jsonPath("$.items[0].id", Matchers.equalTo(actualSeriesId.getValue())));
     }
-
-
+    
     @Test
     public void asAServiceAdminIShouldBeAbleToGetAllCategoriesByTerm() throws Exception {
         Assertions.assertTrue(MYSQL_CONTAINER.isRunning());
