@@ -33,7 +33,7 @@ public class GetCategoryByIdUseCaseTestIT {
     private CategoryRepository categoryRepositoryGateway;
 
     @Test
-    public void givenInvalidCategoryId_whenCallsGetCategory_thenReturnNotFoundException() {
+    public void givenAnInvalidCategoryId_whenCallsGetCategory_thenReturnNotFoundException() {
 
         final var invalidCategoryId = CategoryId.from("123");
         final var expectedError = NotFoundException.with(Category.class, invalidCategoryId);
@@ -45,21 +45,6 @@ public class GetCategoryByIdUseCaseTestIT {
         Assertions.assertEquals(exception.getStatus(), 404);
         Assertions.assertEquals(exception.getMessage(), expectedError.getMessage());
     }
-
-//    @Test
-//    public void givenAValidCategoryId_whenCallsGetCategoryAndRepositoryThrowsAnError_thenReturnNotification() {
-//
-//        final var invalidCategoryId = CategoryId.unique();
-//
-//        Mockito.doThrow(NotFoundException.with(new Error("any")))
-//                .when(categoryRepositoryGateway).findById(any());
-//
-//        DomainException exception = this.sut.execute(invalidCategoryId.getValue()).getLeft();
-//
-//        Assertions.assertEquals(0, repository.count());
-//
-//        Assertions.assertEquals(exception.getErrors().get(0).message(), "any");
-//    }
 
     @Test
     public void givenAValidCategory_whenCallsFindById_thenReturnCategory() {
@@ -94,4 +79,19 @@ public class GetCategoryByIdUseCaseTestIT {
                         .toList()
         );
     }
+
+    //    @Test
+//    public void givenAValidCategoryId_whenCallsGetCategoryAndRepositoryThrowsAnError_thenReturnNotification() {
+//
+//        final var invalidCategoryId = CategoryId.unique();
+//
+//        Mockito.doThrow(NotFoundException.with(new Error("any")))
+//                .when(categoryRepositoryGateway).findById(any());
+//
+//        DomainException exception = this.sut.execute(invalidCategoryId.getValue()).getLeft();
+//
+//        Assertions.assertEquals(0, repository.count());
+//
+//        Assertions.assertEquals(exception.getErrors().get(0).message(), "any");
+//    }
 }

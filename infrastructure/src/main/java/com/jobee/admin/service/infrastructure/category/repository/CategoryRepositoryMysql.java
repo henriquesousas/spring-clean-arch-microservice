@@ -8,13 +8,14 @@ import com.jobee.admin.service.domain.shared.pagination.Pagination;
 import com.jobee.admin.service.infrastructure.shared.SpecificationUtils;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 
-@Service
+@Component
 public class CategoryRepositoryMysql implements CategoryRepository {
 
     private final CategoryJpaRepository repository;
