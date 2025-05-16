@@ -1,4 +1,4 @@
-package com.jobee.admin.service.infrastructure.genre.models;
+package com.jobee.admin.service.infrastructure.genre.repository;
 
 import com.jobee.admin.service.domain.category.CategoryId;
 import com.jobee.admin.service.domain.genre.Genre;
@@ -84,7 +84,7 @@ public class GenreJpaEntity {
         return new GenreBuilder(getName(), getDescription(),
                 getCategories()
                         .stream()
-                        .map(it -> CategoryId.from(it.getId().getCategoryId())).toList())
+                        .map(it -> CategoryId.from(it .getId().getCategoryId())).toList())
                 .withId(GenreId.from(getId()))
                 .withActive(isActive())
                 .withCreatedAt(getCreatedAt())

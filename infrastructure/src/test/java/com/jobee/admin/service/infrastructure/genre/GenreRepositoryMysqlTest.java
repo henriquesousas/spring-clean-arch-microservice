@@ -6,6 +6,8 @@ import com.jobee.admin.service.domain.genre.GenreBuilder;
 import com.jobee.admin.service.domain.genre.GenreId;
 import com.jobee.admin.service.infrastructure.category.repository.CategoryJpaRepository;
 import com.jobee.admin.service.infrastructure.category.repository.CategoryModel;
+import com.jobee.admin.service.infrastructure.genre.repository.GenreJpaRepository;
+import com.jobee.admin.service.infrastructure.genre.repository.GenreRepositoryMysql;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

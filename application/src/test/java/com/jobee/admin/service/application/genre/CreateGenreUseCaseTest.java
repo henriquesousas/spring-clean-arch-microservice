@@ -1,5 +1,7 @@
 package com.jobee.admin.service.application.genre;
 
+import com.jobee.admin.service.application.genre.create.CreateGenreInputDto;
+import com.jobee.admin.service.application.genre.create.CreateGenreUseCase;
 import com.jobee.admin.service.domain.category.CategoryId;
 import com.jobee.admin.service.domain.category.CategoryRepository;
 import com.jobee.admin.service.domain.genre.GenreBuilder;

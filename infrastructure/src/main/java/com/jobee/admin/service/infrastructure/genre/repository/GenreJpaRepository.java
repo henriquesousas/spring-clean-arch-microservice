@@ -1,6 +1,5 @@
-package com.jobee.admin.service.infrastructure.genre;
+package com.jobee.admin.service.infrastructure.genre.repository;
 
-import com.jobee.admin.service.infrastructure.genre.models.GenreJpaEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;

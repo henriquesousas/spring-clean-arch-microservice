@@ -32,8 +32,8 @@ public class CategoryId extends Identifier {
         return new CategoryId(uuid.toString().toLowerCase());
     }
 
-    public static List<CategoryId> from(final String[] categories) {
-        return Arrays.stream(categories)
+    public static List<CategoryId> from(final List<String> categories) {
+        return categories.stream()
                 .map(CategoryId::from)
                 .filter(c -> !c.getNotification().hasError())
                 .distinct()

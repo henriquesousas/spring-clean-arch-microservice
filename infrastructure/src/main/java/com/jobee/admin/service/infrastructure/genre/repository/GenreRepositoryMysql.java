@@ -1,11 +1,10 @@
-package com.jobee.admin.service.infrastructure.genre;
+package com.jobee.admin.service.infrastructure.genre.repository;
 
 import com.jobee.admin.service.domain.genre.Genre;
 import com.jobee.admin.service.domain.genre.GenreId;
 import com.jobee.admin.service.domain.genre.GenreRepository;
 import com.jobee.admin.service.domain.shared.pagination.Pagination;
 import com.jobee.admin.service.domain.shared.pagination.Search;
-import com.jobee.admin.service.infrastructure.genre.models.GenreJpaEntity;
 import com.jobee.admin.service.infrastructure.shared.SpecificationUtils;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
