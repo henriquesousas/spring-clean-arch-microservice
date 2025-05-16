@@ -9,8 +9,13 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class GenreProviders {
 
-    private GenreRepository genreRepository;
-    private CategoryRepository categoryRepository;
+    private final GenreRepository genreRepository;
+    private final CategoryRepository categoryRepository;
+
+    public GenreProviders(GenreRepository genreRepository, CategoryRepository categoryRepository) {
+        this.genreRepository = genreRepository;
+        this.categoryRepository = categoryRepository;
+    }
 
     @Bean
     public CreateGenreUseCase createGenreUseCase() {

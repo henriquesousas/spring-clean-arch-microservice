@@ -1,4 +1,4 @@
-package com.jobee.admin.service.infrastructure.genre.models;
+package com.jobee.admin.service.infrastructure.genre.repository;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
