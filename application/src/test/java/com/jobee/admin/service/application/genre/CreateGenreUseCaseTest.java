@@ -48,7 +48,7 @@ public class CreateGenreUseCaseTest {
         when(repository.create(any()))
                 .thenReturn(expectedGenre);
 
-        when(categoryRepository.findExists(any()))
+        when(categoryRepository.existByIds(any()))
                 .thenReturn(expectedCategories);
 
         final var dto = new CreateGenreInputDto(
@@ -79,7 +79,7 @@ public class CreateGenreUseCaseTest {
         when(repository.create(any()))
                 .thenReturn(expectedGenre);
 
-        when(categoryRepository.findExists(any()))
+        when(categoryRepository.existByIds(any()))
                 .thenReturn(List.of(cat1));
 
         final var dto = new CreateGenreInputDto(

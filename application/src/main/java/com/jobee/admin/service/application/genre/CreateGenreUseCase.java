@@ -36,7 +36,7 @@ public class CreateGenreUseCase extends UseCase<CreateGenreInputDto, Either<Doma
             return left(ValidationException.with(new Error("CategoryId cannot be null or empty")));
         }
 
-        List<CategoryId> categoryIds = this.categoryRepository.findExists(ids);
+        List<CategoryId> categoryIds = this.categoryRepository.existByIds(ids);
 
         final var genre = new GenreBuilder(dto.name(), dto.description(), categoryIds).build();
 

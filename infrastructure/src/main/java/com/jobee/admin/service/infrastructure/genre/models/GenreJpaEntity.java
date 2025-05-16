@@ -2,13 +2,15 @@ package com.jobee.admin.service.infrastructure.genre.models;
 
 import com.jobee.admin.service.domain.category.CategoryId;
 import com.jobee.admin.service.domain.genre.Genre;
+import com.jobee.admin.service.domain.genre.GenreBuilder;
+import com.jobee.admin.service.domain.genre.GenreId;
 
 import javax.persistence.*;
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 
-@Entity
+@Entity(name = "Genre")
 @Table(name = "genres")
 public class GenreJpaEntity {
     @Id
@@ -78,19 +80,18 @@ public class GenreJpaEntity {
         return entity;
     }
 
-    //TODO: Refazer aula : Criando entidades jpa da genre
-//    public Genre toAggregate() {
-//        return new GenreBuilder(getName(), getDescription(),
-//                getCategories()
-//                        .stream()
-//                        .map(it -> CategoryId.from(it.getId())).toList())
-//                .withId(getId())
-//                .withActive(isActive())
-//                .withCreatedAt(getCreatedAt())
-//                .withUpdatedAt(getUpdatedAt())
-//                .withDeletedAt(getDeletedAt())
-//                .build();
-//    }
+    public Genre toAggregate() {
+        return new GenreBuilder(getName(), getDescription(),
+                getCategories()
+                        .stream()
+                        .map(it -> CategoryId.from(it.getId().getCategoryId())).toList())
+                .withId(GenreId.from(getId()))
+                .withActive(isActive())
+                .withCreatedAt(getCreatedAt())
+                .withUpdatedAt(getUpdatedAt())
+                .withDeletedAt(getDeletedAt())
+                .build();
+    }
 
     public void addCategory(final CategoryId categoryId) {
         this.categories.add(GenreCategoryJpaEntity.from(this, categoryId));

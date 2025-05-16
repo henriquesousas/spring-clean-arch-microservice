@@ -13,5 +13,5 @@ public interface CategoryRepository {
     void delete(CategoryId identifier);
     Optional<Category> findById(CategoryId identifier);
     Pagination<Category> findAll(Search query);
-    List<CategoryId> findExists(Iterable<CategoryId> ids);
+    List<CategoryId> existByIds(Iterable<CategoryId> ids);
 }

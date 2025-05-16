@@ -18,6 +18,7 @@ public class CategoryRepositoryMysqlTest {
     @Autowired
     private CategoryRepositoryMysql categoryRepositoryMysql;
 
+
     @Autowired
     private CategoryJpaRepository repository;
 

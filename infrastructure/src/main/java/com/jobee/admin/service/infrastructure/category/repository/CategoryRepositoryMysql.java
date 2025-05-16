@@ -8,14 +8,14 @@ import com.jobee.admin.service.domain.shared.pagination.Pagination;
 import com.jobee.admin.service.infrastructure.shared.SpecificationUtils;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.StreamSupport;
 
 
-@Component
+@Service
 public class CategoryRepositoryMysql implements CategoryRepository {
 
     private final CategoryJpaRepository repository;
@@ -69,7 +69,7 @@ public class CategoryRepositoryMysql implements CategoryRepository {
 
 
         // Paginacao
-        final var pageResult = this.repository.findAll (specifications, page);
+        final var pageResult = this.repository.findAll(specifications, page);
         return new Pagination<>(
                 page.getPageNumber(),
                 pageResult.getSize(),
@@ -80,7 +80,12 @@ public class CategoryRepositoryMysql implements CategoryRepository {
     }
 
     @Override
-    public List<CategoryId> findExists(Iterable<CategoryId> ids) {
-        return List.of();
+    public List<CategoryId> existByIds(Iterable<CategoryId> categoryIDs) {
+        final var ids = StreamSupport.stream(categoryIDs.spliterator(), false)
+                .map(CategoryId::getValue)
+                .toList();
+        return this.repository.existsByIds(ids).stream()
+                .map(CategoryId::from)
+                .toList();
     }
 }

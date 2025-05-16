@@ -12,7 +12,7 @@ import java.lang.annotation.*;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
-// Configuração de teste posso colocar direto na classe que vai testar
+// Configuração de teste, posso colocar direto na classe que vai testar
 // Usar essa anotação  @SpringBootTest quando for fazer um test E2E, como esse é um teste que não precisa levantar  o spring vamos usar o @DataJpaTest
 // @SpringBootTest => que sobe toda a aplicação spring
 // @DataJpaTest => sobe o necessário menos as classes injetaveis, neste caso precisa ler manualmente via REGEX

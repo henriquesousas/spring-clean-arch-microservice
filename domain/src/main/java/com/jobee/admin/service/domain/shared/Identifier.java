@@ -6,7 +6,7 @@ import com.jobee.admin.service.domain.category.CategoryId;
 import java.util.Objects;
 import java.util.UUID;
 
-public abstract class Identifier extends  ValueObject {
+public abstract class Identifier extends ValueObject {
 
     public abstract String getValue();
 
@@ -24,7 +24,8 @@ public abstract class Identifier extends  ValueObject {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         final CategoryId that = (CategoryId) o;
-        return Objects.equals(getValue(), that.getValue());
+//        return Objects.equals(getValue(), that.getValue());
+        return getValue().equals(that.getValue());
     }
 
     @Override
