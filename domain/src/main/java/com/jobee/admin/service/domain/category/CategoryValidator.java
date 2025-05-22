@@ -26,6 +26,7 @@ public class CategoryValidator extends Validator {
         if (this.category.getId().getNotification().hasError()) {
             this.validationHandler().copy(this.category.getId().getNotification());
         }
+
     }
 
     private void nameConstraint() {

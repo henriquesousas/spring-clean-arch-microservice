@@ -8,6 +8,7 @@ import com.jobee.admin.service.domain.user.valueobjects.UserId;
 import lombok.Getter;
 
 import java.time.Instant;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -19,8 +20,8 @@ public class ReviewBuilder {
     private final String title;
     private final String comment;
     private final UserId userId;
-    private Set<ReviewPoint> pros;
-    private Set<ReviewPoint> cons;
+    private Set<ReviewPoint> positivePoints;
+    private Set<ReviewPoint> negativePoints;
     private ReviewStatus status;
     private Rating rating;
     private boolean isActive;
@@ -30,11 +31,11 @@ public class ReviewBuilder {
     private Instant verifiedAt;
 
     public ReviewBuilder(String title, String comment, UserId userId) {
-        this.userId =  Objects.requireNonNull(userId);
+        this.userId = Objects.requireNonNull(userId);
         this.title = Objects.requireNonNull(title);
         this.comment = Objects.requireNonNull(comment);
-        this.pros = new HashSet<>();
-        this.cons = new HashSet<>();
+        this.positivePoints = Collections.unmodifiableSet(new HashSet<>());
+        this.negativePoints = Collections.unmodifiableSet(new HashSet<>());
         this.status = ReviewStatus.PENDING;
         this.isActive = false;
         this.createdAt = Instant.now();
@@ -46,13 +47,13 @@ public class ReviewBuilder {
         return this;
     }
 
-    public ReviewBuilder withPros(Set<ReviewPoint> pros) {
-        this.pros = pros;
+    public ReviewBuilder withPositivePoints(Set<ReviewPoint> point) {
+        this.positivePoints = new HashSet<>(point);
         return this;
     }
 
-    public ReviewBuilder withCons(Set<ReviewPoint> cons) {
-        this.cons = cons;
+    public ReviewBuilder withNegativePoints(Set<ReviewPoint> point) {
+        this.negativePoints = new HashSet<>(point);
         return this;
     }
 

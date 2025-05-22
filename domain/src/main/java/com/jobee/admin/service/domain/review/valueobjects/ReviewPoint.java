@@ -1,6 +1,9 @@
 package com.jobee.admin.service.domain.review.valueobjects;
 
 import com.jobee.admin.service.domain.shared.ValueObject;
+import com.jobee.admin.service.domain.shared.validation.Error;
+
+import java.util.Objects;
 
 public class ReviewPoint extends ValueObject<String> {
 
@@ -18,11 +21,12 @@ public class ReviewPoint extends ValueObject<String> {
     @Override
     protected void selfValidate() {
         if (this.value == null || this.value.isBlank()) {
-            throw new IllegalArgumentException("Review point cannot be null or empty");
+            this.notification.append(new Error("Review não pode ser nulo ou vazio"));
+
         }
 
-        if (this.value.length() > 30) {
-            throw new IllegalArgumentException("Review point cannot exceed 30 characters");
+        if (this.value != null && this.value.length() > 30) {
+            this.notification.append(new Error("Review não pode exceder 30 caracteres"));
         }
 
     }
@@ -30,5 +34,19 @@ public class ReviewPoint extends ValueObject<String> {
     @Override
     public String getValue() {
         return this.value;
+    }
+
+    // TODO: Refactor
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        final ReviewPoint that = (ReviewPoint) o;
+        return Objects.equals(getValue(), that.getValue());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(value);
     }
 }

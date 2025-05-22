@@ -15,4 +15,5 @@ public abstract class ValueObject<T> {
 
     public abstract T getValue();
 
+
 }
