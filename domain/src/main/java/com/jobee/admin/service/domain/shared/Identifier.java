@@ -1,12 +1,9 @@
 package com.jobee.admin.service.domain.shared;
 
-
-import com.jobee.admin.service.domain.category.CategoryId;
-
 import java.util.Objects;
 import java.util.UUID;
 
-public abstract class Identifier extends ValueObject {
+public abstract class Identifier extends ValueObject<String> {
 
     public abstract String getValue();
 
@@ -22,10 +19,8 @@ public abstract class Identifier extends ValueObject {
     @Override
     public boolean equals(final Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        final CategoryId that = (CategoryId) o;
-//        return Objects.equals(getValue(), that.getValue());
-        return getValue().equals(that.getValue());
+        if (!(o instanceof Identifier that)) return false;
+        return Objects.equals(getValue(), that.getValue());
     }
 
     @Override

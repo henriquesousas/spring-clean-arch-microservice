@@ -56,7 +56,7 @@ public class CreateGenreUseCaseTest {
         final var dto = new CreateGenreInputDto(
                 "any",
                 "any",
-                new String[] { cat1.getValue(), cat2.getValue() }
+               List.of(cat1.getValue(), cat2.getValue())
         );
 
         final var genre = sut.execute(dto).get();
@@ -72,7 +72,6 @@ public class CreateGenreUseCaseTest {
     @Test
     public void  givenAListOfCategoriesWithRepeatedValues_whenCallsExecute_thenSaveOnlyTheOnesThatAreNotRepeated(){
         final var cat1 = CategoryId.unique();
-        final var cat2 = cat1;
         final var cat3 = "Invalid Category";
 
         final var expectedGenre = new GenreBuilder("any name", "any description", List.of(cat1))
@@ -87,7 +86,7 @@ public class CreateGenreUseCaseTest {
         final var dto = new CreateGenreInputDto(
                 "any",
                 "any",
-                new String[] { cat1.getValue(), cat2.getValue(), cat3 }
+               List.of(cat1.getValue(), cat1.getValue(), cat3)
         );
 
         final var genre = sut.execute(dto).get();

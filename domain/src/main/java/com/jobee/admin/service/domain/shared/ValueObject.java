@@ -1,8 +1,10 @@
 package com.jobee.admin.service.domain.shared;
 
 import com.jobee.admin.service.domain.shared.validation.handler.Notification;
+import lombok.Getter;
 
-public abstract class ValueObject {
+@Getter
+public abstract class ValueObject<T> {
     protected final Notification notification;
 
     protected ValueObject() {
@@ -11,7 +13,6 @@ public abstract class ValueObject {
 
     protected abstract void selfValidate() ;
 
-    public Notification getNotification() {
-        return notification;
-    }
+    public abstract T getValue();
+
 }
