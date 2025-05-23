@@ -5,7 +5,7 @@ import com.jobee.admin.service.domain.review.enums.RatingOptions;
 import com.jobee.admin.service.domain.review.enums.ReviewStatus;
 import com.jobee.admin.service.domain.review.valueobjects.LinkSite;
 import com.jobee.admin.service.domain.review.valueobjects.ReviewId;
-import com.jobee.admin.service.domain.review.valueobjects.ReviewPoint;
+import com.jobee.admin.service.domain.review.valueobjects.Feedback;
 import com.jobee.admin.service.domain.shared.AggregateRoot;
 import com.jobee.admin.service.domain.shared.utils.InstantUtils;
 import com.jobee.admin.service.domain.shared.validation.Error;
@@ -25,8 +25,8 @@ public class Review extends AggregateRoot<ReviewId> {
     private final UserId userId;
     private String title;
     private String summary;
-    private Set<ReviewPoint> positivePoints;
-    private Set<ReviewPoint> negativePoints;
+    private Set<Feedback> positiveFeedbacks;
+    private Set<Feedback> negativeFeedbacks;
     private ReviewStatus status;
     private Rating rating;
     private final ProductType productType;
@@ -45,8 +45,8 @@ public class Review extends AggregateRoot<ReviewId> {
             UserId userId,
             String title,
             String summary,
-            Set<ReviewPoint> pros,
-            Set<ReviewPoint> cons,
+            Set<Feedback> pros,
+            Set<Feedback> cons,
             ReviewStatus status,
             Rating rating,
             ProductType productType,
@@ -63,8 +63,8 @@ public class Review extends AggregateRoot<ReviewId> {
         this.userId = userId;
         this.title = title;
         this.summary = summary;
-        this.positivePoints = pros;
-        this.negativePoints = cons;
+        this.positiveFeedbacks = pros;
+        this.negativeFeedbacks = cons;
         this.status = status;
         this.rating = rating;
         this.purchaseSource = purchaseSource;
@@ -160,22 +160,22 @@ public class Review extends AggregateRoot<ReviewId> {
         updateRating(overall, rating.getSupportResponseTimeRating(), rating.getAfterSalesServiceRating());
     }
 
-    public void addPositivePoint(final ReviewPoint newPoint) {
+    public void addPositiveFeedback(final Feedback newPoint) {
         if (failIfInactive("Review inativo não pode adicionar pontos positivos")) return;
 
-        this.positivePoints = new HashSet<>(this.positivePoints);
-        this.positivePoints.add(newPoint);
+        this.positiveFeedbacks = new HashSet<>(this.positiveFeedbacks);
+        this.positiveFeedbacks.add(newPoint);
         this.updatedAt = InstantUtils.now();
     }
 
-    public void removePositivePoint(ReviewPoint point) {
-        if (getPositivePoints().isEmpty()) return;
+    public void removePositiveFeedback(Feedback point) {
+        if (getPositiveFeedbacks().isEmpty()) return;
 
         if (failIfInactive("Review inativo não pode remover pontos positivos")) {
             return;
         }
 
-        final var actualPoint = getPositivePoints()
+        final var actualPoint = getPositiveFeedbacks()
                 .stream()
                 .filter(reviewPoint -> reviewPoint.equals(point))
                 .findFirst()
@@ -186,28 +186,28 @@ public class Review extends AggregateRoot<ReviewId> {
             return;
         }
 
-        this.positivePoints.remove(actualPoint);
+        this.positiveFeedbacks.remove(actualPoint);
         this.updatedAt = InstantUtils.now();
     }
 
-    public void addNegativePoint(ReviewPoint newPoint) {
+    public void addNegativeFeedback(Feedback newPoint) {
         if (failIfInactive("Review inativo não pode remover pontos negativos")) {
             return;
         }
 
-        this.negativePoints = new HashSet<>(this.negativePoints);
-        this.negativePoints.add(newPoint);
+        this.negativeFeedbacks = new HashSet<>(this.negativeFeedbacks);
+        this.negativeFeedbacks.add(newPoint);
         this.updatedAt = InstantUtils.now();
     }
 
-    public void removeNegativePoint(ReviewPoint point) {
-        if (getNegativePoints().isEmpty()) return;
+    public void removeNegativeFeedback(Feedback point) {
+        if (getNegativeFeedbacks().isEmpty()) return;
 
         if (failIfInactive("Review inativo não pode remover pontos negativos")) {
             return;
         }
 
-        final var actualPoint = getNegativePoints()
+        final var actualPoint = getNegativeFeedbacks()
                 .stream()
                 .filter(reviewPoint -> reviewPoint.equals(point))
                 .findFirst()
@@ -218,7 +218,7 @@ public class Review extends AggregateRoot<ReviewId> {
             return;
         }
 
-        this.negativePoints.remove(actualPoint);
+        this.negativeFeedbacks.remove(actualPoint);
         this.updatedAt = InstantUtils.now();
     }
 

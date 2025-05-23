@@ -47,8 +47,8 @@ public class ReviewValidator extends Validator {
         ).forEach(this::copyIfHasError);
 
         Stream.concat(
-                        this.review.getPositivePoints().stream(),
-                        this.review.getNegativePoints().stream()
+                        this.review.getPositiveFeedbacks().stream(),
+                        this.review.getNegativeFeedbacks().stream()
                 )
                 .map(ValueObject::getNotification)
                 .forEach(this::copyIfHasError);

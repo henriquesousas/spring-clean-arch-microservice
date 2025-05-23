@@ -1,11 +1,10 @@
 package com.jobee.admin.service.domain.review;
 
 import com.jobee.admin.service.domain.review.enums.ProductType;
-import com.jobee.admin.service.domain.review.enums.RatingOptions;
 import com.jobee.admin.service.domain.review.enums.ReviewStatus;
 import com.jobee.admin.service.domain.review.valueobjects.LinkSite;
 import com.jobee.admin.service.domain.review.valueobjects.ReviewId;
-import com.jobee.admin.service.domain.review.valueobjects.ReviewPoint;
+import com.jobee.admin.service.domain.review.valueobjects.Feedback;
 import com.jobee.admin.service.domain.user.valueobjects.UserId;
 import lombok.Getter;
 
@@ -24,8 +23,8 @@ public class ReviewBuilder {
     private final UserId userId;
     private final ProductType type;
     private final String source;
-    private Set<ReviewPoint> positivePoints;
-    private Set<ReviewPoint> negativePoints;
+    private Set<Feedback> positivePoints;
+    private Set<Feedback> negativePoints;
     private ReviewStatus status;
     private Rating rating;
     private boolean isActive;
@@ -65,12 +64,12 @@ public class ReviewBuilder {
         return this;
     }
 
-    public ReviewBuilder withPositivePoints(Set<ReviewPoint> point) {
+    public ReviewBuilder withPositivePoints(Set<Feedback> point) {
         this.positivePoints = new HashSet<>(point);
         return this;
     }
 
-    public ReviewBuilder withNegativePoints(Set<ReviewPoint> point) {
+    public ReviewBuilder withNegativePoints(Set<Feedback> point) {
         this.negativePoints = new HashSet<>(point);
         return this;
     }
@@ -79,11 +78,6 @@ public class ReviewBuilder {
         this.status = status;
         return this;
     }
-
-//    public ReviewBuilder withRating(RatingOptions overallRating) {
-//        this.rating = Rating.newRating(overallRating);
-//        return this;
-//    }
 
     public ReviewBuilder withCreatedAt(Instant createdAt) {
         this.createdAt = createdAt;
