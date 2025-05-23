@@ -5,6 +5,7 @@ import com.jobee.admin.service.domain.shared.validation.Error;
 
 import java.util.Objects;
 
+/// TODO: refactor to Point
 public class ReviewPoint extends ValueObject<String> {
 
     private final String value;

@@ -80,11 +80,6 @@ public class ReviewBuilder {
         return this;
     }
 
-//    public ReviewBuilder withRating(RatingOptions overallRating) {
-//        this.rating = Rating.newRating(overallRating);
-//        return this;
-//    }
-
     public ReviewBuilder withCreatedAt(Instant createdAt) {
         this.createdAt = createdAt;
         return this;
