@@ -22,7 +22,7 @@ public class ReviewValidator extends Validator {
     @Override
     public void validate() {
         validateTextField(this.review.getTitle(), "titúlo");
-        validateTextField(this.review.getComment(), "comentario");
+        validateTextField(this.review.getSummary(), "comentario");
         validateValueObjects();
     }
 

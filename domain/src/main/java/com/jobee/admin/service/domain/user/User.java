@@ -67,7 +67,7 @@ public class User extends AggregateRoot<UserId> {
     //TODO: Implement the validate method
     @Override
     public void validate(ValidationHandler handler) {
-        throw new RuntimeException("Not implemented yet");
+
     }
 
     //TODO: Implement the update method

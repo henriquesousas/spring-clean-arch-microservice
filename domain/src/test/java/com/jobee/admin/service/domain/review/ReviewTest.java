@@ -1,6 +1,7 @@
 package com.jobee.admin.service.domain.review;
 
-import com.jobee.admin.service.domain.review.enums.Rating;
+import com.jobee.admin.service.domain.review.enums.ProductType;
+import com.jobee.admin.service.domain.review.enums.RatingOptions;
 import com.jobee.admin.service.domain.review.enums.ReviewStatus;
 import com.jobee.admin.service.domain.review.valueobjects.ReviewId;
 import com.jobee.admin.service.domain.review.valueobjects.ReviewPoint;
@@ -10,7 +11,6 @@ import com.jobee.admin.service.domain.user.valueobjects.UserId;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -24,21 +24,38 @@ public class ReviewTest {
         final var expectedUserId = UserId.unique();
         final var expectedTitle = "some description";
         final var expectedComment = "some comment";
+        final var expectedType = ProductType.PRODUCT;
+        final var expectedSource = "any";
 
-        final var expectedReview = new ReviewBuilder(expectedTitle, expectedComment, expectedUserId)
-                .build();
+        final var expectedReview = new ReviewBuilder(
+                expectedTitle,
+                expectedComment,
+                expectedUserId,
+                expectedType,
+                expectedSource,
+                Rating.newRating(RatingOptions.RA_1)
+        ).build();
 
         Assertions.assertEquals(expectedReview.getUserId(), expectedUserId);
         Assertions.assertEquals(expectedReview.getTitle(), expectedTitle);
-        Assertions.assertEquals(expectedReview.getComment(), expectedComment);
+        Assertions.assertEquals(expectedReview.getSummary(), expectedComment);
         Assertions.assertFalse(expectedReview.isActive());
         Assertions.assertNotNull(expectedReview.getCreatedAt());
         Assertions.assertNotNull(expectedReview.getUpdatedAt());
         Assertions.assertNull(expectedReview.getDeletedAt());
-        Assertions.assertNull(expectedReview.getRating());
+
+        Assertions.assertEquals(expectedReview.getRating().getOverallRating(), RatingOptions.RA_1);
+        Assertions.assertNull(expectedReview.getRating().getSupportResponseTimeRating());
+        Assertions.assertNull(expectedReview.getRating().getAfterSalesServiceRating());
+
         Assertions.assertEquals(expectedReview.getStatus(), ReviewStatus.PENDING);
         Assertions.assertEquals(expectedReview.getPositivePoints().size(), 0);
         Assertions.assertEquals(expectedReview.getNegativePoints().size(), 0);
+
+        Assertions.assertEquals(expectedReview.getProductType(), expectedType);
+        Assertions.assertEquals(expectedReview.getPurchaseSource(), expectedSource);
+        Assertions.assertNull(expectedReview.getRecommends());
+        Assertions.assertNull(expectedReview.getReclameAquiUrl());
     }
 
     @Test
@@ -48,19 +65,25 @@ public class ReviewTest {
         final var expectedUserId = UserId.unique();
         final var expectedTitle = "some description";
         final var expectedComment = "some comment";
-        final var expectedRating = Rating.RA_5;
-        final var expectedRatingLiteralValue = expectedRating.getValue();
+        final var expectedRating = RatingOptions.RA_5;
         final var expectedPros = Set.of(ReviewPoint.of("pros 1"), ReviewPoint.of("pros 2"));
         final var expectedCons = Set.of(ReviewPoint.of("cons 1"));
         final var expectedNow = InstantUtils.now();
+        final var expectedType = ProductType.PRODUCT;
+        final var expectedSource = "any";
 
-        final var expectedReview = new ReviewBuilder(expectedTitle, expectedComment, expectedUserId)
+        final var expectedReview = new ReviewBuilder(expectedTitle,
+                expectedComment,
+                expectedUserId,
+                expectedType,
+                expectedSource,
+                Rating.newRating(expectedRating)
+        )
                 .withId(expectedReviewId)
                 .withActive(true)
                 .withPositivePoints(expectedPros)
                 .withNegativePoints(expectedCons)
                 .withStatus(ReviewStatus.IN_ANALYSIS)
-                .withRating(expectedRating)
                 .withCreatedAt(expectedNow)
                 .withUpdatedAt(expectedNow)
                 .withDeletedAt(expectedNow)
@@ -70,13 +93,16 @@ public class ReviewTest {
         Assertions.assertEquals(expectedReview.getId(), expectedReviewId);
         Assertions.assertEquals(expectedReview.getUserId(), expectedUserId);
         Assertions.assertEquals(expectedReview.getTitle(), expectedTitle);
-        Assertions.assertEquals(expectedReview.getComment(), expectedComment);
+        Assertions.assertEquals(expectedReview.getSummary(), expectedComment);
         Assertions.assertTrue(expectedReview.isActive());
         Assertions.assertEquals(expectedReview.getCreatedAt(), expectedNow);
         Assertions.assertEquals(expectedReview.getUpdatedAt(), expectedNow);
         Assertions.assertEquals(expectedReview.getDeletedAt(), expectedNow);
-        Assertions.assertEquals(expectedReview.getRating(), expectedRating);
-        Assertions.assertEquals(expectedReview.getRating().getValue(), expectedRatingLiteralValue);
+
+        Assertions.assertEquals(expectedReview.getRating().getOverallRating(), expectedRating);
+        Assertions.assertNull(expectedReview.getRating().getSupportResponseTimeRating());
+        Assertions.assertNull(expectedReview.getRating().getAfterSalesServiceRating());
+
         Assertions.assertEquals(expectedReview.getStatus(), ReviewStatus.IN_ANALYSIS);
         Assertions.assertEquals(expectedReview.getPositivePoints(), expectedPros);
         Assertions.assertEquals(expectedReview.getNegativePoints(), expectedCons);
@@ -86,7 +112,9 @@ public class ReviewTest {
     @Test
     public void giveAnActiveReview_whenDeactivate_shouldUpdateIsActiveToFalse() {
 
-        final var expectedReview = new ReviewBuilder("some description", "some comment", UserId.unique())
+        final var expectedReview = new ReviewBuilder("some description", "some comment", UserId.unique(),
+                ProductType.SERVICE,
+                "source", Rating.newRating(RatingOptions.RA_1))
                 .withActive(true)
                 .build();
 
@@ -99,8 +127,9 @@ public class ReviewTest {
     @Test
     public void giveAnInActiveReview_whenActivate_shouldUpdateIsActiveToTrue() {
 
-        final var expectedReview = new ReviewBuilder("some description", "some comment", UserId.unique())
-                .build();
+        final var expectedReview = new ReviewBuilder("some description", "some comment", UserId.unique(),
+                ProductType.SERVICE,
+                "source",Rating.newRating(RatingOptions.RA_1)).build();
 
         expectedReview.activate();
 
@@ -114,15 +143,17 @@ public class ReviewTest {
 
         final var expectedActualComment = "some comment";
         final var expectedUpdatedComment = "some comment updated";
-        final var expectedReview = new ReviewBuilder("some description", expectedActualComment, UserId.unique())
+        final var expectedType = ProductType.PRODUCT;
+        final var expectedSource = "any";
+        final var expectedReview = new ReviewBuilder("some description", expectedActualComment, UserId.unique(), expectedType, expectedSource,Rating.newRating(RatingOptions.RA_1))
                 .withActive(true)
                 .build();
 
-        Assertions.assertEquals(expectedReview.getComment(), expectedActualComment);
+        Assertions.assertEquals(expectedReview.getSummary(), expectedActualComment);
 
-        expectedReview.changeComment(expectedUpdatedComment);
+        expectedReview.updateSummary(expectedUpdatedComment);
 
-        Assertions.assertEquals(expectedReview.getComment(), expectedUpdatedComment);
+        Assertions.assertEquals(expectedReview.getSummary(), expectedUpdatedComment);
         Assertions.assertTrue(expectedReview.getCreatedAt().isBefore(expectedReview.getUpdatedAt()));
         Assertions.assertNull(expectedReview.getDeletedAt());
     }
@@ -132,12 +163,14 @@ public class ReviewTest {
 
         final var expectedActualComment = "some comment updated";
         final var expectedError = new Error("Os comentários não podem ser alterados para avaliações inativas");
-        final var expectedReview = new ReviewBuilder("some description", expectedActualComment, UserId.unique())
-                .build();
+        final var expectedType = ProductType.PRODUCT;
+        final var expectedSource = "any";
+        final var expectedReview = new ReviewBuilder("some description", expectedActualComment, UserId.unique(),
+                expectedType, expectedSource, Rating.newRating(RatingOptions.RA_1)).build();
 
-        expectedReview.changeComment(expectedActualComment);
+        expectedReview.updateSummary(expectedActualComment);
 
-        Assertions.assertEquals(expectedReview.getComment(), expectedActualComment);
+        Assertions.assertEquals(expectedReview.getSummary(), expectedActualComment);
         Assertions.assertNull(expectedReview.getDeletedAt());
         Assertions.assertTrue(expectedReview.getNotification().hasError());
         Assertions.assertEquals(expectedReview.getNotification().getFirstError().message(), expectedError.message());
@@ -148,13 +181,15 @@ public class ReviewTest {
 
         final var expectedActualTitle = "some title";
         final var expectedUpdatedTitle = "some title updated";
-        final var expectedReview = new ReviewBuilder("some title", expectedActualTitle, UserId.unique())
+        final var expectedType = ProductType.PRODUCT;
+        final var expectedSource = "any";
+        final var expectedReview = new ReviewBuilder("some title", expectedActualTitle, UserId.unique(), expectedType, expectedSource,Rating.newRating(RatingOptions.RA_1))
                 .withActive(true)
                 .build();
 
         Assertions.assertEquals(expectedReview.getTitle(), expectedActualTitle);
 
-        expectedReview.changeTitle(expectedUpdatedTitle);
+        expectedReview.updateTitle(expectedUpdatedTitle);
 
         Assertions.assertEquals(expectedReview.getTitle(), expectedUpdatedTitle);
         Assertions.assertTrue(expectedReview.getCreatedAt().isBefore(expectedReview.getUpdatedAt()));
@@ -163,11 +198,13 @@ public class ReviewTest {
 
     @Test
     public void giveAnActiveReview_whenChangeStatus_shouldUpdate() {
-        final var expectedReview = new ReviewBuilder("some title", "any", UserId.unique())
+        final var expectedType = ProductType.PRODUCT;
+        final var expectedSource = "any";
+        final var expectedReview = new ReviewBuilder("some title", "any", UserId.unique(), expectedType, expectedSource,Rating.newRating(RatingOptions.RA_1))
                 .withActive(true)
                 .build();
 
-        expectedReview.changeStatus(ReviewStatus.APPROVED);
+        expectedReview.updateReviewStatus(ReviewStatus.APPROVED);
 
         Assertions.assertEquals(expectedReview.getStatus(), ReviewStatus.APPROVED);
         Assertions.assertTrue(expectedReview.getCreatedAt().isBefore(expectedReview.getUpdatedAt()));
@@ -176,15 +213,20 @@ public class ReviewTest {
 
     @Test
     public void giveAnActiveReview_whenChangeRating_shouldUpdate() {
-        final var expectedReview = new ReviewBuilder("some title", "any", UserId.unique())
+        final var expectedType = ProductType.PRODUCT;
+        final var expectedSource = "any";
+        final var expectedReview = new ReviewBuilder("some title", "any",
+                UserId.unique(), expectedType, expectedSource,Rating.newRating(RatingOptions.RA_1))
                 .withActive(true)
                 .build();
 
-        Assertions.assertNull(expectedReview.getRating());
+        Assertions.assertEquals(expectedReview.getRating().getOverallRating(),RatingOptions.RA_1);
+        Assertions.assertNull(expectedReview.getRating().getSupportResponseTimeRating());
+        Assertions.assertNull(expectedReview.getRating().getAfterSalesServiceRating());
 
-        expectedReview.changeRating(Rating.RA_1);
+        expectedReview.updateOverallRating(RatingOptions.RA_2);
 
-        Assertions.assertEquals(expectedReview.getRating(), Rating.RA_1);
+        Assertions.assertEquals(expectedReview.getRating().getOverallRating(), RatingOptions.RA_2);
         Assertions.assertTrue(expectedReview.getCreatedAt().isBefore(expectedReview.getUpdatedAt()));
         Assertions.assertNull(expectedReview.getDeletedAt());
     }
@@ -192,12 +234,14 @@ public class ReviewTest {
     @Test
     public void giveAnActiveReview_whenAddPositivePoints_shouldUpdate() {
         final var expectedPoints = Set.of(ReviewPoint.of("pos 1"), ReviewPoint.of("pos 2"));
+        final var expectedType = ProductType.PRODUCT;
+        final var expectedSource = "any";
 
-        final var expectedReview = new ReviewBuilder("some title", "any", UserId.unique())
+        final var expectedReview = new ReviewBuilder("some title", "any", UserId.unique(), expectedType, expectedSource,Rating.newRating(RatingOptions.RA_1))
                 .withActive(true)
                 .build();
 
-        expectedPoints.forEach(expectedReview::addPositivePoints);
+        expectedPoints.forEach(expectedReview::addPositivePoint);
 
         Assertions.assertEquals(expectedReview.getPositivePoints(), expectedPoints);
         Assertions.assertTrue(expectedReview.getCreatedAt().isBefore(expectedReview.getUpdatedAt()));
@@ -206,10 +250,12 @@ public class ReviewTest {
 
     @Test
     public void giveAnActiveReview_whenRemovePositivePoints_shouldUpdate() {
+        final var expectedType = ProductType.PRODUCT;
+        final var expectedSource = "any";
         final var expectedDefaultPoints = Set.of(ReviewPoint.of("pos 1"), ReviewPoint.of("pos 2"));
         final var expectedActualPoints = Set.of(ReviewPoint.of("pos 2"));
 
-        final var expectedReview = new ReviewBuilder("some title", "any", UserId.unique())
+        final var expectedReview = new ReviewBuilder("some title", "any", UserId.unique(), expectedType, expectedSource,Rating.newRating(RatingOptions.RA_1))
                 .withActive(true)
                 .withPositivePoints(expectedDefaultPoints)
                 .build();
@@ -226,9 +272,11 @@ public class ReviewTest {
 
     @Test
     public void giveAnActiveReview_whenAddNegativePoints_shouldUpdate() {
+        final var expectedType = ProductType.PRODUCT;
+        final var expectedSource = "any";
         final var expectedPoints = Set.of(ReviewPoint.of("pos 1"), ReviewPoint.of("pos 2"));
 
-        final var expectedReview = new ReviewBuilder("some title", "any", UserId.unique())
+        final var expectedReview = new ReviewBuilder("some title", "any", UserId.unique(), expectedType, expectedSource,Rating.newRating(RatingOptions.RA_1))
                 .withActive(true)
                 .build();
 
@@ -243,8 +291,10 @@ public class ReviewTest {
     public void giveAnActiveReview_whenRemoveNegativePoints_shouldUpdate() {
         final var expectedDefaultPoints = Set.of(ReviewPoint.of("pos 1"), ReviewPoint.of("pos 2"));
         final var expectedActualPoints = Set.of(ReviewPoint.of("pos 2"));
+        final var expectedType = ProductType.PRODUCT;
+        final var expectedSource = "any";
 
-        final var expectedReview = new ReviewBuilder("some title", "any", UserId.unique())
+        final var expectedReview = new ReviewBuilder("some title", "any", UserId.unique(),expectedType,  expectedSource,Rating.newRating(RatingOptions.RA_1))
                 .withActive(true)
                 .withNegativePoints(expectedDefaultPoints)
                 .build();
@@ -260,7 +310,9 @@ public class ReviewTest {
     }
 
     @Test
-    public void giveAnInvalidReview_whenCallsValidate_shouldNotificaiton() {
+    public void giveAnInvalidReview_whenCallsValidate_shouldHaveNotificationError() {
+        final var expectedType = ProductType.PRODUCT;
+        final var expectedSource = "any";
         final var expectedPositivePoints = Set.of(ReviewPoint.of("11111111111111111111111111111111111"));
         final var expectedPositivePointsError = List.of(
                 new Error("Review não pode exceder 30 caracteres"),
@@ -270,14 +322,14 @@ public class ReviewTest {
                 new Error("'comentario' deve ter entre 3 e 255 caracteres")
         );
 
-        final var expectedReview = new ReviewBuilder("", "", UserId.unique())
+        final var expectedReview = new ReviewBuilder("", "", UserId.unique(), expectedType, expectedSource,Rating.newRating(RatingOptions.RA_1))
                 .withActive(true)
                 .withPositivePoints(expectedPositivePoints)
                 .build();
 
         Assertions.assertTrue(expectedReview.getNotification().hasError());
         Assertions.assertEquals(
-                new HashSet<>(expectedReview.getNotification().getErrors()) ,
+                new HashSet<>(expectedReview.getNotification().getErrors()),
                 new HashSet<>(expectedPositivePointsError));
     }
 }

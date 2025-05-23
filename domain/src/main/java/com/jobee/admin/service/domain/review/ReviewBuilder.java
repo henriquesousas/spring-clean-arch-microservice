@@ -1,7 +1,9 @@
 package com.jobee.admin.service.domain.review;
 
-import com.jobee.admin.service.domain.review.enums.Rating;
+import com.jobee.admin.service.domain.review.enums.ProductType;
+import com.jobee.admin.service.domain.review.enums.RatingOptions;
 import com.jobee.admin.service.domain.review.enums.ReviewStatus;
+import com.jobee.admin.service.domain.review.valueobjects.LinkSite;
 import com.jobee.admin.service.domain.review.valueobjects.ReviewId;
 import com.jobee.admin.service.domain.review.valueobjects.ReviewPoint;
 import com.jobee.admin.service.domain.user.valueobjects.UserId;
@@ -20,6 +22,8 @@ public class ReviewBuilder {
     private final String title;
     private final String comment;
     private final UserId userId;
+    private final ProductType type;
+    private final String source;
     private Set<ReviewPoint> positivePoints;
     private Set<ReviewPoint> negativePoints;
     private ReviewStatus status;
@@ -29,15 +33,29 @@ public class ReviewBuilder {
     private Instant updatedAt;
     private Instant deletedAt;
     private Instant verifiedAt;
+    private Boolean recommends;
+    private boolean isVerified;
+    private LinkSite reclameAquiUrl;
 
-    public ReviewBuilder(String title, String comment, UserId userId) {
+    public ReviewBuilder(
+            String title,
+            String comment,
+            UserId userId,
+            ProductType type,
+            String source,
+            Rating rating
+    ) {
         this.userId = Objects.requireNonNull(userId);
         this.title = Objects.requireNonNull(title);
         this.comment = Objects.requireNonNull(comment);
+        this.source = Objects.requireNonNull(source);
+        this.rating = rating;
         this.positivePoints = Collections.unmodifiableSet(new HashSet<>());
         this.negativePoints = Collections.unmodifiableSet(new HashSet<>());
         this.status = ReviewStatus.PENDING;
         this.isActive = false;
+        this.isVerified = false;
+        this.type = type;
         this.createdAt = Instant.now();
         this.updatedAt = Instant.now();
     }
@@ -62,10 +80,10 @@ public class ReviewBuilder {
         return this;
     }
 
-    public ReviewBuilder withRating(Rating rating) {
-        this.rating = rating;
-        return this;
-    }
+//    public ReviewBuilder withRating(RatingOptions overallRating) {
+//        this.rating = Rating.newRating(overallRating);
+//        return this;
+//    }
 
     public ReviewBuilder withCreatedAt(Instant createdAt) {
         this.createdAt = createdAt;
@@ -89,6 +107,21 @@ public class ReviewBuilder {
 
     public ReviewBuilder withActive(boolean isActive) {
         this.isActive = isActive;
+        return this;
+    }
+
+    public ReviewBuilder withIsVerified(boolean isVerified) {
+        this.isVerified = isVerified;
+        return this;
+    }
+
+    public ReviewBuilder withIsRecommend(boolean recommend) {
+        this.recommends = recommend;
+        return this;
+    }
+
+    public ReviewBuilder withReclameAquiUrl(String url) {
+        this.reclameAquiUrl = LinkSite.from(url);
         return this;
     }
 

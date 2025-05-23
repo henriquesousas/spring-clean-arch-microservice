@@ -14,6 +14,4 @@ public abstract class ValueObject<T> {
     protected abstract void selfValidate() ;
 
     public abstract T getValue();
-
-
 }
