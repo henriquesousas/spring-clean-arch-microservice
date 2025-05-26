@@ -4,7 +4,6 @@ import com.jobee.admin.service.domain.review.enums.ProductType;
 import com.jobee.admin.service.domain.review.enums.RatingOptions;
 import com.jobee.admin.service.domain.review.enums.ReviewStatus;
 import com.jobee.admin.service.domain.review.valueobjects.ReviewId;
-import com.jobee.admin.service.domain.review.valueobjects.Feedback;
 import com.jobee.admin.service.domain.shared.utils.InstantUtils;
 import com.jobee.admin.service.domain.user.valueobjects.UserId;
 import org.junit.jupiter.api.Assertions;
@@ -45,13 +44,13 @@ public class ReviewCreationTest {
         Assertions.assertNull(expectedReview.getRating().getAfterSalesServiceRating());
 
         Assertions.assertEquals(expectedReview.getStatus(), ReviewStatus.PENDING);
-        Assertions.assertEquals(expectedReview.getPositiveFeedbacks().size(), 0);
-        Assertions.assertEquals(expectedReview.getNegativeFeedbacks().size(), 0);
+        Assertions.assertEquals(expectedReview.getNotes().getPositives().size(), 0);
+        Assertions.assertEquals(expectedReview.getNotes().getNegatives().size(), 0);
 
         Assertions.assertEquals(expectedReview.getProductType(), expectedType);
         Assertions.assertEquals(expectedReview.getPurchaseSource(), expectedSource);
         Assertions.assertNull(expectedReview.getRecommends());
-        Assertions.assertNull(expectedReview.getReclameAquiUrl());
+        Assertions.assertNull(expectedReview.getUrlReclameAqui());
     }
 
     @Test
@@ -62,8 +61,8 @@ public class ReviewCreationTest {
         final var expectedTitle = "some description";
         final var expectedComment = "some comment";
         final var expectedRating = RatingOptions.RA_5;
-        final var expectedPros = Set.of(Feedback.of("pros 1"), Feedback.of("pros 2"));
-        final var expectedCons = Set.of(Feedback.of("cons 1"));
+        final var expectedPositive = Set.of("note1", "note2");
+        final var expectedNegative = Set.of("note1", "note2");
         final var expectedNow = InstantUtils.now();
         final var expectedType = ProductType.PRODUCT;
         final var expectedSource = "any";
@@ -78,8 +77,7 @@ public class ReviewCreationTest {
         )
                 .withId(expectedReviewId)
                 .withActive(true)
-                .withPositivePoints(expectedPros)
-                .withNegativePoints(expectedCons)
+                .withNotes(expectedPositive, expectedNegative)
                 .withStatus(ReviewStatus.IN_ANALYSIS)
                 .withCreatedAt(expectedNow)
                 .withUpdatedAt(expectedNow)
@@ -104,9 +102,9 @@ public class ReviewCreationTest {
         Assertions.assertNull(expectedReview.getRating().getAfterSalesServiceRating());
 
         Assertions.assertEquals(expectedReview.getStatus(), ReviewStatus.IN_ANALYSIS);
-        Assertions.assertEquals(expectedReview.getPositiveFeedbacks(), expectedPros);
-        Assertions.assertEquals(expectedReview.getNegativeFeedbacks(), expectedCons);
-        Assertions.assertEquals(expectedReview.getReclameAquiUrl().getValue(), expectedUrl);
+        Assertions.assertEquals(expectedReview.getNotes().getPositives(), expectedPositive);
+        Assertions.assertEquals(expectedReview.getNotes().getNegatives(), expectedPositive);
+        Assertions.assertEquals(expectedReview.getUrlReclameAqui().getValue(), expectedUrl);
         Assertions.assertTrue(expectedReview.getRecommends());
         Assertions.assertTrue(expectedReview.isVerified());
 

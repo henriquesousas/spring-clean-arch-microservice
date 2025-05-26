@@ -10,7 +10,6 @@ import java.util.Objects;
 public class LinkSite extends ValueObject<String> {
 
     private final String value;
-
     private LinkSite(String value) {
         this.value = Objects.requireNonNull(value);
         selfValidate();

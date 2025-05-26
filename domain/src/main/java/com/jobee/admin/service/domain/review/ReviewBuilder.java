@@ -4,13 +4,11 @@ import com.jobee.admin.service.domain.review.enums.ProductType;
 import com.jobee.admin.service.domain.review.enums.ReviewStatus;
 import com.jobee.admin.service.domain.review.valueobjects.LinkSite;
 import com.jobee.admin.service.domain.review.valueobjects.ReviewId;
-import com.jobee.admin.service.domain.review.valueobjects.Feedback;
+import com.jobee.admin.service.domain.review.valueobjects.Notes;
 import com.jobee.admin.service.domain.user.valueobjects.UserId;
 import lombok.Getter;
 
 import java.time.Instant;
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -23,10 +21,9 @@ public class ReviewBuilder {
     private final UserId userId;
     private final ProductType type;
     private final String source;
-    private Set<Feedback> positivePoints;
-    private Set<Feedback> negativePoints;
+    private Notes notes;
     private ReviewStatus status;
-    private Rating rating;
+    private final Rating rating;
     private boolean isActive;
     private Instant createdAt;
     private Instant updatedAt;
@@ -49,8 +46,7 @@ public class ReviewBuilder {
         this.comment = Objects.requireNonNull(comment);
         this.source = Objects.requireNonNull(source);
         this.rating = rating;
-        this.positivePoints = Collections.unmodifiableSet(new HashSet<>());
-        this.negativePoints = Collections.unmodifiableSet(new HashSet<>());
+        this.notes = Notes.newNote();
         this.status = ReviewStatus.PENDING;
         this.isActive = false;
         this.isVerified = false;
@@ -64,13 +60,8 @@ public class ReviewBuilder {
         return this;
     }
 
-    public ReviewBuilder withPositivePoints(Set<Feedback> point) {
-        this.positivePoints = new HashSet<>(point);
-        return this;
-    }
-
-    public ReviewBuilder withNegativePoints(Set<Feedback> point) {
-        this.negativePoints = new HashSet<>(point);
+    public ReviewBuilder withNotes(Set<String> positive, Set<String> negative) {
+        this.notes = Notes.newNote(positive, negative);
         return this;
     }
 
