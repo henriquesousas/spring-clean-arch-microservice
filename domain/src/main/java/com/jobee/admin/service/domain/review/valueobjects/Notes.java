@@ -9,6 +9,7 @@ import java.util.Objects;
 import java.util.Set;
 
 
+//TODO: Refactor
 public class Notes extends ValueObject<Notes> {
 
     private static final int MAX_LENGTH = 30;
