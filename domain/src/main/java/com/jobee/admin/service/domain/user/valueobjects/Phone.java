@@ -22,7 +22,6 @@ public class Phone extends ValueObject<String> {
         return new Phone(value);
     }
 
-    @Override
     protected void selfValidate() {
         final var isValid = value != null && CELULAR_PATTERN.matcher(value).matches();
         if (!isValid) {

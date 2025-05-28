@@ -40,7 +40,7 @@ public class CategoryId extends Identifier {
                 .toList();
     }
 
-    @Override
+
     protected void selfValidate() {
 
         if (value == null || value.isEmpty()) {

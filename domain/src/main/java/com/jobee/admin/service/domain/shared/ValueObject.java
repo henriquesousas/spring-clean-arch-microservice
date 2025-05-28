@@ -11,10 +11,8 @@ public abstract class ValueObject<T> {
         this.notification = Notification.create();
     }
 
-    protected abstract void selfValidate() ;
+//    protected abstract void selfValidate() ;
 
     public abstract T getValue();
-
-
 
 }

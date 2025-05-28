@@ -1,7 +1,7 @@
 package com.jobee.admin.service.domain.review;
 
 import com.github.javafaker.Faker;
-import com.jobee.admin.service.domain.review.enums.ProductType;
+import com.jobee.admin.service.domain.review.enums.Type;
 import com.jobee.admin.service.domain.review.enums.RatingOptions;
 import com.jobee.admin.service.domain.user.valueobjects.UserId;
 
@@ -26,8 +26,8 @@ public class Fixture {
         return UserId.unique();
     }
 
-    public static ProductType productType() {
-        return FAKER.options().option(ProductType.PRODUCT, ProductType.SERVICE);
+    public static Type productType() {
+        return FAKER.options().option(Type.PRODUCT, Type.SERVICE);
     }
 
     public static RatingOptions afterSaleServiceRating() {
@@ -37,13 +37,13 @@ public class Fixture {
     public static RatingOptions supportTimeResponseRating() {
         return FAKER.options().option(RatingOptions.values());
     }
-
-    public static Review review() {
-        return new ReviewBuilder(
-                lorem(),
-                summary(),
-                userId(),
-                productType(),
-                lorem(), Rating.newRating(RatingOptions.RA_1)).build();
-    }
+//
+//    public static Review review() {
+//        return new ReviewBuilder(
+//                lorem(),
+//                summary(),
+//                userId(),
+//                productType(),
+//                lorem(), Ratings.newRating(RatingOptions.RA_1)).build();
+//    }
 }

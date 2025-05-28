@@ -5,13 +5,16 @@ import com.jobee.admin.service.domain.shared.validation.Error;
 import com.jobee.admin.service.domain.shared.validation.ValidationHandler;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+//TODO: Change List to Hashset
 public class Notification implements ValidationHandler {
-    private final List<Error> errors;
+    private  Set<Error> errors;
 
     private Notification() {
-        this.errors = new ArrayList<>();
+        this.errors = new HashSet<>();
     }
 
     public static Notification create() {
@@ -41,6 +44,6 @@ public class Notification implements ValidationHandler {
 
     @Override
     public List<Error> getErrors() {
-        return errors;
+        return errors.stream().toList();
     }
 }

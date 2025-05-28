@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.Optional;
 
 @Getter
-public enum RatingOptions {
+public enum     RatingOptions {
 
     RA_1(1),
     RA_2(2),

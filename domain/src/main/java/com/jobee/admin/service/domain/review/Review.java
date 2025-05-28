@@ -1,11 +1,12 @@
 package com.jobee.admin.service.domain.review;
 
-import com.jobee.admin.service.domain.review.enums.ProductType;
+import com.jobee.admin.service.domain.review.enums.Type;
 import com.jobee.admin.service.domain.review.enums.RatingOptions;
-import com.jobee.admin.service.domain.review.enums.ReviewStatus;
-import com.jobee.admin.service.domain.review.valueobjects.LinkSite;
-import com.jobee.admin.service.domain.review.valueobjects.ReviewId;
-import com.jobee.admin.service.domain.review.valueobjects.Notes;
+import com.jobee.admin.service.domain.review.enums.Status;
+import com.jobee.admin.service.domain.review.valueobjects.*;
+import com.jobee.admin.service.domain.review.valueobjects.points.StrongPoints;
+import com.jobee.admin.service.domain.review.valueobjects.points.WeakPoints;
+import com.jobee.admin.service.domain.review.valueobjects.rating.Ratings;
 import com.jobee.admin.service.domain.shared.AggregateRoot;
 import com.jobee.admin.service.domain.shared.utils.InstantUtils;
 import com.jobee.admin.service.domain.shared.validation.Error;
@@ -20,18 +21,19 @@ import java.util.Objects;
 @Getter
 public class Review extends AggregateRoot<ReviewId> {
 
-    private final UserId userId;
     private String title;
     private String summary;
-    private final Notes notes;
-    private ReviewStatus status;
-    private Rating rating;
-    private final ProductType productType;
-    private LinkSite urlReclameAqui;
-    private String purchaseSource;
+    private WeakPoints weakPoints;
+    private StrongPoints strongPoints;
+    private Status status;
+    private Ratings ratings;
+    private UrlReclameAqui url;
+    private String boughtFrom;
+    private boolean isActive;
+    private final Type type;
     private final Boolean recommends;
     private final boolean isVerified;
-    private boolean isActive;
+    private final UserId userId;
     private final Instant createdAt;
     private Instant updatedAt;
     private Instant deletedAt;
@@ -42,11 +44,10 @@ public class Review extends AggregateRoot<ReviewId> {
             UserId userId,
             String title,
             String summary,
-            Notes notes,
-            ReviewStatus status,
-            Rating rating,
-            ProductType productType,
-            LinkSite urlReclameAqui,
+            Status status,
+            Ratings rating,
+            Type productType,
+            UrlReclameAqui urlReclameAqui,
             String purchaseSource,
             Boolean recommends,
             boolean isVerified,
@@ -59,14 +60,13 @@ public class Review extends AggregateRoot<ReviewId> {
         this.userId = userId;
         this.title = title;
         this.summary = summary;
-        this.notes = notes;
         this.status = status;
-        this.rating = rating;
-        this.purchaseSource = purchaseSource;
+
+        this.boughtFrom = purchaseSource;
         this.isVerified = isVerified;
-        this.urlReclameAqui = urlReclameAqui;
+        this.url = urlReclameAqui;
         this.recommends = recommends;
-        this.productType = productType;
+        this.type = productType;
         this.isActive = isActive;
         this.createdAt = Objects.requireNonNullElse(createdAt, InstantUtils.now());
         this.updatedAt = Objects.requireNonNullElse(updatedAt, InstantUtils.now());
@@ -74,27 +74,24 @@ public class Review extends AggregateRoot<ReviewId> {
         validate(notification);
     }
 
-
-    public static Review newReview(ReviewBuilder builder) {
-        return new Review(
-                builder.getReviewId(),
-                builder.getUserId(),
-                builder.getTitle(),
-                builder.getComment(),
-                builder.getNotes(),
-                builder.getStatus(),
-                builder.getRating(),
-                builder.getType(),
-                builder.getReclameAquiUrl(),
-                builder.getSource(),
-                builder.getRecommends(),
-                builder.isVerified(),
-                builder.isActive(),
-                builder.getCreatedAt(),
-                builder.getUpdatedAt(),
-                builder.getDeletedAt()
-        );
+    public static Review newReview(ReviewBuilder builder){
+        throw  new RuntimeException();
     }
+//    public static Review newReview(ReviewBuilder builder) {
+//        return new Review(
+//                builder.getReviewId(),
+//                builder.getUserId(),
+//                builder.getTitle(),
+//                builder.getComment(),
+//
+//                builder.getRecommends(),
+//                builder.isVerified(),
+//                builder.isActive(),
+//                builder.getCreatedAt(),
+//                builder.getUpdatedAt(),
+//                builder.getDeletedAt()
+//        );
+//    }
 
     public void activate() {
         if (isActive()) return;
@@ -112,90 +109,95 @@ public class Review extends AggregateRoot<ReviewId> {
         this.deletedAt = InstantUtils.now();
     }
 
-    public void updatePurchaseSource(String newSource) {
+    public void changePurchaseSource(String newSource) {
         if (failIfInactive("Fonte de compra não pode ser alterado com uma avaliação inativa")) return;
 
-        this.purchaseSource = newSource;
+        this.boughtFrom = newSource;
         this.updatedAt = InstantUtils.now();
     }
 
-    public void updateSummary(final String newSummary) {
+    public void changeSummary(final String newSummary) {
         if (failIfInactive("Os comentários não podem ser alterados para avaliações inativas")) return;
 
         this.summary = newSummary;
         this.updatedAt = InstantUtils.now();
     }
 
-    public void updateTitle(final String newTitle) {
+    public void changeTitle(final String newTitle) {
         if (failIfInactive("Titúlo não pode ser alterado em uma avaliação inativa")) return;
 
         this.title = newTitle;
         this.updatedAt = InstantUtils.now();
     }
 
-    public void updateReviewStatus(final ReviewStatus status) {
+    public void changeStatus(final Status status) {
         if (failIfInactive("Status não pode ser alterado em uma avaliação inativa")) return;
 
         this.status = status;
         this.updatedAt = InstantUtils.now();
     }
 
-    public void updateRating(
+    public void changeRating(
             RatingOptions overall,
             RatingOptions support,
             RatingOptions afterSales
     ) {
-        if (failIfInactive("Rating não pode ser alterado em uma avaliação inativa")) return;
-
-        this.rating = Rating.newRating(overall, support, afterSales);
-        this.updatedAt = InstantUtils.now();
+//        if (failIfInactive("Rating não pode ser alterado em uma avaliação inativa")) return;
+//
+//        this.rating = Ratings.newRating(overall, support, afterSales);
+//        this.updatedAt = InstantUtils.now();
     }
 
-    public void updateOverallRating(RatingOptions overall) {
-        updateRating(overall, rating.getSupportResponseTimeRating(), rating.getAfterSalesServiceRating());
+    public void changeOverallRating(RatingOptions overall) {
+//        changeRating(overall, rating.getSupportRating(), rating.getAfterSallestRating());
     }
 
+    //TODO: Refactor
     public void addPositiveNote(final String newNote) {
-        if (failIfInactive("Review inativo não pode adicionar pontos positivos")) return;
-
-        this.notes.addPositive(newNote);
-        if (!this.notes.getNotification().hasError()) {
-            this.updatedAt = InstantUtils.now();
-        }
+//        if (failIfInactive("Review inativo não pode adicionar pontos positivos")) return;
+//
+//        this.notes.addPositive(newNote);
+//        if (!this.notes.getNotification().hasError()) {
+//            this.updatedAt = InstantUtils.now();
+//        }
     }
 
+    //TODO: Refactor
     public void addNegativeNote(String newNote) {
-        if (failIfInactive("Review inativo não pode remover pontos negativos")) return;
-
-        this.notes.addNegative(newNote);
-        if (!this.notes.getNotification().hasError()) {
-            this.updatedAt = InstantUtils.now();
-        }
+//        if (failIfInactive("Review inativo não pode remover pontos negativos")) return;
+//
+//        this.notes.addNegative(newNote);
+//        if (!this.notes.getNotification().hasError()) {
+//            this.updatedAt = InstantUtils.now();
+//        }
     }
 
+    //TODO: Refactor
     public void removePositiveNote(final String note) {
-        if (failIfInactive("Review inativo não pode remover pontos positivos")) return;
-
-        this.notes.removePositive(note);
-        if (!this.notes.getNotification().hasError()) {
-            this.updatedAt = InstantUtils.now();
-        }
+//        if (failIfInactive("Review inativo não pode remover pontos positivos")) return;
+//
+//        this.notes.removePositive(note);
+//        if (!this.notes.getNotification().hasError()) {
+//            this.updatedAt = InstantUtils.now();
+//        }
     }
 
+    //TODO: Refactor
     public void removeNegativeNote(String note) {
-        if (failIfInactive("Review inativo não pode remover pontos negativos")) return;
-
-        this.notes.removeNegative(note);
-        if (!this.notes.getNotification().hasError()) {
-            this.updatedAt = InstantUtils.now();
-        }
+//        if (failIfInactive("Review inativo não pode remover pontos negativos")) return;
+//
+//        this.notes.removeNegative(note);
+//        if (!this.notes.getNotification().hasError()) {
+//            this.updatedAt = InstantUtils.now();
+//        }
     }
 
+    //TODO: Refactor
     public void addUrlReclameAqui(String url) {
         if (failIfInactive("Review inátivo não pode adicionar links.")) return;
 
-        this.urlReclameAqui = LinkSite.from(url);
-        if (this.urlReclameAqui.getNotification().hasError()) {
+        this.url = UrlReclameAqui.from(url);
+        if (this.url.getNotification().hasError()) {
             this.updatedAt = InstantUtils.now();
         }
     }

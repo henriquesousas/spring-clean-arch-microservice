@@ -5,6 +5,7 @@ import com.jobee.admin.service.domain.shared.exceptions.DomainException;
 import com.jobee.admin.service.domain.shared.validation.handler.Notification;
 
 import java.util.List;
+import java.util.Set;
 
 public interface ValidationHandler {
 
@@ -22,7 +23,7 @@ public interface ValidationHandler {
 
     default Error getFirstError() {
         if (getErrors() != null && !getErrors().isEmpty()) {
-            return getErrors().get(0);
+            return getErrors().stream().toList().get(0);
         }
         return null;
     }

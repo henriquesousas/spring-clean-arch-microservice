@@ -22,7 +22,7 @@ public class Email extends ValueObject<String> {
         return new Email(value);
     }
 
-    @Override
+
     protected void selfValidate() {
         final var isValid =  this.value != null && EMAIL_PATTERN.matcher(this.value).matches();
         if(!isValid){

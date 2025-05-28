@@ -1,16 +1,15 @@
 package com.jobee.admin.service.domain.review;
 
-import com.jobee.admin.service.domain.review.enums.ProductType;
-import com.jobee.admin.service.domain.review.enums.ReviewStatus;
-import com.jobee.admin.service.domain.review.valueobjects.LinkSite;
+import com.jobee.admin.service.domain.review.enums.Type;
+import com.jobee.admin.service.domain.review.enums.Status;
+import com.jobee.admin.service.domain.review.valueobjects.UrlReclameAqui;
+import com.jobee.admin.service.domain.review.valueobjects.rating.Ratings;
 import com.jobee.admin.service.domain.review.valueobjects.ReviewId;
-import com.jobee.admin.service.domain.review.valueobjects.Notes;
 import com.jobee.admin.service.domain.user.valueobjects.UserId;
 import lombok.Getter;
 
 import java.time.Instant;
 import java.util.Objects;
-import java.util.Set;
 
 @Getter
 public class ReviewBuilder {
@@ -19,11 +18,10 @@ public class ReviewBuilder {
     private final String title;
     private final String comment;
     private final UserId userId;
-    private final ProductType type;
+    private final Type type;
     private final String source;
-    private Notes notes;
-    private ReviewStatus status;
-    private final Rating rating;
+    private Status status;
+    private final Ratings rating;
     private boolean isActive;
     private Instant createdAt;
     private Instant updatedAt;
@@ -31,23 +29,22 @@ public class ReviewBuilder {
     private Instant verifiedAt;
     private Boolean recommends;
     private boolean isVerified;
-    private LinkSite reclameAquiUrl;
+    private UrlReclameAqui reclameAquiUrl;
 
     public ReviewBuilder(
             String title,
             String comment,
             UserId userId,
-            ProductType type,
+            Type type,
             String source,
-            Rating rating
+            Ratings rating
     ) {
         this.userId = Objects.requireNonNull(userId);
         this.title = Objects.requireNonNull(title);
         this.comment = Objects.requireNonNull(comment);
         this.source = Objects.requireNonNull(source);
         this.rating = rating;
-        this.notes = Notes.newNote();
-        this.status = ReviewStatus.PENDING;
+        this.status = Status.PENDING;
         this.isActive = false;
         this.isVerified = false;
         this.type = type;
@@ -60,12 +57,12 @@ public class ReviewBuilder {
         return this;
     }
 
-    public ReviewBuilder withNotes(Set<String> positive, Set<String> negative) {
-        this.notes = Notes.newNote(positive, negative);
-        return this;
-    }
+//    public ReviewBuilder withNotes(Set<String> positive, Set<String> negative) {
+//        this.notes = Notes.newNote(positive, negative);
+//        return this;
+//    }
 
-    public ReviewBuilder withStatus(ReviewStatus status) {
+    public ReviewBuilder withStatus(Status status) {
         this.status = status;
         return this;
     }
@@ -106,7 +103,7 @@ public class ReviewBuilder {
     }
 
     public ReviewBuilder withReclameAquiUrl(String url) {
-        this.reclameAquiUrl = LinkSite.from(url);
+        this.reclameAquiUrl = UrlReclameAqui.from(url);
         return this;
     }
 

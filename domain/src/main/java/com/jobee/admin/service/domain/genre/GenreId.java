@@ -28,7 +28,7 @@ public class GenreId extends Identifier {
         return this.value;
     }
 
-    @Override
+
     protected void selfValidate() {
         if (this.value == null || this.value.isBlank()) {
             this.notification.append(new Error("GenreId cannot be null or empty"));

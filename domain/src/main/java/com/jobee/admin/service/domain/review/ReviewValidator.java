@@ -41,11 +41,11 @@ public class ReviewValidator extends Validator {
     }
 
     private void validateValueObjects() {
-        Stream.of(
-                this.review.getId().getNotification(),
-                this.review.getUserId().getNotification(),
-                this.review.getNotes().getNotification()
-        ).forEach(this::copyIfHasError);
+//        Stream.of(
+//                this.review.getId().getNotification(),
+//                this.review.getUserId().getNotification(),
+//                this.review.getNotes().getNotification()
+//        ).forEach(this::copyIfHasError);
     }
 
     private void copyIfHasError(Notification notification) {

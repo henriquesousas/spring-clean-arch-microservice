@@ -16,7 +16,7 @@ public class Role extends ValueObject<String> {
         return new Role(value);
     }
 
-    @Override
+
     protected void selfValidate() {
         final var role = RoleType.of(value);
         if (role.isEmpty()) {

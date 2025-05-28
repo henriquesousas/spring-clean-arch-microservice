@@ -24,7 +24,7 @@ public class UserId extends Identifier {
     }
 
 
-    @Override
+
     protected void selfValidate() {
         if (this.value == null || this.value.isBlank()) {
             this.notification.append(new Error("UserId cannot be null or empty"));

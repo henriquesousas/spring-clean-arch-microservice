@@ -23,7 +23,7 @@ public class ReviewId extends Identifier {
         return new ReviewId(value);
     }
 
-    @Override
+
     protected void selfValidate() {
         if (this.value == null || this.value.isBlank()) {
             this.notification.append(new Error("ReviewId cannot be null or empty"));

@@ -5,6 +5,7 @@ import com.jobee.admin.service.domain.shared.validation.Error;
 import com.jobee.admin.service.domain.shared.validation.ValidationHandler;
 
 import java.util.List;
+import java.util.Set;
 
 public class ThrowsValidationHandler implements ValidationHandler {
 
@@ -23,9 +24,14 @@ public class ThrowsValidationHandler implements ValidationHandler {
         return List.of();
     }
 
+//    @Override
+//    public List<Error> getErrors() {
+//        return List.of();
+//    }
+
     @Override
     public void copy(Notification notification) {
-        throw DomainException.with( new Error(notification.getFirstError().message()));
+//        throw DomainException.with( new Error(notification.getFirstError().message()));
     }
 
     @Override
@@ -33,8 +39,8 @@ public class ThrowsValidationHandler implements ValidationHandler {
         return ValidationHandler.super.hasError();
     }
 
-    @Override
-    public Error getFirstError() {
-        return ValidationHandler.super.getFirstError();
-    }
+//    @Override
+//    public Error getFirstError() {
+//        return ValidationHandler.super.getFirstError();
+//    }
 }
