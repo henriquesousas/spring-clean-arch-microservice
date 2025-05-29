@@ -5,6 +5,7 @@ import com.jobee.admin.service.domain.user.valueobjects.UserId;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.HashSet;
 import java.util.List;
 
 public class UserIdTest {
@@ -33,8 +34,7 @@ public class UserIdTest {
 
         // then
         Assertions.assertTrue(userId.getNotification().hasError());
-        //TODO: here
-//        Assertions.assertEquals(expectedError, userId.getNotification().getFirstError().message());
+        Assertions.assertEquals(expectedError   , userId.getNotification().getFirstError().message());
         Assertions.assertEquals(expectedUserId, userId.getValue());
     }
 
@@ -50,7 +50,9 @@ public class UserIdTest {
 
         // then
         Assertions.assertTrue(userId.getNotification().hasError());
-        Assertions.assertEquals(userId.getNotification().getErrors(), List.of(expectedError1, expectedError2));
+        Assertions.assertEquals(
+                new HashSet<>(userId.getNotification().getErrors()),
+                new HashSet<>(List.of(expectedError1, expectedError2)));
         Assertions.assertEquals(expectedUserId, userId.getValue());
     }
 }

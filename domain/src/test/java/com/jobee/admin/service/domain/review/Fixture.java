@@ -2,7 +2,7 @@ package com.jobee.admin.service.domain.review;
 
 import com.github.javafaker.Faker;
 import com.jobee.admin.service.domain.review.enums.Type;
-import com.jobee.admin.service.domain.review.enums.RatingOptions;
+import com.jobee.admin.service.domain.review.enums.RatingScale;
 import com.jobee.admin.service.domain.user.valueobjects.UserId;
 
 
@@ -18,8 +18,8 @@ public class Fixture {
         return FAKER.lorem().fixedString(10);
     }
 
-    public static RatingOptions rating() {
-        return FAKER.options().option(RatingOptions.values());
+    public static RatingScale rating() {
+        return FAKER.options().option(RatingScale.values());
     }
 
     public static UserId userId() {
@@ -30,12 +30,12 @@ public class Fixture {
         return FAKER.options().option(Type.PRODUCT, Type.SERVICE);
     }
 
-    public static RatingOptions afterSaleServiceRating() {
-        return FAKER.options().option(RatingOptions.values());
+    public static RatingScale afterSaleServiceRating() {
+        return FAKER.options().option(RatingScale.values());
     }
 
-    public static RatingOptions supportTimeResponseRating() {
-        return FAKER.options().option(RatingOptions.values());
+    public static RatingScale supportTimeResponseRating() {
+        return FAKER.options().option(RatingScale.values());
     }
 //
 //    public static Review review() {

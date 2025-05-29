@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.Optional;
 
 @Getter
-public enum     RatingOptions {
+public enum RatingScale {
 
     RA_1(1),
     RA_2(2),
@@ -16,12 +16,12 @@ public enum     RatingOptions {
 
     private final int value;
 
-    RatingOptions(final int value) {
+    RatingScale(final int value) {
         this.value = value;
     }
 
-    public static Optional<RatingOptions> of(final int point) {
-        return Arrays.stream(RatingOptions.values())
+    public static Optional<RatingScale> of(final int point) {
+        return Arrays.stream(RatingScale.values())
                 .filter(it -> it.value == point)
                 .findFirst();
     }

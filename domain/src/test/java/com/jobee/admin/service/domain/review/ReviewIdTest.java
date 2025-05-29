@@ -5,6 +5,7 @@ import com.jobee.admin.service.domain.shared.validation.Error;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.HashSet;
 import java.util.List;
 
 public class ReviewIdTest {
@@ -34,8 +35,7 @@ public class ReviewIdTest {
 
         // then
         Assertions.assertTrue(reviewId.getNotification().hasError());
-        //TODO: here
-//        Assertions.assertEquals(expectedError, reviewId.getNotification().getFirstError().message());
+        Assertions.assertEquals(expectedError, reviewId.getNotification().getFirstError().message());
         Assertions.assertEquals(expectedReviewId, reviewId.getValue());
     }
 
@@ -43,16 +43,22 @@ public class ReviewIdTest {
     public void giveAnEmptyUUID_whenInstantiated_thenItShouldBeInvalid() {
         // given
         final var expectedReviewId = "";
-        final var expectedError1 = new Error("ReviewId cannot be null or empty");
-        final var expectedError2 = new Error("ReviewId must be a valid UUID");
+        final var expectedErrors= List.of(
+                new Error("ReviewId cannot be null or empty"),
+                new Error("ReviewId must be a valid UUID")
+        );
 
         // when
         final var reviewId = ReviewId.from(expectedReviewId);
 
         // then
+
         Assertions.assertTrue(reviewId.getNotification().hasError());
-        Assertions.assertEquals(reviewId.getNotification().getErrors(), List.of(expectedError1, expectedError2));
         Assertions.assertEquals(expectedReviewId, reviewId.getValue());
+        Assertions.assertEquals(
+                new HashSet<>(reviewId.getNotification().getErrors()),
+                new HashSet<>(expectedErrors)
+        );
     }
 
 }

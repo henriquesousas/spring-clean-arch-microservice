@@ -1,8 +1,9 @@
 package com.jobee.admin.service.domain.review.valueobjects.rating;
 
+import com.jobee.admin.service.domain.review.enums.RatingScale;
 import com.jobee.admin.service.domain.shared.ValueObject;
 
-
+import java.util.Optional;
 
 public class Ratings extends ValueObject<Ratings> {
     private final OverallRating overallRating;
@@ -17,7 +18,7 @@ public class Ratings extends ValueObject<Ratings> {
     }
 
 
-    public static Ratings newRating(
+    public static Ratings from(
             OverallRating overallRating,
             SupportRating supportResponseTimeRating,
             AfterSalesRating afterSalesServiceRating
@@ -25,16 +26,20 @@ public class Ratings extends ValueObject<Ratings> {
         return new Ratings(overallRating, supportResponseTimeRating, afterSalesServiceRating);
     }
 
-    public OverallRating overallRating() {
-        return this.overallRating;
+    public static Ratings overall(RatingScale scale) {
+        return Ratings.from(OverallRating.from(scale), null, null);
     }
 
-    public SupportRating supportRating() {
-        return this.supportRating;
+    public Integer overallRating() {
+        return this.overallRating.getValue();
     }
 
-    public AfterSalesRating afterSalesRating() {
-        return this.afterSalesRating;
+    public Integer supportRating() {
+        return supportRating != null ? supportRating.getValue() : null;
+    }
+
+    public Integer afterSalesRating() {
+        return afterSalesRating != null ? afterSalesRating.getValue() : null;
     }
 
     @Override

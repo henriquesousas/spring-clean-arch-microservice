@@ -83,4 +83,16 @@ public abstract class Points extends ValueObject<Set<String>> {
     public Set<String> getValue() {
         return Collections.unmodifiableSet(this.points);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Points points1)) return false;
+        return Objects.equals(points, points1.points);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(points);
+    }
 }

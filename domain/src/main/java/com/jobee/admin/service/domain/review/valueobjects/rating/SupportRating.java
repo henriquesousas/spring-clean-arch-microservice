@@ -1,18 +1,20 @@
 package com.jobee.admin.service.domain.review.valueobjects.rating;
 
-import com.jobee.admin.service.domain.review.enums.RatingOptions;
+import com.jobee.admin.service.domain.review.enums.RatingScale;
 import com.jobee.admin.service.domain.shared.ValueObject;
+
+import java.util.Optional;
 
 public class SupportRating extends ValueObject<Integer> {
 
-    private final RatingOptions value;
+    private final RatingScale scale;
 
-    public SupportRating(RatingOptions value) {
-        this.value = value;
+    public SupportRating(RatingScale value) {
+        this.scale = value;
     }
 
     @Override
     public Integer getValue() {
-        return this.value.getValue();
+        return Optional.of(this.scale.getValue()).orElse(0);
     }
 }

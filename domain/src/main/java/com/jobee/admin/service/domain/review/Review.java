@@ -1,11 +1,12 @@
 package com.jobee.admin.service.domain.review;
 
 import com.jobee.admin.service.domain.review.enums.Type;
-import com.jobee.admin.service.domain.review.enums.RatingOptions;
+import com.jobee.admin.service.domain.review.enums.RatingScale;
 import com.jobee.admin.service.domain.review.enums.Status;
 import com.jobee.admin.service.domain.review.valueobjects.*;
 import com.jobee.admin.service.domain.review.valueobjects.points.StrongPoints;
 import com.jobee.admin.service.domain.review.valueobjects.points.WeakPoints;
+import com.jobee.admin.service.domain.review.valueobjects.rating.OverallRating;
 import com.jobee.admin.service.domain.review.valueobjects.rating.Ratings;
 import com.jobee.admin.service.domain.shared.AggregateRoot;
 import com.jobee.admin.service.domain.shared.utils.InstantUtils;
@@ -52,6 +53,8 @@ public class Review extends AggregateRoot<ReviewId> {
             Boolean recommends,
             boolean isVerified,
             boolean isActive,
+            WeakPoints weakPoints,
+            StrongPoints strongPoints,
             Instant createdAt,
             Instant updatedAt,
             Instant deletedAt
@@ -61,37 +64,43 @@ public class Review extends AggregateRoot<ReviewId> {
         this.title = title;
         this.summary = summary;
         this.status = status;
-
+        this.ratings = rating;
         this.boughtFrom = purchaseSource;
         this.isVerified = isVerified;
         this.url = urlReclameAqui;
         this.recommends = recommends;
         this.type = productType;
         this.isActive = isActive;
+        this.weakPoints = weakPoints;
+        this.strongPoints = strongPoints;
         this.createdAt = Objects.requireNonNullElse(createdAt, InstantUtils.now());
         this.updatedAt = Objects.requireNonNullElse(updatedAt, InstantUtils.now());
         this.deletedAt = deletedAt;
         validate(notification);
     }
 
-    public static Review newReview(ReviewBuilder builder){
-        throw  new RuntimeException();
+
+    public static Review newReview(ReviewBuilder builder) {
+        return new Review(
+                builder.getReviewId(),
+                builder.getUserId(),
+                builder.getTitle(),
+                builder.getSummary(),
+                builder.getStatus(),
+                builder.getRatings(),
+                builder.getType(),
+                builder.getUrl(),
+                builder.getBoughtFrom(),
+                builder.getRecommends(),
+                builder.isVerified(),
+                builder.isActive(),
+                builder.getWeakPoints(),
+                builder.getStrongPoints(),
+                builder.getCreatedAt(),
+                builder.getUpdatedAt(),
+                builder.getDeletedAt()
+        );
     }
-//    public static Review newReview(ReviewBuilder builder) {
-//        return new Review(
-//                builder.getReviewId(),
-//                builder.getUserId(),
-//                builder.getTitle(),
-//                builder.getComment(),
-//
-//                builder.getRecommends(),
-//                builder.isVerified(),
-//                builder.isActive(),
-//                builder.getCreatedAt(),
-//                builder.getUpdatedAt(),
-//                builder.getDeletedAt()
-//        );
-//    }
 
     public void activate() {
         if (isActive()) return;
@@ -138,9 +147,9 @@ public class Review extends AggregateRoot<ReviewId> {
     }
 
     public void changeRating(
-            RatingOptions overall,
-            RatingOptions support,
-            RatingOptions afterSales
+            RatingScale overall,
+            RatingScale support,
+            RatingScale afterSales
     ) {
 //        if (failIfInactive("Rating não pode ser alterado em uma avaliação inativa")) return;
 //
@@ -148,8 +157,8 @@ public class Review extends AggregateRoot<ReviewId> {
 //        this.updatedAt = InstantUtils.now();
     }
 
-    public void changeOverallRating(RatingOptions overall) {
-//        changeRating(overall, rating.getSupportRating(), rating.getAfterSallestRating());
+    public void changeOverallRating(RatingScale scale) {
+        this.ratings = Ratings.overall(scale);
     }
 
     //TODO: Refactor

@@ -10,14 +10,14 @@ public class StrongPointsTest {
 
     @Test
     public void givenAnNullStrongPoint_whenInstantiate_shouldNoError() {
-        final var strongPoints = StrongPoints.of(null);
+        final var strongPoints = StrongPoints.from(null);
         Assertions.assertNotNull(strongPoints);
         Assertions.assertEquals(strongPoints.getValue().size(), 0);
     }
 
     @Test
     public void givenAnEmptyStrongPoint_whenAddOneWithMoreThanAllowedCharacter_shouldNotifyError() {
-        final var strongPoints = StrongPoints.of(Set.of(
+        final var strongPoints = StrongPoints.from(Set.of(
                 "123",
                 "1234567891234567892123456789301"
         ));
@@ -28,7 +28,7 @@ public class StrongPointsTest {
 
     @Test
     public void givenAnEmptyPoint_whenAdd_shouldNotBeEmpty() {
-        final var strongPoints = StrongPoints.of(null);
+        final var strongPoints = StrongPoints.from(null);
 
         strongPoints.add("1234");
 
@@ -39,7 +39,7 @@ public class StrongPointsTest {
 
     @Test
     public void givenAnEmptyPoint_whenAddRepeated_shouldNotIncrement() {
-        final var strongPoints = StrongPoints.of(null);
+        final var strongPoints = StrongPoints.from(null);
 
         strongPoints.add("1234");
         strongPoints.add("4567");
@@ -54,7 +54,7 @@ public class StrongPointsTest {
 
     @Test
     public void givenAnEmptyPoint_whenAddMoreThanLimit_shouldNotifyError() {
-        final var strongPoints = StrongPoints.of(null);
+        final var strongPoints = StrongPoints.from(null);
 
         for (int i = 0; i < 33; i++) {
             strongPoints.add("Point " + i);
@@ -70,7 +70,7 @@ public class StrongPointsTest {
 
     @Test
     public void givenValidPoints_whenRemove_shouldDelete() {
-        final var points = StrongPoints.of(null);
+        final var points = StrongPoints.from(null);
 
         points.add("123");
         points.add("456");
@@ -84,7 +84,7 @@ public class StrongPointsTest {
 
     @Test
     public void givenNotStoragePoint_whenRemove_shouldNotifyError() {
-        final var points = StrongPoints.of(null);
+        final var points = StrongPoints.from(null);
 
         points.add("123");
         points.add("456");
@@ -99,7 +99,7 @@ public class StrongPointsTest {
 
     @Test
     public void givenValidPoints_whenCallsAsString_shouldReturnString() {
-        final var points = StrongPoints.of(null);
+        final var points = StrongPoints.from(null);
 
         points.add("123");
         points.add("456");
@@ -111,7 +111,7 @@ public class StrongPointsTest {
 
     @Test
     public void givenValidStrPoints_whenCallsAsSet_shouldReturnSet() {
-        final var points = StrongPoints.of(null);
+        final var points = StrongPoints.from(null);
         final var value = "123,456";
 
         points.asSet(value);
