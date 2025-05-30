@@ -1,9 +1,11 @@
 package com.jobee.admin.service.domain.shared.exceptions;
 
 import com.jobee.admin.service.domain.shared.validation.Error;
+import lombok.Getter;
 
 import java.util.List;
 
+@Getter
 public class DomainException extends RuntimeException {
 
     private final List<Error> errors;
@@ -13,14 +15,7 @@ public class DomainException extends RuntimeException {
         this.errors = errors;
     }
 
-    public List<Error> getErrors() {
-        return errors;
-    }
-
-    public static DomainException with(Error error) {
-        return new DomainException(error.message(), List.of(error));
-    }
-
+    // TODO: Remover
     public int getStatus() {
         return 422;
     }

@@ -1,12 +1,18 @@
 package com.jobee.admin.service.infrastructure.review;
 
 
+import com.jobee.admin.service.domain.review.Review;
+import com.jobee.admin.service.domain.review.valueobjects.UrlReclameAqui;
+import com.jobee.admin.service.infrastructure.user.UserJpaModel;
+
 import javax.persistence.*;
 import java.time.Instant;
+import java.util.Objects;
+import java.util.Optional;
 
 @Entity(name = "Review")
 @Table(name = "reviews")
-public class ReviewModel {
+public class ReviewJpaModel {
     @Id
     @Column(name = "id", nullable = false)
     private String id;
@@ -26,8 +32,8 @@ public class ReviewModel {
     @Column(name = "reclame_aqui")
     private String linkReclameAqui;
 
-    @Column(name = "product_type", nullable = false)
-    private int productType;
+    @Column(name = "type", nullable = false)
+    private int type;
 
     @Column(name = "review_status", nullable = false)
     private int reviewStatus;
@@ -36,16 +42,16 @@ public class ReviewModel {
     private int overallRating;
 
     @Column(name = "ra_supporting")
-    private int supportRating;
+    private Integer supportRating;
 
     @Column(name = "ra_after_sales")
-    private int afterSalesRating;
+    private Integer afterSalesRating;
 
-    @Column(name = "purchase_source")
-    private int purchaseSource;
+    @Column(name = "bought_from")
+    private String boughtFrom;
 
     @Column(name = "recommend")
-    private boolean recommend;
+    private Boolean recommend;
 
     @Column(name = "is_verified", nullable = false)
     private boolean isVerified;
@@ -62,11 +68,80 @@ public class ReviewModel {
     @Column(name = "deleted_at", columnDefinition = "DATETIME(6)")
     private Instant deletedAt;
 
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private String  user;
+    @Column(name = "user_id", nullable = false)
+    private String userId;
 
-    public ReviewModel() {
+    public ReviewJpaModel() {
+    }
+
+    public ReviewJpaModel(
+            String id,
+            String userId,
+            String title,
+            String summary,
+            String weakPoints,
+            String strongPoints,
+            String linkReclameAqui,
+            int type,
+            int reviewStatus,
+            int overallRating,
+            Integer supportRating,
+            Integer afterSalesRating,
+            String boughtFrom,
+            Boolean recommend,
+            boolean isVerified,
+            boolean isActive,
+            Instant createdAt,
+            Instant updatedAt,
+            Instant deletedAt) {
+        this.id = id;
+        this.userId = userId;
+        this.title = title;
+        this.summary = summary;
+        this.weakPoints = weakPoints;
+        this.strongPoints = strongPoints;
+        this.linkReclameAqui = linkReclameAqui;
+        this.type = type;
+        this.reviewStatus = reviewStatus;
+        this.overallRating = overallRating;
+        this.supportRating = supportRating;
+        this.afterSalesRating = afterSalesRating;
+        this.boughtFrom = boughtFrom;
+        this.recommend = recommend;
+        this.isVerified = isVerified;
+        this.isActive = isActive;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.deletedAt = deletedAt;
+    }
+
+    public static ReviewJpaModel from(final Review review) {
+
+        final var url = Optional.ofNullable(review.getUrl())
+                .map(UrlReclameAqui::getValue)
+                .orElse(null);
+
+        return new ReviewJpaModel(
+                review.getId().getValue(),
+                review.getUserId().getValue(),
+                review.getTitle(),
+                review.getSummary(),
+                review.getWeakPoints().asString(),
+                review.getStrongPoints().asString(),
+                url,
+                review.getType().getValue(),
+                review.getStatus().getValue(),
+                review.getRatings().overallRating(),
+                review.getRatings().supportRating(),
+                review.getRatings().afterSalesRating(),
+                review.getBoughtFrom(),
+                review.getRecommends(),
+                review.isVerified(),
+                review.isActive(),
+                review.getCreatedAt(),
+                review.getUpdatedAt(),
+                review.getDeletedAt()
+        );
     }
 
     public String getId() {
@@ -118,11 +193,11 @@ public class ReviewModel {
     }
 
     public int getProductType() {
-        return productType;
+        return type;
     }
 
-    public void setProductType(int productType) {
-        this.productType = productType;
+    public void setProductType(int type) {
+        this.type = type;
     }
 
     public int getReviewStatus() {
@@ -157,12 +232,20 @@ public class ReviewModel {
         this.afterSalesRating = afterSalesRating;
     }
 
-    public int getPurchaseSource() {
-        return purchaseSource;
+    public int getType() {
+        return type;
     }
 
-    public void setPurchaseSource(int purchaseSource) {
-        this.purchaseSource = purchaseSource;
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    public String getBoughtFrom() {
+        return boughtFrom;
+    }
+
+    public void setBoughtFrom(String boughtFrom) {
+        this.boughtFrom = boughtFrom;
     }
 
     public boolean isRecommend() {
@@ -213,11 +296,11 @@ public class ReviewModel {
         this.deletedAt = deletedAt;
     }
 
-    public String getUser() {
-        return user;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setUser(String user) {
-        this.user = user;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }

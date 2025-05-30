@@ -16,7 +16,7 @@ public class Main {
 //    @Bean
 //    public ApplicationRunner runner(CategoryRepository repository) {
 //        return  args -> {
-//            List<CategoryModel> all = repository.findAll();
+//            List<CategoryModel> all = repository.findAll();l
 //            Category category = Category.newCategory("Filmes", "desc", true);
 //            repository.save(CategoryModel.from(category));
 //            repository.deleteAll();

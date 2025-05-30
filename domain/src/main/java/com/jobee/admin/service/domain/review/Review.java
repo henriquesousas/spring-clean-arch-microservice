@@ -6,7 +6,6 @@ import com.jobee.admin.service.domain.review.enums.Status;
 import com.jobee.admin.service.domain.review.valueobjects.*;
 import com.jobee.admin.service.domain.review.valueobjects.points.StrongPoints;
 import com.jobee.admin.service.domain.review.valueobjects.points.WeakPoints;
-import com.jobee.admin.service.domain.review.valueobjects.rating.OverallRating;
 import com.jobee.admin.service.domain.review.valueobjects.rating.Ratings;
 import com.jobee.admin.service.domain.shared.AggregateRoot;
 import com.jobee.admin.service.domain.shared.utils.InstantUtils;
@@ -24,8 +23,8 @@ public class Review extends AggregateRoot<ReviewId> {
 
     private String title;
     private String summary;
-    private WeakPoints weakPoints;
-    private StrongPoints strongPoints;
+    private final WeakPoints weakPoints;
+    private final StrongPoints strongPoints;
     private Status status;
     private Ratings ratings;
     private UrlReclameAqui url;
@@ -118,7 +117,7 @@ public class Review extends AggregateRoot<ReviewId> {
         this.deletedAt = InstantUtils.now();
     }
 
-    public void changePurchaseSource(String newSource) {
+    public void changeBoughtFrom(final String newSource) {
         if (failIfInactive("Fonte de compra não pode ser alterado com uma avaliação inativa")) return;
 
         this.boughtFrom = newSource;
@@ -146,63 +145,47 @@ public class Review extends AggregateRoot<ReviewId> {
         this.updatedAt = InstantUtils.now();
     }
 
-    public void changeRating(
-            RatingScale overall,
-            RatingScale support,
-            RatingScale afterSales
-    ) {
-//        if (failIfInactive("Rating não pode ser alterado em uma avaliação inativa")) return;
-//
-//        this.rating = Ratings.newRating(overall, support, afterSales);
-//        this.updatedAt = InstantUtils.now();
-    }
-
-    public void changeOverallRating(RatingScale scale) {
+    public void changeOverallRating(final RatingScale scale) {
         this.ratings = Ratings.overall(scale);
     }
 
-    //TODO: Refactor
-    public void addPositiveNote(final String newNote) {
-//        if (failIfInactive("Review inativo não pode adicionar pontos positivos")) return;
-//
-//        this.notes.addPositive(newNote);
-//        if (!this.notes.getNotification().hasError()) {
-//            this.updatedAt = InstantUtils.now();
-//        }
+    public void addWeakPoint(final String point) {
+        if (failIfInactive("Review inativo não pode remover pontos negativos")) return;
+
+        this.weakPoints.add(point);
+        if (!this.weakPoints.getNotification().hasError()) {
+            this.updatedAt = InstantUtils.now();
+        }
     }
 
-    //TODO: Refactor
-    public void addNegativeNote(String newNote) {
-//        if (failIfInactive("Review inativo não pode remover pontos negativos")) return;
-//
-//        this.notes.addNegative(newNote);
-//        if (!this.notes.getNotification().hasError()) {
-//            this.updatedAt = InstantUtils.now();
-//        }
+    public void addStrongPoint(final String point) {
+        if (failIfInactive("Review inativo não pode adicionar pontos positivos")) return;
+
+        this.strongPoints.add(point);
+        if (!this.strongPoints.getNotification().hasError()) {
+            this.updatedAt = InstantUtils.now();
+        }
     }
 
-    //TODO: Refactor
-    public void removePositiveNote(final String note) {
-//        if (failIfInactive("Review inativo não pode remover pontos positivos")) return;
-//
-//        this.notes.removePositive(note);
-//        if (!this.notes.getNotification().hasError()) {
-//            this.updatedAt = InstantUtils.now();
-//        }
+    public void removeWeakPoint(final String point) {
+        if (failIfInactive("Review inativo não pode remover pontos positivos")) return;
+
+        this.weakPoints.remove(point);
+        if (!this.weakPoints.getNotification().hasError()) {
+            this.updatedAt = InstantUtils.now();
+        }
     }
 
-    //TODO: Refactor
-    public void removeNegativeNote(String note) {
-//        if (failIfInactive("Review inativo não pode remover pontos negativos")) return;
-//
-//        this.notes.removeNegative(note);
-//        if (!this.notes.getNotification().hasError()) {
-//            this.updatedAt = InstantUtils.now();
-//        }
+    public void removeStrongPoint(final String point) {
+        if (failIfInactive("Review inativo não pode remover pontos negativos")) return;
+
+        this.strongPoints.remove(point);
+        if (!this.strongPoints.getNotification().hasError()) {
+            this.updatedAt = InstantUtils.now();
+        }
     }
 
-    //TODO: Refactor
-    public void addUrlReclameAqui(String url) {
+    public void addUrlReclameAqui(final String url) {
         if (failIfInactive("Review inátivo não pode adicionar links.")) return;
 
         this.url = UrlReclameAqui.from(url);
@@ -212,7 +195,7 @@ public class Review extends AggregateRoot<ReviewId> {
     }
 
     @Override
-    public void validate(ValidationHandler handler) {
+    public void validate(final ValidationHandler handler) {
         new ReviewValidator(this, handler).validate();
     }
 

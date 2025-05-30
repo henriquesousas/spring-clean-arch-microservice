@@ -11,13 +11,15 @@ import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
+//TODO: Refactor
 public class CategoryId extends Identifier {
 
-    private final String value;
+//    private final String value;
 
     private CategoryId(String value) {
-        this.value = Objects.requireNonNull(value);
-        selfValidate();
+        super(value);
+        //this.value = Objects.requireNonNull(value);
+        //selfValidate();
     }
 
     public static CategoryId unique() {
@@ -41,20 +43,21 @@ public class CategoryId extends Identifier {
     }
 
 
-    protected void selfValidate() {
+//    //TODO: Refactor
+//    protected void selfValidate() {
+//
+//        if (value == null || value.isEmpty()) {
+//            this.notification.append(ValidationException.with(new Error("CategoryId cannot be null or empty")));
+//        }
+//
+////        if (!isValidUUID(value)) {
+////            this.notification.append(ValidationException.with(new Error("CategoryId must be a valid UUID")));
+////        }
+//    }
 
-        if (value == null || value.isEmpty()) {
-            this.notification.append(ValidationException.with(new Error("CategoryId cannot be null or empty")));
-        }
 
-        if (!isValidUUID(value)) {
-            this.notification.append(ValidationException.with(new Error("CategoryId must be a valid UUID")));
-        }
-    }
-
-
-    @Override
-    public String getValue() {
-        return value;
-    }
+//    @Override
+//    public String getValue() {
+//        return value;
+//    }
 }

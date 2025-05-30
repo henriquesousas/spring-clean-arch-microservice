@@ -7,7 +7,7 @@ import com.jobee.admin.service.domain.shared.pagination.Search;
 import java.util.Optional;
 
 public interface ReviewRepository {
-    Review create(Review review);
+    void create(Review review);
     Review update(Review review);
     Optional<Review> findById(ReviewId id);
     Pagination<Review> findAll(Search query);

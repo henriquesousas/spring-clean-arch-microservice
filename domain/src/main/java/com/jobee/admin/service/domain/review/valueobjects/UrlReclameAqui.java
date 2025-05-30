@@ -16,6 +16,10 @@ public class UrlReclameAqui extends ValueObject<String> {
         selfValidate();
     }
 
+    public static UrlReclameAqui from() {
+        return new UrlReclameAqui("");
+    }
+
     public static UrlReclameAqui from(final String value) {
         return new UrlReclameAqui(value);
     }

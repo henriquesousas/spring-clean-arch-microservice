@@ -16,6 +16,11 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(ex.getStatus()).body(ApiError.from(ex));
     }
 
+    @ExceptionHandler(value = {Exception.class})
+    public ResponseEntity<?> handleException(final Exception ex) {
+        return ResponseEntity.status(500).body( ApiError.internalServerError(ex.getMessage()));
+    }
+
     record ApiError(String message, List<String> errors) {
 
         static ApiError from(DomainException ex) {
@@ -25,6 +30,13 @@ public class GlobalExceptionHandler {
 
             return new ApiError(ex.getMessage(), errors);
         }
-    }
 
+        static ApiError internalServerError(String ex) {
+//            final var errors = ex.getErrors().stream()
+//                    .map(Error::message)
+//                    .toList();
+
+            return new ApiError("InternalServerError", List.of(ex));
+        }
+    }
 }

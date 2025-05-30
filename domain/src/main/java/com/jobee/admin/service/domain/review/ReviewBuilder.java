@@ -48,7 +48,7 @@ public class ReviewBuilder {
         this.title = Objects.requireNonNull(title);
         this.summary = Objects.requireNonNull(summary);
         this.userId = Objects.requireNonNull(userId);
-        this.ratings =  Ratings.overall(overallRating);
+        this.ratings = Ratings.overall(overallRating);
         this.status = Status.PENDING;
         this.boughtFrom = Objects.requireNonNull(boughtFrom);
         this.type = type;

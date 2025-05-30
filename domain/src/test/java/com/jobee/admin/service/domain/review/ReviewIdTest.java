@@ -14,7 +14,7 @@ public class ReviewIdTest {
     @Test
     public void giveAValidReviewId_whenInstantiated_thenItShouldBeValid() {
         // given
-        final var expectedReviewId = "123e4567-e89b-12d3-a456-426614174000";
+        final var expectedReviewId = "123e4567e89b12d3a456426614174000";
 
         // when
         final var reviewId = ReviewId.from(expectedReviewId);

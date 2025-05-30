@@ -8,11 +8,12 @@ import java.util.UUID;
 
 public class GenreId extends Identifier {
 
-    private final String value;
+//    private final String value;
 
     private GenreId(String value) {
-        this.value = value;
-        selfValidate();
+        super(value);
+//        this.value = value;
+//        selfValidate();
     }
 
     public static GenreId unique() {
@@ -23,19 +24,20 @@ public class GenreId extends Identifier {
         return new GenreId(value);
     }
 
-    @Override
-    public String getValue() {
-        return this.value;
-    }
-
-
-    protected void selfValidate() {
-        if (this.value == null || this.value.isBlank()) {
-            this.notification.append(new Error("GenreId cannot be null or empty"));
-        }
-
-        if (!isValidUUID(value)) {
-            this.notification.append(ValidationException.with(new Error("GenreId must be a valid UUID")));
-        }
-    }
+//    @Override
+//    public String getValue() {
+//        return this.value;
+//    }
+//
+//
+//    //TODO: Refactor
+//    protected void selfValidate() {
+//        if (this.value == null || this.value.isBlank()) {
+//            this.notification.append(new Error("GenreId cannot be null or empty"));
+//        }
+//
+////        if (!isValidUUID(value)) {
+////            this.notification.append(ValidationException.with(new Error("GenreId must be a valid UUID")));
+////        }
+//    }
 }

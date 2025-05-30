@@ -11,12 +11,12 @@ public class ThrowsValidationHandler implements ValidationHandler {
 
     @Override
     public ValidationHandler append(final Error error) {
-        throw DomainException.with( error);
+        throw new  RuntimeException(error.message());
     }
 
     @Override
-    public ValidationHandler append(DomainException error) {
-        throw DomainException.with( new Error(error.getMessage()));
+    public ValidationHandler append(final DomainException error) {
+        throw new  RuntimeException(error.getMessage());
     }
 
     @Override

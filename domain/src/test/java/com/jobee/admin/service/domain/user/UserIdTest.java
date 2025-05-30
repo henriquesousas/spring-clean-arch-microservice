@@ -13,7 +13,7 @@ public class UserIdTest {
     @Test
     public void giveAValidUserId_whenInstantiated_thenItShouldBeValid() {
         // given
-        final var expectedUserId = "123e4567-e89b-12d3-a456-426614174000";
+        final var expectedUserId = "123e4567e89b12d3a456426614174000";
 
         // when
         final var userId = UserId.from(expectedUserId);
@@ -34,7 +34,7 @@ public class UserIdTest {
 
         // then
         Assertions.assertTrue(userId.getNotification().hasError());
-        Assertions.assertEquals(expectedError   , userId.getNotification().getFirstError().message());
+        Assertions.assertEquals(expectedError, userId.getNotification().getFirstError().message());
         Assertions.assertEquals(expectedUserId, userId.getValue());
     }
 
