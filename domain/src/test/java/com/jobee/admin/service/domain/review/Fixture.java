@@ -1,49 +1,99 @@
 package com.jobee.admin.service.domain.review;
 
-import com.github.javafaker.Faker;
+import com.jobee.admin.service.domain.review.enums.Status;
 import com.jobee.admin.service.domain.review.enums.Type;
 import com.jobee.admin.service.domain.review.enums.RatingScale;
+import com.jobee.admin.service.domain.review.valueobjects.Feedback;
+import com.jobee.admin.service.domain.review.valueobjects.ReviewId;
 import com.jobee.admin.service.domain.user.valueobjects.UserId;
+import com.jobee.admin.service.domain.utils.InstantUtils;
 
+import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Fixture {
 
-    private static final Faker FAKER = new Faker();
+    public static final UserId expectedUserId = UserId.unique();
+    public static final ReviewId expectedReviewId = ReviewId.unique();
+    public static final String expectedTitle = "Produto excelente";
+    public static final String expectedSummary = "Entrega rápida, recomendo";
+    public static final Type expectedType = Type.PRODUCT;
+    public static final String expectedBoughtFrom = "Loja XYZ";
+    public static final RatingScale expectedOverall = RatingScale.RA_1;
+    public static final RatingScale expectedPostSale = RatingScale.RA_1;
+    public static final RatingScale expectedResponseTime = RatingScale.RA_1;
+    public static Set<Feedback> positiveFeedback = Set.of(Feedback.from("Muito bom"), Feedback.from("Recomendo"));
+    public static Set<Feedback> negativeFeedback = Set.of(Feedback.from("Muito pequeno"));
+    public static Instant expectedCreatedAt = InstantUtils.now();
+    public static Instant expectedUpdateAt = InstantUtils.now();
+    public static Instant expectedDeletedAt = InstantUtils.now();
+    public static String expectedUrl = "http://googgle.com.br";
+    public static boolean expectedRecommend = true;
+    public static Status expectedStatus = Status.IN_ANALYSIS;
+    public static boolean expectedIsActive = true;
 
-    public static String lorem() {
-        return FAKER.lorem().fixedString(10);
+
+    public static ReviewBuilder reviewWithDefaultValues() {
+        return new ReviewBuilder(
+                expectedTitle,
+                expectedSummary,
+                expectedUserId,
+                expectedType,
+                expectedBoughtFrom,
+                expectedOverall,
+                null,
+                null,
+                null,
+                null
+        );
     }
 
-    public static String summary() {
-        return FAKER.lorem().fixedString(10);
+    public static ReviewBuilder reviewWithAllValues() {
+        return new ReviewBuilder(
+                expectedTitle,
+                expectedSummary,
+                expectedUserId,
+                expectedType,
+                expectedBoughtFrom,
+                expectedOverall,
+                expectedPostSale,
+                expectedResponseTime,
+                positiveFeedback,
+                negativeFeedback
+        )
+                .withReviewId(expectedReviewId.getValue())
+                .withActive(expectedIsActive)
+                .withStatus(expectedStatus)
+                .withCreatedAt(expectedCreatedAt)
+                .withUpdatedAt(expectedUpdateAt)
+                .withDeletedAt(expectedDeletedAt)
+                .withUrl(expectedUrl)
+                .withIsRecommend(expectedRecommend)
+                .withIsVerified(true);
+
     }
 
-    public static RatingScale rating() {
-        return FAKER.options().option(RatingScale.values());
-    }
+    public static ReviewBuilder reviewWithInvalidValues() {
 
-    public static UserId userId() {
-        return UserId.unique();
+        final var expectedPositiveFeedback = new HashSet<Feedback>();
+        final var expectedNegativeFeedback = new HashSet<Feedback>();
+        for (int i = 0; i < 32; i++) {
+            expectedPositiveFeedback.add(Feedback.from("note" + i));
+            expectedNegativeFeedback.add(Feedback.from("note" + i));
+        }
+        return new ReviewBuilder(
+                "",
+                "",
+                expectedUserId,
+                expectedType,
+                expectedBoughtFrom,
+                RatingScale.RA_1,
+                RatingScale.RA_1,
+                RatingScale.RA_1,
+                expectedPositiveFeedback,
+                expectedNegativeFeedback
+        )
+                .withActive(true);
     }
-
-    public static Type productType() {
-        return FAKER.options().option(Type.PRODUCT, Type.SERVICE);
-    }
-
-    public static RatingScale afterSaleServiceRating() {
-        return FAKER.options().option(RatingScale.values());
-    }
-
-    public static RatingScale supportTimeResponseRating() {
-        return FAKER.options().option(RatingScale.values());
-    }
-//
-//    public static Review review() {
-//        return new ReviewBuilder(
-//                lorem(),
-//                summary(),
-//                userId(),
-//                productType(),
-//                lorem(), Ratings.newRating(RatingOptions.RA_1)).build();
-//    }
 }

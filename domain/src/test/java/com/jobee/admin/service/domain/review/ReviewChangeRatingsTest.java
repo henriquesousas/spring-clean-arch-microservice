@@ -10,18 +10,12 @@ public class ReviewChangeRatingsTest {
 
     @Test
     public void giveAnActiveReview_whenChangeRating_shouldUpdate() {
-        final var expectedType = Type.PRODUCT;
-        final var expectedSource = "any";
-        final var expectedReview = new ReviewBuilder("some title", "any",
-                UserId.unique(), expectedType, expectedSource,
-                RatingScale.RA_1,
-                null,
-                null
-        )
+
+        final var expectedReview = Fixture.reviewWithDefaultValues()
                 .withActive(true)
                 .build();
 
-        Assertions.assertEquals(expectedReview.getRating().getOverall().getValue(), RatingScale.RA_1.getValue());
+        Assertions.assertEquals(expectedReview.getRating().getOverall().getValue(), Fixture.expectedOverall.getValue());
         Assertions.assertNull(expectedReview.getRating().getPostSale());
         Assertions.assertNull(expectedReview.getRating().getResponseTime());
 

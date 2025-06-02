@@ -1,13 +1,18 @@
 package com.jobee.admin.service.domain.review;
 
+import com.jobee.admin.service.domain.ValueObject;
+import com.jobee.admin.service.domain.review.valueobjects.Feedback;
+import com.jobee.admin.service.domain.review.valueobjects.FeedbackType;
 import com.jobee.admin.service.domain.validation.Error;
 import com.jobee.admin.service.domain.validation.ValidationHandler;
 import com.jobee.admin.service.domain.validation.Validator;
 import com.jobee.admin.service.domain.validation.handler.Notification;
 
+import java.util.Set;
 import java.util.stream.Stream;
 
 public class ReviewValidator extends Validator {
+    private static final int MAX_LENGTH_ALLOWED_FEEDBACK = 30;
     private final Review review;
     private final ValidationHandler handler;
 
@@ -22,6 +27,8 @@ public class ReviewValidator extends Validator {
     public void validate() {
         validateTextField(this.review.getTitle(), "titúlo");
         validateTextField(this.review.getSummary(), "comentario");
+        validateFeedback(this.review.getPositiveFeedback(), "Feedback positivo excedeu o limite permitido");
+        validateFeedback(this.review.getNegativeFeedback(), "Feedback negativo excedeu o limite permitido");
         validateValueObjects();
     }
 
@@ -40,12 +47,19 @@ public class ReviewValidator extends Validator {
     }
 
     private void validateValueObjects() {
-        Stream.of(
-                this.review.getId().getNotification(),
-                this.review.getUserId().getNotification(),
-                this.review.getWeakPoints().getNotification(),
-                this.review.getStrongPoints().getNotification()
-        ).forEach(this::copyIfHasError);
+        Stream.of(this.review.getId().getNotification(), this.review.getUserId().getNotification())
+                .forEach(this::copyIfHasError);
+
+
+        Stream.concat(this.review.getPositiveFeedback().stream(), this.review.getNegativeFeedback().stream())
+                .map(ValueObject::getNotification)
+                .forEach(this::copyIfHasError);
+    }
+
+    private void validateFeedback(final Set<Feedback> feedbacks, final String message) {
+        if (feedbacks.size() > MAX_LENGTH_ALLOWED_FEEDBACK) {
+            this.handler.append(new Error(message));
+        }
     }
 
     private void copyIfHasError(Notification notification) {

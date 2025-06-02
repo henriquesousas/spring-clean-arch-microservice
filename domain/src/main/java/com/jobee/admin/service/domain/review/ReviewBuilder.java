@@ -3,15 +3,16 @@ package com.jobee.admin.service.domain.review;
 import com.jobee.admin.service.domain.review.enums.RatingScale;
 import com.jobee.admin.service.domain.review.enums.Type;
 import com.jobee.admin.service.domain.review.enums.Status;
+import com.jobee.admin.service.domain.review.valueobjects.Feedback;
 import com.jobee.admin.service.domain.review.valueobjects.Url;
-import com.jobee.admin.service.domain.review.valueobjects.points.StrongPoints;
-import com.jobee.admin.service.domain.review.valueobjects.points.WeakPoints;
 import com.jobee.admin.service.domain.review.valueobjects.rating.Rating;
 import com.jobee.admin.service.domain.review.valueobjects.ReviewId;
 import com.jobee.admin.service.domain.user.valueobjects.UserId;
+import com.jobee.admin.service.domain.utils.InstantUtils;
 import lombok.Getter;
 
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -31,8 +32,8 @@ public class ReviewBuilder {
     private Status status;
     private Url url;
     private Boolean recommends;
-    private WeakPoints weakPoints;
-    private StrongPoints strongPoints;
+    private final Set<Feedback> positiveFeedback;
+    private final Set<Feedback> negativeFeedback;
     private Instant createdAt;
     private Instant updatedAt;
     private Instant deletedAt;
@@ -45,35 +46,27 @@ public class ReviewBuilder {
             String boughtFrom,
             RatingScale overall,
             RatingScale posSale,
-            RatingScale responseTime
+            RatingScale responseTime,
+            Set<Feedback> positiveFeedback,
+            Set<Feedback> negativeFeedback
     ) {
         this.title = Objects.requireNonNull(title);
         this.summary = Objects.requireNonNull(summary);
         this.userId = Objects.requireNonNull(userId);
+        this.boughtFrom = Objects.requireNonNull(boughtFrom);
         this.rating = Rating.from(overall, posSale, responseTime);
         this.status = Status.PENDING;
-        this.boughtFrom = Objects.requireNonNull(boughtFrom);
         this.type = type;
         this.isActive = false;
         this.isVerified = false;
-        this.weakPoints = WeakPoints.from();
-        this.strongPoints = StrongPoints.from();
-        this.createdAt = Instant.now();
-        this.updatedAt = Instant.now();
+        this.positiveFeedback = Objects.requireNonNullElse(positiveFeedback, new HashSet<>());
+        this.negativeFeedback = Objects.requireNonNullElse(negativeFeedback, new HashSet<>());
+        this.createdAt = Objects.requireNonNullElse(createdAt, InstantUtils.now());
+        this.updatedAt = Objects.requireNonNullElse(createdAt, InstantUtils.now());
     }
 
     public ReviewBuilder withReviewId(String reviewId) {
         this.reviewId = ReviewId.from(reviewId);
-        return this;
-    }
-
-    public ReviewBuilder withWeakPoints(Set<String> weakPoints) {
-        this.weakPoints = WeakPoints.from(weakPoints);
-        return this;
-    }
-
-    public ReviewBuilder withStrongPoints(Set<String> strongPoints) {
-        this.strongPoints = StrongPoints.from(strongPoints);
         return this;
     }
 
@@ -112,7 +105,7 @@ public class ReviewBuilder {
         return this;
     }
 
-    public ReviewBuilder addUrl(String url) {
+    public ReviewBuilder withUrl(String url) {
         this.url = Url.from(url);
         return this;
     }

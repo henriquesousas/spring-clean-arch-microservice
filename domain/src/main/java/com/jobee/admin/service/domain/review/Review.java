@@ -4,8 +4,8 @@ import com.jobee.admin.service.domain.review.enums.Type;
 import com.jobee.admin.service.domain.review.enums.RatingScale;
 import com.jobee.admin.service.domain.review.enums.Status;
 import com.jobee.admin.service.domain.review.valueobjects.*;
-import com.jobee.admin.service.domain.review.valueobjects.points.StrongPoints;
-import com.jobee.admin.service.domain.review.valueobjects.points.WeakPoints;
+import com.jobee.admin.service.domain.review.valueobjects.Feedback;
+import com.jobee.admin.service.domain.review.valueobjects.FeedbackType;
 import com.jobee.admin.service.domain.review.valueobjects.rating.Rating;
 import com.jobee.admin.service.domain.AggregateRoot;
 import com.jobee.admin.service.domain.utils.InstantUtils;
@@ -15,7 +15,7 @@ import com.jobee.admin.service.domain.user.valueobjects.UserId;
 import lombok.Getter;
 
 import java.time.Instant;
-import java.util.Objects;
+import java.util.Set;
 
 
 @Getter
@@ -23,8 +23,6 @@ public class Review extends AggregateRoot<ReviewId> {
 
     private String title;
     private String summary;
-    private final WeakPoints weakPoints;
-    private final StrongPoints strongPoints;
     private Status status;
     private Rating rating;
     private Url url;
@@ -34,6 +32,8 @@ public class Review extends AggregateRoot<ReviewId> {
     private final Boolean recommends;
     private final boolean isVerified;
     private final UserId userId;
+    private final Set<Feedback> positiveFeedback;
+    private final Set<Feedback> negativeFeedback;
     private final Instant createdAt;
     private Instant updatedAt;
     private Instant deletedAt;
@@ -52,8 +52,8 @@ public class Review extends AggregateRoot<ReviewId> {
             Boolean recommends,
             boolean isVerified,
             boolean isActive,
-            WeakPoints weakPoints,
-            StrongPoints strongPoints,
+            Set<Feedback> positiveFeedback,
+            Set<Feedback> negativeFeedback,
             Instant createdAt,
             Instant updatedAt,
             Instant deletedAt
@@ -70,10 +70,10 @@ public class Review extends AggregateRoot<ReviewId> {
         this.recommends = recommends;
         this.type = type;
         this.isActive = isActive;
-        this.weakPoints = weakPoints;
-        this.strongPoints = strongPoints;
-        this.createdAt = Objects.requireNonNullElse(createdAt, InstantUtils.now());
-        this.updatedAt = Objects.requireNonNullElse(updatedAt, InstantUtils.now());
+        this.positiveFeedback = positiveFeedback;
+        this.negativeFeedback = negativeFeedback;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
         this.deletedAt = deletedAt;
         validate(notification);
     }
@@ -93,8 +93,8 @@ public class Review extends AggregateRoot<ReviewId> {
                 builder.getRecommends(),
                 builder.isVerified(),
                 builder.isActive(),
-                builder.getWeakPoints(),
-                builder.getStrongPoints(),
+                builder.getPositiveFeedback(),
+                builder.getNegativeFeedback(),
                 builder.getCreatedAt(),
                 builder.getUpdatedAt(),
                 builder.getDeletedAt()
@@ -146,47 +146,38 @@ public class Review extends AggregateRoot<ReviewId> {
     }
 
     public void changeRating(final RatingScale overall, final RatingScale postSale, final RatingScale responseTime) {
+        if (failIfInactive("Rating não pode ser alterado em uma avaliação inativa")) return;
+
         this.rating = Rating.from(overall, postSale, responseTime);
+        this.updatedAt = InstantUtils.now();
     }
 
-    public void addWeakPoint(final String point) {
+    public void addFeedback(final String newValue, final FeedbackType feedbackType) {
         if (failIfInactive("Review inativo não pode remover pontos negativos")) return;
 
-        this.weakPoints.add(point);
-        if (!this.weakPoints.getNotification().hasError()) {
-            this.updatedAt = InstantUtils.now();
-        }
+        Set<Feedback> feedbacks = (feedbackType == FeedbackType.PROS)
+                ? this.positiveFeedback
+                : this.negativeFeedback;
+
+        feedbacks.add(Feedback.from(newValue));
     }
 
-    public void addStrongPoint(final String point) {
-        if (failIfInactive("Review inativo não pode adicionar pontos positivos")) return;
-
-        this.strongPoints.add(point);
-        if (!this.strongPoints.getNotification().hasError()) {
-            this.updatedAt = InstantUtils.now();
-        }
-    }
-
-    public void removeWeakPoint(final String point) {
+    public void removeFeedback(final Feedback value, final FeedbackType feedbackType) {
         if (failIfInactive("Review inativo não pode remover pontos positivos")) return;
 
-        this.weakPoints.remove(point);
-        if (!this.weakPoints.getNotification().hasError()) {
-            this.updatedAt = InstantUtils.now();
-        }
-    }
+        Set<Feedback> feedbacks = (feedbackType == FeedbackType.PROS)
+                ? this.positiveFeedback
+                : this.negativeFeedback;
 
-    public void removeStrongPoint(final String point) {
-        if (failIfInactive("Review inativo não pode remover pontos negativos")) return;
-
-        this.strongPoints.remove(point);
-        if (!this.strongPoints.getNotification().hasError()) {
-            this.updatedAt = InstantUtils.now();
+        final var removed = feedbacks.remove(value);
+        if (!removed) {
+            this.notification.append(new Error("%s não encontrado".formatted(value)));
         }
     }
 
     public void addUrl(final String url) {
         if (failIfInactive("Review inátivo não pode adicionar links.")) return;
+
 
         this.url = Url.from(url);
         if (this.url.getNotification().hasError()) {
@@ -207,7 +198,4 @@ public class Review extends AggregateRoot<ReviewId> {
         return false;
     }
 
-    public boolean isVerified() {
-        return isVerified;
-    }
 }
