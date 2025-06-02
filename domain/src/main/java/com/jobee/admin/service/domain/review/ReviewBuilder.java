@@ -112,7 +112,7 @@ public class ReviewBuilder {
         return this;
     }
 
-    public ReviewBuilder withReclameAquiUrl(String url) {
+    public ReviewBuilder addUrl(String url) {
         this.url = Url.from(url);
         return this;
     }

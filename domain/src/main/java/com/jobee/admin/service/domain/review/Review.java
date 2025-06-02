@@ -185,7 +185,7 @@ public class Review extends AggregateRoot<ReviewId> {
         }
     }
 
-    public void addUrlReclameAqui(final String url) {
+    public void addUrl(final String url) {
         if (failIfInactive("Review inátivo não pode adicionar links.")) return;
 
         this.url = Url.from(url);

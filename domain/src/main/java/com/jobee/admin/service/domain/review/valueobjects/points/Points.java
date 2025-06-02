@@ -6,6 +6,9 @@ import com.jobee.admin.service.domain.validation.Error;
 import java.util.*;
 import java.util.stream.Collectors;
 
+// FeedbackPoints
+// Feedback
+// ReviewPoints
 public abstract class Points extends ValueObject<Set<String>> {
 
     protected static final int MAX_LENGTH = 30;
