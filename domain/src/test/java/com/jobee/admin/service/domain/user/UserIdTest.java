@@ -1,6 +1,6 @@
 package com.jobee.admin.service.domain.user;
 
-import com.jobee.admin.service.domain.shared.validation.Error;
+import com.jobee.admin.service.domain.validation.Error;
 import com.jobee.admin.service.domain.user.valueobjects.UserId;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

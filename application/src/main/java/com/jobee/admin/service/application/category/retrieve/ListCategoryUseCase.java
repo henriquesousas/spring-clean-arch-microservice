@@ -2,8 +2,8 @@ package com.jobee.admin.service.application.category.retrieve;
 
 import com.jobee.admin.service.application.UseCase;
 import com.jobee.admin.service.domain.category.CategoryRepository;
-import com.jobee.admin.service.domain.shared.pagination.Search;
-import com.jobee.admin.service.domain.shared.pagination.Pagination;
+import com.jobee.admin.service.domain.pagination.Search;
+import com.jobee.admin.service.domain.pagination.Pagination;
 
 public class ListCategoryUseCase extends UseCase<Search, Pagination<CategoryOutput>> {
 

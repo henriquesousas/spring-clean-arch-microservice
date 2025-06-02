@@ -1,10 +1,10 @@
 package com.jobee.admin.service.domain.genre;
 
 import com.jobee.admin.service.domain.category.CategoryId;
-import com.jobee.admin.service.domain.shared.AggregateRoot;
-import com.jobee.admin.service.domain.shared.utils.InstantUtils;
-import com.jobee.admin.service.domain.shared.validation.Error;
-import com.jobee.admin.service.domain.shared.validation.ValidationHandler;
+import com.jobee.admin.service.domain.AggregateRoot;
+import com.jobee.admin.service.domain.utils.InstantUtils;
+import com.jobee.admin.service.domain.validation.Error;
+import com.jobee.admin.service.domain.validation.ValidationHandler;
 import lombok.Getter;
 
 import java.time.Instant;

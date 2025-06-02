@@ -1,8 +1,8 @@
 package com.jobee.admin.service.domain.review.valueobjects.rating;
 
 import com.jobee.admin.service.domain.review.enums.RatingScale;
-import com.jobee.admin.service.domain.shared.ValueObject;
-import com.jobee.admin.service.domain.shared.validation.Error;
+import com.jobee.admin.service.domain.ValueObject;
+import com.jobee.admin.service.domain.validation.Error;
 
 public class OverallRating extends ValueObject<Integer> {
 

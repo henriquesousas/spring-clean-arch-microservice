@@ -4,9 +4,9 @@ import com.jobee.admin.service.application.UseCase;
 import com.jobee.admin.service.domain.genre.Genre;
 import com.jobee.admin.service.domain.genre.GenreId;
 import com.jobee.admin.service.domain.genre.GenreRepository;
-import com.jobee.admin.service.domain.shared.exceptions.DomainException;
-import com.jobee.admin.service.domain.shared.exceptions.NotFoundException;
-import com.jobee.admin.service.domain.shared.exceptions.ValidationException;
+import com.jobee.admin.service.domain.exceptions.DomainException;
+import com.jobee.admin.service.domain.exceptions.NotFoundException;
+import com.jobee.admin.service.domain.exceptions.ValidationException;
 import io.vavr.control.Either;
 
 public class GetGenreByIdUseCase extends UseCase<GetGenreByIdInputDto, Either<DomainException, Genre>> {

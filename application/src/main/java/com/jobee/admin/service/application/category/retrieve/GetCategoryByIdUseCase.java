@@ -4,8 +4,8 @@ import com.jobee.admin.service.application.UseCase;
 import com.jobee.admin.service.domain.category.Category;
 import com.jobee.admin.service.domain.category.CategoryId;
 import com.jobee.admin.service.domain.category.CategoryRepository;
-import com.jobee.admin.service.domain.shared.exceptions.DomainException;
-import com.jobee.admin.service.domain.shared.exceptions.NotFoundException;
+import com.jobee.admin.service.domain.exceptions.DomainException;
+import com.jobee.admin.service.domain.exceptions.NotFoundException;
 import io.vavr.control.Either;
 
 import static io.vavr.control.Either.left;

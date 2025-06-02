@@ -1,27 +1,27 @@
 package com.jobee.admin.service.domain.review.valueobjects;
 
 
-import com.jobee.admin.service.domain.shared.ValueObject;
-import com.jobee.admin.service.domain.shared.validation.Error;
+import com.jobee.admin.service.domain.ValueObject;
+import com.jobee.admin.service.domain.validation.Error;
 
 import java.net.URL;
 import java.util.Objects;
 
-public class UrlReclameAqui extends ValueObject<String> {
+public class Url extends ValueObject<String> {
 
     private final String value;
 
-    private UrlReclameAqui(String value) {
+    private Url(String value) {
         this.value = Objects.requireNonNull(value);
         selfValidate();
     }
 
-    public static UrlReclameAqui from() {
-        return new UrlReclameAqui("");
+    public static Url from() {
+        return new Url("");
     }
 
-    public static UrlReclameAqui from(final String value) {
-        return new UrlReclameAqui(value);
+    public static Url from(final String value) {
+        return new Url(value);
     }
 
     protected void selfValidate() {

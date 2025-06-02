@@ -1,10 +1,9 @@
 package com.jobee.admin.service.domain.user;
 
-import com.jobee.admin.service.domain.shared.AggregateRoot;
-import com.jobee.admin.service.domain.shared.utils.InstantUtils;
-import com.jobee.admin.service.domain.shared.validation.ValidationHandler;
+import com.jobee.admin.service.domain.AggregateRoot;
+import com.jobee.admin.service.domain.utils.InstantUtils;
+import com.jobee.admin.service.domain.validation.ValidationHandler;
 import com.jobee.admin.service.domain.user.valueobjects.*;
-import lombok.Getter;
 
 import java.time.Instant;
 import java.util.Objects;

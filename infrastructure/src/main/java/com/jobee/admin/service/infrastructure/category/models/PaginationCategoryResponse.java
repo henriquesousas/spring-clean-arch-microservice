@@ -2,7 +2,7 @@ package com.jobee.admin.service.infrastructure.category.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.jobee.admin.service.application.category.retrieve.CategoryOutput;
-import com.jobee.admin.service.domain.shared.pagination.Pagination;
+import com.jobee.admin.service.domain.pagination.Pagination;
 
 import java.util.List;
 

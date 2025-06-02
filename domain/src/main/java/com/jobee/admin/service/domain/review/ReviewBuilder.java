@@ -3,10 +3,10 @@ package com.jobee.admin.service.domain.review;
 import com.jobee.admin.service.domain.review.enums.RatingScale;
 import com.jobee.admin.service.domain.review.enums.Type;
 import com.jobee.admin.service.domain.review.enums.Status;
-import com.jobee.admin.service.domain.review.valueobjects.UrlReclameAqui;
+import com.jobee.admin.service.domain.review.valueobjects.Url;
 import com.jobee.admin.service.domain.review.valueobjects.points.StrongPoints;
 import com.jobee.admin.service.domain.review.valueobjects.points.WeakPoints;
-import com.jobee.admin.service.domain.review.valueobjects.rating.Ratings;
+import com.jobee.admin.service.domain.review.valueobjects.rating.Rating;
 import com.jobee.admin.service.domain.review.valueobjects.ReviewId;
 import com.jobee.admin.service.domain.user.valueobjects.UserId;
 import lombok.Getter;
@@ -23,13 +23,13 @@ public class ReviewBuilder {
     private final UserId userId;
     private final String title;
     private final String summary;
-    private final Ratings ratings;
+    private final Rating rating;
     private final String boughtFrom;
     private boolean isActive;
     private final Type type;
     private boolean isVerified;
     private Status status;
-    private UrlReclameAqui url;
+    private Url url;
     private Boolean recommends;
     private WeakPoints weakPoints;
     private StrongPoints strongPoints;
@@ -43,12 +43,14 @@ public class ReviewBuilder {
             UserId userId,
             Type type,
             String boughtFrom,
-            RatingScale overallRating
+            RatingScale overall,
+            RatingScale posSale,
+            RatingScale responseTime
     ) {
         this.title = Objects.requireNonNull(title);
         this.summary = Objects.requireNonNull(summary);
         this.userId = Objects.requireNonNull(userId);
-        this.ratings = Ratings.overall(overallRating);
+        this.rating = Rating.from(overall, posSale, responseTime);
         this.status = Status.PENDING;
         this.boughtFrom = Objects.requireNonNull(boughtFrom);
         this.type = type;
@@ -111,7 +113,7 @@ public class ReviewBuilder {
     }
 
     public ReviewBuilder withReclameAquiUrl(String url) {
-        this.url = UrlReclameAqui.from(url);
+        this.url = Url.from(url);
         return this;
     }
 

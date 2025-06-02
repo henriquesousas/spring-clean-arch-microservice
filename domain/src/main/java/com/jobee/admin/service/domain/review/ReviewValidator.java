@@ -1,9 +1,9 @@
 package com.jobee.admin.service.domain.review;
 
-import com.jobee.admin.service.domain.shared.validation.Error;
-import com.jobee.admin.service.domain.shared.validation.ValidationHandler;
-import com.jobee.admin.service.domain.shared.validation.Validator;
-import com.jobee.admin.service.domain.shared.validation.handler.Notification;
+import com.jobee.admin.service.domain.validation.Error;
+import com.jobee.admin.service.domain.validation.ValidationHandler;
+import com.jobee.admin.service.domain.validation.Validator;
+import com.jobee.admin.service.domain.validation.handler.Notification;
 
 import java.util.stream.Stream;
 

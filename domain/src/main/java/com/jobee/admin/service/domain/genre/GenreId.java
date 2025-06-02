@@ -1,8 +1,6 @@
 package com.jobee.admin.service.domain.genre;
 
-import com.jobee.admin.service.domain.shared.Identifier;
-import com.jobee.admin.service.domain.shared.exceptions.ValidationException;
-import com.jobee.admin.service.domain.shared.validation.Error;
+import com.jobee.admin.service.domain.Identifier;
 
 import java.util.UUID;
 

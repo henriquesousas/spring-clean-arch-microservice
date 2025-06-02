@@ -1,14 +1,9 @@
 package com.jobee.admin.service.domain.category;
 
-import com.jobee.admin.service.domain.shared.Identifier;
-import com.jobee.admin.service.domain.shared.exceptions.ValidationException;
-import com.jobee.admin.service.domain.shared.validation.Error;
-import com.jobee.admin.service.domain.shared.validation.handler.Notification;
+import com.jobee.admin.service.domain.Identifier;
 
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
 
 //TODO: Refactor

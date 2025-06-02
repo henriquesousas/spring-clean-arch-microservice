@@ -2,14 +2,14 @@ package com.jobee.admin.service.infrastructure.review;
 
 
 import com.jobee.admin.service.domain.review.Review;
-import com.jobee.admin.service.domain.review.valueobjects.UrlReclameAqui;
-import com.jobee.admin.service.infrastructure.user.UserJpaModel;
+import com.jobee.admin.service.domain.review.valueobjects.Url;
 
 import javax.persistence.*;
 import java.time.Instant;
-import java.util.Objects;
 import java.util.Optional;
 
+
+//TODO: remove the ints from Enums
 @Entity(name = "Review")
 @Table(name = "reviews")
 public class ReviewJpaModel {
@@ -118,7 +118,7 @@ public class ReviewJpaModel {
     public static ReviewJpaModel from(final Review review) {
 
         final var url = Optional.ofNullable(review.getUrl())
-                .map(UrlReclameAqui::getValue)
+                .map(Url::getValue)
                 .orElse(null);
 
         return new ReviewJpaModel(
@@ -131,9 +131,9 @@ public class ReviewJpaModel {
                 url,
                 review.getType().getValue(),
                 review.getStatus().getValue(),
-                review.getRatings().overallRating(),
-                review.getRatings().supportRating(),
-                review.getRatings().afterSalesRating(),
+                review.getRating().overallRating(),
+                review.getRating().supportRating(),
+                review.getRating().afterSalesRating(),
                 review.getBoughtFrom(),
                 review.getRecommends(),
                 review.isVerified(),

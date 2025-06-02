@@ -6,7 +6,6 @@ import com.jobee.admin.service.domain.user.valueobjects.UserId;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-//TODO: Add more scenarios
 public class ReviewChangeRatingsTest {
 
     @Test
@@ -15,17 +14,20 @@ public class ReviewChangeRatingsTest {
         final var expectedSource = "any";
         final var expectedReview = new ReviewBuilder("some title", "any",
                 UserId.unique(), expectedType, expectedSource,
-                RatingScale.RA_1)
+                RatingScale.RA_1,
+                null,
+                null
+        )
                 .withActive(true)
                 .build();
 
-        Assertions.assertEquals(expectedReview.getRatings().overallRating(),RatingScale.RA_1.getValue());
-        Assertions.assertNull(expectedReview.getRatings().supportRating());
-        Assertions.assertNull(expectedReview.getRatings().afterSalesRating());
+        Assertions.assertEquals(expectedReview.getRating().getOverall().getValue(), RatingScale.RA_1.getValue());
+        Assertions.assertNull(expectedReview.getRating().getPostSale());
+        Assertions.assertNull(expectedReview.getRating().getResponseTime());
 
-        expectedReview.changeOverallRating(RatingScale.RA_2);
+        expectedReview.changeRating(RatingScale.RA_2, RatingScale.RA_2, RatingScale.RA_2);
 
-        Assertions.assertEquals(expectedReview.getRatings().overallRating(), RatingScale.RA_2.getValue());
+        Assertions.assertEquals(expectedReview.getRating().getOverall().getValue(), RatingScale.RA_2.getValue());
         Assertions.assertTrue(expectedReview.getCreatedAt().isBefore(expectedReview.getUpdatedAt()));
         Assertions.assertNull(expectedReview.getDeletedAt());
     }

@@ -6,11 +6,11 @@ import com.jobee.admin.service.domain.review.enums.Status;
 import com.jobee.admin.service.domain.review.valueobjects.*;
 import com.jobee.admin.service.domain.review.valueobjects.points.StrongPoints;
 import com.jobee.admin.service.domain.review.valueobjects.points.WeakPoints;
-import com.jobee.admin.service.domain.review.valueobjects.rating.Ratings;
-import com.jobee.admin.service.domain.shared.AggregateRoot;
-import com.jobee.admin.service.domain.shared.utils.InstantUtils;
-import com.jobee.admin.service.domain.shared.validation.Error;
-import com.jobee.admin.service.domain.shared.validation.ValidationHandler;
+import com.jobee.admin.service.domain.review.valueobjects.rating.Rating;
+import com.jobee.admin.service.domain.AggregateRoot;
+import com.jobee.admin.service.domain.utils.InstantUtils;
+import com.jobee.admin.service.domain.validation.Error;
+import com.jobee.admin.service.domain.validation.ValidationHandler;
 import com.jobee.admin.service.domain.user.valueobjects.UserId;
 import lombok.Getter;
 
@@ -26,8 +26,8 @@ public class Review extends AggregateRoot<ReviewId> {
     private final WeakPoints weakPoints;
     private final StrongPoints strongPoints;
     private Status status;
-    private Ratings ratings;
-    private UrlReclameAqui url;
+    private Rating rating;
+    private Url url;
     private String boughtFrom;
     private boolean isActive;
     private final Type type;
@@ -45,10 +45,10 @@ public class Review extends AggregateRoot<ReviewId> {
             String title,
             String summary,
             Status status,
-            Ratings rating,
-            Type productType,
-            UrlReclameAqui urlReclameAqui,
-            String purchaseSource,
+            Rating rating,
+            Type type,
+            Url urlRA,
+            String boughtFrom,
             Boolean recommends,
             boolean isVerified,
             boolean isActive,
@@ -63,12 +63,12 @@ public class Review extends AggregateRoot<ReviewId> {
         this.title = title;
         this.summary = summary;
         this.status = status;
-        this.ratings = rating;
-        this.boughtFrom = purchaseSource;
+        this.rating = rating;
+        this.boughtFrom = boughtFrom;
         this.isVerified = isVerified;
-        this.url = urlReclameAqui;
+        this.url = urlRA;
         this.recommends = recommends;
-        this.type = productType;
+        this.type = type;
         this.isActive = isActive;
         this.weakPoints = weakPoints;
         this.strongPoints = strongPoints;
@@ -86,7 +86,7 @@ public class Review extends AggregateRoot<ReviewId> {
                 builder.getTitle(),
                 builder.getSummary(),
                 builder.getStatus(),
-                builder.getRatings(),
+                builder.getRating(),
                 builder.getType(),
                 builder.getUrl(),
                 builder.getBoughtFrom(),
@@ -145,8 +145,8 @@ public class Review extends AggregateRoot<ReviewId> {
         this.updatedAt = InstantUtils.now();
     }
 
-    public void changeOverallRating(final RatingScale scale) {
-        this.ratings = Ratings.overall(scale);
+    public void changeRating(final RatingScale overall, final RatingScale postSale, final RatingScale responseTime) {
+        this.rating = Rating.from(overall, postSale, responseTime);
     }
 
     public void addWeakPoint(final String point) {
@@ -188,7 +188,7 @@ public class Review extends AggregateRoot<ReviewId> {
     public void addUrlReclameAqui(final String url) {
         if (failIfInactive("Review inátivo não pode adicionar links.")) return;
 
-        this.url = UrlReclameAqui.from(url);
+        this.url = Url.from(url);
         if (this.url.getNotification().hasError()) {
             this.updatedAt = InstantUtils.now();
         }

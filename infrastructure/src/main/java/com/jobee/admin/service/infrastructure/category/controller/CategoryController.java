@@ -8,7 +8,7 @@ import com.jobee.admin.service.application.category.retrieve.GetCategoryByIdUseC
 import com.jobee.admin.service.application.category.retrieve.ListCategoryUseCase;
 import com.jobee.admin.service.application.category.update.UpdateCategoryInputDto;
 import com.jobee.admin.service.application.category.update.UpdateCategoryUseCase;
-import com.jobee.admin.service.domain.shared.pagination.Search;
+import com.jobee.admin.service.domain.pagination.Search;
 import com.jobee.admin.service.infrastructure.category.models.CreateCategoryRequest;
 import com.jobee.admin.service.infrastructure.category.models.CategoryResponse;
 import com.jobee.admin.service.infrastructure.category.models.PaginationCategoryResponse;

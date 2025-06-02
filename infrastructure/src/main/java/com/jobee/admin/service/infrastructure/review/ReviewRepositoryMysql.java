@@ -3,8 +3,8 @@ package com.jobee.admin.service.infrastructure.review;
 import com.jobee.admin.service.domain.review.Review;
 import com.jobee.admin.service.domain.review.ReviewRepository;
 import com.jobee.admin.service.domain.review.valueobjects.ReviewId;
-import com.jobee.admin.service.domain.shared.pagination.Pagination;
-import com.jobee.admin.service.domain.shared.pagination.Search;
+import com.jobee.admin.service.domain.pagination.Pagination;
+import com.jobee.admin.service.domain.pagination.Search;
 import org.springframework.stereotype.Component;
 
 import java.util.Objects;

@@ -1,7 +1,7 @@
 package com.jobee.admin.service.domain.category;
 
-import com.jobee.admin.service.domain.shared.pagination.Search;
-import com.jobee.admin.service.domain.shared.pagination.Pagination;
+import com.jobee.admin.service.domain.pagination.Search;
+import com.jobee.admin.service.domain.pagination.Pagination;
 
 import java.util.List;
 import java.util.Optional;

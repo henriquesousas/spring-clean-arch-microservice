@@ -6,16 +6,14 @@ import com.jobee.admin.service.domain.review.ReviewRepository;
 import com.jobee.admin.service.domain.review.enums.RatingScale;
 import com.jobee.admin.service.domain.review.enums.Type;
 import com.jobee.admin.service.domain.review.valueobjects.ReviewId;
-import com.jobee.admin.service.domain.shared.exceptions.DomainException;
-import com.jobee.admin.service.domain.shared.exceptions.ValidationException;
-import com.jobee.admin.service.domain.shared.validation.Error;
+import com.jobee.admin.service.domain.exceptions.DomainException;
+import com.jobee.admin.service.domain.exceptions.ValidationException;
+import com.jobee.admin.service.domain.validation.Error;
 import com.jobee.admin.service.domain.user.valueobjects.UserId;
 import io.vavr.control.Either;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.List;
 
 
 public class CreateReviewUseCase extends UseCase<CreateReviewInputDto, Either<DomainException, ReviewId>> {
