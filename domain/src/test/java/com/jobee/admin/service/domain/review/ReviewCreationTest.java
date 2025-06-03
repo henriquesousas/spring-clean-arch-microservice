@@ -47,8 +47,8 @@ public class ReviewCreationTest {
         Assertions.assertEquals(expectedReview.getRating().getResponseTime().getValue(),Fixture.expectedResponseTime.getValue());
         Assertions.assertEquals(expectedReview.getRating().getPostSale().getValue(), Fixture.expectedPostSale.getValue());
         Assertions.assertEquals(expectedReview.getStatus(), Fixture.expectedStatus);
-        Assertions.assertEquals(expectedReview.getPositiveFeedback(), Fixture.positiveFeedback);
-        Assertions.assertEquals(expectedReview.getNegativeFeedback(), Fixture.negativeFeedback);
+        Assertions.assertEquals(expectedReview.getPositiveFeedback(), Fixture.expectedPositiveFeedback);
+        Assertions.assertEquals(expectedReview.getNegativeFeedback(), Fixture.expectedNegativeFeedback);
         Assertions.assertEquals(expectedReview.getUrl().getValue(), Fixture.expectedUrl);
         Assertions.assertTrue(expectedReview.getRecommends());
         Assertions.assertTrue(expectedReview.isVerified());

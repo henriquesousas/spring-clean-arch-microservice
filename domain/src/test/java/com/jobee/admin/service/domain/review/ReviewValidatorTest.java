@@ -29,10 +29,6 @@ public class ReviewValidatorTest {
 
         expectedReview.getNotification().getErrors().forEach(error -> System.out.println(error.message()));
 
-        expectedErrors.forEach(error -> System.out.println(error));
-        System.out.println("-----");
-        expectedReview.getNotification().getErrors().forEach(error -> System.out.println(error));
-
         Assertions.assertTrue(expectedReview.getNotification().hasError());
         Assertions.assertEquals(
                 new HashSet<>(expectedErrors),

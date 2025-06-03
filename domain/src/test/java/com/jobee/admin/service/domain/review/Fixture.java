@@ -23,8 +23,8 @@ public class Fixture {
     public static final RatingScale expectedOverall = RatingScale.RA_1;
     public static final RatingScale expectedPostSale = RatingScale.RA_1;
     public static final RatingScale expectedResponseTime = RatingScale.RA_1;
-    public static Set<Feedback> positiveFeedback = Set.of(Feedback.from("Muito bom"), Feedback.from("Recomendo"));
-    public static Set<Feedback> negativeFeedback = Set.of(Feedback.from("Muito pequeno"));
+    public static Set<Feedback> expectedPositiveFeedback = Set.of(Feedback.from("Muito bom"));
+    public static Set<Feedback> expectedNegativeFeedback = Set.of(Feedback.from("Muito pequeno"));
     public static Instant expectedCreatedAt = InstantUtils.now();
     public static Instant expectedUpdateAt = InstantUtils.now();
     public static Instant expectedDeletedAt = InstantUtils.now();
@@ -59,8 +59,8 @@ public class Fixture {
                 expectedOverall,
                 expectedPostSale,
                 expectedResponseTime,
-                positiveFeedback,
-                negativeFeedback
+                expectedPositiveFeedback,
+                expectedNegativeFeedback
         )
                 .withReviewId(expectedReviewId.getValue())
                 .withActive(expectedIsActive)

@@ -6,7 +6,7 @@ import com.jobee.admin.service.domain.review.enums.Status;
 import com.jobee.admin.service.domain.review.valueobjects.*;
 import com.jobee.admin.service.domain.review.valueobjects.Feedback;
 import com.jobee.admin.service.domain.review.valueobjects.FeedbackType;
-import com.jobee.admin.service.domain.review.valueobjects.rating.Rating;
+import com.jobee.admin.service.domain.review.valueobjects.Rating;
 import com.jobee.admin.service.domain.AggregateRoot;
 import com.jobee.admin.service.domain.utils.InstantUtils;
 import com.jobee.admin.service.domain.validation.Error;
@@ -15,6 +15,7 @@ import com.jobee.admin.service.domain.user.valueobjects.UserId;
 import lombok.Getter;
 
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.Set;
 
 
@@ -70,8 +71,8 @@ public class Review extends AggregateRoot<ReviewId> {
         this.recommends = recommends;
         this.type = type;
         this.isActive = isActive;
-        this.positiveFeedback = positiveFeedback;
-        this.negativeFeedback = negativeFeedback;
+        this.positiveFeedback =  new HashSet<>(positiveFeedback); ;
+        this.negativeFeedback =  new HashSet<>(negativeFeedback); ;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.deletedAt = deletedAt;
@@ -155,7 +156,7 @@ public class Review extends AggregateRoot<ReviewId> {
     public void addFeedback(final String newValue, final FeedbackType feedbackType) {
         if (failIfInactive("Review inativo não pode remover pontos negativos")) return;
 
-        Set<Feedback> feedbacks = (feedbackType == FeedbackType.PROS)
+       final var feedbacks = (feedbackType == FeedbackType.PROS)
                 ? this.positiveFeedback
                 : this.negativeFeedback;
 

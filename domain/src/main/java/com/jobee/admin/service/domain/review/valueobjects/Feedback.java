@@ -3,6 +3,8 @@ package com.jobee.admin.service.domain.review.valueobjects;
 import com.jobee.admin.service.domain.ValueObject;
 import com.jobee.admin.service.domain.validation.Error;
 
+import java.util.Objects;
+
 public class Feedback extends ValueObject<String> {
 
 
@@ -35,4 +37,16 @@ public class Feedback extends ValueObject<String> {
         return this.value;
     }
 
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Feedback feedback)) return false;
+        return Objects.equals(value, feedback.value);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(value);
+    }
 }

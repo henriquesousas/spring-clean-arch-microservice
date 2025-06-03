@@ -1,4 +1,4 @@
-package com.jobee.admin.service.domain.review.valueobjects.rating;
+package com.jobee.admin.service.domain.review.valueobjects;
 
 import com.jobee.admin.service.domain.review.enums.RatingScale;
 import com.jobee.admin.service.domain.ValueObject;

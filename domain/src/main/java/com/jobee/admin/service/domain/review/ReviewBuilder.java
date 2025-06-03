@@ -5,7 +5,7 @@ import com.jobee.admin.service.domain.review.enums.Type;
 import com.jobee.admin.service.domain.review.enums.Status;
 import com.jobee.admin.service.domain.review.valueobjects.Feedback;
 import com.jobee.admin.service.domain.review.valueobjects.Url;
-import com.jobee.admin.service.domain.review.valueobjects.rating.Rating;
+import com.jobee.admin.service.domain.review.valueobjects.Rating;
 import com.jobee.admin.service.domain.review.valueobjects.ReviewId;
 import com.jobee.admin.service.domain.user.valueobjects.UserId;
 import com.jobee.admin.service.domain.utils.InstantUtils;
