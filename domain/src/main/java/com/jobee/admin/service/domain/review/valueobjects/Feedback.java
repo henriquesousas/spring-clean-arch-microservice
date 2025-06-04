@@ -37,7 +37,6 @@ public class Feedback extends ValueObject<String> {
         return this.value;
     }
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

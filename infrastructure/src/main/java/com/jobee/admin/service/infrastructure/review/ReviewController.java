@@ -29,7 +29,12 @@ public class ReviewController implements HttpReviewController {
                 request.userId(),
                 request.type(),
                 request.boughtFrom(),
-                request.overallRating()
+                request.url(),
+                request.overallRating(),
+                request.postSaleRating(),
+                request.responseTimeRating(),
+                request.positiveFeedback(),
+                request.negativeFeedback()
         );
 
         return createReviewUseCase.execute(dto)

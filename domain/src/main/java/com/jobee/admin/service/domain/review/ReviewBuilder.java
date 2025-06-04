@@ -44,6 +44,7 @@ public class ReviewBuilder {
             UserId userId,
             Type type,
             String boughtFrom,
+            Url url,
             RatingScale overall,
             RatingScale posSale,
             RatingScale responseTime,
@@ -54,6 +55,7 @@ public class ReviewBuilder {
         this.summary = Objects.requireNonNull(summary);
         this.userId = Objects.requireNonNull(userId);
         this.boughtFrom = Objects.requireNonNull(boughtFrom);
+        this.url = url;
         this.rating = Rating.from(overall, posSale, responseTime);
         this.status = Status.PENDING;
         this.type = type;

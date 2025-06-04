@@ -2,7 +2,6 @@ package com.jobee.admin.service.domain.review;
 
 import com.jobee.admin.service.domain.ValueObject;
 import com.jobee.admin.service.domain.review.valueobjects.Feedback;
-import com.jobee.admin.service.domain.review.valueobjects.FeedbackType;
 import com.jobee.admin.service.domain.validation.Error;
 import com.jobee.admin.service.domain.validation.ValidationHandler;
 import com.jobee.admin.service.domain.validation.Validator;
@@ -47,8 +46,11 @@ public class ReviewValidator extends Validator {
     }
 
     private void validateValueObjects() {
-        Stream.of(this.review.getId().getNotification(), this.review.getUserId().getNotification())
-                .forEach(this::copyIfHasError);
+        Stream.of(
+                this.review.getId().getNotification(),
+                this.review.getUserId().getNotification(),
+                this.review.getUrl().getNotification()
+        ).forEach(this::copyIfHasError);
 
 
         Stream.concat(this.review.getPositiveFeedback().stream(), this.review.getNegativeFeedback().stream())

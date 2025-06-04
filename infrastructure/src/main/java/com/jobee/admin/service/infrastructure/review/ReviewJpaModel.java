@@ -2,14 +2,15 @@ package com.jobee.admin.service.infrastructure.review;
 
 
 import com.jobee.admin.service.domain.review.Review;
+import com.jobee.admin.service.domain.review.enums.RatingScale;
 import com.jobee.admin.service.domain.review.valueobjects.Url;
+import com.jobee.admin.service.domain.utils.CollectionUtils;
+import com.jobee.admin.service.domain.utils.NullableUtils;
 
 import javax.persistence.*;
 import java.time.Instant;
 import java.util.Optional;
 
-
-//TODO: remove the ints from Enums
 @Entity(name = "Review")
 @Table(name = "reviews")
 public class ReviewJpaModel {
@@ -23,29 +24,29 @@ public class ReviewJpaModel {
     @Column(name = "summary", nullable = false, length = 4000)
     private String summary;
 
-    @Column(name = "weak_points")
-    private String weakPoints;
+    @Column(name = "negative_feedback")
+    private String negativeFeedback;
 
-    @Column(name = "strong_points")
-    private String strongPoints;
+    @Column(name = "positive_feedback")
+    private String positiveFeedback;
 
     @Column(name = "reclame_aqui")
-    private String linkReclameAqui;
+    private String urlReclameAqui;
 
     @Column(name = "type", nullable = false)
-    private int type;
+    private String type;
 
-    @Column(name = "review_status", nullable = false)
-    private int reviewStatus;
+    @Column(name = "status", nullable = false)
+    private String status;
 
     @Column(name = "ra_overall", nullable = false)
     private int overallRating;
 
-    @Column(name = "ra_supporting")
-    private Integer supportRating;
+    @Column(name = "ra_response_time")
+    private Integer responseTime;
 
-    @Column(name = "ra_after_sales")
-    private Integer afterSalesRating;
+    @Column(name = "ra_post_sale")
+    private Integer postSale;
 
     @Column(name = "bought_from")
     private String boughtFrom;
@@ -79,14 +80,14 @@ public class ReviewJpaModel {
             String userId,
             String title,
             String summary,
-            String weakPoints,
-            String strongPoints,
-            String linkReclameAqui,
-            int type,
-            int reviewStatus,
+            String positiveFeedback,
+            String negativeFeedback,
+            String url,
+            String type,
+            String status,
             int overallRating,
-            Integer supportRating,
-            Integer afterSalesRating,
+            Integer responseTime,
+            Integer postSale,
             String boughtFrom,
             Boolean recommend,
             boolean isVerified,
@@ -98,14 +99,14 @@ public class ReviewJpaModel {
         this.userId = userId;
         this.title = title;
         this.summary = summary;
-        this.weakPoints = weakPoints;
-        this.strongPoints = strongPoints;
-        this.linkReclameAqui = linkReclameAqui;
+        this.negativeFeedback = negativeFeedback;
+        this.positiveFeedback = positiveFeedback;
+        this.urlReclameAqui = url;
         this.type = type;
-        this.reviewStatus = reviewStatus;
+        this.status = status;
         this.overallRating = overallRating;
-        this.supportRating = supportRating;
-        this.afterSalesRating = afterSalesRating;
+        this.responseTime = responseTime;
+        this.postSale = postSale;
         this.boughtFrom = boughtFrom;
         this.recommend = recommend;
         this.isVerified = isVerified;
@@ -117,23 +118,19 @@ public class ReviewJpaModel {
 
     public static ReviewJpaModel from(final Review review) {
 
-        final var url = Optional.ofNullable(review.getUrl())
-                .map(Url::getValue)
-                .orElse(null);
-
         return new ReviewJpaModel(
                 review.getId().getValue(),
                 review.getUserId().getValue(),
                 review.getTitle(),
                 review.getSummary(),
-                review.getWeakPoints().asString(),
-                review.getStrongPoints().asString(),
-                url,
+                CollectionUtils.asString(review.getPositiveFeedback(), it -> it.getValue().trim()),
+                CollectionUtils.asString(review.getNegativeFeedback(), it -> it.getValue().trim()),
+                NullableUtils.mapOrNull(review.getUrl(), Url::getValue),
                 review.getType().getValue(),
                 review.getStatus().getValue(),
-                review.getRating().overallRating(),
-                review.getRating().supportRating(),
-                review.getRating().afterSalesRating(),
+                review.getRating().getOverall().getValue(),
+                NullableUtils.mapOrNull(review.getRating().getResponseTime(), RatingScale::getValue),
+                NullableUtils.mapOrNull(review.getRating().getPostSale(), RatingScale::getValue),
                 review.getBoughtFrom(),
                 review.getRecommends(),
                 review.isVerified(),
@@ -168,46 +165,6 @@ public class ReviewJpaModel {
         this.summary = summary;
     }
 
-    public String getWeakPoints() {
-        return weakPoints;
-    }
-
-    public void setWeakPoints(String weakPoints) {
-        this.weakPoints = weakPoints;
-    }
-
-    public String getStrongPoints() {
-        return strongPoints;
-    }
-
-    public void setStrongPoints(String strongPoints) {
-        this.strongPoints = strongPoints;
-    }
-
-    public String getLinkReclameAqui() {
-        return linkReclameAqui;
-    }
-
-    public void setLinkReclameAqui(String linkReclameAqui) {
-        this.linkReclameAqui = linkReclameAqui;
-    }
-
-    public int getProductType() {
-        return type;
-    }
-
-    public void setProductType(int type) {
-        this.type = type;
-    }
-
-    public int getReviewStatus() {
-        return reviewStatus;
-    }
-
-    public void setReviewStatus(int reviewStatus) {
-        this.reviewStatus = reviewStatus;
-    }
-
     public int getOverallRating() {
         return overallRating;
     }
@@ -216,28 +173,20 @@ public class ReviewJpaModel {
         this.overallRating = overallRating;
     }
 
-    public int getSupportRating() {
-        return supportRating;
+    public int getResponseTime() {
+        return responseTime;
     }
 
-    public void setSupportRating(int supportRating) {
-        this.supportRating = supportRating;
+    public void setResponseTime(int responseTime) {
+        this.responseTime = responseTime;
     }
 
-    public int getAfterSalesRating() {
-        return afterSalesRating;
+    public int getPostSale() {
+        return postSale;
     }
 
-    public void setAfterSalesRating(int afterSalesRating) {
-        this.afterSalesRating = afterSalesRating;
-    }
-
-    public int getType() {
-        return type;
-    }
-
-    public void setType(int type) {
-        this.type = type;
+    public void setPostSale(int postSale) {
+        this.postSale = postSale;
     }
 
     public String getBoughtFrom() {
@@ -302,5 +251,61 @@ public class ReviewJpaModel {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public String getNegativeFeedback() {
+        return negativeFeedback;
+    }
+
+    public void setNegativeFeedback(String negativeFeedback) {
+        this.negativeFeedback = negativeFeedback;
+    }
+
+    public String getPositiveFeedback() {
+        return positiveFeedback;
+    }
+
+    public void setPositiveFeedback(String positiveFeedback) {
+        this.positiveFeedback = positiveFeedback;
+    }
+
+    public String getUrlReclameAqui() {
+        return urlReclameAqui;
+    }
+
+    public void setUrlReclameAqui(String urlReclameAqui) {
+        this.urlReclameAqui = urlReclameAqui;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public void setResponseTime(Integer responseTime) {
+        this.responseTime = responseTime;
+    }
+
+    public void setPostSale(Integer postSale) {
+        this.postSale = postSale;
+    }
+
+    public Boolean getRecommend() {
+        return recommend;
+    }
+
+    public void setRecommend(Boolean recommend) {
+        this.recommend = recommend;
     }
 }

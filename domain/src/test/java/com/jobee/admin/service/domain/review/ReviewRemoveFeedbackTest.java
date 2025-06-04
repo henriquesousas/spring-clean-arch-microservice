@@ -1,13 +1,8 @@
 package com.jobee.admin.service.domain.review;
 
 import com.jobee.admin.service.domain.review.valueobjects.Feedback;
-import com.jobee.admin.service.domain.review.valueobjects.FeedbackType;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class ReviewRemoveFeedbackTest {
 

@@ -5,16 +5,18 @@ import com.jobee.admin.service.domain.review.ReviewBuilder;
 import com.jobee.admin.service.domain.review.ReviewRepository;
 import com.jobee.admin.service.domain.review.enums.RatingScale;
 import com.jobee.admin.service.domain.review.enums.Type;
+import com.jobee.admin.service.domain.review.valueobjects.Feedback;
 import com.jobee.admin.service.domain.review.valueobjects.ReviewId;
 import com.jobee.admin.service.domain.exceptions.DomainException;
 import com.jobee.admin.service.domain.exceptions.ValidationException;
+import com.jobee.admin.service.domain.review.valueobjects.Url;
+import com.jobee.admin.service.domain.utils.CollectionUtils;
 import com.jobee.admin.service.domain.validation.Error;
 import com.jobee.admin.service.domain.user.valueobjects.UserId;
 import io.vavr.control.Either;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 
 public class CreateReviewUseCase extends UseCase<CreateReviewInputDto, Either<DomainException, ReviewId>> {
 
@@ -38,7 +40,7 @@ public class CreateReviewUseCase extends UseCase<CreateReviewInputDto, Either<Do
         }
 
         if (rating.isEmpty()) {
-            return Either.left(ValidationException.with(new Error("Rating desconhecido")));
+            return Either.left(ValidationException.with(new Error("Você ainda não informou a nota geral")));
         }
 
         final var review = new ReviewBuilder(
@@ -47,7 +49,12 @@ public class CreateReviewUseCase extends UseCase<CreateReviewInputDto, Either<Do
                 UserId.from(dto.userId()),
                 type.get(),
                 dto.boughtFrom(),
-                rating.get()
+                Url.from(dto.url()),
+                rating.get(),
+                RatingScale.of(dto.postSale()).orElse(null),
+                RatingScale.of(dto.responseTime()).orElse(null),
+                CollectionUtils.asSet(dto.positiveFeedback(),Feedback::from),
+                CollectionUtils.asSet(dto.negativeFeedback(),Feedback::from)
         ).build();
 
         if (review.getNotification().hasError()) {
@@ -55,7 +62,7 @@ public class CreateReviewUseCase extends UseCase<CreateReviewInputDto, Either<Do
             return Either.left(ValidationException.with(errors));
         }
 
-        logger.info("Calls repository with dto {}",review.toString());
+        logger.info("Calls repository with dto {}", review.toString());
         this.repository.create(review);
         return Either.right(review.getId());
     }
