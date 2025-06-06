@@ -1,5 +1,6 @@
 package com.jobee.admin.service.infrastructure.core.review;
 
+import com.jobee.admin.service.infrastructure.core.review.models.ReviewJpaModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ReviewJpaRepository extends JpaRepository<ReviewJpaModel, String> {

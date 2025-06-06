@@ -2,6 +2,7 @@ package com.jobee.admin.service.infrastructure.core.review;
 
 import com.jobee.admin.service.application.usecases.review.CreateReviewInputDto;
 import com.jobee.admin.service.application.usecases.review.CreateReviewUseCase;
+import com.jobee.admin.service.infrastructure.core.review.dtos.CreateReviewRequestDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;

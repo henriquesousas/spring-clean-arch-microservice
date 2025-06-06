@@ -5,6 +5,7 @@ import com.jobee.admin.service.domain.core.review.ReviewRepository;
 import com.jobee.admin.service.domain.core.review.valueobjects.ReviewId;
 import com.jobee.admin.service.domain.pagination.Pagination;
 import com.jobee.admin.service.domain.pagination.Search;
+import com.jobee.admin.service.infrastructure.core.review.models.ReviewJpaModel;
 import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;

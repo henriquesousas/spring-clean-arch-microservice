@@ -1,4 +1,4 @@
-package com.jobee.admin.service.infrastructure.core.review;
+package com.jobee.admin.service.infrastructure.core.review.dtos;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

@@ -1,4 +1,4 @@
-package com.jobee.admin.service.infrastructure.core.review;
+package com.jobee.admin.service.infrastructure.core.review.models;
 
 
 import com.jobee.admin.service.domain.core.review.Review;
