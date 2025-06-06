@@ -1,5 +1,7 @@
 package com.jobee.admin.service.domain.category;
 
+import com.jobee.admin.service.domain.core.category.Category;
+import com.jobee.admin.service.domain.core.category.CategoryBuilder;
 import com.jobee.admin.service.domain.exceptions.DomainException;
 import com.jobee.admin.service.domain.validation.handler.ThrowsValidationHandler;
 import org.junit.jupiter.api.Assertions;

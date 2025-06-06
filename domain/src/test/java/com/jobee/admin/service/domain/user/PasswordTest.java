@@ -1,6 +1,6 @@
 package com.jobee.admin.service.domain.user;
 
-import com.jobee.admin.service.domain.user.valueobjects.Password;
+import com.jobee.admin.service.domain.core.user.valueobjects.Password;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

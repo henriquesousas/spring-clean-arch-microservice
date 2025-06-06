@@ -1,9 +1,12 @@
 package com.jobee.admin.service.application.category.update;
 
 
-import com.jobee.admin.service.domain.category.Category;
-import com.jobee.admin.service.domain.category.CategoryBuilder;
-import com.jobee.admin.service.domain.category.CategoryRepository;
+import com.jobee.admin.service.application.usecases.category.update.UpdateCategoryInputDto;
+import com.jobee.admin.service.application.usecases.category.update.UpdateCategoryOutputDto;
+import com.jobee.admin.service.application.usecases.category.update.UpdateCategoryUseCase;
+import com.jobee.admin.service.domain.core.category.Category;
+import com.jobee.admin.service.domain.core.category.CategoryBuilder;
+import com.jobee.admin.service.domain.core.category.CategoryRepository;
 import com.jobee.admin.service.domain.exceptions.DomainException;
 import com.jobee.admin.service.domain.validation.Error;
 import org.junit.jupiter.api.BeforeEach;

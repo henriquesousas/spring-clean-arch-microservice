@@ -1,11 +1,13 @@
 package com.jobee.admin.service.domain.review;
 
-import com.jobee.admin.service.domain.review.enums.Status;
-import com.jobee.admin.service.domain.review.enums.Type;
-import com.jobee.admin.service.domain.review.enums.RatingScale;
-import com.jobee.admin.service.domain.review.valueobjects.Feedback;
-import com.jobee.admin.service.domain.review.valueobjects.ReviewId;
-import com.jobee.admin.service.domain.user.valueobjects.UserId;
+import com.jobee.admin.service.domain.core.review.ReviewBuilder;
+import com.jobee.admin.service.domain.core.review.enums.Status;
+import com.jobee.admin.service.domain.core.review.enums.Type;
+import com.jobee.admin.service.domain.core.review.enums.RatingScale;
+import com.jobee.admin.service.domain.core.review.valueobjects.Feedback;
+import com.jobee.admin.service.domain.core.review.valueobjects.ReviewId;
+import com.jobee.admin.service.domain.core.review.valueobjects.Url;
+import com.jobee.admin.service.domain.core.user.valueobjects.UserId;
 import com.jobee.admin.service.domain.utils.InstantUtils;
 
 import java.time.Instant;
@@ -28,7 +30,7 @@ public class Fixture {
     public static Instant expectedCreatedAt = InstantUtils.now();
     public static Instant expectedUpdateAt = InstantUtils.now();
     public static Instant expectedDeletedAt = InstantUtils.now();
-    public static String expectedUrl = "http://googgle.com.br";
+    public static Url expectedUrl = Url.from( "http://googgle.com.br");
     public static boolean expectedRecommend = true;
     public static Status expectedStatus = Status.IN_ANALYSIS;
     public static boolean expectedIsActive = true;
@@ -41,6 +43,7 @@ public class Fixture {
                 expectedUserId,
                 expectedType,
                 expectedBoughtFrom,
+                null,
                 expectedOverall,
                 null,
                 null,
@@ -56,6 +59,7 @@ public class Fixture {
                 expectedUserId,
                 expectedType,
                 expectedBoughtFrom,
+                expectedUrl,
                 expectedOverall,
                 expectedPostSale,
                 expectedResponseTime,
@@ -68,7 +72,6 @@ public class Fixture {
                 .withCreatedAt(expectedCreatedAt)
                 .withUpdatedAt(expectedUpdateAt)
                 .withDeletedAt(expectedDeletedAt)
-                .withUrl(expectedUrl)
                 .withIsRecommend(expectedRecommend)
                 .withIsVerified(true);
 
@@ -88,6 +91,7 @@ public class Fixture {
                 expectedUserId,
                 expectedType,
                 expectedBoughtFrom,
+                null,
                 RatingScale.RA_1,
                 RatingScale.RA_1,
                 RatingScale.RA_1,

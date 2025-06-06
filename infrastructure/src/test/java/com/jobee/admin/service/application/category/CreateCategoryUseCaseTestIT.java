@@ -1,12 +1,12 @@
 package com.jobee.admin.service.application.category;
 
 import com.jobee.admin.service.IntegrationTest;
-import com.jobee.admin.service.application.category.create.CreateCategoryInputDto;
-import com.jobee.admin.service.application.category.create.CreateCategoryUseCase;
-import com.jobee.admin.service.domain.category.CategoryBuilder;
-import com.jobee.admin.service.domain.category.CategoryRepository;
-import com.jobee.admin.service.infrastructure.category.repository.CategoryJpaRepository;
-import com.jobee.admin.service.infrastructure.category.repository.CategoryModel;
+import com.jobee.admin.service.application.usecases.category.create.CreateCategoryInputDto;
+import com.jobee.admin.service.application.usecases.category.create.CreateCategoryUseCase;
+import com.jobee.admin.service.domain.core.category.CategoryBuilder;
+import com.jobee.admin.service.domain.core.category.CategoryRepository;
+import com.jobee.admin.service.infrastructure.core.category.repository.CategoryJpaRepository;
+import com.jobee.admin.service.infrastructure.core.category.repository.CategoryModel;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;

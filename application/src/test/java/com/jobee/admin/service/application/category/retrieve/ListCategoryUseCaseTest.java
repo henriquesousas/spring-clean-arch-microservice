@@ -1,8 +1,10 @@
 package com.jobee.admin.service.application.category.retrieve;
 
-import com.jobee.admin.service.domain.category.Category;
-import com.jobee.admin.service.domain.category.CategoryBuilder;
-import com.jobee.admin.service.domain.category.CategoryRepository;
+import com.jobee.admin.service.application.usecases.category.retrieve.CategoryOutput;
+import com.jobee.admin.service.application.usecases.category.retrieve.ListCategoryUseCase;
+import com.jobee.admin.service.domain.core.category.Category;
+import com.jobee.admin.service.domain.core.category.CategoryBuilder;
+import com.jobee.admin.service.domain.core.category.CategoryRepository;
 import com.jobee.admin.service.domain.pagination.Search;
 import com.jobee.admin.service.domain.pagination.Pagination;
 import org.junit.jupiter.api.Assertions;

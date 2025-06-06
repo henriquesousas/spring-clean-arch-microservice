@@ -1,6 +1,9 @@
 package com.jobee.admin.service.domain.genre;
 
-import com.jobee.admin.service.domain.category.CategoryId;
+import com.jobee.admin.service.domain.core.category.CategoryId;
+import com.jobee.admin.service.domain.core.genre.Genre;
+import com.jobee.admin.service.domain.core.genre.GenreBuilder;
+import com.jobee.admin.service.domain.core.genre.GenreId;
 import com.jobee.admin.service.domain.utils.InstantUtils;
 import com.jobee.admin.service.domain.validation.handler.Notification;
 import org.junit.jupiter.api.Assertions;

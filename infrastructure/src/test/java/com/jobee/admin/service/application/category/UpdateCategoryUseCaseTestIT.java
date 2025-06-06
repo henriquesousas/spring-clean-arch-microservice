@@ -1,14 +1,13 @@
 package com.jobee.admin.service.application.category;
 
 import com.jobee.admin.service.IntegrationTest;
-import com.jobee.admin.service.application.category.update.UpdateCategoryInputDto;
-import com.jobee.admin.service.application.category.update.UpdateCategoryOutputDto;
-import com.jobee.admin.service.application.category.update.UpdateCategoryUseCase;
-import com.jobee.admin.service.domain.category.Category;
-import com.jobee.admin.service.domain.category.CategoryBuilder;
-import com.jobee.admin.service.domain.category.CategoryRepository;
-import com.jobee.admin.service.infrastructure.category.repository.CategoryJpaRepository;
-import com.jobee.admin.service.infrastructure.category.repository.CategoryModel;
+import com.jobee.admin.service.application.usecases.category.update.UpdateCategoryInputDto;
+import com.jobee.admin.service.application.usecases.category.update.UpdateCategoryOutputDto;
+import com.jobee.admin.service.application.usecases.category.update.UpdateCategoryUseCase;
+import com.jobee.admin.service.domain.core.category.CategoryBuilder;
+import com.jobee.admin.service.domain.core.category.CategoryRepository;
+import com.jobee.admin.service.infrastructure.core.category.repository.CategoryJpaRepository;
+import com.jobee.admin.service.infrastructure.core.category.repository.CategoryModel;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;

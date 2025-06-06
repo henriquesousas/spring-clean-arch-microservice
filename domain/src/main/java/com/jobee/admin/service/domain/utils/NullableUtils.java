@@ -1,7 +1,5 @@
 package com.jobee.admin.service.domain.utils;
 
-import com.jobee.admin.service.domain.review.enums.RatingScale;
-
 import java.util.Optional;
 import java.util.function.Function;
 

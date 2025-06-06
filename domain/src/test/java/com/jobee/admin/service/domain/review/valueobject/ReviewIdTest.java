@@ -1,6 +1,6 @@
 package com.jobee.admin.service.domain.review.valueobject;
 
-import com.jobee.admin.service.domain.review.valueobjects.ReviewId;
+import com.jobee.admin.service.domain.core.review.valueobjects.ReviewId;
 import com.jobee.admin.service.domain.validation.Error;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

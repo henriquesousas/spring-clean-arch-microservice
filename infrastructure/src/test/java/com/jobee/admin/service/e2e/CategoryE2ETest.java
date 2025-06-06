@@ -2,9 +2,9 @@ package com.jobee.admin.service.e2e;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jobee.admin.service.E2ETest;
-import com.jobee.admin.service.domain.category.CategoryId;
-import com.jobee.admin.service.infrastructure.category.models.CreateCategoryRequest;
-import com.jobee.admin.service.infrastructure.category.repository.CategoryJpaRepository;
+import com.jobee.admin.service.domain.core.category.CategoryId;
+import com.jobee.admin.service.infrastructure.core.category.models.CreateCategoryRequest;
+import com.jobee.admin.service.infrastructure.core.category.repository.CategoryJpaRepository;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

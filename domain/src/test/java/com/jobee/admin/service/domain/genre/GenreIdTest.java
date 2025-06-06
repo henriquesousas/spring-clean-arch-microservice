@@ -1,5 +1,6 @@
 package com.jobee.admin.service.domain.genre;
 
+import com.jobee.admin.service.domain.core.genre.GenreId;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

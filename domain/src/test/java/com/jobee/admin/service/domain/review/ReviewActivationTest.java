@@ -1,8 +1,5 @@
 package com.jobee.admin.service.domain.review;
 
-import com.jobee.admin.service.domain.review.enums.RatingScale;
-import com.jobee.admin.service.domain.review.enums.Type;
-import com.jobee.admin.service.domain.user.valueobjects.UserId;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

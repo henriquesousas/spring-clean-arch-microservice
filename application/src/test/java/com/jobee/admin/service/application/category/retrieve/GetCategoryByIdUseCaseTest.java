@@ -1,8 +1,9 @@
 package com.jobee.admin.service.application.category.retrieve;
 
-import com.jobee.admin.service.domain.category.Category;
-import com.jobee.admin.service.domain.category.CategoryId;
-import com.jobee.admin.service.domain.category.CategoryRepository;
+import com.jobee.admin.service.application.usecases.category.retrieve.GetCategoryByIdUseCase;
+import com.jobee.admin.service.domain.core.category.Category;
+import com.jobee.admin.service.domain.core.category.CategoryId;
+import com.jobee.admin.service.domain.core.category.CategoryRepository;
 import com.jobee.admin.service.domain.exceptions.DomainException;
 import com.jobee.admin.service.domain.exceptions.NotFoundException;
 import org.junit.jupiter.api.Assertions;
