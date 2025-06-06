@@ -1,6 +1,7 @@
 package com.jobee.admin.service.infrastructure.core.review;
 
 import com.jobee.admin.service.application.DomainEventHandler;
+import com.jobee.admin.service.application.IntegrationEventPublisher;
 import com.jobee.admin.service.application.usecases.review.CreateReviewUseCase;
 import com.jobee.admin.service.application.DomainEventMediatorPublisher;
 import com.jobee.admin.service.application.handles.review.ReviewCreatedEventHandler;
@@ -16,11 +17,10 @@ import java.util.List;
 @Configuration
 public class ReviewProviders {
 
-    private final ReviewRepository repository;
-
     @Autowired
     private ApplicationEventPublisher publisher;
 
+    private final ReviewRepository repository;
 
     public ReviewProviders(ReviewRepository repository) {
         this.repository = repository;
@@ -30,9 +30,10 @@ public class ReviewProviders {
     public CreateReviewUseCase createReviewUseCase() {
         List<DomainEventHandler> handlers = List.of(new ReviewCreatedEventHandler());
         final var integrationMediator = IntegrationEventMediatorPublish.of(publisher);
+        final var eventMediator = DomainEventMediatorPublisher.of(integrationMediator, handlers);
         return new CreateReviewUseCase(
                 repository,
-                DomainEventMediatorPublisher.of(integrationMediator, handlers)
+                eventMediator
         );
     }
 }
