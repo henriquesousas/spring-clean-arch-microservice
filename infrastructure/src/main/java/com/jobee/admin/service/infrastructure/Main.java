@@ -1,6 +1,7 @@
 package com.jobee.admin.service.infrastructure;
 
 import com.jobee.admin.service.infrastructure.configuration.WebServiceConfig;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.core.env.AbstractEnvironment;
@@ -22,4 +23,8 @@ public class Main {
 //            repository.deleteAll();
 //        };
 //    }
+
+    @RabbitListener(queues = "review.created.queue")
+    void dummyListener() {
+    }
 }

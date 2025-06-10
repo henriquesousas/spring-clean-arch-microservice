@@ -1,9 +1,16 @@
+amqp:
+  admin:
+    auto-create: true
+  host: localhost
+  port: 5672
+  username: admin
+  password: admin
+
 mysql:
   username: root
   password: admin
   schema: services
   url: localhost:3307
-
 
 server:
   port: 8081

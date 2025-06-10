@@ -45,6 +45,9 @@ dependencies {
     implementation('org.springframework.boot:spring-boot-starter-undertow')
     // Starter do spring para JPA (abstracoes para persistir informacoes)
     implementation('org.springframework.boot:spring-boot-starter-data-jpa')
+    // RabbitMQ
+    implementation('org.springframework.boot:spring-boot-starter-amqp')
+
     // Spring docs
     implementation('org.springdoc:springdoc-openapi-webmvc-core:1.6.8')
     implementation('org.springdoc:springdoc-openapi-ui:1.6.8')
@@ -58,6 +61,7 @@ dependencies {
     // H2 para testes local
     testRuntimeOnly('com.h2database:h2')
     // Tests
+    testImplementation('org.springframework.amqp:spring-rabbit-test:2.4.4')
     testImplementation('org.springframework.boot:spring-boot-starter-test')
     // Tests container
     testImplementation('org.testcontainers:testcontainers:1.21.0')
