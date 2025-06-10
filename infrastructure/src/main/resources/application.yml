@@ -11,7 +11,6 @@ amqp:
       routing-key: review.updated
       queue: review.updated.queue
 
-
 server:
   port: 8080
   servlet:
@@ -53,5 +52,9 @@ spring:
     port: ${amqp.port}
     username: ${amqp.username}
     password: ${amqp.password}
+
+    listener:
+      simple:
+        acknowledge-mode: manual
 
 

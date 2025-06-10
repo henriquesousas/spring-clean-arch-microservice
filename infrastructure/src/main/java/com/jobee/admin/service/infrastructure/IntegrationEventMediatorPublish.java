@@ -30,19 +30,3 @@ public class IntegrationEventMediatorPublish implements IntegrationEventPublishe
         }
     }
 }
-
-//    public void publish(final AggregateRoot<?> aggregateRoot) {
-//        for (DomainEvent event : aggregateRoot.getUnDispatchedEvents()) {
-//            aggregateRoot.markEventAsDispatched(event);
-//            eventPublisher.publishEvent(event);
-//        }
-//    }
-
-
-//    public void publishIntegrationEvents(final AggregateRoot<?> aggregateRoot) {
-//        for (DomainEvent event : aggregateRoot.getEvents()) {
-//            final var integrationEvent = event.getIntegrationEvent();
-//            if (integrationEvent == null) continue;
-//            eventPublisher.publishEvent(integrationEvent);
-//        }
-//    }
