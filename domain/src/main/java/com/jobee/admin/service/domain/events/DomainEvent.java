@@ -4,16 +4,17 @@ import com.jobee.admin.service.domain.Identifier;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.List;
 
 public interface DomainEvent extends Serializable {
 
+    Identifier aggregateId();
+
     Instant occurredOn();
 
-    default IntegrationEvent<?> getIntegrationEvent() {
-        return null;
-    }
+    int eventVersion();
 
-    default Identifier aggregateId() {
+    default List<IntegrationEvent<? extends  EventPayload>> getIntegrationEvent() {
         return null;
     }
 }

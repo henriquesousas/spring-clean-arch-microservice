@@ -3,24 +3,42 @@ package com.jobee.admin.service.domain.core.review.events;
 import com.jobee.admin.service.domain.core.review.Review;
 import com.jobee.admin.service.domain.events.IntegrationEvent;
 import com.jobee.admin.service.domain.utils.InstantUtils;
+import lombok.Getter;
 
 import java.time.Instant;
+import java.util.Objects;
 
-public class ReviewCreatedEventIntegration implements IntegrationEvent<Review> {
+@Getter
+public class ReviewCreatedEventIntegration implements IntegrationEvent<ReviewCreatedPayload> {
 
-    private final Review review;
+    private final ReviewCreatedPayload payload;
+    private final Instant occurredOn;
+    private final int eventVersion;
 
-    public ReviewCreatedEventIntegration(Review review) {
-        this.review = review;
+    private ReviewCreatedEventIntegration(final ReviewCreatedPayload payload) {
+        this.payload = Objects.requireNonNull(payload);
+        this.occurredOn = InstantUtils.now();
+        this.eventVersion = 1;
+    }
+
+    public static ReviewCreatedEventIntegration from(Review review) {
+        return new ReviewCreatedEventIntegration(new ReviewCreatedPayload(review.getAggregateId().getValue()));
     }
 
     @Override
     public Instant occurredOn() {
-        return InstantUtils.now();
+        return this.occurredOn;
     }
 
     @Override
-    public Review payload() {
-        return review;
+    public int eventVersion() {
+        return this.eventVersion;
     }
+
+    @Override
+    public ReviewCreatedPayload payload() {
+        return this.payload;
+    }
+
+
 }

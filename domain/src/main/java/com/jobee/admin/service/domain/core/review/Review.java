@@ -1,6 +1,5 @@
 package com.jobee.admin.service.domain.core.review;
 
-import com.jobee.admin.service.domain.core.review.events.ReviewChangeEvent;
 import com.jobee.admin.service.domain.core.review.events.ReviewCreatedEvent;
 import com.jobee.admin.service.domain.core.review.valueobjects.*;
 import com.jobee.admin.service.domain.core.review.enums.Type;
@@ -8,7 +7,6 @@ import com.jobee.admin.service.domain.core.review.enums.RatingScale;
 import com.jobee.admin.service.domain.core.review.enums.Status;
 import com.jobee.admin.service.domain.core.review.valueobjects.Feedback;
 import com.jobee.admin.service.domain.AggregateRoot;
-import com.jobee.admin.service.domain.events.DomainEvent;
 import com.jobee.admin.service.domain.utils.InstantUtils;
 import com.jobee.admin.service.domain.validation.Error;
 import com.jobee.admin.service.domain.validation.ValidationHandler;
@@ -77,8 +75,8 @@ public class Review extends AggregateRoot<ReviewId> {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.deletedAt = deletedAt;
-        registerEvents();
-        applyEvent(new ReviewCreatedEvent(this));
+        registerEvent(new ReviewCreatedEvent(this));
+        registerEventHandler(ReviewCreatedEvent.class.getSimpleName(), event -> validate(notification));
     }
 
 
@@ -109,8 +107,6 @@ public class Review extends AggregateRoot<ReviewId> {
 
         this.isActive = true;
         this.updatedAt = InstantUtils.now();
-
-        this.applyEvent(new ReviewChangeEvent());
     }
 
     public void deactivate() {
@@ -119,8 +115,6 @@ public class Review extends AggregateRoot<ReviewId> {
         this.isActive = false;
         this.updatedAt = InstantUtils.now();
         this.deletedAt = InstantUtils.now();
-
-        this.applyEvent(new ReviewChangeEvent());
     }
 
     public void changeBoughtFrom(final String newSource) {
@@ -128,8 +122,6 @@ public class Review extends AggregateRoot<ReviewId> {
 
         this.boughtFrom = newSource;
         this.updatedAt = InstantUtils.now();
-
-        this.applyEvent(new ReviewChangeEvent());
     }
 
     public void changeSummary(final String newSummary) {
@@ -137,8 +129,6 @@ public class Review extends AggregateRoot<ReviewId> {
 
         this.summary = newSummary;
         this.updatedAt = InstantUtils.now();
-
-        this.applyEvent(new ReviewChangeEvent());
     }
 
     public void changeTitle(final String newTitle) {
@@ -146,8 +136,6 @@ public class Review extends AggregateRoot<ReviewId> {
 
         this.title = newTitle;
         this.updatedAt = InstantUtils.now();
-
-        this.applyEvent(new ReviewChangeEvent());
     }
 
     public void changeStatus(final Status status) {
@@ -155,8 +143,6 @@ public class Review extends AggregateRoot<ReviewId> {
 
         this.status = status;
         this.updatedAt = InstantUtils.now();
-
-        this.applyEvent(new ReviewChangeEvent());
     }
 
     public void changeRating(final RatingScale overall, final RatingScale postSale, final RatingScale responseTime) {
@@ -164,8 +150,6 @@ public class Review extends AggregateRoot<ReviewId> {
 
         this.rating = Rating.from(overall, postSale, responseTime);
         this.updatedAt = InstantUtils.now();
-
-        this.applyEvent(new ReviewChangeEvent());
     }
 
     public void addFeedback(final String newValue, final FeedbackType feedbackType) {
@@ -176,8 +160,6 @@ public class Review extends AggregateRoot<ReviewId> {
                 : this.negativeFeedback;
 
         feedbacks.add(Feedback.from(newValue));
-
-        this.applyEvent(new ReviewChangeEvent());
     }
 
     public void removeFeedback(final Feedback value, final FeedbackType feedbackType) {
@@ -191,8 +173,6 @@ public class Review extends AggregateRoot<ReviewId> {
         if (!removed) {
             this.notification.append(new Error("%s não encontrado".formatted(value)));
         }
-
-        this.applyEvent(new ReviewChangeEvent());
     }
 
     public void addUrl(final String url) {
@@ -203,8 +183,6 @@ public class Review extends AggregateRoot<ReviewId> {
         if (this.url.getNotification().hasError()) {
             this.updatedAt = InstantUtils.now();
         }
-
-        this.applyEvent(new ReviewChangeEvent());
     }
 
     private boolean failIfInactive(final String message) {
@@ -215,10 +193,6 @@ public class Review extends AggregateRoot<ReviewId> {
         return false;
     }
 
-    private void registerEvents() {
-        registerHandler(ReviewChangeEvent.class.getSimpleName(), event -> validate(notification));
-        registerHandler(ReviewCreatedEvent.class.getSimpleName(), event -> validate(notification));
-    }
 
     @Override
     public void validate(final ValidationHandler handler) {

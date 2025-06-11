@@ -1,6 +1,6 @@
 package com.jobee.admin.service.application.usecases.review;
 
-import com.jobee.admin.service.application.DomainEventPublisher;
+import com.jobee.admin.service.application.events.DomainEventMediator;
 import com.jobee.admin.service.application.usecases.UseCase;
 import com.jobee.admin.service.domain.core.review.ReviewBuilder;
 import com.jobee.admin.service.domain.core.review.ReviewRepository;
@@ -23,11 +23,11 @@ public class CreateReviewUseCase extends UseCase<CreateReviewInputDto, Either<Do
 
     private static final Logger logger = LoggerFactory.getLogger(CreateReviewUseCase.class);
     private final ReviewRepository repository;
-    private final DomainEventPublisher publisher;
+    private final DomainEventMediator domainEventMediator;
 
-    public CreateReviewUseCase(final ReviewRepository repository, final DomainEventPublisher publisher) {
+    public CreateReviewUseCase(final ReviewRepository repository, final DomainEventMediator publisher) {
         this.repository = repository;
-        this.publisher = publisher;
+        this.domainEventMediator = publisher;
     }
 
     @Override
@@ -67,8 +67,7 @@ public class CreateReviewUseCase extends UseCase<CreateReviewInputDto, Either<Do
         logger.info("Calls repository with dto {}", review);
         this.repository.create(review);
 
-        this.publisher.publishEvent(review.getEvents());
-        review.clearEvents();
+        this.domainEventMediator.publishEvent(review);
 
         return Either.right(review.getId());
     }
