@@ -1,4 +1,4 @@
-package com.jobee.admin.service.domain.commons.utils;
+package com.jobee.admin.service.domain.utils;
 
 import java.util.Set;
 import java.util.function.Function;

@@ -1,6 +1,6 @@
-package com.jobee.admin.service.domain.commons.exceptions;
+package com.jobee.admin.service.domain.exceptions;
 
-import com.jobee.admin.service.domain.commons.validation.Error;
+import com.jobee.admin.service.domain.validation.Error;
 import lombok.Getter;
 
 import java.util.List;
@@ -8,7 +8,7 @@ import java.util.List;
 @Getter
 public class DomainException extends RuntimeException {
 
-    private final List<Error> errors;
+    public final List<Error> errors;
 
     protected DomainException(final String message, final List<Error> errors) {
         super(message, null, true, false);

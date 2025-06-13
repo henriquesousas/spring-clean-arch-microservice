@@ -1,15 +1,14 @@
 package com.jobee.admin.service.domain.category;
 
-import com.jobee.admin.service.domain.commons.Identifier;
 
+
+import com.jobee.admin.service.domain.Identifier;
+import com.jobee.admin.service.domain.utils.IdUtils;
 
 import java.util.List;
 import java.util.UUID;
 
-//TODO: Refactor
 public class CategoryId extends Identifier {
-
-//    private final String value;
 
     private CategoryId(String value) {
         super(value);
@@ -18,7 +17,7 @@ public class CategoryId extends Identifier {
     }
 
     public static CategoryId unique() {
-        return CategoryId.from(UUID.randomUUID().toString());
+        return CategoryId.from(IdUtils.uuid());
     }
 
     public static CategoryId from(final String id) {
@@ -36,23 +35,4 @@ public class CategoryId extends Identifier {
                 .distinct()
                 .toList();
     }
-
-
-//    //TODO: Refactor
-//    protected void selfValidate() {
-//
-//        if (value == null || value.isEmpty()) {
-//            this.notification.append(ValidationException.with(new Error("CategoryId cannot be null or empty")));
-//        }
-//
-////        if (!isValidUUID(value)) {
-////            this.notification.append(ValidationException.with(new Error("CategoryId must be a valid UUID")));
-////        }
-//    }
-
-
-//    @Override
-//    public String getValue() {
-//        return value;
-//    }
 }

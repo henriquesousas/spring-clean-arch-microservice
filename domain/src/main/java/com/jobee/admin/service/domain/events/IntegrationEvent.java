@@ -1,4 +1,4 @@
-package com.jobee.admin.service.domain.commons.events;
+package com.jobee.admin.service.domain.events;
 
 import java.io.Serializable;
 import java.time.Instant;

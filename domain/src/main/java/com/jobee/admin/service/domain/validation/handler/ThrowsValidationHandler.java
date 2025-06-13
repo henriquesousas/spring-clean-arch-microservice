@@ -1,8 +1,8 @@
-package com.jobee.admin.service.domain.commons.validation.handler;
+package com.jobee.admin.service.domain.validation.handler;
 
-import com.jobee.admin.service.domain.commons.exceptions.DomainException;
-import com.jobee.admin.service.domain.commons.validation.Error;
-import com.jobee.admin.service.domain.commons.validation.ValidationHandler;
+import com.jobee.admin.service.domain.exceptions.DomainException;
+import com.jobee.admin.service.domain.validation.Error;
+import com.jobee.admin.service.domain.validation.ValidationHandler;
 
 import java.util.List;
 
@@ -23,10 +23,6 @@ public class ThrowsValidationHandler implements ValidationHandler {
         return List.of();
     }
 
-//    @Override
-//    public List<Error> getErrors() {
-//        return List.of();
-//    }
 
     @Override
     public void copy(Notification notification) {
@@ -38,8 +34,4 @@ public class ThrowsValidationHandler implements ValidationHandler {
         return ValidationHandler.super.hasError();
     }
 
-//    @Override
-//    public Error getFirstError() {
-//        return ValidationHandler.super.getFirstError();
-//    }
 }

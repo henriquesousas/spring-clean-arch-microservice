@@ -1,13 +1,13 @@
 package com.jobee.admin.service.domain.review;
 
-import com.jobee.admin.service.domain.commons.ValueObject;
+import com.jobee.admin.service.domain.ValueObject;
 import com.jobee.admin.service.domain.review.valueobjects.Feedback;
 import com.jobee.admin.service.domain.review.valueobjects.Url;
-import com.jobee.admin.service.domain.commons.utils.NullableUtils;
-import com.jobee.admin.service.domain.commons.validation.Error;
-import com.jobee.admin.service.domain.commons.validation.ValidationHandler;
-import com.jobee.admin.service.domain.commons.validation.Validator;
-import com.jobee.admin.service.domain.commons.validation.handler.Notification;
+import com.jobee.admin.service.domain.utils.NullableUtils;
+import com.jobee.admin.service.domain.validation.Error;
+import com.jobee.admin.service.domain.validation.ValidationHandler;
+import com.jobee.admin.service.domain.validation.Validator;
+import com.jobee.admin.service.domain.validation.handler.Notification;
 
 import java.util.Set;
 import java.util.stream.Stream;

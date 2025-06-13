@@ -1,7 +1,7 @@
 package com.jobee.admin.service.domain.category;
 
-import com.jobee.admin.service.domain.commons.AggregateRoot;
-import com.jobee.admin.service.domain.commons.validation.ValidationHandler;
+import com.jobee.admin.service.domain.AggregateRoot;
+import com.jobee.admin.service.domain.validation.ValidationHandler;
 import lombok.Getter;
 
 

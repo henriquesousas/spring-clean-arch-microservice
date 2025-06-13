@@ -1,7 +1,9 @@
 package com.jobee.admin.service.domain.review.valueobjects;
 
-import com.jobee.admin.service.domain.commons.Identifier;
-import com.jobee.admin.service.domain.commons.utils.IdUtils;
+import com.jobee.admin.service.domain.Identifier;
+import com.jobee.admin.service.domain.exceptions.ValidationException;
+import com.jobee.admin.service.domain.utils.IdUtils;
+import com.jobee.admin.service.domain.validation.Error;
 
 public class ReviewId extends Identifier {
 

@@ -1,9 +1,10 @@
 package com.jobee.admin.service.domain.genre;
 
-import com.jobee.admin.service.domain.commons.validation.Error;
-import com.jobee.admin.service.domain.commons.validation.FluentValidator;
-import com.jobee.admin.service.domain.commons.validation.ValidationHandler;
-import com.jobee.admin.service.domain.commons.validation.Validator;
+
+import com.jobee.admin.service.domain.validation.Error;
+import com.jobee.admin.service.domain.validation.FluentValidator;
+import com.jobee.admin.service.domain.validation.ValidationHandler;
+import com.jobee.admin.service.domain.validation.Validator;
 
 public class GenreValidator extends Validator {
 

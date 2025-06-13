@@ -1,4 +1,4 @@
-package com.jobee.admin.service.domain.commons.utils;
+package com.jobee.admin.service.domain.utils;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;

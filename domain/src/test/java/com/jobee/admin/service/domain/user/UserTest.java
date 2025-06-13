@@ -1,7 +1,7 @@
 package com.jobee.admin.service.domain.user;
 
-import com.jobee.admin.service.domain.commons.utils.InstantUtils;
 import com.jobee.admin.service.domain.user.valueobjects.UserId;
+import com.jobee.admin.service.domain.utils.InstantUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

@@ -1,8 +1,8 @@
 package com.jobee.admin.service.domain.review.events;
 
+import com.jobee.admin.service.domain.events.IntegrationEvent;
 import com.jobee.admin.service.domain.review.Review;
-import com.jobee.admin.service.domain.commons.events.IntegrationEvent;
-import com.jobee.admin.service.domain.commons.utils.InstantUtils;
+import com.jobee.admin.service.domain.utils.InstantUtils;
 import lombok.Getter;
 
 import java.time.Instant;

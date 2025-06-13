@@ -1,27 +1,28 @@
 package com.jobee.admin.service.domain;
 
-import com.jobee.admin.service.domain.commons.validation.Error;
+
+import com.jobee.admin.service.domain.validation.Error;
 
 import java.util.Objects;
 
 public abstract class Identifier extends ValueObject<String> {
 
     private static final int MAX_LENGTH = 32;
-    private final String value;
+    protected final String value;
 
     public Identifier(String value) {
+        selfValidate(value);
         this.value = value;
-        selfValidate();
     }
 
-    protected void selfValidate() {
-        if (this.getValue() == null || this.getValue().isBlank()) {
+    protected void selfValidate(String value) {
+        if (value == null || value.isBlank()) {
             this.notification.append(new Error("%s cannot be null or empty".formatted(
                     this.getClass().getSimpleName()
             )));
         }
 
-        if (this.getValue() != null && this.getValue().length() != MAX_LENGTH) {
+        if (value != null && value.length() != MAX_LENGTH) {
             this.notification.append(new Error("%s must be a valid UUID".formatted(
                     this.getClass().getSimpleName()
             )));

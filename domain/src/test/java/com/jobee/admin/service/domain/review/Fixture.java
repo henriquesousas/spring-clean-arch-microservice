@@ -7,7 +7,7 @@ import com.jobee.admin.service.domain.review.valueobjects.Feedback;
 import com.jobee.admin.service.domain.review.valueobjects.ReviewId;
 import com.jobee.admin.service.domain.review.valueobjects.Url;
 import com.jobee.admin.service.domain.user.valueobjects.UserId;
-import com.jobee.admin.service.domain.commons.utils.InstantUtils;
+import com.jobee.admin.service.domain.utils.InstantUtils;
 
 import java.time.Instant;
 import java.util.HashSet;

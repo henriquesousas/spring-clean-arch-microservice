@@ -1,8 +1,8 @@
 package com.jobee.admin.service.domain.review.valueobjects;
 
+import com.jobee.admin.service.domain.ValueObject;
 import com.jobee.admin.service.domain.review.enums.RatingScale;
-import com.jobee.admin.service.domain.commons.ValueObject;
-import com.jobee.admin.service.domain.commons.validation.Error;
+import com.jobee.admin.service.domain.validation.Error;
 import lombok.Getter;
 
 @Getter

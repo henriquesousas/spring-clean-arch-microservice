@@ -1,7 +1,7 @@
 package com.jobee.admin.service.domain;
 
-import com.jobee.admin.service.domain.commons.validation.ValidationHandler;
-import com.jobee.admin.service.domain.commons.validation.handler.Notification;
+import com.jobee.admin.service.domain.validation.ValidationHandler;
+import com.jobee.admin.service.domain.validation.handler.Notification;
 import lombok.Getter;
 
 import java.util.Objects;

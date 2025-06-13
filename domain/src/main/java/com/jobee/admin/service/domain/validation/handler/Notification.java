@@ -1,16 +1,16 @@
-package com.jobee.admin.service.domain.commons.validation.handler;
+package com.jobee.admin.service.domain.validation.handler;
 
-import com.jobee.admin.service.domain.commons.exceptions.DomainException;
-import com.jobee.admin.service.domain.commons.validation.Error;
-import com.jobee.admin.service.domain.commons.validation.ValidationHandler;
+
+import com.jobee.admin.service.domain.exceptions.DomainException;
+import com.jobee.admin.service.domain.validation.Error;
+import com.jobee.admin.service.domain.validation.ValidationHandler;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-//TODO: Change List to Hashset
 public class Notification implements ValidationHandler {
-    private  Set<Error> errors;
+    private final Set<Error> errors;
 
     private Notification() {
         this.errors = new HashSet<>();
@@ -32,7 +32,7 @@ public class Notification implements ValidationHandler {
 
     @Override
     public Notification append(DomainException error) {
-        this.errors.add(new Error(error.getMessage()));
+        this.errors.addAll(error.getErrors());
         return this;
     }
 

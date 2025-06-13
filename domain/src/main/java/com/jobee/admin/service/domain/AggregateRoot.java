@@ -1,6 +1,7 @@
 package com.jobee.admin.service.domain;
 
-import com.jobee.admin.service.domain.commons.events.DomainEvent;
+
+import com.jobee.admin.service.domain.events.DomainEvent;
 
 import java.util.*;
 import java.util.function.Consumer;
@@ -15,8 +16,7 @@ public abstract class AggregateRoot<ID extends Identifier> extends Entity<ID> {
         super(id);
     }
 
-    // applyEvent
-    protected void registerEvent(DomainEvent event) {
+    protected void applyEvent(DomainEvent event) {
         events.add(event);
         emitLocal(event);
     }

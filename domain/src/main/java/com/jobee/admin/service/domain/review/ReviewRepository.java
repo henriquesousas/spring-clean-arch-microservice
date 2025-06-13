@@ -1,8 +1,8 @@
 package com.jobee.admin.service.domain.review;
 
+import com.jobee.admin.service.domain.pagination.Pagination;
+import com.jobee.admin.service.domain.pagination.Search;
 import com.jobee.admin.service.domain.review.valueobjects.ReviewId;
-import com.jobee.admin.service.domain.commons.pagination.Pagination;
-import com.jobee.admin.service.domain.commons.pagination.Search;
 
 import java.util.Optional;
 

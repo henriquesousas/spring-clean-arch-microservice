@@ -1,4 +1,4 @@
-package com.jobee.admin.service.domain.commons.events;
+package com.jobee.admin.service.domain.events;
 
 public interface EventPayload {
 }

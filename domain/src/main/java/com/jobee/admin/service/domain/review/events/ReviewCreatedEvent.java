@@ -1,11 +1,11 @@
 package com.jobee.admin.service.domain.review.events;
 
-import com.jobee.admin.service.domain.commons.Identifier;
+import com.jobee.admin.service.domain.Identifier;
+import com.jobee.admin.service.domain.events.DomainEvent;
+import com.jobee.admin.service.domain.events.EventPayload;
+import com.jobee.admin.service.domain.events.IntegrationEvent;
 import com.jobee.admin.service.domain.review.Review;
-import com.jobee.admin.service.domain.commons.events.DomainEvent;
-import com.jobee.admin.service.domain.commons.events.EventPayload;
-import com.jobee.admin.service.domain.commons.events.IntegrationEvent;
-import com.jobee.admin.service.domain.commons.utils.InstantUtils;
+import com.jobee.admin.service.domain.utils.InstantUtils;
 
 import java.time.Instant;
 import java.util.List;

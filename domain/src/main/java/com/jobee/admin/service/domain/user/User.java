@@ -1,10 +1,10 @@
 package com.jobee.admin.service.domain.user;
 
-import com.jobee.admin.service.domain.commons.AggregateRoot;
-import com.jobee.admin.service.domain._core.user.valueobjects.*;
-import com.jobee.admin.service.domain.commons.utils.InstantUtils;
-import com.jobee.admin.service.domain.commons.validation.ValidationHandler;
+import com.jobee.admin.service.domain.AggregateRoot;
 import com.jobee.admin.service.domain.user.valueobjects.*;
+import com.jobee.admin.service.domain.utils.InstantUtils;
+import com.jobee.admin.service.domain.validation.ValidationHandler;
+import lombok.Getter;
 
 import java.time.Instant;
 import java.util.Objects;
@@ -12,6 +12,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 
+@Getter
 public class User extends AggregateRoot<UserId> {
     private String name;
     private Email email;
@@ -75,39 +76,4 @@ public class User extends AggregateRoot<UserId> {
     //TODO: Implement active method
 
 
-    public String getName() {
-        return name;
-    }
-
-    public Email getEmail() {
-        return email;
-    }
-
-    public Phone getPhone() {
-        return phone;
-    }
-
-    public Password getPassword() {
-        return password;
-    }
-
-    public boolean isActive() {
-        return isActive;
-    }
-
-    public Set<Role> getRoles() {
-        return roles;
-    }
-
-    public Instant getCreatedAt() {
-        return createdAt;
-    }
-
-    public Instant getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public Instant getDeletedAt() {
-        return deletedAt;
-    }
 }

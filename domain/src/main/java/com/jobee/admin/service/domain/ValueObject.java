@@ -1,6 +1,6 @@
 package com.jobee.admin.service.domain;
 
-import com.jobee.admin.service.domain.commons.validation.handler.Notification;
+import com.jobee.admin.service.domain.validation.handler.Notification;
 import lombok.Getter;
 
 @Getter

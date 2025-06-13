@@ -1,7 +1,8 @@
 package com.jobee.admin.service.domain.user.valueobjects;
 
-import com.jobee.admin.service.domain.commons.ValueObject;
-import com.jobee.admin.service.domain.commons.validation.Error;
+
+import com.jobee.admin.service.domain.ValueObject;
+import com.jobee.admin.service.domain.validation.Error;
 
 import java.util.regex.Pattern;
 

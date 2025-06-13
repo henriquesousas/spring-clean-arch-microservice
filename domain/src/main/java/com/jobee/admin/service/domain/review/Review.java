@@ -1,17 +1,16 @@
 package com.jobee.admin.service.domain.review;
 
+import com.jobee.admin.service.domain.AggregateRoot;
 import com.jobee.admin.service.domain.review.events.ReviewCreatedEvent;
-import com.jobee.admin.service.domain._core.review.valueobjects.*;
 import com.jobee.admin.service.domain.review.enums.Type;
 import com.jobee.admin.service.domain.review.enums.RatingScale;
 import com.jobee.admin.service.domain.review.enums.Status;
 import com.jobee.admin.service.domain.review.valueobjects.*;
-import com.jobee.admin.service.domain.commons.AggregateRoot;
-import com.jobee.admin.service.domain.commons.utils.InstantUtils;
-import com.jobee.admin.service.domain.commons.validation.Error;
-import com.jobee.admin.service.domain.commons.validation.ValidationHandler;
 import com.jobee.admin.service.domain.user.valueobjects.UserId;
 import com.jobee.admin.service.domain.review.valueobjects.Feedback;
+import com.jobee.admin.service.domain.utils.InstantUtils;
+import com.jobee.admin.service.domain.validation.Error;
+import com.jobee.admin.service.domain.validation.ValidationHandler;
 import lombok.Getter;
 
 import java.time.Instant;
@@ -76,8 +75,8 @@ public class Review extends AggregateRoot<ReviewId> {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.deletedAt = deletedAt;
-        registerEvent(new ReviewCreatedEvent(this));
         registerEventHandler(ReviewCreatedEvent.class.getSimpleName(), event -> validate(notification));
+        applyEvent(new ReviewCreatedEvent(this));
     }
 
 
@@ -193,7 +192,6 @@ public class Review extends AggregateRoot<ReviewId> {
         }
         return false;
     }
-
 
     @Override
     public void validate(final ValidationHandler handler) {

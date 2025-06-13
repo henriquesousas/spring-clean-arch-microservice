@@ -8,7 +8,7 @@ import com.jobee.admin.service.domain.review.enums.Type;
 import com.jobee.admin.service.domain.review.enums.Status;
 import com.jobee.admin.service.domain.review.valueobjects.ReviewId;
 import com.jobee.admin.service.domain.user.valueobjects.UserId;
-import com.jobee.admin.service.domain.commons.utils.InstantUtils;
+import com.jobee.admin.service.domain.utils.InstantUtils;
 import lombok.Getter;
 
 import java.time.Instant;

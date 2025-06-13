@@ -1,6 +1,6 @@
-package com.jobee.admin.service.domain.commons.exceptions;
+package com.jobee.admin.service.domain.exceptions;
 
-import com.jobee.admin.service.domain.commons.validation.Error;
+import com.jobee.admin.service.domain.validation.Error;
 
 import java.util.List;
 
