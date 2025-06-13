@@ -1,9 +1,6 @@
 package com.jobee.admin.service.domain.category;
 
-import com.jobee.admin.service.domain.core.category.Category;
-import com.jobee.admin.service.domain.core.category.CategoryBuilder;
-import com.jobee.admin.service.domain.core.category.CategoryValidator;
-import com.jobee.admin.service.domain.validation.handler.Notification;
+import com.jobee.admin.service.domain.commons.validation.handler.Notification;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

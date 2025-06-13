@@ -1,8 +1,8 @@
-package com.jobee.admin.service.domain.validation.handler;
+package com.jobee.admin.service.domain.commons.validation.handler;
 
-import com.jobee.admin.service.domain.exceptions.DomainException;
-import com.jobee.admin.service.domain.validation.Error;
-import com.jobee.admin.service.domain.validation.ValidationHandler;
+import com.jobee.admin.service.domain.commons.exceptions.DomainException;
+import com.jobee.admin.service.domain.commons.validation.Error;
+import com.jobee.admin.service.domain.commons.validation.ValidationHandler;
 
 import java.util.HashSet;
 import java.util.List;

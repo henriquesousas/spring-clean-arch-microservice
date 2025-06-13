@@ -1,7 +1,7 @@
 package com.jobee.admin.service.domain.category;
 
-import com.jobee.admin.service.domain.validation.Error;
-import com.jobee.admin.service.domain.validation.handler.Notification;
+import com.jobee.admin.service.domain.commons.validation.Error;
+import com.jobee.admin.service.domain.commons.validation.handler.Notification;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

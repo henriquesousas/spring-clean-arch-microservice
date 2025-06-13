@@ -1,6 +1,6 @@
 package com.jobee.admin.service.domain;
 
-import com.jobee.admin.service.domain.events.DomainEvent;
+import com.jobee.admin.service.domain.commons.events.DomainEvent;
 
 import java.util.*;
 import java.util.function.Consumer;

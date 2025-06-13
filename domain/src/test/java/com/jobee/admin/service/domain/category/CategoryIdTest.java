@@ -1,6 +1,5 @@
 package com.jobee.admin.service.domain.category;
 
-import com.jobee.admin.service.domain.core.category.CategoryId;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

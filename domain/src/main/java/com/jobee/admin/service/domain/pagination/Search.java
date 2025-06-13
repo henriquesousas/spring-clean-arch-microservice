@@ -1,4 +1,4 @@
-package com.jobee.admin.service.domain.pagination;
+package com.jobee.admin.service.domain.commons.pagination;
 
 public record Search(
         int page,       // Página corrente

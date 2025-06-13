@@ -1,6 +1,6 @@
 package com.jobee.admin.service.application.usecases.category.update;
 
-import com.jobee.admin.service.domain.core.category.Category;
+import com.jobee.admin.service.domain.category.Category;
 
 public record UpdateCategoryOutputDto(
         String id

@@ -2,10 +2,10 @@ package com.jobee.admin.service.application.genre;
 
 import com.jobee.admin.service.application.usecases.genre.create.CreateGenreInputDto;
 import com.jobee.admin.service.application.usecases.genre.create.CreateGenreUseCase;
-import com.jobee.admin.service.domain.core.category.CategoryId;
-import com.jobee.admin.service.domain.core.category.CategoryRepository;
-import com.jobee.admin.service.domain.core.genre.GenreBuilder;
-import com.jobee.admin.service.domain.core.genre.GenreRepository;
+import com.jobee.admin.service.domain.category.CategoryId;
+import com.jobee.admin.service.domain.category.CategoryRepository;
+import com.jobee.admin.service.domain.genre.GenreBuilder;
+import com.jobee.admin.service.domain.genre.GenreRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

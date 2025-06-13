@@ -1,6 +1,6 @@
 package com.jobee.admin.service.domain.review;
 
-import com.jobee.admin.service.domain.core.review.enums.Status;
+import com.jobee.admin.service.domain.review.enums.Status;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

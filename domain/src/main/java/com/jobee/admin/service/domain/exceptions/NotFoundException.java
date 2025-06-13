@@ -1,8 +1,8 @@
-package com.jobee.admin.service.domain.exceptions;
+package com.jobee.admin.service.domain.commons.exceptions;
 
-import com.jobee.admin.service.domain.AggregateRoot;
-import com.jobee.admin.service.domain.Identifier;
-import com.jobee.admin.service.domain.validation.Error;
+import com.jobee.admin.service.domain.commons.AggregateRoot;
+import com.jobee.admin.service.domain.commons.Identifier;
+import com.jobee.admin.service.domain.commons.validation.Error;
 
 import java.util.List;
 

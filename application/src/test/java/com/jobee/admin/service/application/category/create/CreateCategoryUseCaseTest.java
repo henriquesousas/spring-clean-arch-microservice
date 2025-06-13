@@ -2,10 +2,10 @@ package com.jobee.admin.service.application.category.create;
 
 import com.jobee.admin.service.application.usecases.category.create.CreateCategoryInputDto;
 import com.jobee.admin.service.application.usecases.category.create.CreateCategoryUseCase;
-import com.jobee.admin.service.domain.core.category.CategoryBuilder;
-import com.jobee.admin.service.domain.core.category.CategoryRepository;
-import com.jobee.admin.service.domain.exceptions.DomainException;
-import com.jobee.admin.service.domain.validation.Error;
+import com.jobee.admin.service.domain.category.CategoryBuilder;
+import com.jobee.admin.service.domain.category.CategoryRepository;
+import com.jobee.admin.service.domain.commons.exceptions.DomainException;
+import com.jobee.admin.service.domain.commons.validation.Error;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

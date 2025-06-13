@@ -2,11 +2,11 @@ package com.jobee.admin.service.application.usecases.category.delete;
 
 import com.jobee.admin.service.application.usecases.Unit;
 import com.jobee.admin.service.application.usecases.UseCase;
-import com.jobee.admin.service.domain.core.category.Category;
-import com.jobee.admin.service.domain.core.category.CategoryId;
-import com.jobee.admin.service.domain.core.category.CategoryRepository;
-import com.jobee.admin.service.domain.exceptions.NotFoundException;
-import com.jobee.admin.service.domain.validation.handler.Notification;
+import com.jobee.admin.service.domain.category.Category;
+import com.jobee.admin.service.domain.category.CategoryId;
+import com.jobee.admin.service.domain.category.CategoryRepository;
+import com.jobee.admin.service.domain.commons.exceptions.NotFoundException;
+import com.jobee.admin.service.domain.commons.validation.handler.Notification;
 import io.vavr.control.Either;
 import io.vavr.control.Try;
 import static io.vavr.control.Either.left;

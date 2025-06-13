@@ -1,13 +1,13 @@
 package com.jobee.admin.service.infrastructure.genre;
 
 import com.jobee.admin.service.MysqlRepositoryTest;
-import com.jobee.admin.service.domain.core.category.CategoryBuilder;
-import com.jobee.admin.service.domain.core.genre.GenreBuilder;
-import com.jobee.admin.service.domain.core.genre.GenreId;
-import com.jobee.admin.service.infrastructure.core.category.repository.CategoryJpaRepository;
-import com.jobee.admin.service.infrastructure.core.category.repository.CategoryModel;
-import com.jobee.admin.service.infrastructure.core.genre.repository.GenreJpaRepository;
-import com.jobee.admin.service.infrastructure.core.genre.repository.GenreRepositoryMysql;
+import com.jobee.admin.service.domain.category.CategoryBuilder;
+import com.jobee.admin.service.domain.genre.GenreBuilder;
+import com.jobee.admin.service.domain.genre.GenreId;
+import com.jobee.admin.service.infrastructure.category.repository.CategoryJpaRepository;
+import com.jobee.admin.service.infrastructure.category.repository.CategoryModel;
+import com.jobee.admin.service.infrastructure.genre.repository.GenreJpaRepository;
+import com.jobee.admin.service.infrastructure.genre.repository.GenreRepositoryMysql;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

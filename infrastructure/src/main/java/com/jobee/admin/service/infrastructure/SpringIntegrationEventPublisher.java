@@ -1,8 +1,8 @@
 package com.jobee.admin.service.infrastructure;
 
 import com.jobee.admin.service.application.events.IntegrationEventPublisher;
-import com.jobee.admin.service.domain.events.EventPayload;
-import com.jobee.admin.service.domain.events.IntegrationEvent;
+import com.jobee.admin.service.domain.commons.events.EventPayload;
+import com.jobee.admin.service.domain.commons.events.IntegrationEvent;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
 

@@ -1,6 +1,6 @@
 package com.jobee.admin.service.domain.user;
 
-import com.jobee.admin.service.domain.core.user.valueobjects.Phone;
+import com.jobee.admin.service.domain.user.valueobjects.Phone;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

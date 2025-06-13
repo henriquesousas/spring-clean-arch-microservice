@@ -1,12 +1,12 @@
 package com.jobee.admin.service.application.usecases.genre.retrieve;
 
 import com.jobee.admin.service.application.usecases.UseCase;
-import com.jobee.admin.service.domain.core.genre.Genre;
-import com.jobee.admin.service.domain.core.genre.GenreId;
-import com.jobee.admin.service.domain.core.genre.GenreRepository;
-import com.jobee.admin.service.domain.exceptions.DomainException;
-import com.jobee.admin.service.domain.exceptions.NotFoundException;
-import com.jobee.admin.service.domain.exceptions.ValidationException;
+import com.jobee.admin.service.domain.genre.Genre;
+import com.jobee.admin.service.domain.genre.GenreId;
+import com.jobee.admin.service.domain.genre.GenreRepository;
+import com.jobee.admin.service.domain.commons.exceptions.DomainException;
+import com.jobee.admin.service.domain.commons.exceptions.NotFoundException;
+import com.jobee.admin.service.domain.commons.exceptions.ValidationException;
 import io.vavr.control.Either;
 
 public class GetGenreByIdUseCase extends UseCase<GetGenreByIdInputDto, Either<DomainException, Genre>> {

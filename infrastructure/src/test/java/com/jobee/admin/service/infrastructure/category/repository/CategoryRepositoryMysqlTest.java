@@ -1,13 +1,10 @@
 package com.jobee.admin.service.infrastructure.category.repository;
 
 import com.jobee.admin.service.MysqlRepositoryTest;
-import com.jobee.admin.service.domain.core.category.Category;
-import com.jobee.admin.service.domain.core.category.CategoryBuilder;
-import com.jobee.admin.service.domain.core.category.CategoryId;
-import com.jobee.admin.service.domain.pagination.Search;
-import com.jobee.admin.service.infrastructure.core.category.repository.CategoryJpaRepository;
-import com.jobee.admin.service.infrastructure.core.category.repository.CategoryModel;
-import com.jobee.admin.service.infrastructure.core.category.repository.CategoryRepositoryMysql;
+import com.jobee.admin.service.domain.category.Category;
+import com.jobee.admin.service.domain.category.CategoryBuilder;
+import com.jobee.admin.service.domain.category.CategoryId;
+import com.jobee.admin.service.domain.commons.pagination.Search;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

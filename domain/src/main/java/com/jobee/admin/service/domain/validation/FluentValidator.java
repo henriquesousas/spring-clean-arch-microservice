@@ -1,4 +1,4 @@
-package com.jobee.admin.service.domain.validation;
+package com.jobee.admin.service.domain.commons.validation;
 
 
 public class FluentValidator {

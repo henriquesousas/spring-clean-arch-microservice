@@ -1,6 +1,6 @@
-package com.jobee.admin.service.domain.events;
+package com.jobee.admin.service.domain.commons.events;
 
-import com.jobee.admin.service.domain.Identifier;
+import com.jobee.admin.service.domain.commons.Identifier;
 
 import java.io.Serializable;
 import java.time.Instant;

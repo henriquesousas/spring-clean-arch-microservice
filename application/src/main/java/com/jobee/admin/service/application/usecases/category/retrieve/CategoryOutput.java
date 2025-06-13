@@ -1,7 +1,7 @@
 package com.jobee.admin.service.application.usecases.category.retrieve;
 
-import com.jobee.admin.service.domain.core.category.Category;
-import com.jobee.admin.service.domain.core.category.CategoryId;
+import com.jobee.admin.service.domain.category.Category;
+import com.jobee.admin.service.domain.category.CategoryId;
 
 import java.time.Instant;
 

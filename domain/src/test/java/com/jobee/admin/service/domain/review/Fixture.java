@@ -1,14 +1,13 @@
 package com.jobee.admin.service.domain.review;
 
-import com.jobee.admin.service.domain.core.review.ReviewBuilder;
-import com.jobee.admin.service.domain.core.review.enums.Status;
-import com.jobee.admin.service.domain.core.review.enums.Type;
-import com.jobee.admin.service.domain.core.review.enums.RatingScale;
-import com.jobee.admin.service.domain.core.review.valueobjects.Feedback;
-import com.jobee.admin.service.domain.core.review.valueobjects.ReviewId;
-import com.jobee.admin.service.domain.core.review.valueobjects.Url;
-import com.jobee.admin.service.domain.core.user.valueobjects.UserId;
-import com.jobee.admin.service.domain.utils.InstantUtils;
+import com.jobee.admin.service.domain.review.enums.Status;
+import com.jobee.admin.service.domain.review.enums.Type;
+import com.jobee.admin.service.domain.review.enums.RatingScale;
+import com.jobee.admin.service.domain.review.valueobjects.Feedback;
+import com.jobee.admin.service.domain.review.valueobjects.ReviewId;
+import com.jobee.admin.service.domain.review.valueobjects.Url;
+import com.jobee.admin.service.domain.user.valueobjects.UserId;
+import com.jobee.admin.service.domain.commons.utils.InstantUtils;
 
 import java.time.Instant;
 import java.util.HashSet;

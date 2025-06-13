@@ -1,4 +1,4 @@
-package com.jobee.admin.service.domain.utils;
+package com.jobee.admin.service.domain.commons.utils;
 
 import java.util.UUID;
 

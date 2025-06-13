@@ -1,14 +1,14 @@
 package com.jobee.admin.service.application.usecases.category.update;
 
 import com.jobee.admin.service.application.usecases.UseCase;
-import com.jobee.admin.service.domain.core.category.Category;
-import com.jobee.admin.service.domain.core.category.CategoryId;
-import com.jobee.admin.service.domain.core.category.CategoryRepository;
-import com.jobee.admin.service.domain.exceptions.ApplicationException;
-import com.jobee.admin.service.domain.exceptions.DomainException;
-import com.jobee.admin.service.domain.exceptions.NotFoundException;
-import com.jobee.admin.service.domain.exceptions.ValidationException;
-import com.jobee.admin.service.domain.validation.handler.Notification;
+import com.jobee.admin.service.domain.category.Category;
+import com.jobee.admin.service.domain.category.CategoryId;
+import com.jobee.admin.service.domain.category.CategoryRepository;
+import com.jobee.admin.service.domain.commons.exceptions.ApplicationException;
+import com.jobee.admin.service.domain.commons.exceptions.DomainException;
+import com.jobee.admin.service.domain.commons.exceptions.NotFoundException;
+import com.jobee.admin.service.domain.commons.exceptions.ValidationException;
+import com.jobee.admin.service.domain.commons.validation.handler.Notification;
 import io.vavr.control.Either;
 
 

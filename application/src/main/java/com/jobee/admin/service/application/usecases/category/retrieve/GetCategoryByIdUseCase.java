@@ -1,11 +1,11 @@
 package com.jobee.admin.service.application.usecases.category.retrieve;
 
 import com.jobee.admin.service.application.usecases.UseCase;
-import com.jobee.admin.service.domain.core.category.Category;
-import com.jobee.admin.service.domain.core.category.CategoryId;
-import com.jobee.admin.service.domain.core.category.CategoryRepository;
-import com.jobee.admin.service.domain.exceptions.DomainException;
-import com.jobee.admin.service.domain.exceptions.NotFoundException;
+import com.jobee.admin.service.domain.category.Category;
+import com.jobee.admin.service.domain.category.CategoryId;
+import com.jobee.admin.service.domain.category.CategoryRepository;
+import com.jobee.admin.service.domain.commons.exceptions.DomainException;
+import com.jobee.admin.service.domain.commons.exceptions.NotFoundException;
 import io.vavr.control.Either;
 
 import static io.vavr.control.Either.left;

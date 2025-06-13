@@ -1,6 +1,6 @@
 package com.jobee.admin.service.domain;
 
-import com.jobee.admin.service.domain.validation.Error;
+import com.jobee.admin.service.domain.commons.validation.Error;
 
 import java.util.Objects;
 
