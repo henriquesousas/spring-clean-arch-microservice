@@ -1,7 +1,7 @@
 package com.jobee.admin.service.application.handles.review;
 
 import com.jobee.admin.service.application.events.DomainEventHandler;
-import com.jobee.admin.service.domain.commons.events.DomainEvent;
+import com.jobee.admin.service.domain.events.DomainEvent;
 
 public class ReviewCreatedEventHandler implements DomainEventHandler {
 

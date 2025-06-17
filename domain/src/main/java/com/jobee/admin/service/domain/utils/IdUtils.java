@@ -11,6 +11,6 @@ public final  class IdUtils {
     }
 
     public static boolean isValid(final String value) {
-        return value.trim().length() != 32;
+        return value.trim().length() == 32;
     }
 }

@@ -1,6 +1,6 @@
 package com.jobee.admin.service.application.events;
 
-import com.jobee.admin.service.domain.commons.AggregateRoot;
+import com.jobee.admin.service.domain.AggregateRoot;
 import com.jobee.admin.service.domain.events.DomainEvent;
 
 import java.util.List;

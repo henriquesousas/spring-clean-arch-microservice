@@ -3,12 +3,12 @@ package com.jobee.admin.service.application.usecases.genre.create;
 import com.jobee.admin.service.application.usecases.UseCase;
 import com.jobee.admin.service.domain.category.CategoryId;
 import com.jobee.admin.service.domain.category.CategoryRepository;
+import com.jobee.admin.service.domain.exceptions.DomainException;
+import com.jobee.admin.service.domain.exceptions.ValidationException;
 import com.jobee.admin.service.domain.genre.Genre;
 import com.jobee.admin.service.domain.genre.GenreBuilder;
 import com.jobee.admin.service.domain.genre.GenreRepository;
-import com.jobee.admin.service.domain.commons.exceptions.DomainException;
-import com.jobee.admin.service.domain.commons.exceptions.ValidationException;
-import com.jobee.admin.service.domain.commons.validation.Error;
+import com.jobee.admin.service.domain.validation.Error;
 import io.vavr.control.Either;
 
 import java.util.List;

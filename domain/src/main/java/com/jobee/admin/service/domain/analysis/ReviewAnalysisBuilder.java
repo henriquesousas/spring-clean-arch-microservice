@@ -1,7 +1,5 @@
 package com.jobee.admin.service.domain.analysis;
 
-import com.jobee.admin.service.domain.review.valueobjects.ReviewId;
-import com.jobee.admin.service.domain.user.valueobjects.UserId;
 import lombok.Getter;
 
 import java.time.Instant;
@@ -10,8 +8,10 @@ import java.util.Objects;
 @Getter
 public class ReviewAnalysisBuilder {
 
-    private final UserId userId;
-    private final ReviewId reviewId;
+    private String moderatorId;
+    private final ReviewAnalysisId reviewAnalysisId;
+    private final String reviewId;
+    private final String userId;
     private final TypeAnalysis type;
     private Reason reason;
     private Status status;
@@ -20,14 +20,20 @@ public class ReviewAnalysisBuilder {
 
 
     public ReviewAnalysisBuilder(
-            final UserId userId,
-            final ReviewId reviewId,
+            final String userId,
+            final String reviewId,
             final TypeAnalysis type
     ) {
         this.userId = Objects.requireNonNull(userId);
         this.reviewId = Objects.requireNonNull(reviewId);
         this.type = Objects.requireNonNull(type);
         this.status = Status.WAITING;
+        this.reviewAnalysisId = ReviewAnalysisId.unique();
+    }
+
+    public ReviewAnalysisBuilder withModeratorId(String id) {
+        this.moderatorId = id;
+        return this;
     }
 
     public ReviewAnalysisBuilder withReason(String reason) {
@@ -51,6 +57,6 @@ public class ReviewAnalysisBuilder {
     }
 
     public ReviewAnalysis build() {
-        return ReviewAnalysis.from(this);
+        return ReviewAnalysis.create(this);
     }
 }

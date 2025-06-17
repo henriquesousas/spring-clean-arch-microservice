@@ -5,8 +5,8 @@ import com.jobee.admin.service.application.usecases.category.retrieve.ListCatego
 import com.jobee.admin.service.domain.category.Category;
 import com.jobee.admin.service.domain.category.CategoryBuilder;
 import com.jobee.admin.service.domain.category.CategoryRepository;
-import com.jobee.admin.service.domain.commons.pagination.Search;
-import com.jobee.admin.service.domain.commons.pagination.Pagination;
+import com.jobee.admin.service.domain.pagination.Pagination;
+import com.jobee.admin.service.domain.pagination.Search;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

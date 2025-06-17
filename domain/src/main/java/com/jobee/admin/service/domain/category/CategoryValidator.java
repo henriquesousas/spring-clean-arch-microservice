@@ -22,17 +22,18 @@ public class CategoryValidator extends Validator {
     }
 
     private void valueObjectConstraint() {
-
         if (this.category.getId().getNotification().hasError()) {
             this.validationHandler().copy(this.category.getId().getNotification());
         }
-
     }
 
     private void nameConstraint() {
+        if (this.category.getName() == null) {
+            this.validationHandler().append(new Error("'name' should not be null"));
+            return;
+        }
 
-        if (this.category
-                .getName() == null || this.category.getName().isEmpty()) {
+        if (this.category.getName().isEmpty()) {
             this.validationHandler().append(new Error("'name' should not be null or empty"));
         }
 
@@ -42,7 +43,6 @@ public class CategoryValidator extends Validator {
     }
 
     private void descriptionConstraint() {
-
         if (this.category.getDescription() == null || this.category.getDescription().isEmpty()) {
             this.validationHandler().append(new Error("'description' should not be null or empty"));
         }

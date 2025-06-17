@@ -40,45 +40,4 @@ public abstract class AggregateRoot<ID extends Identifier> extends Entity<ID> {
             handler.accept(event);
         }
     }
-
-
-//    public void applyEvent(DomainEvent event) {
-//        events.add(event);
-//        emitLocal(event);
-//    }
-//
-//    public void registerHandler(String eventName, Consumer<DomainEvent> handler) {
-//        localHandlers.computeIfAbsent(eventName, k -> new ArrayList<>()).add(handler);
-//    }
-//
-//    public List<DomainEvent> getEvents() {
-//        return new ArrayList<>(events);
-//    }
-//
-//    public void clearEvents() {
-//        events.clear();
-//        dispatchedEvents.clear();
-//    }
-//
-//    private void emitLocal(DomainEvent event) {
-//        String eventName = event.getClass().getSimpleName();
-//        List<Consumer<DomainEvent>> handlers = localHandlers.getOrDefault(eventName, Collections.emptyList());
-//        for (Consumer<DomainEvent> handler : handlers) {
-//            handler.accept(event);
-//        }
-//    }
-//
-//    public void markEventAsDispatched(DomainEvent event) {
-//        dispatchedEvents.add(event);
-//    }
-//
-//    public List<DomainEvent> getUnDispatchedEvents() {
-//        List<DomainEvent> result = new ArrayList<>();
-//        for (DomainEvent event : events) {
-//            if (!dispatchedEvents.contains(event)) {
-//                result.add(event);
-//            }
-//        }
-//        return result;
-//    }
 }

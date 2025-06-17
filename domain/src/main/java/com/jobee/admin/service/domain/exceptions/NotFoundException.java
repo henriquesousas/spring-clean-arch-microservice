@@ -21,11 +21,11 @@ public class NotFoundException extends DomainException {
                 aggregateRoot.getSimpleName(),
                 identifier.getValue()
         );
-        return new NotFoundException("NotFound",List.of(new Error(anError)));
+        return new NotFoundException("NotFound", List.of(new Error(anError)));
     }
 
     public static NotFoundException with(Error error) {
-        return  new NotFoundException(error.message(), List.of(error));
+        return new NotFoundException(error.message(), List.of(error));
     }
 
     @Override

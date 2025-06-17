@@ -3,17 +3,15 @@ package com.jobee.admin.service.application.usecases.category.create;
 import com.jobee.admin.service.application.usecases.UseCase;
 import com.jobee.admin.service.domain.category.CategoryBuilder;
 import com.jobee.admin.service.domain.category.CategoryRepository;
-import com.jobee.admin.service.domain.commons.exceptions.ValidationException;
-import com.jobee.admin.service.domain.commons.exceptions.DomainException;
-import com.jobee.admin.service.domain.commons.validation.handler.Notification;
+import com.jobee.admin.service.domain.exceptions.DomainException;
+import com.jobee.admin.service.domain.exceptions.ValidationException;
+import com.jobee.admin.service.domain.validation.handler.Notification;
 import io.vavr.control.Either;
 
 import static io.vavr.control.Either.left;
 import static io.vavr.control.Either.right;
 
-public class CreateCategoryUseCase extends UseCase<
-        CreateCategoryInputDto,
-        Either<DomainException, CreateCategoryOutputDto>> {
+public class CreateCategoryUseCase extends UseCase<CreateCategoryInputDto, Either<DomainException, CreateCategoryOutputDto>> {
 
     private final CategoryRepository repository;
 

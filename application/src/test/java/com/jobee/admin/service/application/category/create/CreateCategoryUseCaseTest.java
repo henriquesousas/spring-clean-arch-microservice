@@ -4,8 +4,7 @@ import com.jobee.admin.service.application.usecases.category.create.CreateCatego
 import com.jobee.admin.service.application.usecases.category.create.CreateCategoryUseCase;
 import com.jobee.admin.service.domain.category.CategoryBuilder;
 import com.jobee.admin.service.domain.category.CategoryRepository;
-import com.jobee.admin.service.domain.commons.exceptions.DomainException;
-import com.jobee.admin.service.domain.commons.validation.Error;
+import com.jobee.admin.service.domain.exceptions.DomainException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

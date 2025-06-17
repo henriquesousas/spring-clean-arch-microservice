@@ -1,6 +1,8 @@
 package com.jobee.admin.service.domain.category;
 
 import com.jobee.admin.service.domain.exceptions.DomainException;
+import com.jobee.admin.service.domain.exceptions.ValidationException;
+import com.jobee.admin.service.domain.validation.handler.Notification;
 import com.jobee.admin.service.domain.validation.handler.ThrowsValidationHandler;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -32,16 +34,15 @@ public class CategoryTest {
     public void givenAnNullName_whenCallNewCategory_thenShouldReceiverAnError() {
         String expectedName = null;
         var expectedDescription = "Tudo sobre marketing";
-        var expectedErrorMessage = "'name' should not be null or empty";
+        var expectedErrorMessage = "'name' should not be null";
         var expectedErrorCount = 1;
 
-        Category category = new CategoryBuilder(expectedName, expectedDescription)
+        Category sut = new CategoryBuilder(expectedName, expectedDescription)
                 .build();
 
-        final var actualException = Assertions.assertThrows(DomainException.class, () -> category.validate(new ThrowsValidationHandler()));
-
-        Assertions.assertEquals(expectedErrorMessage, actualException.getErrors().get(0).message());
-        Assertions.assertEquals(expectedErrorCount, actualException.getErrors().size());
+        sut.validate(sut.getNotification());
+        Assertions.assertEquals(expectedErrorMessage, sut.getNotification().getFirstError().message());
+        Assertions.assertEquals(expectedErrorCount, sut.getNotification().getErrors().size());
     }
 
     @Test
@@ -54,7 +55,7 @@ public class CategoryTest {
         Category category = new CategoryBuilder(expectedName, expectedDescription)
                 .build();
 
-        final var actualException = Assertions.assertThrows(DomainException.class, () -> category.validate(new ThrowsValidationHandler()));
+        final var actualException = Assertions.assertThrows(ValidationException.class, () -> category.validate(new ThrowsValidationHandler()));
 
         Assertions.assertEquals(expectedErrorMessage, actualException.getErrors().get(0).message());
         Assertions.assertEquals(expectedErrorCount, actualException.getErrors().size());
@@ -94,23 +95,6 @@ public class CategoryTest {
         Assertions.assertEquals(expectedErrorMessage, actualException.getErrors().get(0).message());
         Assertions.assertEquals(expectedErrorCount, actualException.getErrors().size());
     }
-
-//    @Test
-//    public void givenAnEmptyDescription_whenCallNewCategory_thenShouldNotThrowAnDomainException() {
-//        var expectedName = "Marketing";
-//        var expectedDescription = "";
-//
-//        Category category = new CategoryBuilder(expectedName, expectedDescription)
-//                .build();
-//
-//        Assertions.assertDoesNotThrow(() -> category.validate(new ThrowsValidationHandler()));
-//
-//        Assertions.assertEquals(expectedName, category.getName());
-//        Assertions.assertEquals(expectedDescription, category.getDescription());
-//        Assertions.assertNotNull(category.getCreatedAt());
-//        Assertions.assertNotNull(category.getUpdatedAt());
-//        Assertions.assertNull(category.getDeletedAt());
-//    }
 
     @Test
     public void givenAnCategory_whenCallDeactivate_thenShouldReceiverCategory() throws InterruptedException {
@@ -177,7 +161,7 @@ public class CategoryTest {
         final var updated = category.getUpdatedAt();
         Assertions.assertTrue(category.isActive());
 
-        Thread.sleep(0,1);
+        Thread.sleep(0, 1);
         final var updatedCategory = category.update(expectedName, expectedDescription);
 
         Assertions.assertEquals(expectedName, updatedCategory.getName());
