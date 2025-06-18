@@ -22,7 +22,11 @@ public class ReviewCreatedEventIntegration implements IntegrationEvent<ReviewCre
     }
 
     public static ReviewCreatedEventIntegration from(Review review) {
-        return new ReviewCreatedEventIntegration(new ReviewCreatedPayload(review.getAggregateId().getValue()));
+        final var payload = new ReviewCreatedPayload(
+                review.getAggregateId().getValue(),
+                review.getUserId().getValue(),
+                "CREATE");
+        return new ReviewCreatedEventIntegration(payload);
     }
 
     @Override

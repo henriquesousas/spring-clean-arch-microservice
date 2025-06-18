@@ -1,4 +1,4 @@
-package com.jobee.admin.service.infrastructure.reviewanalysis;
+package com.jobee.admin.service.infrastructure.reviewanalysis.repository;
 
 import com.jobee.admin.service.domain.analysis.Reason;
 import com.jobee.admin.service.domain.analysis.ReviewAnalysis;

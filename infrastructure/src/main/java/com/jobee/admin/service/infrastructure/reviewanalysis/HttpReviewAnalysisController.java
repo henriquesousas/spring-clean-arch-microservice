@@ -1,6 +1,7 @@
 package com.jobee.admin.service.infrastructure.reviewanalysis;
 
-import com.jobee.admin.service.infrastructure.review.dtos.CreateReviewRequestDto;
+import com.jobee.admin.service.infrastructure.reviewanalysis.dtos.CreateReviewAnalysisOutputDto;
+import com.jobee.admin.service.infrastructure.reviewanalysis.dtos.CreateReviewAnalysisRequestDto;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
