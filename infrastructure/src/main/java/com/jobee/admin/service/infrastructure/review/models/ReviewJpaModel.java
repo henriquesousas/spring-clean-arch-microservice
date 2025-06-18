@@ -4,8 +4,8 @@ package com.jobee.admin.service.infrastructure.review.models;
 import com.jobee.admin.service.domain.review.Review;
 import com.jobee.admin.service.domain.review.enums.RatingScale;
 import com.jobee.admin.service.domain.review.valueobjects.Url;
-import com.jobee.admin.service.domain.commons.utils.CollectionUtils;
-import com.jobee.admin.service.domain.commons.utils.NullableUtils;
+import com.jobee.admin.service.domain.utils.CollectionUtils;
+import com.jobee.admin.service.domain.utils.NullableUtils;
 
 import javax.persistence.*;
 import java.time.Instant;

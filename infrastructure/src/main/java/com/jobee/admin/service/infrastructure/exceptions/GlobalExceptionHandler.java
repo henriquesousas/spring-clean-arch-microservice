@@ -1,7 +1,7 @@
 package com.jobee.admin.service.infrastructure.exceptions;
 
-import com.jobee.admin.service.domain.commons.exceptions.DomainException;
-import com.jobee.admin.service.domain.commons.validation.Error;
+import com.jobee.admin.service.domain.exceptions.DomainException;
+import com.jobee.admin.service.domain.validation.Error;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;

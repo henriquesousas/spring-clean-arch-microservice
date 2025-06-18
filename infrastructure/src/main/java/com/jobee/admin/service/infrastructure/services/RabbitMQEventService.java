@@ -1,7 +1,7 @@
 package com.jobee.admin.service.infrastructure.services;
 
-import com.jobee.admin.service.domain.commons.events.EventPayload;
-import com.jobee.admin.service.domain.commons.events.IntegrationEvent;
+import com.jobee.admin.service.domain.events.EventPayload;
+import com.jobee.admin.service.domain.events.IntegrationEvent;
 import com.jobee.admin.service.infrastructure.configuration.json.Json;
 import org.springframework.amqp.rabbit.core.RabbitOperations;
 
@@ -20,7 +20,7 @@ public class RabbitMQEventService implements EventService {
     }
 
     @Override
-    public void send(IntegrationEvent<? extends  EventPayload> event) {
+    public void send(IntegrationEvent<? extends EventPayload> event) {
         String json = Json.writeValueAsString(event);
         this.operations.convertAndSend(
                 this.exchange,

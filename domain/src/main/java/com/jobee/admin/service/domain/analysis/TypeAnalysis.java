@@ -1,8 +1,11 @@
 package com.jobee.admin.service.domain.analysis;
 
+import lombok.Getter;
+
 import java.util.Arrays;
 import java.util.Optional;
 
+@Getter
 public enum TypeAnalysis {
     CREATE("CREATE"),
     UPDATE("UPDATE")    ;

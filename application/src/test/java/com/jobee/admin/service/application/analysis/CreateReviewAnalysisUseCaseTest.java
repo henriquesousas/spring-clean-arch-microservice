@@ -57,7 +57,7 @@ class CreateReviewAnalysisUseCaseTest {
         when(repository.create(any())).thenReturn(expectedReviewAnalysis);
 
         final var outputData = sut
-                .execute(CreateReviewAnalysisInputDto.with(expectedUserId, expectedReviewId, expectedType))
+                .execute(CreateReviewAnalysisInputDto.from(expectedUserId, expectedReviewId, expectedType))
                 .get();
 
         Assertions.assertFalse(outputData.getNotification().hasError());
@@ -90,7 +90,7 @@ class CreateReviewAnalysisUseCaseTest {
         ).build();
 
         final var outputData = sut
-                .execute(CreateReviewAnalysisInputDto.with(expectedUserId, expectedReviewId, expectedType))
+                .execute(CreateReviewAnalysisInputDto.from(expectedUserId, expectedReviewId, expectedType))
                 .getLeft();
 
         Assertions.assertEquals(expectedTotalError, outputData.getErrors().size());

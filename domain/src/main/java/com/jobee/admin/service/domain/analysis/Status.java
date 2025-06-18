@@ -1,15 +1,18 @@
 package com.jobee.admin.service.domain.analysis;
 
+import lombok.Getter;
+
 import java.util.Arrays;
 import java.util.Optional;
 
+@Getter
 public enum Status {
     WAITING("WAITING"),
     IN_ANALYSIS("IN_ANALYSIS"),
     APPROVED("APPROVED"),
     REJECTED("REJECTED");
 
-private final String value;
+    private final String value;
 
     Status(final String value) {
         this.value = value;
