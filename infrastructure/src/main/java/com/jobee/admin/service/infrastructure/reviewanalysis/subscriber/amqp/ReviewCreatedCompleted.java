@@ -1,8 +1,8 @@
-package com.jobee.admin.service.infrastructure.reviewanalysis.amqp;
+package com.jobee.admin.service.infrastructure.reviewanalysis.subscriber.amqp;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class Payload {
+public class ReviewCreatedCompleted {
 
     @JsonProperty("aggregate_id")
     private String aggregateId;
@@ -11,6 +11,8 @@ public class Payload {
     private String userId;
 
     private String type;
+
+    public ReviewCreatedCompleted() {}
 
     public String getAggregateId() {
         return aggregateId;

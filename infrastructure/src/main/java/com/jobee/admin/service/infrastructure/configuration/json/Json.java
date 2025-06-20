@@ -1,5 +1,6 @@
 package com.jobee.admin.service.infrastructure.configuration.json;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
@@ -25,6 +26,14 @@ public enum Json {
 
     public static <T> T readValue(final String json, final Class<T> clazz) {
         return invoke(() -> INSTANCE.mapper.readValue(json, clazz));
+    }
+
+    public static <T> T readValue(String json, TypeReference<T> type) {
+        try {
+            return INSTANCE.mapper.readValue(json, type);
+        } catch (Exception e) {
+            throw new RuntimeException("Error parsing JSON", e);
+        }
     }
 
     private final ObjectMapper mapper = new Jackson2ObjectMapperBuilder()

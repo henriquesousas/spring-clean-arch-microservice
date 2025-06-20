@@ -1,7 +1,6 @@
-package com.jobee.admin.service.infrastructure.configuration;
+package com.jobee.admin.service.infrastructure.configuration.amqp;
 
 import com.jobee.admin.service.infrastructure.configuration.annotations.ReviewCreatedQueue;
-import com.jobee.admin.service.infrastructure.configuration.properties.amqp.QueueProperties;
 import com.jobee.admin.service.infrastructure.services.EventService;
 import com.jobee.admin.service.infrastructure.services.RabbitMQEventService;
 import org.springframework.amqp.rabbit.core.RabbitOperations;

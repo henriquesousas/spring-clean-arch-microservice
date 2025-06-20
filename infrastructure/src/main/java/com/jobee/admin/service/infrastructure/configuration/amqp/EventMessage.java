@@ -1,11 +1,14 @@
-package com.jobee.admin.service.infrastructure.reviewanalysis.amqp;
+package com.jobee.admin.service.infrastructure.configuration.amqp;
+
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.Instant;
 
-public class ReviewCreatedMessageResult {
-    private Payload payload;
+
+public class EventMessage<T> {
+
+    private T payload;
 
     @JsonProperty("occurred_on")
     private Instant occurredOn;
@@ -19,11 +22,13 @@ public class ReviewCreatedMessageResult {
     @JsonProperty("service_origin")
     private String serviceOrigin;
 
-    public Payload getPayload() {
+    public EventMessage() {}
+
+    public T getPayload() {
         return payload;
     }
 
-    public void setPayload(Payload payload) {
+    public void setPayload(T payload) {
         this.payload = payload;
     }
 
@@ -41,5 +46,21 @@ public class ReviewCreatedMessageResult {
 
     public void setEventVersion(int eventVersion) {
         this.eventVersion = eventVersion;
+    }
+
+    public String getEventId() {
+        return eventId;
+    }
+
+    public void setEventId(String eventId) {
+        this.eventId = eventId;
+    }
+
+    public String getServiceOrigin() {
+        return serviceOrigin;
+    }
+
+    public void setServiceOrigin(String serviceOrigin) {
+        this.serviceOrigin = serviceOrigin;
     }
 }

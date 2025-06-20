@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.net.URI;
 
 @RestController
-public class ReviewAnalysisController implements HttpReviewAnalysisController{
+public class ReviewAnalysisController implements ReviewAnalysisRestController {
     private static final Logger logger = LoggerFactory.getLogger(ReviewAnalysisController.class);
 
     @Autowired

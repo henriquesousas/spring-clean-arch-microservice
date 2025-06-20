@@ -1,4 +1,4 @@
-package com.jobee.admin.service.infrastructure.configuration.properties.amqp;
+package com.jobee.admin.service.infrastructure.configuration.amqp;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

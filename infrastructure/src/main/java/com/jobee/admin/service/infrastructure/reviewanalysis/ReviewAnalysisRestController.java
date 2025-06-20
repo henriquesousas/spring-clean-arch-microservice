@@ -17,7 +17,7 @@ import javax.validation.Valid;
 
 @RequestMapping(value = "reviewanalysis")
 @Tag(name = "ReviewAnalysis")
-public interface HttpReviewAnalysisController {
+public interface ReviewAnalysisRestController {
 
     @PostMapping(
             consumes = MediaType.APPLICATION_JSON_VALUE,
