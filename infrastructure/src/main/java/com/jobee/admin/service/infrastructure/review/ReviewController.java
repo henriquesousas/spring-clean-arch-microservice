@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
 import java.net.URI;
 
 @RestController
-public class ReviewController implements HttpReviewController {
+public class ReviewController implements ReviewRestController {
 
     private static final Logger logger = LoggerFactory.getLogger(ReviewController.class);
 
