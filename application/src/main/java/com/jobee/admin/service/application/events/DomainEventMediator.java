@@ -20,13 +20,9 @@ public class DomainEventMediator {
         this.handlers = Objects.requireNonNull(handlers);
     }
 
-    public static DomainEventMediator from(
-            final IntegrationEventPublisher publisher,
-            final List<DomainEventHandler> handlers) {
-
+    public static DomainEventMediator from(final IntegrationEventPublisher publisher, final List<DomainEventHandler> handlers) {
         return new DomainEventMediator(publisher, handlers);
     }
-
 
     public void publishEvent(AggregateRoot<?> aggregateRoot) {
         for (DomainEvent event : aggregateRoot.getEvents()) {

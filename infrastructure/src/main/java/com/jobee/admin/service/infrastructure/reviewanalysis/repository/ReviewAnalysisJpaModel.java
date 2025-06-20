@@ -1,9 +1,9 @@
 package com.jobee.admin.service.infrastructure.reviewanalysis.repository;
 
-import com.jobee.admin.service.domain.analysis.Reason;
-import com.jobee.admin.service.domain.analysis.ReviewAnalysis;
-import com.jobee.admin.service.domain.analysis.Status;
-import com.jobee.admin.service.domain.analysis.TypeAnalysis;
+import com.jobee.admin.service.domain.reviewanalysis.Reason;
+import com.jobee.admin.service.domain.reviewanalysis.ReviewAnalysis;
+import com.jobee.admin.service.domain.reviewanalysis.Status;
+import com.jobee.admin.service.domain.reviewanalysis.TypeAnalysis;
 import com.jobee.admin.service.domain.utils.EnumUtils;
 import com.jobee.admin.service.domain.utils.NullableUtils;
 

@@ -1,10 +1,7 @@
 package com.jobee.admin.service.domain.utils;
 
 
-import com.jobee.admin.service.domain.analysis.Status;
-
 import java.util.Arrays;
-import java.util.Optional;
 
 public class EnumUtils {
 

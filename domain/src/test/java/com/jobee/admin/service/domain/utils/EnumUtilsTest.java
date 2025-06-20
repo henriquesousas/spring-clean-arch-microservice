@@ -1,6 +1,6 @@
 package com.jobee.admin.service.domain.utils;
 
-import com.jobee.admin.service.domain.analysis.Status;
+import com.jobee.admin.service.domain.reviewanalysis.Status;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

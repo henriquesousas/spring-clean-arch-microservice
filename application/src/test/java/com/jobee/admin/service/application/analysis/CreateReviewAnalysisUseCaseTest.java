@@ -1,10 +1,10 @@
 package com.jobee.admin.service.application.analysis;
 
-import com.jobee.admin.service.application.usecases.analysis.CreateReviewAnalysisInputDto;
-import com.jobee.admin.service.application.usecases.analysis.CreateReviewAnalysisUseCase;
-import com.jobee.admin.service.domain.analysis.ReviewAnalysisBuilder;
-import com.jobee.admin.service.domain.analysis.ReviewAnalysisRepository;
-import com.jobee.admin.service.domain.analysis.TypeAnalysis;
+import com.jobee.admin.service.application.usecases.reviewanalysis.CreateReviewAnalysisInputDto;
+import com.jobee.admin.service.application.usecases.reviewanalysis.CreateReviewAnalysisUseCase;
+import com.jobee.admin.service.domain.reviewanalysis.ReviewAnalysisBuilder;
+import com.jobee.admin.service.domain.reviewanalysis.ReviewAnalysisRepository;
+import com.jobee.admin.service.domain.reviewanalysis.TypeAnalysis;
 import com.jobee.admin.service.domain.validation.Error;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

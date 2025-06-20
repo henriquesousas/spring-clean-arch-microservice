@@ -1,4 +1,4 @@
-package com.jobee.admin.service.domain.analysis;
+package com.jobee.admin.service.domain.reviewanalysis;
 
 import lombok.Getter;
 
@@ -6,15 +6,13 @@ import java.util.Arrays;
 import java.util.Optional;
 
 @Getter
-public enum Status {
-    WAITING("WAITING"),
-    IN_ANALYSIS("IN_ANALYSIS"),
-    APPROVED("APPROVED"),
-    REJECTED("REJECTED");
+public enum TypeAnalysis {
+    CREATE("CREATE"),
+    UPDATE("UPDATE")    ;
 
     private final String value;
 
-    Status(final String value) {
+    TypeAnalysis(String value) {
         this.value = value;
     }
 

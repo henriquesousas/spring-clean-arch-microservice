@@ -6,6 +6,8 @@ amqp:
       exchange: review.events
       routing-key: review.created
       queue: review.created.queue
+      deadLetterExchange: review.dlx.exchange
+      deadLetterRoutingKey: review.created.dlx
     review-updated:
       exchange: review.events
       routing-key: review.updated
@@ -41,7 +43,7 @@ spring:
     open-in-view: false # Permite ou não abrir uma conexão desde o controller (transaction) muito custoso, vamos desabilitar
     show-sql: true # Habilita log
     hibernate:
-        ddl-auto: none
+      ddl-auto: none
     properties:
       "[hibernate.dialect]": org.hibernate.dialect.MySQL5InnoDBDialect
       "[hibernate.generate_statistics]": false
@@ -55,7 +57,13 @@ spring:
 
     listener:
       simple:
-        acknowledge-mode: manual
-        prefetch: 1
+        default-requeue-rejected: "false"
+        retry:
+          enabled: "true"
+          max-attempts: 3
+          initial-interval: 5s
+          multiplier: "2"
+#        acknowledge-mode: manual
+#        prefetch: 1
 
 

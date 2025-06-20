@@ -9,6 +9,9 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /*
 * This configurations work as Iac (Infrastructure as Code) it will create
 * the queues, exchanges and binding automatically on rabbitmq
@@ -31,6 +34,28 @@ public class AmqpConfig {
         return new QueueProperties();
     }
 
+    @Bean
+    public DirectExchange reviewDlxExchange(@ReviewCreatedQueue QueueProperties props) {
+        return new DirectExchange(props.getDeadLetterExchange());
+    }
+
+    @Bean
+    public Queue reviewCreatedDeadLetterQueue(@ReviewCreatedQueue QueueProperties props) {
+        return new Queue(props.getQueue() + ".dlq");
+    }
+
+    @Bean
+    public Binding reviewCreatedDeadLetterBinding(
+            Queue reviewCreatedDeadLetterQueue,
+            DirectExchange reviewDlxExchange,
+            @ReviewCreatedQueue QueueProperties props
+    ) {
+        return BindingBuilder
+                .bind(reviewCreatedDeadLetterQueue)
+                .to(reviewDlxExchange)
+                .with(props.getDeadLetterRoutingKey());
+    }
+
     @Configuration
     public class Admin {
 
@@ -43,7 +68,10 @@ public class AmqpConfig {
         @Bean
         @ReviewCreatedQueue
         public Queue reviewCreatedQueue(@ReviewCreatedQueue QueueProperties props) {
-            return new Queue(props.getQueue());
+            Map<String, Object> args = new HashMap<>();
+            args.put("x-dead-letter-exchange", props.getDeadLetterExchange());
+            args.put("x-dead-letter-routing-key", props.getDeadLetterRoutingKey());
+            return new Queue(props.getQueue(),true,false, false, args);
         }
 
         @Bean

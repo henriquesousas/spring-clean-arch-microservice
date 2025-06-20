@@ -1,8 +1,8 @@
 package com.jobee.admin.service.infrastructure.reviewanalysis.repository;
 
-import com.jobee.admin.service.domain.analysis.ReviewAnalysis;
-import com.jobee.admin.service.domain.analysis.ReviewAnalysisId;
-import com.jobee.admin.service.domain.analysis.ReviewAnalysisRepository;
+import com.jobee.admin.service.domain.reviewanalysis.ReviewAnalysis;
+import com.jobee.admin.service.domain.reviewanalysis.ReviewAnalysisId;
+import com.jobee.admin.service.domain.reviewanalysis.ReviewAnalysisRepository;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;

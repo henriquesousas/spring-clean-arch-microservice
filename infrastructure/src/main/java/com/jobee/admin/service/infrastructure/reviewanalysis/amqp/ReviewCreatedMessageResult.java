@@ -13,6 +13,12 @@ public class ReviewCreatedMessageResult {
     @JsonProperty("event_version")
     private int eventVersion;
 
+    @JsonProperty("event_id")
+    private String eventId;
+
+    @JsonProperty("service_origin")
+    private String serviceOrigin;
+
     public Payload getPayload() {
         return payload;
     }

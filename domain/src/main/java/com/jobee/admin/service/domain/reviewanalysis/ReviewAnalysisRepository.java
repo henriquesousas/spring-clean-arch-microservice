@@ -1,4 +1,4 @@
-package com.jobee.admin.service.domain.analysis;
+package com.jobee.admin.service.domain.reviewanalysis;
 
 
 import java.util.Optional;

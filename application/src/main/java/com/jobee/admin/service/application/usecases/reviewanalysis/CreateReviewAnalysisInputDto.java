@@ -1,4 +1,4 @@
-package com.jobee.admin.service.application.usecases.analysis;
+package com.jobee.admin.service.application.usecases.reviewanalysis;
 
 public record CreateReviewAnalysisInputDto(
         String userId,

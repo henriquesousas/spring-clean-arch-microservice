@@ -1,4 +1,4 @@
-package com.jobee.admin.service.domain.analysis;
+package com.jobee.admin.service.domain.reviewanalysis;
 
 import com.jobee.admin.service.domain.utils.IdUtils;
 import com.jobee.admin.service.domain.utils.NullableUtils;

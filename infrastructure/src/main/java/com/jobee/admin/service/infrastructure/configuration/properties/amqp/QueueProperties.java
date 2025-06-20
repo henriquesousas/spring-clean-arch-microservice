@@ -11,6 +11,8 @@ public class QueueProperties implements InitializingBean {
     private String exchange;
     private String routingKey;
     private String queue;
+    private String deadLetterExchange;
+    private String deadLetterRoutingKey;
 
     public QueueProperties() {
     }
@@ -44,14 +46,30 @@ public class QueueProperties implements InitializingBean {
         this.queue = queue;
     }
 
+    public String getDeadLetterExchange() {
+        return deadLetterExchange;
+    }
+
+    public void setDeadLetterExchange(String deadLetterExchange) {
+        this.deadLetterExchange = deadLetterExchange;
+    }
+
+    public String getDeadLetterRoutingKey() {
+        return deadLetterRoutingKey;
+    }
+
+    public void setDeadLetterRoutingKey(String deadLetterRoutingKey) {
+        this.deadLetterRoutingKey = deadLetterRoutingKey;
+    }
+
     @Override
     public String toString() {
         return "QueueProperties{" +
                 "exchange='" + exchange + '\'' +
                 ", routingKey='" + routingKey + '\'' +
                 ", queue='" + queue + '\'' +
+                ", deadLetterExchange='" + deadLetterExchange + '\'' +
+                ", deadLetterRoutingKey='" + deadLetterRoutingKey + '\'' +
                 '}';
     }
-
-
 }

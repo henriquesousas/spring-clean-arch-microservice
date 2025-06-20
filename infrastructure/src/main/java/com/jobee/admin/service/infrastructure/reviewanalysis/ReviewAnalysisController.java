@@ -1,8 +1,8 @@
 package com.jobee.admin.service.infrastructure.reviewanalysis;
 
-import com.jobee.admin.service.application.usecases.analysis.CreateReviewAnalysisInputDto;
-import com.jobee.admin.service.application.usecases.analysis.CreateReviewAnalysisUseCase;
-import com.jobee.admin.service.domain.analysis.ReviewAnalysis;
+import com.jobee.admin.service.application.usecases.reviewanalysis.CreateReviewAnalysisInputDto;
+import com.jobee.admin.service.application.usecases.reviewanalysis.CreateReviewAnalysisUseCase;
+import com.jobee.admin.service.domain.reviewanalysis.ReviewAnalysis;
 import com.jobee.admin.service.infrastructure.reviewanalysis.dtos.CreateReviewAnalysisOutputDto;
 import com.jobee.admin.service.infrastructure.reviewanalysis.dtos.CreateReviewAnalysisRequestDto;
 import org.slf4j.Logger;

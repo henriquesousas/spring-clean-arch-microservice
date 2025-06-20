@@ -1,4 +1,4 @@
-package com.jobee.admin.service.domain.analysis.events;
+package com.jobee.admin.service.domain.reviewanalysis.events;
 
 import com.jobee.admin.service.domain.events.IntegrationEvent;
 

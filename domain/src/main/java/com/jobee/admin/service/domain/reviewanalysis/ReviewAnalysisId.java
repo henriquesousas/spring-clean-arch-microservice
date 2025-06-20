@@ -1,7 +1,6 @@
-package com.jobee.admin.service.domain.analysis;
+package com.jobee.admin.service.domain.reviewanalysis;
 
 import com.jobee.admin.service.domain.Identifier;
-import com.jobee.admin.service.domain.review.valueobjects.ReviewId;
 import com.jobee.admin.service.domain.utils.IdUtils;
 
 public class ReviewAnalysisId extends Identifier {

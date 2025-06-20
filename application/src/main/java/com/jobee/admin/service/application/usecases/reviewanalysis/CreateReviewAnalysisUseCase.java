@@ -1,10 +1,10 @@
-package com.jobee.admin.service.application.usecases.analysis;
+package com.jobee.admin.service.application.usecases.reviewanalysis;
 
 import com.jobee.admin.service.application.usecases.UseCase;
-import com.jobee.admin.service.domain.analysis.ReviewAnalysis;
-import com.jobee.admin.service.domain.analysis.ReviewAnalysisBuilder;
-import com.jobee.admin.service.domain.analysis.ReviewAnalysisRepository;
-import com.jobee.admin.service.domain.analysis.TypeAnalysis;
+import com.jobee.admin.service.domain.reviewanalysis.ReviewAnalysis;
+import com.jobee.admin.service.domain.reviewanalysis.ReviewAnalysisBuilder;
+import com.jobee.admin.service.domain.reviewanalysis.ReviewAnalysisRepository;
+import com.jobee.admin.service.domain.reviewanalysis.TypeAnalysis;
 import com.jobee.admin.service.domain.exceptions.DomainException;
 import com.jobee.admin.service.domain.exceptions.ValidationException;
 import io.vavr.control.Either;
