@@ -1,5 +1,7 @@
 plugins {
     id 'java'
+    id 'jacoco'
+    id 'jacoco-report-aggregation'
 }
 
 group = 'com.jobee.admin.service.domain'
@@ -7,6 +9,10 @@ version = '1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
+}
+
+jacoco {
+    toolVersion = "0.8.13"
 }
 
 dependencies {
@@ -24,4 +30,22 @@ dependencies {
 
 test {
     useJUnitPlatform()
+}
+
+testCodeCoverageReport {
+    reports {
+        xml {
+            enabled true
+            destination file("$rootDir/build/reports/jacoco/test/jacocoTestReport.xml")
+        }
+
+        html {
+            enabled true
+            destination file("$rootDir/build/reports/jacoco/test")
+        }
+    }
+}
+
+tasks.named("jacocoTestReport") {
+    dependsOn tasks.named("testCodeCoverageReport", JacocoReport)
 }
