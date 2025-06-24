@@ -5,6 +5,7 @@ import com.jobee.admin.service.application.usecases.category.create.CreateCatego
 import com.jobee.admin.service.domain.category.CategoryBuilder;
 import com.jobee.admin.service.domain.category.CategoryRepository;
 import com.jobee.admin.service.domain.exceptions.DomainException;
+import com.jobee.admin.service.domain.validation.Error;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -66,8 +67,8 @@ public class CreateCategoryUseCaseTest {
     @Test
     public void givenAnInvalidName_whenCallsCreateCategoryUseCase_thenShouldReturnNotificationError() {
 
-        final var expectedError1 =new Error("'name' should not be null or empty") ;
-        final var expectedError2 =new Error("'name' must be between 3 and 255 characters") ;
+        final var expectedError1 = new Error("'name' should not be null or empty");
+        final var expectedError2 = new Error("'name' must be between 3 and 255 characters");
         final var expectedErrors = List.of(expectedError1, expectedError2);
         final var expectedErrorMessage = "UnprocessableEntity";
         final var expectedCategory = new CategoryBuilder("", "any description").build();
@@ -75,12 +76,9 @@ public class CreateCategoryUseCaseTest {
         DomainException exception = sut.execute(CreateCategoryInputDto.with(
                 expectedCategory.getName(),
                 expectedCategory.getDescription())).getLeft();
-
-        Assertions.assertEquals(exception.getErrors().size(), 2);
+                                                                                                                                                                                                                                                                                                                                                                                                                                 Assertions.assertEquals(exception.getErrors().size(), 2);
         Assertions.assertEquals(exception.getMessage(), expectedErrorMessage);
-        exception.getErrors().forEach(error -> {
-            Assertions.assertTrue(expectedErrors.contains(error));
-        });
+        Assertions.assertEquals(exception.getErrors(), expectedErrors);
     }
 
 //    @Test

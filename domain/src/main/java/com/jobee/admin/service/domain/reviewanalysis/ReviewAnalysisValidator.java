@@ -23,9 +23,9 @@ public class ReviewAnalysisValidator extends Validator {
     @Override
     public void validate() {
         validateValueObjects();
-        validaId(this.reviewAnalysis.getReviewId(), "ReviewId must be a valid UUID");
-        validaId(this.reviewAnalysis.getModeratorId(), "ModeratorId must be a valid UUID");
-        validaId(this.reviewAnalysis.getUserId(), "UserId must be a valid UUID");
+        validateId(this.reviewAnalysis.getReviewId(), "ReviewId must be a valid UUID");
+        validateId(this.reviewAnalysis.getModeratorId(), "ModeratorId must be a valid UUID");
+        validateId(this.reviewAnalysis.getUserId(), "UserId must be a valid UUID");
     }
 
     private void validateValueObjects() {
@@ -35,7 +35,7 @@ public class ReviewAnalysisValidator extends Validator {
         ).forEach(this::copyIfHasError);
     }
 
-    private void validaId(final String uuid, final String message) {
+    private void validateId(final String uuid, final String message) {
         if(uuid == null) return;
         if (!IdUtils.isValid(uuid)) {
             this.reviewAnalysis.getNotification().append(new Error(message));

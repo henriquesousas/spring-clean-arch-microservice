@@ -40,8 +40,8 @@ public class ReviewAnalysis extends AggregateRoot<ReviewAnalysisId> {
         this.status = status;
         this.startAt = startAt;
         this.endAt = endAt;
-        registerEventHandler(ReviewAnalysis.class.getSimpleName(), event -> validate(notification));
-        applyEvent(new ReviewAnalysisStartedEvent(this));
+        //registerEventHandler(ReviewAnalysisStartedEvent.class.getSimpleName(), event -> validate(notification));
+        validate(notification);
     }
 
     public static ReviewAnalysis create(ReviewAnalysisBuilder builder) {
@@ -66,6 +66,8 @@ public class ReviewAnalysis extends AggregateRoot<ReviewAnalysisId> {
         this.moderatorId = moderatorId;
         this.status = Status.IN_ANALYSIS;
         this.startAt = InstantUtils.now();
+
+        applyEvent(new ReviewAnalysisStartedEvent(this));
     }
 
     public void endAnalysis(final Status newStatus, final String reason) {

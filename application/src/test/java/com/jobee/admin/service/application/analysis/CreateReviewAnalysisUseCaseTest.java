@@ -54,7 +54,7 @@ class CreateReviewAnalysisUseCaseTest {
                 TypeAnalysis.CREATE
         ).build();
 
-        when(repository.create(any())).thenReturn(expectedReviewAnalysis);
+//        when(repository.create(any())).thenReturn(                                                             );
 
         final var outputData = sut
                 .execute(CreateReviewAnalysisInputDto.from(expectedUserId, expectedReviewId, expectedType))
@@ -83,11 +83,11 @@ class CreateReviewAnalysisUseCaseTest {
         final var expectedType = "CREATE";
         final var expectedTotalError = 1;
 
-        new ReviewAnalysisBuilder(
-                expectedUserId,
-                expectedReviewId,
-                TypeAnalysis.CREATE
-        ).build();
+//        new ReviewAnalysisBuilder(
+//                expectedUserId,
+//                expectedReviewId,
+//                TypeAnalysis.CREATE
+//        ).build();
 
         final var outputData = sut
                 .execute(CreateReviewAnalysisInputDto.from(expectedUserId, expectedReviewId, expectedType))

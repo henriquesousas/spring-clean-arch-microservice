@@ -1,35 +1,21 @@
 plugins {
-    id 'java'
+    id 'java-conventions'
+    id 'java-library'
     id 'jacoco'
     id 'jacoco-report-aggregation'
 }
 
 group = 'com.jobee.admin.service.domain'
-version = '1.0-SNAPSHOT'
-
-repositories {
-    mavenCentral()
-}
 
 jacoco {
     toolVersion = "0.8.13"
 }
 
 dependencies {
-
-    testImplementation platform('org.junit:junit-bom:5.10.0')
-    testImplementation 'org.junit.jupiter:junit-jupiter'
     testImplementation 'com.github.javafaker:javafaker:1.0.2'
-
     // https://mvnrepository.com/artifact/org.projectlombok/lombok
     compileOnly("org.projectlombok:lombok:1.18.38")
     annotationProcessor 'org.projectlombok:lombok:1.18.38'
-
-
-}
-
-test {
-    useJUnitPlatform()
 }
 
 testCodeCoverageReport {

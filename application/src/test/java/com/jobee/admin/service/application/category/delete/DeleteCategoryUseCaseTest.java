@@ -35,13 +35,15 @@ public class DeleteCategoryUseCaseTest {
     public void giveAnInvalidCategoryId_whenCallDeleteCategory_thenShouldReturnNotification() {
 
         final var categoryId = CategoryId.unique();
-        final var expectedError = NotFoundException.with(Category.class,categoryId);
+        final var expectedError  = "%s with ID %s was not found".formatted(
+                Category.class.getSimpleName(),
+                categoryId.getValue());
 
         Notification notification = this.sut.execute(categoryId.getValue()).getLeft();
 
         Assertions.assertTrue(notification.hasError());
         Assertions.assertEquals(notification.getErrors().size(), 1);
-        Assertions.assertEquals(notification.getFirstError().message(), expectedError.getMessage());
+        Assertions.assertEquals(notification.getFirstError().message(), expectedError);
 
         Mockito.verify(repository, Mockito.times(1)).findById(categoryId);
         Mockito.verify(repository, Mockito.times(0)).delete(categoryId);

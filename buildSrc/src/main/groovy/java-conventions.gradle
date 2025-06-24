@@ -1,0 +1,28 @@
+plugins {
+    id 'java'
+}
+
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+
+dependencies {
+    // Pasar usar o Either e outros recursos
+    implementation("io.vavr:vavr:0.10.6")
+
+    // Para testes
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation("org.mockito:mockito-junit-jupiter:5.17.0")
+    implementation 'org.slf4j:slf4j-api:2.0.13'
+    implementation 'ch.qos.logback:logback-classic:1.4.14'
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+
+}
+
+
+test {
+    useJUnitPlatform()
+}

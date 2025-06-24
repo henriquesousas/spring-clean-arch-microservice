@@ -8,6 +8,7 @@ import com.jobee.admin.service.domain.category.Category;
 import com.jobee.admin.service.domain.category.CategoryBuilder;
 import com.jobee.admin.service.domain.category.CategoryRepository;
 import com.jobee.admin.service.domain.exceptions.DomainException;
+import com.jobee.admin.service.domain.validation.Error;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
