@@ -1,10 +1,11 @@
 package com.jobee.admin.service.domain.utils;
 
+import com.jobee.admin.service.domain.UnitTest;
 import com.jobee.admin.service.domain.reviewanalysis.Status;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class EnumUtilsTest {
+public class EnumUtilsTest  extends UnitTest {
 
     @Test
     public void givenAValidEnum_whenCallOf_shouldReturnCorrectValue() {

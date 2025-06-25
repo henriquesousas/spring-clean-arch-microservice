@@ -27,7 +27,6 @@ public class CreateCategoryUseCaseTestIT {
     @SpyBean
     private CategoryRepository categoryRepositoryGateway;
 
-
     @Test
     public void giveAnValidCommand_whenCallCreateCategoryUseCase_thenShouldReturnCategoryId() {
 
@@ -69,23 +68,4 @@ public class CreateCategoryUseCaseTestIT {
 
         Mockito.verify(categoryRepositoryGateway, Mockito.times(0)).create(any());
     }
-
-//    @Test
-//    public void givenAValidCommand_whenGatewayThrowsRandomException_thenShouldReturnException() {
-//
-//        final var expectedError = "any error";
-//        final var expectedCategory = CategoryBuilder.newCategory("any name", "any description").build();
-//
-//        Mockito.doThrow(new IllegalArgumentException(expectedError))
-//                        .when(categoryRepositoryGateway).create(any());
-//
-//        final var notification = sut.execute(CreateCategoryInputDto.with(
-//                expectedCategory.getName(),
-//                expectedCategory.getDescription())).getLeft();
-//
-//        Assertions.assertEquals(notification.getErrors().size(), 1);
-////        Assertions.assertEquals(notification.getMessage(), expectedError);
-//
-//        Assertions.assertEquals(repository.count(), 0);
-//    }
 }

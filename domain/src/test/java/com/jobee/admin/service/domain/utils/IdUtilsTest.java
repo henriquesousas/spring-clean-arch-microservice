@@ -1,9 +1,10 @@
 package com.jobee.admin.service.domain.utils;
 
+import com.jobee.admin.service.domain.UnitTest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class IdUtilsTest {
+public class IdUtilsTest  extends UnitTest {
 
 
     @Test

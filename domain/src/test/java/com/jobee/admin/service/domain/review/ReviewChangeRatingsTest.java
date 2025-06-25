@@ -1,10 +1,11 @@
 package com.jobee.admin.service.domain.review;
 
+import com.jobee.admin.service.domain.UnitTest;
 import com.jobee.admin.service.domain.review.enums.RatingScale;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class ReviewChangeRatingsTest {
+public class ReviewChangeRatingsTest  extends UnitTest {
 
     @Test
     public void giveAnActiveReview_whenChangeRating_shouldUpdate() {

@@ -13,6 +13,7 @@ import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -61,6 +62,29 @@ public class AmqpConfig {
                 .with(props.getDeadLetterRoutingKey());
     }
 
+//    @Bean
+//        public MessageConverter jsonMessageConverter() {
+//        return new Jackson2JsonMessageConverter();
+//    }
+//
+//    @Bean
+//    public RabbitTemplate rabbitTemplate(ConnectionFactory connectionFactory) {
+//        RabbitTemplate template = new RabbitTemplate(connectionFactory);
+//        template.setMessageConverter(jsonMessageConverter());
+//        return template;
+//    }
+//
+//    @Bean
+//    public SimpleRabbitListenerContainerFactory rabbitListenerContainerFactory(
+//            ConnectionFactory connectionFactory,
+//            MessageConverter messageConverter
+//    ) {
+//        SimpleRabbitListenerContainerFactory factory = new SimpleRabbitListenerContainerFactory();
+//        factory.setConnectionFactory(connectionFactory);
+//        factory.setMessageConverter(messageConverter);
+//        return factory;
+//    }
+
     @Configuration
     public class Admin {
 
@@ -106,29 +130,29 @@ public class AmqpConfig {
         }
     }
 
-    @Configuration
-    public class RabbitConfig {
-        @Bean
-        public MessageConverter jsonMessageConverter() {
-            return new Jackson2JsonMessageConverter();
-        }
-
-        @Bean
-        public RabbitTemplate rabbitTemplate(ConnectionFactory connectionFactory) {
-            RabbitTemplate template = new RabbitTemplate(connectionFactory);
-            template.setMessageConverter(jsonMessageConverter());
-            return template;
-        }
-
-        @Bean
-        public SimpleRabbitListenerContainerFactory rabbitListenerContainerFactory(
-                ConnectionFactory connectionFactory,
-                MessageConverter messageConverter
-        ) {
-            SimpleRabbitListenerContainerFactory factory = new SimpleRabbitListenerContainerFactory();
-            factory.setConnectionFactory(connectionFactory);
-            factory.setMessageConverter(messageConverter);
-            return factory;
-        }
-    }
+//    @Configuration
+//    public class RabbitConfig {
+//        @Bean
+//        public MessageConverter jsonMessageConverter() {
+//            return new Jackson2JsonMessageConverter();
+//        }
+//
+//        @Bean
+//        public RabbitTemplate rabbitTemplate(ConnectionFactory connectionFactory) {
+//            RabbitTemplate template = new RabbitTemplate(connectionFactory);
+//            template.setMessageConverter(jsonMessageConverter());
+//            return template;
+//        }
+//
+//        @Bean
+//        public SimpleRabbitListenerContainerFactory rabbitListenerContainerFactory(
+//                ConnectionFactory connectionFactory,
+//                MessageConverter messageConverter
+//        ) {
+//            SimpleRabbitListenerContainerFactory factory = new SimpleRabbitListenerContainerFactory();
+//            factory.setConnectionFactory(connectionFactory);
+//            factory.setMessageConverter(messageConverter);
+//            return factory;
+//        }
+//    }
 }

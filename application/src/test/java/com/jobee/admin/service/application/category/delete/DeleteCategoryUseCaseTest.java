@@ -1,5 +1,6 @@
 package com.jobee.admin.service.application.category.delete;
 
+import com.jobee.admin.service.application.UseCaseTest;
 import com.jobee.admin.service.application.usecases.Unit;
 import com.jobee.admin.service.application.usecases.category.delete.DeleteCategoryUseCase;
 import com.jobee.admin.service.domain.category.Category;
@@ -16,6 +17,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -23,7 +25,7 @@ import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class DeleteCategoryUseCaseTest {
+public class DeleteCategoryUseCaseTest  extends UseCaseTest {
 
     @InjectMocks
     private DeleteCategoryUseCase sut;
@@ -91,5 +93,10 @@ public class DeleteCategoryUseCaseTest {
 
         Mockito.verify(repository, Mockito.times(1)).findById(categoryId);
         Mockito.verify(repository, Mockito.times(1)).delete(categoryId);
+    }
+
+    @Override
+    protected List<Object> getMocks() {
+        return List.of(repository);
     }
 }

@@ -1,37 +1,13 @@
 plugins {
     id 'java-conventions'
     id 'java-library'
-    id 'jacoco'
-    id 'jacoco-report-aggregation'
 }
 
 group = 'com.jobee.admin.service.domain'
-
-jacoco {
-    toolVersion = "0.8.13"
-}
 
 dependencies {
     testImplementation 'com.github.javafaker:javafaker:1.0.2'
     // https://mvnrepository.com/artifact/org.projectlombok/lombok
     compileOnly("org.projectlombok:lombok:1.18.38")
     annotationProcessor 'org.projectlombok:lombok:1.18.38'
-}
-
-testCodeCoverageReport {
-    reports {
-        xml {
-            enabled true
-            destination file("$rootDir/build/reports/jacoco/test/jacocoTestReport.xml")
-        }
-
-        html {
-            enabled true
-            destination file("$rootDir/build/reports/jacoco/test")
-        }
-    }
-}
-
-tasks.named("jacocoTestReport") {
-    dependsOn tasks.named("testCodeCoverageReport", JacocoReport)
 }

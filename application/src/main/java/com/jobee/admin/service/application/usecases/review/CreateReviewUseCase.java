@@ -16,12 +16,10 @@ import com.jobee.admin.service.domain.utils.CollectionUtils;
 import com.jobee.admin.service.domain.validation.Error;
 import io.vavr.control.Either;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class CreateReviewUseCase extends UseCase<CreateReviewInputDto, Either<DomainException, ReviewId>> {
 
-    private static final Logger logger = LoggerFactory.getLogger(CreateReviewUseCase.class);
+//    private static final Logger logger = LoggerFactory.getLogger(CreateReviewUseCase.class);
     private final ReviewRepository repository;
     private final DomainEventMediator domainEventMediator;
 
@@ -33,7 +31,7 @@ public class CreateReviewUseCase extends UseCase<CreateReviewInputDto, Either<Do
     @Override
     public Either<DomainException, ReviewId> execute(final CreateReviewInputDto dto) {
 
-        logger.info("Calls CreateReviewUseCase with dto {}", dto.toString());
+        //logger.info("Calls CreateReviewUseCase with dto {}", dto.toString());
         final var type = Type.of(dto.type());
         final var rating = RatingScale.of(dto.overallRating());
 
@@ -64,7 +62,7 @@ public class CreateReviewUseCase extends UseCase<CreateReviewInputDto, Either<Do
             return Either.left(ValidationException.with(errors));
         }
 
-        logger.info("Calls repository with dto {}", review);
+//        logger.info("Calls repository with dto {}", review);
         this.repository.create(review);
 
         this.domainEventMediator.publishEvent(review);

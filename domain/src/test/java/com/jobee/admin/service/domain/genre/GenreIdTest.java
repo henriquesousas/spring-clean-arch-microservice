@@ -1,11 +1,12 @@
 package com.jobee.admin.service.domain.genre;
 
+import com.jobee.admin.service.domain.UnitTest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-public class GenreIdTest {
+public class GenreIdTest  extends UnitTest {
 
     @Test
     public void givenAInvalidGenreId_whenCallsNewGenreId_thenShouldReturnNotification() {

@@ -1,5 +1,6 @@
 package com.jobee.admin.service;
 
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
@@ -26,5 +27,6 @@ import java.lang.annotation.*;
 )
 @DataJpaTest
 @ExtendWith(MysqlCleanupExtension.class)
+@Tag("integrationTest")
 public @interface MysqlRepositoryTest {
 }

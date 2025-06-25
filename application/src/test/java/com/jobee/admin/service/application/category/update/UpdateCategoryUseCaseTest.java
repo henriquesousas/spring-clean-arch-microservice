@@ -1,6 +1,7 @@
 package com.jobee.admin.service.application.category.update;
 
 
+import com.jobee.admin.service.application.UseCaseTest;
 import com.jobee.admin.service.application.usecases.category.update.UpdateCategoryInputDto;
 import com.jobee.admin.service.application.usecases.category.update.UpdateCategoryOutputDto;
 import com.jobee.admin.service.application.usecases.category.update.UpdateCategoryUseCase;
@@ -27,19 +28,13 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.when;
 
-@ExtendWith(MockitoExtension.class)
-public class UpdateCategoryUseCaseTest {
+public class UpdateCategoryUseCaseTest  extends UseCaseTest {
 
     @InjectMocks
     private UpdateCategoryUseCase sut;
 
     @Mock
     private CategoryRepository repository;
-
-    @BeforeEach
-    public void cleanup() {
-        Mockito.reset(repository);
-    }
 
     @Test
     public void giveAnValidCommand_whenCallsUpdateCategory_thenShouldReturnCategory() {
@@ -127,6 +122,11 @@ public class UpdateCategoryUseCaseTest {
 
 
         Mockito.verify(repository, times(0)).update(any());
+    }
+
+    @Override
+    protected List<Object> getMocks() {
+        return List.of(repository);
     }
 
 //    @Test

@@ -1,10 +1,11 @@
 package com.jobee.admin.service.domain.reviewanalysis;
 
+import com.jobee.admin.service.domain.UnitTest;
 import com.jobee.admin.service.domain.utils.InstantUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class ReviewAnalysisTest {
+public class ReviewAnalysisTest  extends UnitTest {
 
     @Test
     public void givenAValidValues_whenInstantiate_shouldHaveCorrectValues() {

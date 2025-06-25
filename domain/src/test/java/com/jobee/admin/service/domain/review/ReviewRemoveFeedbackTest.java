@@ -1,10 +1,11 @@
 package com.jobee.admin.service.domain.review;
 
+import com.jobee.admin.service.domain.UnitTest;
 import com.jobee.admin.service.domain.review.valueobjects.Feedback;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class ReviewRemoveFeedbackTest {
+public class ReviewRemoveFeedbackTest  extends UnitTest {
 
     @Test
     public void givenAnValidReview_whenRemovePositiveFeedback_shouldReturnEmpty() {

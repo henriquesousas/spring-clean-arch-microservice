@@ -13,11 +13,11 @@ import com.jobee.admin.service.application.usecases.category.update.UpdateCatego
 import com.jobee.admin.service.domain.category.Category;
 import com.jobee.admin.service.domain.category.CategoryBuilder;
 import com.jobee.admin.service.domain.category.CategoryId;
-import com.jobee.admin.service.domain.commons.exceptions.NotFoundException;
-import com.jobee.admin.service.domain.commons.exceptions.ValidationException;
-import com.jobee.admin.service.domain.commons.pagination.Pagination;
-import com.jobee.admin.service.domain.commons.validation.Error;
-import com.jobee.admin.service.domain.commons.validation.handler.Notification;
+import com.jobee.admin.service.domain.exceptions.NotFoundException;
+import com.jobee.admin.service.domain.exceptions.ValidationException;
+import com.jobee.admin.service.domain.pagination.Pagination;
+import com.jobee.admin.service.domain.validation.Error;
+import com.jobee.admin.service.domain.validation.handler.Notification;
 import com.jobee.admin.service.infrastructure.category.models.CreateCategoryRequest;
 import io.vavr.API;
 import org.hamcrest.Matchers;

@@ -1,5 +1,6 @@
 package com.jobee.admin.service.application.genre;
 
+import com.jobee.admin.service.application.UseCaseTest;
 import com.jobee.admin.service.application.usecases.genre.create.CreateGenreInputDto;
 import com.jobee.admin.service.application.usecases.genre.create.CreateGenreUseCase;
 import com.jobee.admin.service.domain.category.CategoryId;
@@ -18,8 +19,7 @@ import java.util.List;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
-@ExtendWith(MockitoExtension.class)
-public class CreateGenreUseCaseTest {
+public class CreateGenreUseCaseTest extends UseCaseTest {
 
     @InjectMocks
     private CreateGenreUseCase sut;
@@ -98,5 +98,10 @@ public class CreateGenreUseCaseTest {
         Assertions.assertFalse(expectedGenre.getNotification().hasError());
         Assertions.assertEquals(expectedGenre.getCategories().size(), genre.getCategories().size());
 
+    }
+
+    @Override
+    protected List<Object> getMocks() {
+        return List.of(repository);
     }
 }

@@ -1,10 +1,11 @@
 package com.jobee.admin.service.domain.review;
 
+import com.jobee.admin.service.domain.UnitTest;
 import com.jobee.admin.service.domain.review.enums.Status;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class ReviewCreationTest {
+public class ReviewCreationTest  extends UnitTest {
 
     @Test
     public void givenADefaultValue_whenInstantiate_shouldCreateANewReview() {

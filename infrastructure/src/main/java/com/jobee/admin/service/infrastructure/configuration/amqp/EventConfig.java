@@ -6,6 +6,7 @@ import com.jobee.admin.service.infrastructure.services.RabbitMQEventService;
 import org.springframework.amqp.rabbit.core.RabbitOperations;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 
 @Configuration
 public class EventConfig {

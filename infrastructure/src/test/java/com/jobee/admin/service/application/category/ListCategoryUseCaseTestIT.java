@@ -5,8 +5,8 @@ import com.jobee.admin.service.application.usecases.category.retrieve.CategoryOu
 import com.jobee.admin.service.application.usecases.category.retrieve.ListCategoryUseCase;
 import com.jobee.admin.service.domain.category.Category;
 import com.jobee.admin.service.domain.category.CategoryBuilder;
-import com.jobee.admin.service.domain.commons.pagination.Search;
-import com.jobee.admin.service.domain.commons.pagination.Pagination;
+import com.jobee.admin.service.domain.pagination.Pagination;
+import com.jobee.admin.service.domain.pagination.Search;
 import com.jobee.admin.service.infrastructure.category.repository.CategoryModel;
 import com.jobee.admin.service.infrastructure.category.repository.CategoryJpaRepository;
 import org.junit.jupiter.api.Assertions;

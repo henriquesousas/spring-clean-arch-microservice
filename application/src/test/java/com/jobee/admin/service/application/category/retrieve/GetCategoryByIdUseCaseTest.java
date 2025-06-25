@@ -1,5 +1,6 @@
 package com.jobee.admin.service.application.category.retrieve;
 
+import com.jobee.admin.service.application.UseCaseTest;
 import com.jobee.admin.service.application.usecases.category.retrieve.GetCategoryByIdUseCase;
 import com.jobee.admin.service.domain.category.Category;
 import com.jobee.admin.service.domain.category.CategoryId;
@@ -13,9 +14,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.List;
 
-@ExtendWith(MockitoExtension.class)
-public class GetCategoryByIdUseCaseTest {
+
+public class GetCategoryByIdUseCaseTest extends UseCaseTest {
 
 
     @InjectMocks
@@ -33,6 +35,11 @@ public class GetCategoryByIdUseCaseTest {
         DomainException exception = this.sut.execute(invalidCategoryId.getValue()).getLeft();
 
         Assertions.assertEquals(exception.getMessage(),expectedError.getMessage());
+    }
+
+    @Override
+    protected List<Object> getMocks() {
+        return List.of(repository);
     }
 
 

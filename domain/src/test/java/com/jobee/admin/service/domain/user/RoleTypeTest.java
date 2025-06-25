@@ -1,9 +1,10 @@
 package com.jobee.admin.service.domain.user;
 
+import com.jobee.admin.service.domain.UnitTest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class RoleTypeTest {
+public class RoleTypeTest  extends UnitTest {
 
     @Test
     public void givenAValidRole_whenInstantiated_thenItShouldBeValid() {

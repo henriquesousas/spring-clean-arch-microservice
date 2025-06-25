@@ -7,8 +7,8 @@ import com.jobee.admin.service.domain.category.Category;
 import com.jobee.admin.service.domain.category.CategoryBuilder;
 import com.jobee.admin.service.domain.category.CategoryId;
 import com.jobee.admin.service.domain.category.CategoryRepository;
-import com.jobee.admin.service.domain.commons.exceptions.NotFoundException;
-import com.jobee.admin.service.domain.commons.validation.handler.Notification;
+import com.jobee.admin.service.domain.exceptions.NotFoundException;
+import com.jobee.admin.service.domain.validation.handler.Notification;
 import com.jobee.admin.service.infrastructure.category.repository.CategoryJpaRepository;
 import com.jobee.admin.service.infrastructure.category.repository.CategoryModel;
 import org.junit.jupiter.api.Assertions;
@@ -36,7 +36,7 @@ public class DeleteCategoryUseCaseTestIT {
     public void givenAnInvalidCategoryId_whenCallDeleteCategory_thenShouldReturnNotification() {
 
         final var categoryId = CategoryId.unique();
-        final var expectedError = NotFoundException.with(Category.class, categoryId);
+        final var expectedError = "Category with ID %s was not found".formatted(categoryId.getValue());
 
         Notification notification = this.sut.execute(categoryId.getValue()).getLeft();
 
@@ -44,7 +44,7 @@ public class DeleteCategoryUseCaseTestIT {
 
         Assertions.assertTrue(notification.hasError());
         Assertions.assertEquals(notification.getErrors().size(), 1);
-        Assertions.assertEquals(notification.getFirstError().message(), expectedError.getMessage());
+        Assertions.assertEquals(notification.getFirstError().message(), expectedError);
 
         Mockito.verify(categoryRepositoryGateway, times(1)).findById(any());
         Mockito.verify(categoryRepositoryGateway, times(0)).delete(any());

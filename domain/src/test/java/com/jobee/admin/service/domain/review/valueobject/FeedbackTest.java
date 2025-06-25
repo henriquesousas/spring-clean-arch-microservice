@@ -1,11 +1,12 @@
 package com.jobee.admin.service.domain.review.valueobject;
 
+import com.jobee.admin.service.domain.UnitTest;
 import com.jobee.admin.service.domain.review.valueobjects.Feedback;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 
-public class FeedbackTest {
+public class FeedbackTest  extends UnitTest {
 
     @Test
     public void givenAnNullFeedback_whenInstantiate_shouldNoError() {

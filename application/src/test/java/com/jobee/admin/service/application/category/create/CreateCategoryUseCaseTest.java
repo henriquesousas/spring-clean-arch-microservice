@@ -1,5 +1,6 @@
 package com.jobee.admin.service.application.category.create;
 
+import com.jobee.admin.service.application.UseCaseTest;
 import com.jobee.admin.service.application.usecases.category.create.CreateCategoryInputDto;
 import com.jobee.admin.service.application.usecases.category.create.CreateCategoryUseCase;
 import com.jobee.admin.service.domain.category.CategoryBuilder;
@@ -22,20 +23,13 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.Mockito.when;
 
-@ExtendWith(MockitoExtension.class)
-public class CreateCategoryUseCaseTest {
+public class CreateCategoryUseCaseTest extends UseCaseTest {
 
     @InjectMocks
     private CreateCategoryUseCase sut;
 
     @Mock
     private CategoryRepository repository;
-
-    @BeforeEach
-    public void cleanup() {
-        Mockito.reset(repository);
-    }
-
 
     @Test
     public void giveAnValidCommand_whenCallCreateCategoryUseCase_thenShouldReturnCategoryId() {
@@ -81,20 +75,8 @@ public class CreateCategoryUseCaseTest {
         Assertions.assertEquals(exception.getErrors(), expectedErrors);
     }
 
-//    @Test
-//    public void givenAValidCommand_whenGatewayThrowsRandomException_thenShouldReturnException() {
-//
-//        final var expectedError = "any error";
-//        final var expectedCategory = new CategoryBuilder("any name", "any description").build();
-//
-//        when(repository.create(any()))
-//                .thenThrow(new IllegalArgumentException(expectedError));
-//
-//        DomainException exception = sut.execute(CreateCategoryInputDto.with(
-//                expectedCategory.getName(),
-//                expectedCategory.getDescription())).getLeft();
-//
-//        Assertions.assertEquals(exception.getErrors().size(), 1);
-//        Assertions.assertEquals(exception.getMessage(), expectedError);
-//    }
+    @Override
+    protected List<Object> getMocks() {
+        return List.of(repository);
+    }
 }

@@ -1,5 +1,6 @@
 package com.jobee.admin.service.domain.genre;
 
+import com.jobee.admin.service.domain.UnitTest;
 import com.jobee.admin.service.domain.category.CategoryId;
 import com.jobee.admin.service.domain.utils.InstantUtils;
 import com.jobee.admin.service.domain.validation.handler.Notification;
@@ -8,7 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-public class GenreTest {
+public class GenreTest  extends UnitTest {
 
     @Test
     public void givenAValidGenreValues_whenBuildGenre_shouldCreateANewGenre() {

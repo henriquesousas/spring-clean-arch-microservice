@@ -1,5 +1,6 @@
 package com.jobee.admin.service.domain.review;
 
+import com.jobee.admin.service.domain.UnitTest;
 import com.jobee.admin.service.domain.validation.Error;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -7,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import java.util.HashSet;
 import java.util.List;
 
-public class ReviewValidatorTest {
+public class ReviewValidatorTest  extends UnitTest {
 
     @Test
     public void giveAnInvalidReview_whenCallsValidate_shouldHaveNotificationError() {

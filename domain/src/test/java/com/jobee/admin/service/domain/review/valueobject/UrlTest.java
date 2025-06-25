@@ -1,10 +1,11 @@
 package com.jobee.admin.service.domain.review.valueobject;
 
+import com.jobee.admin.service.domain.UnitTest;
 import com.jobee.admin.service.domain.review.valueobjects.Url;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class UrlTest {
+public class UrlTest  extends UnitTest {
 
     @Test
     public void givenAValidUrl_whenInstantiate_shouldHaveNoError() {

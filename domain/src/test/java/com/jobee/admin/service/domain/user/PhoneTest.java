@@ -1,10 +1,11 @@
 package com.jobee.admin.service.domain.user;
 
+import com.jobee.admin.service.domain.UnitTest;
 import com.jobee.admin.service.domain.user.valueobjects.Phone;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class PhoneTest {
+public class PhoneTest  extends UnitTest {
 
     @Test
     public void givenAValidPhoneNumber_whenInstantiated_thenItShouldBeValid() {

@@ -1,5 +1,6 @@
 package com.jobee.admin.service.domain.user;
 
+import com.jobee.admin.service.domain.UnitTest;
 import com.jobee.admin.service.domain.user.valueobjects.UserId;
 import com.jobee.admin.service.domain.validation.Error;
 import org.junit.jupiter.api.Assertions;
@@ -8,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import java.util.HashSet;
 import java.util.List;
 
-public class UserIdTest {
+public class UserIdTest  extends UnitTest {
 
     @Test
     public void giveAValidUserId_whenInstantiated_thenItShouldBeValid() {

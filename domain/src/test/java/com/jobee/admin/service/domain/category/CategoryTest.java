@@ -1,5 +1,6 @@
 package com.jobee.admin.service.domain.category;
 
+import com.jobee.admin.service.domain.UnitTest;
 import com.jobee.admin.service.domain.exceptions.DomainException;
 import com.jobee.admin.service.domain.exceptions.ValidationException;
 import com.jobee.admin.service.domain.validation.handler.Notification;
@@ -7,7 +8,7 @@ import com.jobee.admin.service.domain.validation.handler.ThrowsValidationHandler
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class CategoryTest {
+public class CategoryTest  extends UnitTest {
 
 
     @Test

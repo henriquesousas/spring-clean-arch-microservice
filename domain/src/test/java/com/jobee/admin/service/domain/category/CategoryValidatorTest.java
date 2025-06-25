@@ -1,10 +1,11 @@
 package com.jobee.admin.service.domain.category;
 
+import com.jobee.admin.service.domain.UnitTest;
 import com.jobee.admin.service.domain.validation.handler.Notification;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class CategoryValidatorTest {
+public class CategoryValidatorTest  extends UnitTest {
 
     @Test
     public void givenACategoryWithInvalidParams_whenCallsValidation_shouldReturnNotificationWith3Errors() {

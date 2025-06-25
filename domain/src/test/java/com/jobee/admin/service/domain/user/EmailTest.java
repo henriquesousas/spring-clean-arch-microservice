@@ -1,10 +1,11 @@
 package com.jobee.admin.service.domain.user;
 
+import com.jobee.admin.service.domain.UnitTest;
 import com.jobee.admin.service.domain.user.valueobjects.Email;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class EmailTest {
+public class EmailTest  extends UnitTest {
 
     @Test
     public void givenAValidEmail_whenInstantiated_thenItShouldBeValid() {

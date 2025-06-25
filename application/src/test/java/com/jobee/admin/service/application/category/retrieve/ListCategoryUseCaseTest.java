@@ -1,5 +1,6 @@
 package com.jobee.admin.service.application.category.retrieve;
 
+import com.jobee.admin.service.application.UseCaseTest;
 import com.jobee.admin.service.application.usecases.category.retrieve.CategoryOutput;
 import com.jobee.admin.service.application.usecases.category.retrieve.ListCategoryUseCase;
 import com.jobee.admin.service.domain.category.Category;
@@ -20,8 +21,7 @@ import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
 
-@ExtendWith(MockitoExtension.class)
-public class ListCategoryUseCaseTest {
+public class ListCategoryUseCaseTest extends UseCaseTest {
 
 
     @InjectMocks
@@ -65,5 +65,10 @@ public class ListCategoryUseCaseTest {
         Assertions.assertEquals(actualResult.currentPage(), actualResult.currentPage());
         Assertions.assertEquals(actualResult.perPage(), actualResult.perPage());
         Assertions.assertEquals(actualResult.items(), expectedResult.items());
+    }
+
+    @Override
+    protected List<Object> getMocks() {
+        return List.of(repository);
     }
 }

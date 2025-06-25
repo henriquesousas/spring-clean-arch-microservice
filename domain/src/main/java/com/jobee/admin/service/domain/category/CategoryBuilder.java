@@ -15,6 +15,7 @@ public class CategoryBuilder {
         this.name = name;
         this.description = description;
     }
+
     public CategoryBuilder withCategoryId(String id) {
         this.categoryId = CategoryId.from(id);
         return this;

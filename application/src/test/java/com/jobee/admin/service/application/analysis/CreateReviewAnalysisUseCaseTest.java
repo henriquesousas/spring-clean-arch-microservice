@@ -1,5 +1,6 @@
 package com.jobee.admin.service.application.analysis;
 
+import com.jobee.admin.service.application.UseCaseTest;
 import com.jobee.admin.service.application.usecases.reviewanalysis.CreateReviewAnalysisInputDto;
 import com.jobee.admin.service.application.usecases.reviewanalysis.CreateReviewAnalysisUseCase;
 import com.jobee.admin.service.domain.reviewanalysis.ReviewAnalysisBuilder;
@@ -22,8 +23,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.Mockito.when;
 
-@ExtendWith(MockitoExtension.class)
-class CreateReviewAnalysisUseCaseTest {
+class CreateReviewAnalysisUseCaseTest extends UseCaseTest {
 
     @InjectMocks
     private CreateReviewAnalysisUseCase sut;
@@ -83,12 +83,6 @@ class CreateReviewAnalysisUseCaseTest {
         final var expectedType = "CREATE";
         final var expectedTotalError = 1;
 
-//        new ReviewAnalysisBuilder(
-//                expectedUserId,
-//                expectedReviewId,
-//                TypeAnalysis.CREATE
-//        ).build();
-
         final var outputData = sut
                 .execute(CreateReviewAnalysisInputDto.from(expectedUserId, expectedReviewId, expectedType))
                 .getLeft();
@@ -96,5 +90,10 @@ class CreateReviewAnalysisUseCaseTest {
         Assertions.assertEquals(expectedTotalError, outputData.getErrors().size());
         Assertions.assertEquals(outputData.getErrors(), List.of(new Error("UserId must be a valid UUID")));
         Mockito.verify(repository, Mockito.times(0)).create(any());
+    }
+
+    @Override
+    protected List<Object> getMocks() {
+        return List.of(repository);
     }
 }
