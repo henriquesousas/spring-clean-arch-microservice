@@ -91,8 +91,8 @@ public class ReviewAnalysisTest  extends UnitTest {
     @Test
     public void givenNotStartedAnalysis_whenTryEndAnalysis_shouldNotifyAnError() {
 
-        final var expectedReviewId = "2f9d7582-d216-4f43-b9ce-14ed2b4903b1";
-        final var expectedUserId = "aad74d08-dad7-43f0-8818-2f15cc1cea7b";
+        final var expectedReviewId = "2f9d7582d2164f43b9ce14ed2b4903b1";
+        final var expectedUserId = "aad74d08dad743f088182f15cc1cea7b";
         final var expectedErrorMessage = "Análise ainda não foi iniciada.";
         final var expectedStatus = Status.WAITING;
         final var expectedTypeAnalysis = TypeAnalysis.CREATE;
