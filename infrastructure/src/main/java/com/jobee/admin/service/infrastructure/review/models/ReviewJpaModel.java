@@ -2,13 +2,20 @@ package com.jobee.admin.service.infrastructure.review.models;
 
 
 import com.jobee.admin.service.domain.review.Review;
+import com.jobee.admin.service.domain.review.ReviewBuilder;
 import com.jobee.admin.service.domain.review.enums.RatingScale;
+import com.jobee.admin.service.domain.review.enums.Status;
+import com.jobee.admin.service.domain.review.enums.Type;
+import com.jobee.admin.service.domain.review.valueobjects.Feedback;
 import com.jobee.admin.service.domain.review.valueobjects.Url;
+import com.jobee.admin.service.domain.user.valueobjects.UserId;
 import com.jobee.admin.service.domain.utils.CollectionUtils;
+import com.jobee.admin.service.domain.utils.EnumUtils;
 import com.jobee.admin.service.domain.utils.NullableUtils;
 
 import javax.persistence.*;
 import java.time.Instant;
+import java.util.Set;
 
 @Entity(name = "Review")
 @Table(name = "reviews")
@@ -140,6 +147,33 @@ public class ReviewJpaModel {
         );
     }
 
+
+    public Review toAggregate() {
+        return new ReviewBuilder(
+                getTitle(),
+                getSummary(),
+                UserId.from(getUserId()),
+                EnumUtils.of(Type.values(), getType()),
+                getBoughtFrom(),
+                Url.from(getUrlReclameAqui()),
+                EnumUtils.of(RatingScale.values(), this.getOverallRating()),
+                EnumUtils.of(RatingScale.values(), this.getPostSale()),
+                EnumUtils.of(RatingScale.values(), this.getResponseTime()),
+                CollectionUtils.asSet(getPositiveFeedback().split(","), Feedback::from),
+                CollectionUtils.asSet(getNegativeFeedback().split(","), Feedback::from)
+        )
+                .withReviewId(getId())
+                .withUrl(getUrlReclameAqui())
+                .withIsRecommend(isRecommend())
+                .withCreatedAt(getCreatedAt())
+                .withStatus(EnumUtils.of(Status.values(), getStatus()))
+                .withActive(isActive())
+                .withIsVerified(isVerified())
+                .withUpdatedAt(getUpdatedAt())
+                .withDeletedAt(getDeletedAt())
+                .build();
+    }
+
     public String getId() {
         return id;
     }
@@ -196,12 +230,8 @@ public class ReviewJpaModel {
         this.boughtFrom = boughtFrom;
     }
 
-    public boolean isRecommend() {
+    public Boolean isRecommend() {
         return recommend;
-    }
-
-    public void setRecommend(boolean recommend) {
-        this.recommend = recommend;
     }
 
     public boolean isVerified() {

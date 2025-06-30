@@ -1,12 +1,13 @@
 package com.jobee.admin.service.domain.review.enums;
 
+import com.jobee.admin.service.domain.Valuable;
 import lombok.Getter;
 
 import java.util.Arrays;
 import java.util.Optional;
 
 @Getter
-public enum Type {
+public enum Type implements Valuable<String> {
     PRODUCT("PRODUCT"),
     SERVICE("SERVICE");
 

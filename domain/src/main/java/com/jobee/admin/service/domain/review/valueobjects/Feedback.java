@@ -7,7 +7,6 @@ import java.util.Objects;
 
 public class Feedback extends ValueObject<String> {
 
-
     protected static final int MAX_CHARACTER = 30;
     protected String value;
 

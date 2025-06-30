@@ -1,22 +1,26 @@
 package com.jobee.admin.service.domain.utils;
 
 
+import com.jobee.admin.service.domain.Valuable;
+
 import java.util.Arrays;
+import java.util.Objects;
 
 public class EnumUtils {
 
-//    public static <T extends Enum<T>> T of(T[] values, final String value) {
-//        return Arrays.stream(values)
-//                .filter(it -> it.name().equalsIgnoreCase(value))
-//                .findFirst()
-//                .orElse(null);
-//    }
-
-    public static <T extends Enum<T>> String of(T[] values, final String value) {
+    public static <T extends Enum<T> & Valuable<I>, I> T of(T[] values, I value) {
         return Arrays.stream(values)
-                .filter(it -> it.name().equalsIgnoreCase(value))
+                .filter(it -> Objects.equals(it.getValue(), value))
                 .findFirst()
-                .map(t -> t.name())
                 .orElse(null);
     }
+
+
+//    public static <T extends Enum<T>, I> String asStr(T[] values, final I value) {
+//        return Arrays.stream(values)
+//                .filter(it -> it.name() == value)
+//                .findFirst()
+//                .map(t -> t.name())
+//                .orElse(null);
+//    }
 }

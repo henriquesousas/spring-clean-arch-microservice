@@ -1,12 +1,12 @@
 package com.jobee.admin.service.domain.review.enums;
 
+import com.jobee.admin.service.domain.Valuable;
 import lombok.Getter;
 
 import java.util.Arrays;
 import java.util.Optional;
 
-@Getter
-public enum RatingScale {
+public enum RatingScale  implements Valuable<Integer> {
 
     RA_1(1),
     RA_2(2),
@@ -24,5 +24,10 @@ public enum RatingScale {
         return Arrays.stream(RatingScale.values())
                 .filter(it -> it.value == point)
                 .findFirst();
+    }
+
+    @Override
+    public Integer getValue() {
+        return value;
     }
 }

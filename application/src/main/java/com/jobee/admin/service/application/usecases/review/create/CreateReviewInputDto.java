@@ -1,4 +1,4 @@
-package com.jobee.admin.service.application.usecases.review;
+package com.jobee.admin.service.application.usecases.review.create;
 
 import java.util.Set;
 

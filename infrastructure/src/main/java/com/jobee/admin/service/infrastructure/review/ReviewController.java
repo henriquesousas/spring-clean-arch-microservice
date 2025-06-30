@@ -1,8 +1,14 @@
 package com.jobee.admin.service.infrastructure.review;
 
-import com.jobee.admin.service.application.usecases.review.CreateReviewInputDto;
-import com.jobee.admin.service.application.usecases.review.CreateReviewUseCase;
+import com.jobee.admin.service.application.usecases.review.ReviewOutputDto;
+import com.jobee.admin.service.application.usecases.review.create.CreateReviewInputDto;
+import com.jobee.admin.service.application.usecases.review.create.CreateReviewUseCase;
+import com.jobee.admin.service.application.usecases.review.retrieve.GetReviewByIdUseCase;
+import com.jobee.admin.service.application.usecases.review.retrieve.GetReviewIdCommand;
+import com.jobee.admin.service.infrastructure.genre.models.GenreResponse;
 import com.jobee.admin.service.infrastructure.review.dtos.CreateReviewRequestDto;
+import com.jobee.admin.service.infrastructure.review.models.CreateReviewResponse;
+import com.jobee.admin.service.infrastructure.review.models.ReviewResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,8 +27,11 @@ public class ReviewController implements ReviewRestController {
     @Autowired
     private CreateReviewUseCase createReviewUseCase;
 
+    @Autowired
+    private GetReviewByIdUseCase getReviewByIdUseCase;
+
     @Override
-    public ResponseEntity<?> create(CreateReviewRequestDto request) {
+    public ResponseEntity<CreateReviewResponse> create(CreateReviewRequestDto request) {
         logger.info("Start ReviewController with dto {}", request.toString());
         final var dto = CreateReviewInputDto.from(
                 request.title(),
@@ -39,7 +48,19 @@ public class ReviewController implements ReviewRestController {
         );
 
         return createReviewUseCase.execute(dto)
-                .map(reviewId -> ResponseEntity.created(URI.create("/genres/" + reviewId)).body(reviewId.getValue()))
+                .map(reviewId -> {
+                    final var reviewIdResponse = new CreateReviewResponse(reviewId.getValue());
+                    return ResponseEntity.created(URI.create("/review/" + reviewId))
+                            .body(reviewIdResponse);
+                })
+                .getOrElseThrow(error -> error);
+    }
+
+    @Override
+    public ResponseEntity<ReviewResponse> getById(String id) {
+        final var command = new GetReviewIdCommand(id);
+        return this.getReviewByIdUseCase.execute(command)
+                .map(review -> ResponseEntity.ok(ReviewResponse.from(review)))
                 .getOrElseThrow(error -> error);
     }
 }

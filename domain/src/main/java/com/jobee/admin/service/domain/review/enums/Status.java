@@ -1,12 +1,13 @@
 package com.jobee.admin.service.domain.review.enums;
 
+import com.jobee.admin.service.domain.Valuable;
 import lombok.Getter;
 
 import java.util.Arrays;
 import java.util.Optional;
 
 @Getter
-public enum Status {
+public enum Status implements Valuable<String> {
     PENDING("PENDING"),
     APPROVED("APPROVED"),
     REJECTED("REJECTED"),

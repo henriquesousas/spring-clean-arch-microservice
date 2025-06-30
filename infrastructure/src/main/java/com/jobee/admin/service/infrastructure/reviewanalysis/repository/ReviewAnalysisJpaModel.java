@@ -66,9 +66,9 @@ public class ReviewAnalysisJpaModel {
                 reviewAnalysis.getModeratorId(),
                 reviewAnalysis.getUserId(),
                 reviewAnalysis.getReviewId(),
-                EnumUtils.of(TypeAnalysis.values(), reviewAnalysis.getType().getValue()),
+                reviewAnalysis.getType().getValue(),
                 NullableUtils.mapOrNull( reviewAnalysis.getReason(), Reason::getValue),
-                EnumUtils.of(Status.values(), reviewAnalysis.getStatus().getValue()),
+                reviewAnalysis.getStatus().getValue(),
                 reviewAnalysis.getStartAt(),
                 reviewAnalysis.getEndAt()
         );

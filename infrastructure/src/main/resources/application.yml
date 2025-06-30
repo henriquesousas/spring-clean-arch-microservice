@@ -63,6 +63,8 @@ spring:
           max-attempts: 3
           initial-interval: 5s
           multiplier: "2"
+  jackson:
+    default-property-inclusion: always
 #        acknowledge-mode: manual
 #        prefetch: 1
 

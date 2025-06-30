@@ -102,7 +102,7 @@ public class ReviewBuilder {
         return this;
     }
 
-    public ReviewBuilder withIsRecommend(boolean recommend) {
+    public ReviewBuilder withIsRecommend(Boolean recommend) {
         this.recommends = recommend;
         return this;
     }

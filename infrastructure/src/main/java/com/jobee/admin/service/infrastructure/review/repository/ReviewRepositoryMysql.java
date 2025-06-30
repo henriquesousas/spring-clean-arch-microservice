@@ -5,6 +5,7 @@ import com.jobee.admin.service.domain.pagination.Search;
 import com.jobee.admin.service.domain.review.Review;
 import com.jobee.admin.service.domain.review.ReviewRepository;
 import com.jobee.admin.service.domain.review.valueobjects.ReviewId;
+import com.jobee.admin.service.infrastructure.category.repository.CategoryModel;
 import com.jobee.admin.service.infrastructure.review.models.ReviewJpaModel;
 import org.springframework.stereotype.Component;
 
@@ -25,7 +26,6 @@ public class ReviewRepositoryMysql implements ReviewRepository {
     @Transactional(rollbackOn = Exception.class)
     @Override
     public void create(Review review) {
-        System.out.println("Created...");
         this.repository.save(ReviewJpaModel.from(review));
     }
 
@@ -35,8 +35,9 @@ public class ReviewRepositoryMysql implements ReviewRepository {
     }
 
     @Override
-    public Optional<Review> findById(ReviewId id) {
-        return Optional.empty();
+    public Optional<Review> findById(ReviewId identifier) {
+        return this.repository.findById(identifier.getValue())
+                .map(ReviewJpaModel::toAggregate);
     }
 
     @Override

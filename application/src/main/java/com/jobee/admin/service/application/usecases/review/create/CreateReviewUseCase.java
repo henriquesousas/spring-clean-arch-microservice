@@ -1,4 +1,4 @@
-package com.jobee.admin.service.application.usecases.review;
+package com.jobee.admin.service.application.usecases.review.create;
 
 import com.jobee.admin.service.application.events.DomainEventMediator;
 import com.jobee.admin.service.application.usecases.UseCase;
@@ -53,8 +53,8 @@ public class CreateReviewUseCase extends UseCase<CreateReviewInputDto, Either<Do
                 rating.get(),
                 RatingScale.of(dto.postSale()).orElse(null),
                 RatingScale.of(dto.responseTime()).orElse(null),
-                CollectionUtils.asSet(dto.positiveFeedback(), Feedback::from),
-                CollectionUtils.asSet(dto.negativeFeedback(), Feedback::from)
+                CollectionUtils.asSet( dto.positiveFeedback(), Feedback::from),
+                CollectionUtils.asSet( dto.negativeFeedback(), Feedback::from)
         ).build();
 
         if (review.getNotification().hasError()) {
@@ -62,7 +62,6 @@ public class CreateReviewUseCase extends UseCase<CreateReviewInputDto, Either<Do
             return Either.left(ValidationException.with(errors));
         }
 
-//        logger.info("Calls repository with dto {}", review);
         this.repository.create(review);
 
         this.domainEventMediator.publishEvent(review);
