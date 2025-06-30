@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RequestMapping(value = "reviews")
 @Tag(name = "Review")
@@ -34,4 +35,11 @@ public interface ReviewRestController {
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Get a review by identifier")
     ResponseEntity<ReviewResponse> getById(@PathVariable("id") String id);
+
+    @GetMapping
+    @Operation(summary = "Get a review by status/userid or both")
+    ResponseEntity<List<ReviewResponse>> get(
+            @RequestParam(required = false) String status,
+            @RequestParam(required = false) String userId
+    );
 }

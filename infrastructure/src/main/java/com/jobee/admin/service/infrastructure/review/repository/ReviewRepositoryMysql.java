@@ -10,8 +10,11 @@ import com.jobee.admin.service.infrastructure.review.models.ReviewJpaModel;
 import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 //@Log4j2
 @Component
@@ -43,6 +46,14 @@ public class ReviewRepositoryMysql implements ReviewRepository {
     @Override
     public Pagination<Review> findAll(Search query) {
         return null;
+    }
+
+    @Override
+    public List<Review> findBy(String status, String userId) {
+        return this.repository.findBy(status, userId)
+                .stream()
+                .map(ReviewJpaModel::toAggregate)
+                .collect(Collectors.toList());
     }
 
     @Override

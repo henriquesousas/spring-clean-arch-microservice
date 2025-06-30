@@ -18,4 +18,9 @@ public final class ValidationException extends DomainException {
     public static ValidationException with(Error error) {
         return new ValidationException(List.of(error));
     }
+
+    @Override
+    public int getStatus() {
+        return 422;
+    }
 }

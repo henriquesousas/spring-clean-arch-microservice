@@ -4,7 +4,8 @@ import com.jobee.admin.service.application.events.DomainEventHandler;
 import com.jobee.admin.service.application.usecases.review.create.CreateReviewUseCase;
 import com.jobee.admin.service.application.events.DomainEventMediator;
 import com.jobee.admin.service.application.handles.review.ReviewCreatedEventHandler;
-import com.jobee.admin.service.application.usecases.review.retrieve.GetReviewByIdUseCase;
+import com.jobee.admin.service.application.usecases.review.retrieve.list.ListReviewUseCase;
+import com.jobee.admin.service.application.usecases.review.retrieve.getbyid.GetReviewByIdUseCase;
 import com.jobee.admin.service.domain.review.ReviewRepository;
 import com.jobee.admin.service.infrastructure.SpringIntegrationEventPublisher;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,5 +41,10 @@ public class ReviewProviders {
     @Bean
     public GetReviewByIdUseCase getReviewByIdUseCase() {
         return new GetReviewByIdUseCase(repository);
+    }
+
+    @Bean
+    public ListReviewUseCase listReviewUseCase() {
+        return new ListReviewUseCase(repository);
     }
 }

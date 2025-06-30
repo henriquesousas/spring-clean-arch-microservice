@@ -1,11 +1,11 @@
 package com.jobee.admin.service.infrastructure.review;
 
-import com.jobee.admin.service.application.usecases.review.ReviewOutputDto;
 import com.jobee.admin.service.application.usecases.review.create.CreateReviewInputDto;
 import com.jobee.admin.service.application.usecases.review.create.CreateReviewUseCase;
-import com.jobee.admin.service.application.usecases.review.retrieve.GetReviewByIdUseCase;
-import com.jobee.admin.service.application.usecases.review.retrieve.GetReviewIdCommand;
-import com.jobee.admin.service.infrastructure.genre.models.GenreResponse;
+import com.jobee.admin.service.application.usecases.review.retrieve.list.ListReviewCommand;
+import com.jobee.admin.service.application.usecases.review.retrieve.list.ListReviewUseCase;
+import com.jobee.admin.service.application.usecases.review.retrieve.getbyid.GetReviewByIdUseCase;
+import com.jobee.admin.service.application.usecases.review.retrieve.getbyid.GetReviewIdCommand;
 import com.jobee.admin.service.infrastructure.review.dtos.CreateReviewRequestDto;
 import com.jobee.admin.service.infrastructure.review.models.CreateReviewResponse;
 import com.jobee.admin.service.infrastructure.review.models.ReviewResponse;
@@ -18,6 +18,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 public class ReviewController implements ReviewRestController {
@@ -30,10 +31,13 @@ public class ReviewController implements ReviewRestController {
     @Autowired
     private GetReviewByIdUseCase getReviewByIdUseCase;
 
+    @Autowired
+    private ListReviewUseCase listReviewUseCase;
+
     @Override
     public ResponseEntity<CreateReviewResponse> create(CreateReviewRequestDto request) {
         logger.info("Start ReviewController with dto {}", request.toString());
-        final var dto = CreateReviewInputDto.from(
+        final var command = CreateReviewInputDto.from(
                 request.title(),
                 request.summary(),
                 request.userId(),
@@ -47,7 +51,7 @@ public class ReviewController implements ReviewRestController {
                 request.negativeFeedback()
         );
 
-        return createReviewUseCase.execute(dto)
+        return createReviewUseCase.execute(command)
                 .map(reviewId -> {
                     final var reviewIdResponse = new CreateReviewResponse(reviewId.getValue());
                     return ResponseEntity.created(URI.create("/review/" + reviewId))
@@ -61,6 +65,14 @@ public class ReviewController implements ReviewRestController {
         final var command = new GetReviewIdCommand(id);
         return this.getReviewByIdUseCase.execute(command)
                 .map(review -> ResponseEntity.ok(ReviewResponse.from(review)))
+                .getOrElseThrow(error -> error);
+    }
+
+    @Override
+    public ResponseEntity<List<ReviewResponse>> get(String status, String userId) {
+        final var command = new ListReviewCommand(status, userId);
+        return this.listReviewUseCase.execute(command)
+                .map(reviews -> ResponseEntity.ok(ReviewResponse.from(reviews)))
                 .getOrElseThrow(error -> error);
     }
 }

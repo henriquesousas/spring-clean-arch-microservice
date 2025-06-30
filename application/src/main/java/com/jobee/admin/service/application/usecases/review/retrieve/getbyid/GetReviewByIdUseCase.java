@@ -1,4 +1,4 @@
-package com.jobee.admin.service.application.usecases.review.retrieve;
+package com.jobee.admin.service.application.usecases.review.retrieve.getbyid;
 
 import com.jobee.admin.service.application.usecases.UseCase;
 import com.jobee.admin.service.domain.exceptions.DomainException;

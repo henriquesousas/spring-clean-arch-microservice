@@ -6,7 +6,7 @@ import lombok.Getter;
 import java.util.List;
 
 @Getter
-public class DomainException extends RuntimeException {
+public  abstract class DomainException extends RuntimeException {
 
     public final List<Error> errors;
 
@@ -15,8 +15,10 @@ public class DomainException extends RuntimeException {
         this.errors = errors;
     }
 
-    // TODO: Remover
-    public int getStatus() {
-        return 422;
-    }
+    public abstract int getStatus();
+
+
+//    public int getStatus() {
+//        return 422;
+//    }
 }

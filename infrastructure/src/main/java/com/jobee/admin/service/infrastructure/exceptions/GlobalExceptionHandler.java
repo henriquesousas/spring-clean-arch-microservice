@@ -5,6 +5,7 @@ import com.jobee.admin.service.domain.validation.Error;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -21,6 +22,11 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(500).body( ApiError.internalServerError(ex.getMessage()));
     }
 
+    @ExceptionHandler(value = {BadRequestException.class})
+    public ResponseEntity<?> handleBadException(final Exception ex) {
+        return ResponseEntity.status(400).body( ApiError.badRequestError(ex.getMessage()));
+    }
+
     record ApiError(String message, List<String> errors) {
 
         static ApiError from(DomainException ex) {
@@ -32,11 +38,11 @@ public class GlobalExceptionHandler {
         }
 
         static ApiError internalServerError(String ex) {
-//            final var errors = ex.getErrors().stream()
-//                    .map(Error::message)
-//                    .toList();
-
             return new ApiError("InternalServerError", List.of(ex));
+        }
+
+        static ApiError badRequestError(String ex) {
+            return new ApiError("BadRequestError", List.of(ex));
         }
     }
 }

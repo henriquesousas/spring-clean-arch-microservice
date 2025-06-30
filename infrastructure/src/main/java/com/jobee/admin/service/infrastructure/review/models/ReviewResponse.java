@@ -2,11 +2,15 @@ package com.jobee.admin.service.infrastructure.review.models;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.jobee.admin.service.domain.review.Review;
+import com.jobee.admin.service.domain.review.enums.Status;
 import com.jobee.admin.service.domain.review.valueobjects.Feedback;
 import com.jobee.admin.service.domain.utils.CollectionUtils;
+import com.jobee.admin.service.domain.utils.NullableUtils;
 
 import java.time.Instant;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @JsonInclude(JsonInclude.Include.ALWAYS)
 public record ReviewResponse(
@@ -39,5 +43,11 @@ public record ReviewResponse(
                 CollectionUtils.asSet(review.getNegativeFeedback(), Feedback::getValue),
                 review.getCreatedAt()
         );
+    }
+
+    public static List<ReviewResponse> from(final List<Review> reviews) {
+      return   reviews.stream()
+                .map(ReviewResponse::from)
+                .collect(Collectors.toList());
     }
 }

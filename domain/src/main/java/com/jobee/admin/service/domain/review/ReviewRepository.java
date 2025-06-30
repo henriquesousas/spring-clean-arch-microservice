@@ -4,6 +4,7 @@ import com.jobee.admin.service.domain.pagination.Pagination;
 import com.jobee.admin.service.domain.pagination.Search;
 import com.jobee.admin.service.domain.review.valueobjects.ReviewId;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface ReviewRepository {
@@ -11,5 +12,6 @@ public interface ReviewRepository {
     Review update(Review review);
     Optional<Review> findById(ReviewId id);
     Pagination<Review> findAll(Search query);
+    List<Review> findBy(String status, String userId);
     void delete(ReviewId id);
 }
