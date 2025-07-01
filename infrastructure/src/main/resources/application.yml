@@ -66,3 +66,4 @@ spring:
   jackson:
     default-property-inclusion: always
     property-naming-strategy: LOWER_CAMEL_CASE
+
