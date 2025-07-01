@@ -204,7 +204,7 @@ public class ReviewJpaEntity {
         this.overallRating = overallRating;
     }
 
-    public int getResponseTime() {
+    public Integer getResponseTime() {
         return responseTime;
     }
 
@@ -212,7 +212,7 @@ public class ReviewJpaEntity {
         this.responseTime = responseTime;
     }
 
-    public int getPostSale() {
+    public Integer getPostSale() {
         return postSale;
     }
 

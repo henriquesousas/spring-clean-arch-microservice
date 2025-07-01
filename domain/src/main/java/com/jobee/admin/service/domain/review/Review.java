@@ -14,6 +14,7 @@ import com.jobee.admin.service.domain.validation.ValidationHandler;
 import lombok.Getter;
 
 import java.time.Instant;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -152,14 +153,14 @@ public class Review extends AggregateRoot<ReviewId> {
         this.updatedAt = InstantUtils.now();
     }
 
-    public void addFeedback(final String newValue, final FeedbackType feedbackType) {
+    public void addFeedback(final String feedback, final FeedbackType type) {
         if (failIfInactive("Review inativo não pode remover pontos negativos")) return;
 
-        final var feedbacks = (feedbackType == FeedbackType.PROS)
+        final var feedbacks = (type == FeedbackType.PROS)
                 ? this.positiveFeedback
                 : this.negativeFeedback;
 
-        feedbacks.add(Feedback.from(newValue));
+        feedbacks.add(Feedback.from(feedback));
     }
 
     public void removeFeedback(final Feedback value, final FeedbackType feedbackType) {
@@ -173,6 +174,16 @@ public class Review extends AggregateRoot<ReviewId> {
         if (!removed) {
             this.notification.append(new Error("%s não encontrado".formatted(value)));
         }
+    }
+
+    public void removeAllFeedbacks(final FeedbackType type) {
+        if (failIfInactive("Review inativo não pode remover pontos positivos")) return;
+
+        Set<Feedback> feedbacks = (type == FeedbackType.PROS)
+                ? this.positiveFeedback
+                : this.negativeFeedback;
+
+        feedbacks.clear();
     }
 
     public void addUrl(final String url) {
@@ -196,5 +207,13 @@ public class Review extends AggregateRoot<ReviewId> {
     @Override
     public void validate(final ValidationHandler handler) {
         new ReviewValidator(this, handler).validate();
+    }
+
+    public Set<Feedback> getPositiveFeedback() {
+        return Collections.unmodifiableSet(positiveFeedback);
+    }
+
+    public Set<Feedback> getNegativeFeedback() {
+        return Collections.unmodifiableSet( negativeFeedback);
     }
 }

@@ -7,6 +7,7 @@ import com.jobee.admin.service.application.handles.review.ReviewCreatedEventHand
 import com.jobee.admin.service.application.usecases.review.delete.DeleteReviewUseCase;
 import com.jobee.admin.service.application.usecases.review.retrieve.list.ListReviewUseCase;
 import com.jobee.admin.service.application.usecases.review.retrieve.getbyid.GetReviewByIdUseCase;
+import com.jobee.admin.service.application.usecases.review.update.UpdateReviewUseCase;
 import com.jobee.admin.service.domain.review.ReviewRepository;
 import com.jobee.admin.service.infrastructure.SpringIntegrationEventPublisher;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,5 +54,10 @@ public class ReviewBeanConfiguration {
     @Bean
     public DeleteReviewUseCase deleteReviewUseCase() {
         return new DeleteReviewUseCase(repository);
+    }
+
+    @Bean
+    public UpdateReviewUseCase updateReviewUseCase() {
+        return new UpdateReviewUseCase(repository);
     }
 }

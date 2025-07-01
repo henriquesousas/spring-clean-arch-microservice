@@ -5,6 +5,7 @@ import com.jobee.admin.service.domain.pagination.Search;
 import com.jobee.admin.service.domain.review.Review;
 import com.jobee.admin.service.domain.review.ReviewRepository;
 import com.jobee.admin.service.domain.review.valueobjects.ReviewId;
+import com.jobee.admin.service.infrastructure.category.repository.CategoryModel;
 import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
@@ -31,7 +32,8 @@ public class ReviewRepositoryMysql implements ReviewRepository {
 
     @Override
     public Review update(Review review) {
-        return null;
+        final var model = this.repository.save(ReviewJpaEntity.from(review));
+        return model.toAggregate();
     }
 
     @Override

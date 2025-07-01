@@ -7,9 +7,12 @@ import com.jobee.admin.service.application.usecases.review.retrieve.list.ListRev
 import com.jobee.admin.service.application.usecases.review.retrieve.list.ListReviewUseCase;
 import com.jobee.admin.service.application.usecases.review.retrieve.getbyid.GetReviewByIdUseCase;
 import com.jobee.admin.service.application.usecases.review.retrieve.getbyid.GetReviewIdCommand;
+import com.jobee.admin.service.application.usecases.review.update.UpdateReviewDto;
+import com.jobee.admin.service.application.usecases.review.update.UpdateReviewUseCase;
 import com.jobee.admin.service.infrastructure.review.models.CreateReviewRequestCommand;
 import com.jobee.admin.service.infrastructure.review.models.CreateReviewResponseCommand;
 import com.jobee.admin.service.infrastructure.review.models.ReviewResponse;
+import com.jobee.admin.service.infrastructure.review.models.UpdateReviewRequestCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,6 +43,9 @@ public class ReviewController implements ReviewApi {
     @Autowired
     private DeleteReviewUseCase deleteReviewUseCase;
 
+    @Autowired
+    private UpdateReviewUseCase updateReviewUseCase;
+
     @Override
     public ResponseEntity<CreateReviewResponseCommand> create(CreateReviewRequestCommand request) {
         logger.info("Start ReviewController with dto {}", request.toString());
@@ -63,6 +69,28 @@ public class ReviewController implements ReviewApi {
                     return ResponseEntity.created(URI.create("/review/" + reviewId))
                             .body(reviewIdResponse);
                 })
+                .getOrElseThrow(error -> error);
+    }
+
+    @Override
+    public ResponseEntity<Void> update(String identifier, UpdateReviewRequestCommand request) {
+
+        final var command = new UpdateReviewDto(
+                identifier,
+                request.title(),
+                request.summary(),
+                request.type(),
+                request.boughtFrom(),
+                request.url(),
+                request.overallRating(),
+                request.postSale(),
+                request.responseTime(),
+                request.positiveFeedback(),
+                request.negativeFeedback()
+        );
+        ResponseEntity<Void> noContent = ResponseEntity.noContent().build();
+        return this.updateReviewUseCase.execute(command)
+                .map(data -> noContent)
                 .getOrElseThrow(error -> error);
     }
 

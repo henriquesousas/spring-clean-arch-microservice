@@ -20,6 +20,7 @@ public enum RatingScale  implements Valuable<Integer> {
         this.value = value;
     }
 
+    // TODO: Remove
     public static Optional<RatingScale> of(final int point) {
         return Arrays.stream(RatingScale.values())
                 .filter(it -> it.value == point)

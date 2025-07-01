@@ -1,7 +1,9 @@
 package com.jobee.admin.service.infrastructure.review;
 
+import com.jobee.admin.service.infrastructure.category.models.CreateCategoryRequest;
 import com.jobee.admin.service.infrastructure.review.models.CreateReviewRequestCommand;
 import com.jobee.admin.service.infrastructure.review.models.ReviewResponse;
+import com.jobee.admin.service.infrastructure.review.models.UpdateReviewRequestCommand;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -25,6 +27,21 @@ public interface ReviewApi {
             @ApiResponse(responseCode = "500", description = "An internal server error was thrown"),
     })
     ResponseEntity<?> create(@RequestBody @Valid CreateReviewRequestCommand request);
+
+    @PutMapping(
+            value = "/{id}",
+            consumes = MediaType.APPLICATION_JSON_VALUE
+    )
+    @ResponseStatus(HttpStatus.OK)
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Review updated successfully"),
+            @ApiResponse(responseCode = "404", description = "Review Not found"),
+            @ApiResponse(responseCode = "422", description = "Unprocessable error"),
+            @ApiResponse(responseCode = "500", description = "Internal server error"),
+    })
+    ResponseEntity<Void> update(
+            @PathVariable(name = "id") String identifier,
+            @RequestBody @Valid UpdateReviewRequestCommand command);
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Get a review by identifier")
