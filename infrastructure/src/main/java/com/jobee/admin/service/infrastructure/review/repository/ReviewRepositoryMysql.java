@@ -5,12 +5,9 @@ import com.jobee.admin.service.domain.pagination.Search;
 import com.jobee.admin.service.domain.review.Review;
 import com.jobee.admin.service.domain.review.ReviewRepository;
 import com.jobee.admin.service.domain.review.valueobjects.ReviewId;
-import com.jobee.admin.service.infrastructure.category.repository.CategoryModel;
-import com.jobee.admin.service.infrastructure.review.models.ReviewJpaModel;
 import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -29,7 +26,7 @@ public class ReviewRepositoryMysql implements ReviewRepository {
     @Transactional(rollbackOn = Exception.class)
     @Override
     public void create(Review review) {
-        this.repository.save(ReviewJpaModel.from(review));
+        this.repository.save(ReviewJpaEntity.from(review));
     }
 
     @Override
@@ -40,7 +37,7 @@ public class ReviewRepositoryMysql implements ReviewRepository {
     @Override
     public Optional<Review> findById(ReviewId identifier) {
         return this.repository.findById(identifier.getValue())
-                .map(ReviewJpaModel::toAggregate);
+                .map(ReviewJpaEntity::toAggregate);
     }
 
     @Override
@@ -52,12 +49,14 @@ public class ReviewRepositoryMysql implements ReviewRepository {
     public List<Review> findBy(String status, String userId) {
         return this.repository.findBy(status, userId)
                 .stream()
-                .map(ReviewJpaModel::toAggregate)
+                .map(ReviewJpaEntity::toAggregate)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public void delete(ReviewId id) {
-
+    public void delete(ReviewId identifier) {
+        if (this.repository.existsById(identifier.getValue())) {
+            this.repository.deleteById(identifier.getValue());
+        }
     }
 }

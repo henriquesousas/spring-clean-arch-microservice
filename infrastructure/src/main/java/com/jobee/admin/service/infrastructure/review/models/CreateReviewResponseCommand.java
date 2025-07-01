@@ -1,6 +1,4 @@
 package com.jobee.admin.service.infrastructure.review.models;
 
-public record CreateReviewResponse(
-        String id
-) {
+public record CreateReviewResponseCommand(String id) {
 }

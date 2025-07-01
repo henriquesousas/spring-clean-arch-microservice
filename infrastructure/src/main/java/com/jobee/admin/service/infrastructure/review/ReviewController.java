@@ -2,15 +2,17 @@ package com.jobee.admin.service.infrastructure.review;
 
 import com.jobee.admin.service.application.usecases.review.create.CreateReviewInputDto;
 import com.jobee.admin.service.application.usecases.review.create.CreateReviewUseCase;
+import com.jobee.admin.service.application.usecases.review.delete.DeleteReviewUseCase;
 import com.jobee.admin.service.application.usecases.review.retrieve.list.ListReviewCommand;
 import com.jobee.admin.service.application.usecases.review.retrieve.list.ListReviewUseCase;
 import com.jobee.admin.service.application.usecases.review.retrieve.getbyid.GetReviewByIdUseCase;
 import com.jobee.admin.service.application.usecases.review.retrieve.getbyid.GetReviewIdCommand;
-import com.jobee.admin.service.infrastructure.review.dtos.CreateReviewRequestDto;
-import com.jobee.admin.service.infrastructure.review.models.CreateReviewResponse;
+import com.jobee.admin.service.infrastructure.review.models.CreateReviewRequestCommand;
+import com.jobee.admin.service.infrastructure.review.models.CreateReviewResponseCommand;
 import com.jobee.admin.service.infrastructure.review.models.ReviewResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -21,7 +23,8 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-public class ReviewController implements ReviewRestController {
+@RequestMapping(value = "reviews")
+public class ReviewController implements ReviewApi {
 
     private static final Logger logger = LoggerFactory.getLogger(ReviewController.class);
 
@@ -34,8 +37,11 @@ public class ReviewController implements ReviewRestController {
     @Autowired
     private ListReviewUseCase listReviewUseCase;
 
+    @Autowired
+    private DeleteReviewUseCase deleteReviewUseCase;
+
     @Override
-    public ResponseEntity<CreateReviewResponse> create(CreateReviewRequestDto request) {
+    public ResponseEntity<CreateReviewResponseCommand> create(CreateReviewRequestCommand request) {
         logger.info("Start ReviewController with dto {}", request.toString());
         final var command = CreateReviewInputDto.from(
                 request.title(),
@@ -53,7 +59,7 @@ public class ReviewController implements ReviewRestController {
 
         return createReviewUseCase.execute(command)
                 .map(reviewId -> {
-                    final var reviewIdResponse = new CreateReviewResponse(reviewId.getValue());
+                    final var reviewIdResponse = new CreateReviewResponseCommand(reviewId.getValue());
                     return ResponseEntity.created(URI.create("/review/" + reviewId))
                             .body(reviewIdResponse);
                 })
@@ -74,5 +80,14 @@ public class ReviewController implements ReviewRestController {
         return this.listReviewUseCase.execute(command)
                 .map(reviews -> ResponseEntity.ok(ReviewResponse.from(reviews)))
                 .getOrElseThrow(error -> error);
+    }
+
+    @Override
+    public ResponseEntity<Void> delete(String identifier) {
+        ResponseEntity<Void> noContent = ResponseEntity.noContent().build();
+        return deleteReviewUseCase.execute(identifier)
+                .map(data -> noContent)
+                .getOrElseThrow(error -> error);
+
     }
 }

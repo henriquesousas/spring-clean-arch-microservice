@@ -69,7 +69,7 @@ public class CategoryRepositoryMysql implements CategoryRepository {
 
 
         // Paginacao
-        final var pageResult = this.repository.findAll(specifications, page);
+        final var pageResult = this.repository.findAll (specifications, page);
         return new Pagination<>(
                 page.getPageNumber(),
                 pageResult.getSize(),

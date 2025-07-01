@@ -1,8 +1,6 @@
 package com.jobee.admin.service.infrastructure.review;
 
-import com.jobee.admin.service.application.usecases.review.ReviewOutputDto;
-import com.jobee.admin.service.infrastructure.genre.models.GenreResponse;
-import com.jobee.admin.service.infrastructure.review.dtos.CreateReviewRequestDto;
+import com.jobee.admin.service.infrastructure.review.models.CreateReviewRequestCommand;
 import com.jobee.admin.service.infrastructure.review.models.ReviewResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -16,21 +14,17 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
-@RequestMapping(value = "reviews")
 @Tag(name = "Review")
-public interface ReviewRestController {
+public interface ReviewApi {
 
-    @PostMapping(
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE
-    )
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Review created"),
             @ApiResponse(responseCode = "422", description = "A validation error was thrown"),
             @ApiResponse(responseCode = "500", description = "An internal server error was thrown"),
     })
-    ResponseEntity<?> create(@RequestBody @Valid CreateReviewRequestDto request);
+    ResponseEntity<?> create(@RequestBody @Valid CreateReviewRequestCommand request);
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Get a review by identifier")
@@ -42,4 +36,14 @@ public interface ReviewRestController {
             @RequestParam(required = false) String status,
             @RequestParam(required = false) String userId
     );
+
+    @DeleteMapping(value = "/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @Operation(summary = "Delete an review")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "No Content"),
+            @ApiResponse(responseCode = "404", description = "Review Not found"),
+            @ApiResponse(responseCode = "500", description = "Internal server error"),
+    })
+    ResponseEntity<Void> delete(@PathVariable(name = "id") String identifier);
 }

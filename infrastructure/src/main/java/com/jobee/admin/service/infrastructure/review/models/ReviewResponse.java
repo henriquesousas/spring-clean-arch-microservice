@@ -12,8 +12,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@JsonInclude(JsonInclude.Include.ALWAYS)
+@JsonInclude()
 public record ReviewResponse(
+        String reviewId,
         String title,
         String summary,
         String status,
@@ -30,6 +31,7 @@ public record ReviewResponse(
 
     public static ReviewResponse from(final Review review) {
         return new ReviewResponse(
+                review.getId().getValue(),
                 review.getTitle(),
                 review.getSummary(),
                 review.getStatus().getValue(),
