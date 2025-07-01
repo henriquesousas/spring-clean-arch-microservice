@@ -1,7 +1,7 @@
 package com.jobee.admin.service.infrastructure.configuration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.swagger.v3.core.util.Json;
+import com.jobee.admin.service.infrastructure.configuration.json.Json;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

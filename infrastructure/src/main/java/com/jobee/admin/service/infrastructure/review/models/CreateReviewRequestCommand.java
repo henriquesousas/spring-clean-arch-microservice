@@ -8,13 +8,13 @@ import java.util.Set;
 public record CreateReviewRequestCommand(
         @JsonProperty("title") String title,
         @JsonProperty("summary") String summary,
-        @JsonProperty("userId") String userId,
+        @JsonProperty("user_id") String userId,
         @JsonProperty("type") String type,
-        @JsonProperty("boughtFrom") String boughtFrom,
+        @JsonProperty("bought_from") String boughtFrom,
         @JsonProperty("url") String url,
-        @JsonProperty("overallRating") int overallRating,
-        @JsonProperty("postSaleRating") int postSaleRating,
-        @JsonProperty("responseTimeRating") int responseTimeRating,
-        @JsonProperty("positiveFeedback") Set<String> positiveFeedback,
-        @JsonProperty("negativeFeedback") Set<String> negativeFeedback
+        @JsonProperty("overall") int overallRating,
+        @JsonProperty("post_sale") int postSaleRating,
+        @JsonProperty("response_time") int responseTimeRating,
+        @JsonProperty("positive_feedback") Set<String> positiveFeedback,
+        @JsonProperty("negative_feedback") Set<String> negativeFeedback
 ) { }

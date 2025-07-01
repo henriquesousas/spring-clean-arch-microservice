@@ -65,7 +65,4 @@ spring:
           multiplier: "2"
   jackson:
     default-property-inclusion: always
-#        acknowledge-mode: manual
-#        prefetch: 1
-
-
+    property-naming-strategy: LOWER_CAMEL_CASE
