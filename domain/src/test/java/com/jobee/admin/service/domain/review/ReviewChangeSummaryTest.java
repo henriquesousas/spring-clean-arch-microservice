@@ -13,11 +13,11 @@ public class ReviewChangeSummaryTest  extends UnitTest {
 
         final var expectedReview = Fixture.reviewWithDefaultValues().withActive(true).build();
 
-        Assertions.assertEquals(expectedReview.getSummary(), Fixture.expectedSummary);
+        Assertions.assertEquals(expectedReview.getComment(), Fixture.expectedComment);
 
         expectedReview.changeSummary(expectedUpdatedSummary);
 
-        Assertions.assertEquals(expectedReview.getSummary(), expectedUpdatedSummary);
+        Assertions.assertEquals(expectedReview.getComment(), expectedUpdatedSummary);
         Assertions.assertTrue(expectedReview.getCreatedAt().isBefore(expectedReview.getUpdatedAt()));
         Assertions.assertNull(expectedReview.getDeletedAt());
     }
@@ -31,7 +31,7 @@ public class ReviewChangeSummaryTest  extends UnitTest {
 
         expectedReview.changeSummary( "some summary updated");
 
-        Assertions.assertEquals(expectedReview.getSummary(), Fixture.expectedSummary);
+        Assertions.assertEquals(expectedReview.getComment(), Fixture.expectedComment);
         Assertions.assertNull(expectedReview.getDeletedAt());
         Assertions.assertTrue(expectedReview.getNotification().hasError());
         Assertions.assertEquals(expectedReview.getNotification().getFirstError().message(), expectedError.getMessage());

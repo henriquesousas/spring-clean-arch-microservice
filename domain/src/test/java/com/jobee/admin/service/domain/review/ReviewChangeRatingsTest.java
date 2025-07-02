@@ -1,7 +1,7 @@
 package com.jobee.admin.service.domain.review;
 
 import com.jobee.admin.service.domain.UnitTest;
-import com.jobee.admin.service.domain.review.enums.RatingScale;
+import com.jobee.admin.service.domain.review.enums.Score;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -14,13 +14,11 @@ public class ReviewChangeRatingsTest  extends UnitTest {
                 .withActive(true)
                 .build();
 
-        Assertions.assertEquals(expectedReview.getRating().getOverall().getValue(), Fixture.expectedOverall.getValue());
-        Assertions.assertNull(expectedReview.getRating().getPostSale());
-        Assertions.assertNull(expectedReview.getRating().getResponseTime());
+        Assertions.assertEquals(expectedReview.getRating().getValue(), Fixture.expectedRating.getValue());
 
-        expectedReview.changeRating(RatingScale.RA_2, RatingScale.RA_2, RatingScale.RA_2);
+        expectedReview.changeRating(Score.TWO);
 
-        Assertions.assertEquals(expectedReview.getRating().getOverall().getValue(), RatingScale.RA_2.getValue());
+        Assertions.assertEquals(expectedReview.getRating().getValue(),Score.TWO.getValue());
         Assertions.assertTrue(expectedReview.getCreatedAt().isBefore(expectedReview.getUpdatedAt()));
         Assertions.assertNull(expectedReview.getDeletedAt());
     }

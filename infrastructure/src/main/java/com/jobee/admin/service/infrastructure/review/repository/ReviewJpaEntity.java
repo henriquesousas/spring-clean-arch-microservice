@@ -3,7 +3,7 @@ package com.jobee.admin.service.infrastructure.review.repository;
 
 import com.jobee.admin.service.domain.review.Review;
 import com.jobee.admin.service.domain.review.ReviewBuilder;
-import com.jobee.admin.service.domain.review.enums.RatingScale;
+import com.jobee.admin.service.domain.review.enums.Score;
 import com.jobee.admin.service.domain.review.enums.Status;
 import com.jobee.admin.service.domain.review.enums.Type;
 import com.jobee.admin.service.domain.review.valueobjects.Feedback;
@@ -127,18 +127,18 @@ public class ReviewJpaEntity {
                 review.getId().getValue(),
                 review.getUserId().getValue(),
                 review.getTitle(),
-                review.getSummary(),
+                review.getComment(),
                 CollectionUtils.asString(review.getPositiveFeedback(), it -> it.getValue().trim()),
                 CollectionUtils.asString(review.getNegativeFeedback(), it -> it.getValue().trim()),
                 NullableUtils.mapOrNull(review.getUrl(), Url::getValue),
                 review.getType().getValue(),
                 review.getStatus().getValue(),
                 review.getRating().getOverall().getValue(),
-                NullableUtils.mapOrNull(review.getRating().getResponseTime(), RatingScale::getValue),
-                NullableUtils.mapOrNull(review.getRating().getPostSale(), RatingScale::getValue),
-                review.getBoughtFrom(),
+                NullableUtils.mapOrNull(review.getRating().getResponseTime(), Score::getValue),
+                NullableUtils.mapOrNull(review.getRating().getPostSale(), Score::getValue),
+                review.getStore(),
                 review.getRecommends(),
-                review.isVerified(),
+                review.isVerifiedPurchase(),
                 review.isActive(),
                 review.getCreatedAt(),
                 review.getUpdatedAt(),
@@ -154,9 +154,9 @@ public class ReviewJpaEntity {
                 EnumUtils.of(Type.values(), getType()),
                 getBoughtFrom(),
                 Url.from(getUrlReclameAqui()),
-                EnumUtils.of(RatingScale.values(), this.getOverallRating()),
-                EnumUtils.of(RatingScale.values(), this.getPostSale()),
-                EnumUtils.of(RatingScale.values(), this.getResponseTime()),
+                EnumUtils.of(Score.values(), this.getOverallRating()),
+                EnumUtils.of(Score.values(), this.getPostSale()),
+                EnumUtils.of(Score.values(), this.getResponseTime()),
                 CollectionUtils.asSet(getPositiveFeedback().split(","), Feedback::from),
                 CollectionUtils.asSet(getNegativeFeedback().split(","), Feedback::from)
         )
@@ -166,7 +166,7 @@ public class ReviewJpaEntity {
                 .withCreatedAt(getCreatedAt())
                 .withStatus(EnumUtils.of(Status.values(), getStatus()))
                 .withActive(isActive())
-                .withIsVerified(isVerified())
+                .withVerifiedPurchase(isVerified())
                 .withUpdatedAt(getUpdatedAt())
                 .withDeletedAt(getDeletedAt())
                 .build();

@@ -7,7 +7,7 @@ import com.jobee.admin.service.domain.exceptions.ValidationException;
 import com.jobee.admin.service.domain.review.FeedbackType;
 import com.jobee.admin.service.domain.review.Review;
 import com.jobee.admin.service.domain.review.ReviewRepository;
-import com.jobee.admin.service.domain.review.enums.RatingScale;
+import com.jobee.admin.service.domain.review.enums.Score;
 import com.jobee.admin.service.domain.review.valueobjects.ReviewId;
 import io.vavr.control.Either;
 
@@ -52,9 +52,9 @@ public class UpdateReviewUseCase extends UseCase<UpdateReviewDto, Either<DomainE
 
         if (command.overallRating() != null) {
             review.changeRating(
-                    RatingScale.of(command.overallRating()).orElse(review.getRating().getOverall()),
-                    RatingScale.of(command.postSale()).orElse(null),
-                    RatingScale.of(command.responseTime()).orElse(null)
+                    Score.of(command.overallRating()).orElse(review.getRating().getOverall()),
+                    Score.of(command.postSale()).orElse(null),
+                    Score.of(command.responseTime()).orElse(null)
             );
         }
 

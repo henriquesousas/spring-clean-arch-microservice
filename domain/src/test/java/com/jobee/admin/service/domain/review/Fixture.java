@@ -2,11 +2,10 @@ package com.jobee.admin.service.domain.review;
 
 import com.jobee.admin.service.domain.review.enums.Status;
 import com.jobee.admin.service.domain.review.enums.Type;
-import com.jobee.admin.service.domain.review.enums.RatingScale;
+import com.jobee.admin.service.domain.review.enums.Score;
 import com.jobee.admin.service.domain.review.valueobjects.Feedback;
 import com.jobee.admin.service.domain.review.valueobjects.ReviewId;
-import com.jobee.admin.service.domain.review.valueobjects.Url;
-import com.jobee.admin.service.domain.user.valueobjects.UserId;
+import com.jobee.admin.service.domain.utils.IdUtils;
 import com.jobee.admin.service.domain.utils.InstantUtils;
 
 import java.time.Instant;
@@ -15,56 +14,47 @@ import java.util.Set;
 
 public class Fixture {
 
-    public static final UserId expectedUserId = UserId.unique();
+    public static final String expectedUserId = IdUtils.uuid();
+    public static final String expectedProductId = IdUtils.uuid();
     public static final ReviewId expectedReviewId = ReviewId.unique();
     public static final String expectedTitle = "Produto excelente";
-    public static final String expectedSummary = "Entrega rápida, recomendo";
+    public static final String expectedComment = "Entrega rápida, recomendo";
     public static final Type expectedType = Type.PRODUCT;
-    public static final String expectedBoughtFrom = "Loja XYZ";
-    public static final RatingScale expectedOverall = RatingScale.RA_1;
-    public static final RatingScale expectedPostSale = RatingScale.RA_1;
-    public static final RatingScale expectedResponseTime = RatingScale.RA_1;
+    public static final String expectedStore = "Loja XYZ";
+    public static final Score expectedRating = Score.ONE;
+
     public static Set<Feedback> expectedPositiveFeedback = Set.of(Feedback.from("Muito bom"));
     public static Set<Feedback> expectedNegativeFeedback = Set.of(Feedback.from("Muito pequeno"));
     public static Instant expectedCreatedAt = InstantUtils.now();
     public static Instant expectedUpdateAt = InstantUtils.now();
     public static Instant expectedDeletedAt = InstantUtils.now();
-    public static Url expectedUrl = Url.from( "http://googgle.com.br");
+    public static String expectedUrl = "http://googgle.com.br";
     public static boolean expectedRecommend = true;
     public static Status expectedStatus = Status.IN_ANALYSIS;
     public static boolean expectedIsActive = true;
 
-
     public static ReviewBuilder reviewWithDefaultValues() {
-        return new ReviewBuilder(
-                expectedTitle,
-                expectedSummary,
+        return ReviewBuilder.create(
                 expectedUserId,
-                expectedType,
-                expectedBoughtFrom,
-                null,
-                expectedOverall,
-                null,
-                null,
+                expectedProductId,
+                expectedRating,
+                expectedTitle,
+                expectedComment,
                 null,
                 null
         );
     }
 
     public static ReviewBuilder reviewWithAllValues() {
-        return new ReviewBuilder(
-                expectedTitle,
-                expectedSummary,
-                expectedUserId,
-                expectedType,
-                expectedBoughtFrom,
-                expectedUrl,
-                expectedOverall,
-                expectedPostSale,
-                expectedResponseTime,
-                expectedPositiveFeedback,
-                expectedNegativeFeedback
-        )
+        return ReviewBuilder.create(
+                        expectedUserId,
+                        expectedProductId,
+                        expectedRating,
+                        expectedTitle,
+                        expectedComment,
+                        expectedPositiveFeedback,
+                        expectedNegativeFeedback
+                )
                 .withReviewId(expectedReviewId.getValue())
                 .withActive(expectedIsActive)
                 .withStatus(expectedStatus)
@@ -72,8 +62,8 @@ public class Fixture {
                 .withUpdatedAt(expectedUpdateAt)
                 .withDeletedAt(expectedDeletedAt)
                 .withIsRecommend(expectedRecommend)
-                .withIsVerified(true);
-
+                .withUrl(expectedUrl)
+                .withVerifiedPurchase(true);
     }
 
     public static ReviewBuilder reviewWithInvalidValues() {
@@ -84,19 +74,16 @@ public class Fixture {
             expectedPositiveFeedback.add(Feedback.from("note" + i));
             expectedNegativeFeedback.add(Feedback.from("note" + i));
         }
-        return new ReviewBuilder(
-                "",
-                "",
-                expectedUserId,
-                expectedType,
-                expectedBoughtFrom,
-                null,
-                RatingScale.RA_1,
-                RatingScale.RA_1,
-                RatingScale.RA_1,
-                expectedPositiveFeedback,
-                expectedNegativeFeedback
-        )
+
+        return ReviewBuilder.create(
+                        "",
+                        "",
+                        expectedRating,
+                        "",
+                        "",
+                        expectedPositiveFeedback,
+                        expectedNegativeFeedback
+                )
                 .withActive(true);
     }
 }

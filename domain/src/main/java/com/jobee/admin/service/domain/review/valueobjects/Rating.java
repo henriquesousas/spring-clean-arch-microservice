@@ -1,36 +1,31 @@
 package com.jobee.admin.service.domain.review.valueobjects;
 
 import com.jobee.admin.service.domain.ValueObject;
-import com.jobee.admin.service.domain.review.enums.RatingScale;
+import com.jobee.admin.service.domain.review.enums.Score;
 import com.jobee.admin.service.domain.validation.Error;
 import lombok.Getter;
 
 @Getter
-public class Rating extends ValueObject<Rating> {
-    private final RatingScale overall;
-    private final RatingScale postSale;
-    private final RatingScale responseTime;
+public class Rating extends ValueObject<Integer> {
+    private final Score value;
 
-    private Rating(RatingScale overall, RatingScale postSale, RatingScale responseTime) {
-        super();
-        this.overall = overall;
-        this.postSale = postSale;
-        this.responseTime = responseTime;
+    private Rating(Score value) {
+        this.value = value;
         selfValidate();
     }
 
-    public static Rating from(RatingScale overall, RatingScale postSale, RatingScale responseTime) {
-        return new Rating(overall, postSale, responseTime);
+    public static Rating from(Score value) {
+        return new Rating(value);
     }
 
     private void selfValidate() {
-        if (overall == null) {
+        if (value == null) {
             this.notification.append(new Error("É necessário informar a nota geral"));
         }
     }
 
-    @Override
-    public Rating getValue() {
-        return this;
+    public Integer getValue() {
+        if(this.value == null) return null;
+        return value.getValue();
     }
 }

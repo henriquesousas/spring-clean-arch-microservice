@@ -1,6 +1,6 @@
 package com.jobee.admin.service.infrastructure.review.models;
 
-import com.jobee.admin.service.domain.review.enums.RatingScale;
+import com.jobee.admin.service.domain.review.enums.Score;
 import com.jobee.admin.service.domain.review.valueobjects.Rating;
 
 import java.util.Optional;
@@ -13,11 +13,11 @@ public record RatingResponse(
 
     public static RatingResponse with(Rating rating) {
         final var postSale = Optional.ofNullable(rating.getPostSale())
-                .map(RatingScale::getValue)
+                .map(Score::getValue)
                 .orElse(null);
 
         final var responseTime = Optional.ofNullable(rating.getResponseTime())
-                .map(RatingScale::getValue)
+                .map(Score::getValue)
                 .orElse(null);
 
         return new RatingResponse(rating.getOverall().getValue(), postSale, responseTime);

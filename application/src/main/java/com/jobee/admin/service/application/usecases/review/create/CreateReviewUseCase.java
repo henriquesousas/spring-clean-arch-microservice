@@ -6,7 +6,7 @@ import com.jobee.admin.service.domain.exceptions.DomainException;
 import com.jobee.admin.service.domain.exceptions.ValidationException;
 import com.jobee.admin.service.domain.review.ReviewBuilder;
 import com.jobee.admin.service.domain.review.ReviewRepository;
-import com.jobee.admin.service.domain.review.enums.RatingScale;
+import com.jobee.admin.service.domain.review.enums.Score;
 import com.jobee.admin.service.domain.review.enums.Type;
 import com.jobee.admin.service.domain.review.valueobjects.Feedback;
 import com.jobee.admin.service.domain.review.valueobjects.ReviewId;
@@ -33,7 +33,7 @@ public class CreateReviewUseCase extends UseCase<CreateReviewInputDto, Either<Do
 
         //logger.info("Calls CreateReviewUseCase with dto {}", dto.toString());
         final var type = Type.of(dto.type());
-        final var rating = RatingScale.of(dto.overallRating());
+        final var rating = Score.of(dto.overallRating());
 
         if (type.isEmpty()) {
             return Either.left(ValidationException.with(new Error("Tipo de review desconhecido")));
@@ -51,8 +51,8 @@ public class CreateReviewUseCase extends UseCase<CreateReviewInputDto, Either<Do
                 dto.boughtFrom(),
                 Url.from(dto.url()),
                 rating.get(),
-                RatingScale.of(dto.postSale()).orElse(null),
-                RatingScale.of(dto.responseTime()).orElse(null),
+                Score.of(dto.postSale()).orElse(null),
+                Score.of(dto.responseTime()).orElse(null),
                 CollectionUtils.asSet( dto.positiveFeedback(), Feedback::from),
                 CollectionUtils.asSet( dto.negativeFeedback(), Feedback::from)
         ).build();

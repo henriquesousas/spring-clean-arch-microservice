@@ -3,11 +3,10 @@ package com.jobee.admin.service.domain.review;
 import com.jobee.admin.service.domain.review.valueobjects.Feedback;
 import com.jobee.admin.service.domain.review.valueobjects.Rating;
 import com.jobee.admin.service.domain.review.valueobjects.Url;
-import com.jobee.admin.service.domain.review.enums.RatingScale;
+import com.jobee.admin.service.domain.review.enums.Score;
 import com.jobee.admin.service.domain.review.enums.Type;
 import com.jobee.admin.service.domain.review.enums.Status;
 import com.jobee.admin.service.domain.review.valueobjects.ReviewId;
-import com.jobee.admin.service.domain.user.valueobjects.UserId;
 import com.jobee.admin.service.domain.utils.InstantUtils;
 import lombok.Getter;
 
@@ -21,14 +20,15 @@ import java.util.Set;
 public class ReviewBuilder {
 
     private ReviewId reviewId = ReviewId.unique();
-    private final UserId userId;
+    private final String userId;
+    private final String productId;
     private final String title;
-    private final String summary;
+    private final String comment;
     private final Rating rating;
-    private final String boughtFrom;
+    private String store;
     private boolean isActive;
     private final Type type;
-    private boolean isVerified;
+    private boolean verifiedPurchase;
     private Status status;
     private Url url;
     private Boolean recommends;
@@ -38,33 +38,40 @@ public class ReviewBuilder {
     private Instant updatedAt;
     private Instant deletedAt;
 
-    public ReviewBuilder(
+    private ReviewBuilder(
+            String userId,
+            String productId,
+            Score rating,
             String title,
-            String summary,
-            UserId userId,
-            Type type,
-            String boughtFrom,
-            Url url,
-            RatingScale overall,
-            RatingScale posSale,
-            RatingScale responseTime,
+            String comment,
             Set<Feedback> positiveFeedback,
             Set<Feedback> negativeFeedback
     ) {
-        this.title = Objects.requireNonNull(title);
-        this.summary = Objects.requireNonNull(summary);
         this.userId = Objects.requireNonNull(userId);
-        this.boughtFrom = Objects.requireNonNull(boughtFrom);
-        this.url = url;
-        this.rating = Rating.from(overall, posSale, responseTime);
+        this.productId = Objects.requireNonNull(productId);
+        this.title = Objects.requireNonNull(title);
+        this.comment = Objects.requireNonNull(comment);
+        this.rating = Rating.from(rating);
         this.status = Status.PENDING;
-        this.type = type;
+        this.type = Type.PRODUCT;
         this.isActive = false;
-        this.isVerified = false;
+        this.verifiedPurchase = false;
         this.positiveFeedback = Objects.requireNonNullElse(positiveFeedback, new HashSet<>());
         this.negativeFeedback = Objects.requireNonNullElse(negativeFeedback, new HashSet<>());
         this.createdAt = Objects.requireNonNullElse(createdAt, InstantUtils.now());
         this.updatedAt = Objects.requireNonNullElse(createdAt, InstantUtils.now());
+    }
+
+    public static ReviewBuilder create(
+            String userId,
+            String productId,
+            Score rating,
+            String title,
+            String comment,
+            Set<Feedback> positiveFeedback,
+            Set<Feedback> negativeFeedback
+    ) {
+        return new ReviewBuilder(userId, productId, rating, title, comment, positiveFeedback, negativeFeedback);
     }
 
     public ReviewBuilder withReviewId(String reviewId) {
@@ -97,8 +104,8 @@ public class ReviewBuilder {
         return this;
     }
 
-    public ReviewBuilder withIsVerified(boolean isVerified) {
-        this.isVerified = isVerified;
+    public ReviewBuilder withVerifiedPurchase(boolean isVerified) {
+        this.verifiedPurchase = isVerified;
         return this;
     }
 
@@ -109,6 +116,11 @@ public class ReviewBuilder {
 
     public ReviewBuilder withUrl(String url) {
         this.url = Url.from(url);
+        return this;
+    }
+
+    public ReviewBuilder withStore(String store) {
+        this.store = store;
         return this;
     }
 

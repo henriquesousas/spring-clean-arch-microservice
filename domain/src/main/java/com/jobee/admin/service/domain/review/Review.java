@@ -3,10 +3,9 @@ package com.jobee.admin.service.domain.review;
 import com.jobee.admin.service.domain.AggregateRoot;
 import com.jobee.admin.service.domain.review.events.ReviewCreatedEvent;
 import com.jobee.admin.service.domain.review.enums.Type;
-import com.jobee.admin.service.domain.review.enums.RatingScale;
+import com.jobee.admin.service.domain.review.enums.Score;
 import com.jobee.admin.service.domain.review.enums.Status;
 import com.jobee.admin.service.domain.review.valueobjects.*;
-import com.jobee.admin.service.domain.user.valueobjects.UserId;
 import com.jobee.admin.service.domain.review.valueobjects.Feedback;
 import com.jobee.admin.service.domain.utils.InstantUtils;
 import com.jobee.admin.service.domain.validation.Error;
@@ -18,21 +17,21 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-
 @Getter
 public class Review extends AggregateRoot<ReviewId> {
 
-    private String title;
-    private String summary;
-    private Status status;
+    private String userId;
+    private String productId;
     private Rating rating;
+    private String store;
+    private String title;
+    private String comment;
+    private Status status;
     private Url url;
-    private String boughtFrom;
     private boolean isActive;
     private final Type type;
     private final Boolean recommends;
-    private final boolean isVerified;
-    private final UserId userId;
+    private final boolean verifiedPurchase;
     private final Set<Feedback> positiveFeedback;
     private final Set<Feedback> negativeFeedback;
     private final Instant createdAt;
@@ -42,16 +41,17 @@ public class Review extends AggregateRoot<ReviewId> {
 
     private Review(
             ReviewId reviewId,
-            UserId userId,
+            String userId,
+            String productId,
             String title,
-            String summary,
+            String comment,
             Status status,
             Rating rating,
             Type type,
-            Url urlRA,
-            String boughtFrom,
+            Url url,
+            String store,
             Boolean recommends,
-            boolean isVerified,
+            boolean verifiedPurchase,
             boolean isActive,
             Set<Feedback> positiveFeedback,
             Set<Feedback> negativeFeedback,
@@ -61,13 +61,14 @@ public class Review extends AggregateRoot<ReviewId> {
     ) {
         super(reviewId);
         this.userId = userId;
+        this.productId = productId;
         this.title = title;
-        this.summary = summary;
+        this.comment = comment;
         this.status = status;
         this.rating = rating;
-        this.boughtFrom = boughtFrom;
-        this.isVerified = isVerified;
-        this.url = urlRA;
+        this.store = store;
+        this.verifiedPurchase = verifiedPurchase;
+        this.url = url;
         this.recommends = recommends;
         this.type = type;
         this.isActive = isActive;
@@ -85,15 +86,16 @@ public class Review extends AggregateRoot<ReviewId> {
         return new Review(
                 builder.getReviewId(),
                 builder.getUserId(),
+                builder.getProductId(),
                 builder.getTitle(),
-                builder.getSummary(),
+                builder.getComment(),
                 builder.getStatus(),
                 builder.getRating(),
                 builder.getType(),
                 builder.getUrl(),
-                builder.getBoughtFrom(),
+                builder.getStore(),
                 builder.getRecommends(),
-                builder.isVerified(),
+                builder.isVerifiedPurchase(),
                 builder.isActive(),
                 builder.getPositiveFeedback(),
                 builder.getNegativeFeedback(),
@@ -121,14 +123,14 @@ public class Review extends AggregateRoot<ReviewId> {
     public void changeBoughtFrom(final String newSource) {
         if (failIfInactive("Fonte de compra não pode ser alterado com uma avaliação inativa")) return;
 
-        this.boughtFrom = newSource;
+        this.store = newSource;
         this.updatedAt = InstantUtils.now();
     }
 
     public void changeSummary(final String newSummary) {
         if (failIfInactive("Os comentários não podem ser alterados para avaliações inativas")) return;
 
-        this.summary = newSummary;
+        this.comment = newSummary;
         this.updatedAt = InstantUtils.now();
     }
 
@@ -146,10 +148,10 @@ public class Review extends AggregateRoot<ReviewId> {
         this.updatedAt = InstantUtils.now();
     }
 
-    public void changeRating(final RatingScale overall, final RatingScale postSale, final RatingScale responseTime) {
+    public void changeRating(final Score rating) {
         if (failIfInactive("Rating não pode ser alterado em uma avaliação inativa")) return;
 
-        this.rating = Rating.from(overall, postSale, responseTime);
+        this.rating = Rating.from(rating);
         this.updatedAt = InstantUtils.now();
     }
 
@@ -214,6 +216,6 @@ public class Review extends AggregateRoot<ReviewId> {
     }
 
     public Set<Feedback> getNegativeFeedback() {
-        return Collections.unmodifiableSet( negativeFeedback);
+        return Collections.unmodifiableSet(negativeFeedback);
     }
 }

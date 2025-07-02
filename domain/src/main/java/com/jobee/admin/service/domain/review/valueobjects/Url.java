@@ -16,7 +16,6 @@ public class Url extends ValueObject<String> {
         selfValidate();
     }
 
-
     public static Url from(final String value) {
         return new Url(value);
     }
