@@ -21,12 +21,11 @@ public class ReviewCreationTest  extends UnitTest {
         Assertions.assertNull(expectedReview.getDeletedAt());
         Assertions.assertEquals(expectedReview.getRating().getValue(), Fixture.expectedRating.getValue());
         Assertions.assertEquals(expectedReview.getStatus(), Status.PENDING);
-        Assertions.assertEquals(expectedReview.getPositiveFeedback().size(), 0);
-        Assertions.assertEquals(expectedReview.getNegativeFeedback().size(), 0);
+        Assertions.assertEquals(expectedReview.getPros().size(), 0);
+        Assertions.assertEquals(expectedReview.getCons().size(), 0);
         Assertions.assertEquals(expectedReview.getType(), Fixture.expectedType);
         Assertions.assertNull(expectedReview.getStore());
         Assertions.assertNull(expectedReview.getRecommends());
-        Assertions.assertNull(expectedReview.getUrl());
     }
 
     @Test
@@ -44,9 +43,8 @@ public class ReviewCreationTest  extends UnitTest {
         Assertions.assertTrue(expectedReview.isActive());
         Assertions.assertEquals(expectedReview.getRating().getValue(), Fixture.expectedRating.getValue());
         Assertions.assertEquals(expectedReview.getStatus(), Fixture.expectedStatus);
-        Assertions.assertEquals(expectedReview.getPositiveFeedback(), Fixture.expectedPositiveFeedback);
-        Assertions.assertEquals(expectedReview.getNegativeFeedback(), Fixture.expectedNegativeFeedback);
-        Assertions.assertEquals(expectedReview.getUrl().getValue(), Fixture.expectedUrl);
+        Assertions.assertEquals(expectedReview.getPros(), Fixture.expectedPositiveFeedback);
+        Assertions.assertEquals(expectedReview.getCons(), Fixture.expectedNegativeFeedback);
         Assertions.assertTrue(expectedReview.getRecommends());
         Assertions.assertTrue(expectedReview.isVerifiedPurchase());
     }

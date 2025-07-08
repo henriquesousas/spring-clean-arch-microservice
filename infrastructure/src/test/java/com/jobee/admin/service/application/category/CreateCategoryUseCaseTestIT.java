@@ -5,6 +5,7 @@ import com.jobee.admin.service.application.usecases.category.create.CreateCatego
 import com.jobee.admin.service.application.usecases.category.create.CreateCategoryUseCase;
 import com.jobee.admin.service.domain.category.CategoryBuilder;
 import com.jobee.admin.service.domain.category.CategoryRepository;
+import com.jobee.admin.service.domain.validation.Error;
 import com.jobee.admin.service.infrastructure.category.repository.CategoryJpaRepository;
 import com.jobee.admin.service.infrastructure.category.repository.CategoryModel;
 import org.junit.jupiter.api.Assertions;
@@ -12,6 +13,8 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.SpyBean;
+
+import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
 
@@ -34,10 +37,11 @@ public class CreateCategoryUseCaseTestIT {
 
         Assertions.assertEquals(repository.count(), 0);
 
-        final var categoryId = sut.execute(CreateCategoryInputDto.with(
+        final var command = CreateCategoryInputDto.with(
                 expectedCategory.getName(),
-                expectedCategory.getDescription())).get();
+                expectedCategory.getDescription());
 
+        final var categoryId = sut.execute(command).get();
 
         Assertions.assertEquals(repository.count(), 1);
         Assertions.assertNotNull(categoryId);
@@ -54,15 +58,22 @@ public class CreateCategoryUseCaseTestIT {
     @Test
     public void givenAnInvalidName_whenCallsCreateCategoryUseCase_thenShouldDomainException() {
 
-        final var expectedError = "'name' should not be null or empty";
+        final var expectedErrors = List.of(
+                new Error("'name' should not be null or empty"),
+                new Error("'name' must be between 3 and 255 characters")
+        );
+
         final var expectedCategory = CategoryBuilder.newCategory("", "any description").build();
 
-        final var notification = sut.execute(CreateCategoryInputDto.with(
+        final var command = CreateCategoryInputDto.with(
                 expectedCategory.getName(),
-                expectedCategory.getDescription())).getLeft();
+                expectedCategory.getDescription());
+
+        final var notification = sut.execute(command).getLeft();
 
         Assertions.assertEquals(notification.getErrors().size(), 2);
-//        Assertions.assertEquals(notification.getMessage(), expectedError);
+        Assertions.assertEquals(notification.getErrors(), expectedErrors);
+        Assertions.assertEquals(notification.getErrors(), expectedErrors);
 
         Assertions.assertEquals(repository.count(), 0);
 

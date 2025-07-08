@@ -7,6 +7,7 @@ import com.jobee.admin.service.domain.review.enums.Score;
 import com.jobee.admin.service.domain.review.enums.Status;
 import com.jobee.admin.service.domain.review.valueobjects.*;
 import com.jobee.admin.service.domain.review.valueobjects.Feedback;
+import com.jobee.admin.service.domain.utils.EnumUtils;
 import com.jobee.admin.service.domain.utils.InstantUtils;
 import com.jobee.admin.service.domain.validation.Error;
 import com.jobee.admin.service.domain.validation.ValidationHandler;
@@ -27,13 +28,12 @@ public class Review extends AggregateRoot<ReviewId> {
     private String title;
     private String comment;
     private Status status;
-    private Url url;
     private boolean isActive;
     private final Type type;
     private final Boolean recommends;
     private final boolean verifiedPurchase;
-    private final Set<Feedback> positiveFeedback;
-    private final Set<Feedback> negativeFeedback;
+    private final Set<Feedback> pros;
+    private final Set<Feedback> cons;
     private final Instant createdAt;
     private Instant updatedAt;
     private Instant deletedAt;
@@ -48,13 +48,12 @@ public class Review extends AggregateRoot<ReviewId> {
             Status status,
             Rating rating,
             Type type,
-            Url url,
             String store,
             Boolean recommends,
             boolean verifiedPurchase,
             boolean isActive,
-            Set<Feedback> positiveFeedback,
-            Set<Feedback> negativeFeedback,
+            Set<Feedback> pros,
+            Set<Feedback> cons,
             Instant createdAt,
             Instant updatedAt,
             Instant deletedAt
@@ -68,12 +67,11 @@ public class Review extends AggregateRoot<ReviewId> {
         this.rating = rating;
         this.store = store;
         this.verifiedPurchase = verifiedPurchase;
-        this.url = url;
         this.recommends = recommends;
         this.type = type;
         this.isActive = isActive;
-        this.positiveFeedback = new HashSet<>(positiveFeedback);
-        this.negativeFeedback = new HashSet<>(negativeFeedback);
+        this.pros = new HashSet<>(pros);
+        this.cons = new HashSet<>(cons);
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.deletedAt = deletedAt;
@@ -92,13 +90,12 @@ public class Review extends AggregateRoot<ReviewId> {
                 builder.getStatus(),
                 builder.getRating(),
                 builder.getType(),
-                builder.getUrl(),
                 builder.getStore(),
                 builder.getRecommends(),
                 builder.isVerifiedPurchase(),
                 builder.isActive(),
-                builder.getPositiveFeedback(),
-                builder.getNegativeFeedback(),
+                builder.getPros(),
+                builder.getCons(),
                 builder.getCreatedAt(),
                 builder.getUpdatedAt(),
                 builder.getDeletedAt()
@@ -148,10 +145,17 @@ public class Review extends AggregateRoot<ReviewId> {
         this.updatedAt = InstantUtils.now();
     }
 
-    public void changeRating(final Score rating) {
+    public void changeRating(final Integer rating) {
         if (failIfInactive("Rating não pode ser alterado em uma avaliação inativa")) return;
 
-        this.rating = Rating.from(rating);
+        final var score = EnumUtils.of(Score.values(), rating);
+
+        if (score == null) {
+            this.getNotification().append(new Error("Rating inválido!"));
+            return;
+        }
+
+        this.rating = Rating.from(score);
         this.updatedAt = InstantUtils.now();
     }
 
@@ -159,8 +163,8 @@ public class Review extends AggregateRoot<ReviewId> {
         if (failIfInactive("Review inativo não pode remover pontos negativos")) return;
 
         final var feedbacks = (type == FeedbackType.PROS)
-                ? this.positiveFeedback
-                : this.negativeFeedback;
+                ? this.pros
+                : this.cons;
 
         feedbacks.add(Feedback.from(feedback));
     }
@@ -169,8 +173,8 @@ public class Review extends AggregateRoot<ReviewId> {
         if (failIfInactive("Review inativo não pode remover pontos positivos")) return;
 
         Set<Feedback> feedbacks = (feedbackType == FeedbackType.PROS)
-                ? this.positiveFeedback
-                : this.negativeFeedback;
+                ? this.pros
+                : this.cons;
 
         final var removed = feedbacks.remove(value);
         if (!removed) {
@@ -182,20 +186,10 @@ public class Review extends AggregateRoot<ReviewId> {
         if (failIfInactive("Review inativo não pode remover pontos positivos")) return;
 
         Set<Feedback> feedbacks = (type == FeedbackType.PROS)
-                ? this.positiveFeedback
-                : this.negativeFeedback;
+                ? this.pros
+                : this.cons;
 
         feedbacks.clear();
-    }
-
-    public void addUrl(final String url) {
-        if (failIfInactive("Review inátivo não pode adicionar links.")) return;
-
-
-        this.url = Url.from(url);
-        if (this.url.getNotification().hasError()) {
-            this.updatedAt = InstantUtils.now();
-        }
     }
 
     private boolean failIfInactive(final String message) {
@@ -211,11 +205,11 @@ public class Review extends AggregateRoot<ReviewId> {
         new ReviewValidator(this, handler).validate();
     }
 
-    public Set<Feedback> getPositiveFeedback() {
-        return Collections.unmodifiableSet(positiveFeedback);
+    public Set<Feedback> getPros() {
+        return Collections.unmodifiableSet(pros);
     }
 
-    public Set<Feedback> getNegativeFeedback() {
-        return Collections.unmodifiableSet(negativeFeedback);
+    public Set<Feedback> getCons() {
+        return Collections.unmodifiableSet(cons);
     }
 }

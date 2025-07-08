@@ -1,22 +1,20 @@
   CREATE TABLE reviews(
     id CHAR(32) NOT NULL PRIMARY KEY,
     user_id CHAR(32) NOT NULL,
+    product_id CHAR(32) NOT NULL,
     title VARCHAR(255) NOT NULL,
-    summary VARCHAR(255) NOT NULL,
-    positive_feedback VARCHAR(255) NULL,
-    negative_feedback VARCHAR(255)  NULL,
-    reclame_aqui VARCHAR(255) NULL,
+    comment VARCHAR(255) NOT NULL,
+    pros VARCHAR(255) NULL,
+    cons VARCHAR(255)  NULL,
     type VARCHAR(50) NOT NULL,
     status VARCHAR(50) NOT NULL,
     ra_overall INT NOT NULL,
-    ra_response_time INT NULL,
-    ra_post_sale INT NULL,
-    bought_from VARCHAR(255)  NULL,
+    store VARCHAR(255)  NULL,
     recommend  BOOLEAN NULL,
     is_verified BOOLEAN NOT NULL DEFAULT FALSE,
     active BOOLEAN NOT NULL DEFAULT FALSE,
     created_at DATETIME(6) NOT NULL,
     updated_at DATETIME(6)  NOT NULL,
-    deleted_at DATETIME(6) NULL,
-    CONSTRAINT fk_review_user  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+    deleted_at DATETIME(6) NULL
+--    CONSTRAINT fk_review_user  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
   );

@@ -7,7 +7,6 @@ import com.jobee.admin.service.domain.exceptions.ValidationException;
 import com.jobee.admin.service.domain.review.FeedbackType;
 import com.jobee.admin.service.domain.review.Review;
 import com.jobee.admin.service.domain.review.ReviewRepository;
-import com.jobee.admin.service.domain.review.enums.Score;
 import com.jobee.admin.service.domain.review.valueobjects.ReviewId;
 import io.vavr.control.Either;
 
@@ -45,28 +44,23 @@ public class UpdateReviewUseCase extends UseCase<UpdateReviewDto, Either<DomainE
     }
 
     private Review applyChanges(UpdateReviewDto command, Review review) {
-        if (command.boughtFrom() != null) review.changeBoughtFrom(command.boughtFrom());
+        if (command.store() != null) review.changeBoughtFrom(command.store());
         if (command.summary() != null) review.changeSummary(command.summary());
         if (command.title() != null) review.changeTitle(command.title());
-        if (command.url() != null) review.addUrl(command.url());
 
         if (command.overallRating() != null) {
-            review.changeRating(
-                    Score.of(command.overallRating()).orElse(review.getRating().getOverall()),
-                    Score.of(command.postSale()).orElse(null),
-                    Score.of(command.responseTime()).orElse(null)
-            );
+            review.changeRating(command.overallRating());
         }
 
-        if (!command.positiveFeedback().isEmpty()) {
+        if (!command.pros().isEmpty()) {
             review.removeAllFeedbacks(FeedbackType.PROS);
-            command.positiveFeedback()
+            command.pros()
                     .forEach(value -> review.addFeedback(value, FeedbackType.PROS));
         }
 
-        if (!command.negativeFeedback().isEmpty()) {
+        if (!command.cons().isEmpty()) {
             review.removeAllFeedbacks(FeedbackType.CONS);
-            command.negativeFeedback()
+            command.cons()
                     .forEach(value -> review.addFeedback(value, FeedbackType.CONS));
         }
 

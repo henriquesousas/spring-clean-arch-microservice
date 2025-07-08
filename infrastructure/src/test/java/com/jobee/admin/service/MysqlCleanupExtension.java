@@ -10,7 +10,6 @@ import java.util.Collection;
 public class MysqlCleanupExtension implements BeforeEachCallback {
     @Override
     public void beforeEach(final ExtensionContext context) {
-        // TODO: Use this implementation to clean up the database
 //        final var appContext = SpringExtension.getApplicationContext(context);
 //        cleanUp(List.of(
 //               // appContext.getBean(GenreJpaRepository.class),

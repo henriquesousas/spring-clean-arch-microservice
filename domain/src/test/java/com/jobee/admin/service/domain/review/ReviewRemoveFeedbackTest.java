@@ -18,8 +18,8 @@ public class ReviewRemoveFeedbackTest  extends UnitTest {
         expectedReview.removeFeedback(Feedback.from(expectedFeedbackValue), FeedbackType.PROS);
 
         Assertions.assertFalse(expectedReview.getNotification().hasError());
-        Assertions.assertEquals(expectedReview.getPositiveFeedback().size(), 1);
-        Assertions.assertEquals(expectedReview.getNegativeFeedback().size(), 1);
+        Assertions.assertEquals(expectedReview.getPros().size(), 1);
+        Assertions.assertEquals(expectedReview.getCons().size(), 1);
     }
 
     @Test
@@ -33,8 +33,8 @@ public class ReviewRemoveFeedbackTest  extends UnitTest {
         expectedReview.removeFeedback(Feedback.from(expectedFeedbackValue), FeedbackType.CONS);
 
         Assertions.assertFalse(expectedReview.getNotification().hasError());
-        Assertions.assertEquals(expectedReview.getPositiveFeedback().size(), 1);
-        Assertions.assertEquals(expectedReview.getNegativeFeedback().size(), 1);
+        Assertions.assertEquals(expectedReview.getPros().size(), 1);
+        Assertions.assertEquals(expectedReview.getCons().size(), 1);
     }
 
 

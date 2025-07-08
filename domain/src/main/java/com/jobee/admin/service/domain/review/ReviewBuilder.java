@@ -30,10 +30,9 @@ public class ReviewBuilder {
     private final Type type;
     private boolean verifiedPurchase;
     private Status status;
-    private Url url;
     private Boolean recommends;
-    private final Set<Feedback> positiveFeedback;
-    private final Set<Feedback> negativeFeedback;
+    private final Set<Feedback> pros;
+    private final Set<Feedback> cons;
     private Instant createdAt;
     private Instant updatedAt;
     private Instant deletedAt;
@@ -44,8 +43,8 @@ public class ReviewBuilder {
             Score rating,
             String title,
             String comment,
-            Set<Feedback> positiveFeedback,
-            Set<Feedback> negativeFeedback
+            Set<Feedback> pros,
+            Set<Feedback> cons
     ) {
         this.userId = Objects.requireNonNull(userId);
         this.productId = Objects.requireNonNull(productId);
@@ -56,8 +55,8 @@ public class ReviewBuilder {
         this.type = Type.PRODUCT;
         this.isActive = false;
         this.verifiedPurchase = false;
-        this.positiveFeedback = Objects.requireNonNullElse(positiveFeedback, new HashSet<>());
-        this.negativeFeedback = Objects.requireNonNullElse(negativeFeedback, new HashSet<>());
+        this.pros = Objects.requireNonNullElse(pros, new HashSet<>());
+        this.cons = Objects.requireNonNullElse(cons, new HashSet<>());
         this.createdAt = Objects.requireNonNullElse(createdAt, InstantUtils.now());
         this.updatedAt = Objects.requireNonNullElse(createdAt, InstantUtils.now());
     }
@@ -68,10 +67,10 @@ public class ReviewBuilder {
             Score rating,
             String title,
             String comment,
-            Set<Feedback> positiveFeedback,
-            Set<Feedback> negativeFeedback
+            Set<Feedback> pros,
+            Set<Feedback> cons
     ) {
-        return new ReviewBuilder(userId, productId, rating, title, comment, positiveFeedback, negativeFeedback);
+        return new ReviewBuilder(userId, productId, rating, title, comment, pros, cons);
     }
 
     public ReviewBuilder withReviewId(String reviewId) {
@@ -109,13 +108,8 @@ public class ReviewBuilder {
         return this;
     }
 
-    public ReviewBuilder withIsRecommend(Boolean recommend) {
+    public ReviewBuilder withRecommend(Boolean recommend) {
         this.recommends = recommend;
-        return this;
-    }
-
-    public ReviewBuilder withUrl(String url) {
-        this.url = Url.from(url);
         return this;
     }
 

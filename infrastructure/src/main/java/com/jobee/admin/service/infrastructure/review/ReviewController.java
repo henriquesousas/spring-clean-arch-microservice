@@ -50,17 +50,15 @@ public class ReviewController implements ReviewApi {
     public ResponseEntity<CreateReviewResponseCommand> create(CreateReviewRequestCommand request) {
         logger.info("Start ReviewController with dto {}", request.toString());
         final var command = CreateReviewInputDto.from(
-                request.title(),
-                request.summary(),
                 request.userId(),
-                request.type(),
-                request.boughtFrom(),
-                request.url(),
-                request.overallRating(),
-                request.postSaleRating(),
-                request.responseTimeRating(),
-                request.positiveFeedback(),
-                request.negativeFeedback()
+                request.productId(),
+                request.title(),
+                request.comment(),
+                request.store(),
+                request.rating(),
+                request.recommends(),
+                request.pros(),
+                request.cons()
         );
 
         return createReviewUseCase.execute(command)
@@ -80,13 +78,10 @@ public class ReviewController implements ReviewApi {
                 request.title(),
                 request.summary(),
                 request.type(),
-                request.boughtFrom(),
-                request.url(),
+                request.store(),
                 request.overallRating(),
-                request.postSale(),
-                request.responseTime(),
-                request.positiveFeedback(),
-                request.negativeFeedback()
+                request.pros(),
+                request.cons()
         );
         ResponseEntity<Void> noContent = ResponseEntity.noContent().build();
         return this.updateReviewUseCase.execute(command)

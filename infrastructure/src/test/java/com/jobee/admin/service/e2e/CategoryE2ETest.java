@@ -165,7 +165,7 @@ public class CategoryE2ETest {
                 .andExpect(status().isCreated())
                 .andReturn();
 
-        //TODO: Pegar a resposta do body e nao do Location
+        //Pegar a resposta do body e nao do Location
         final var actualId = response.getResponse()
                 .getHeader("Location")
                 .replace("/categories/", "");

@@ -28,8 +28,8 @@ public class ReviewValidator extends Validator {
     public void validate() {
         validateTextField(this.review.getTitle(), "titúlo");
         validateTextField(this.review.getComment(), "comentario");
-        validateFeedback(this.review.getPositiveFeedback(), "Feedback positivo excedeu o limite permitido");
-        validateFeedback(this.review.getNegativeFeedback(), "Feedback negativo excedeu o limite permitido");
+        validateFeedback(this.review.getPros(), "Feedback positivo excedeu o limite permitido");
+        validateFeedback(this.review.getCons(), "Feedback negativo excedeu o limite permitido");
         validateValueObjects();
     }
 
@@ -50,11 +50,11 @@ public class ReviewValidator extends Validator {
     private void validateValueObjects() {
         Stream.of(
                 this.review.getId().getNotification(),
-                NullableUtils.mapOrNull(this.review.getUrl(), Url::getNotification)
+                this.review.getRating().getNotification()
         ).forEach(this::copyIfHasError);
 
 
-        Stream.concat(this.review.getPositiveFeedback().stream(), this.review.getNegativeFeedback().stream())
+        Stream.concat(this.review.getPros().stream(), this.review.getCons().stream())
                 .map(ValueObject::getNotification)
                 .forEach(this::copyIfHasError);
     }

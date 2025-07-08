@@ -7,11 +7,8 @@ public record UpdateReviewDto(
         String title,
         String summary,
         String type,
-        String boughtFrom,
-        String url,
+        String store,
         Integer overallRating,
-        Integer postSale,
-        Integer responseTime,
-        Set<String> positiveFeedback,
-        Set<String> negativeFeedback) {
+        Set<String> pros,
+        Set<String> cons) {
 }

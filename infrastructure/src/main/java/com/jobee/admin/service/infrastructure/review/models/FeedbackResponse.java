@@ -6,14 +6,15 @@ import com.jobee.admin.service.domain.utils.CollectionUtils;
 
 import java.util.Set;
 
+// TODO: Remove
 public record FeedbackResponse(
-        @JsonProperty("positive")  Set<String> positiveFeedback,
-        @JsonProperty("negative") Set<String> negativeFeedback
+        @JsonProperty("pros")  Set<String> pros,
+        @JsonProperty("cons") Set<String>  cons
 ) {
-    public static FeedbackResponse with(Set<Feedback> positiveFeedback, Set<Feedback> negativeFeedback) {
+    public static FeedbackResponse with(Set<Feedback> pros, Set<Feedback> cons) {
         return new FeedbackResponse(
-                CollectionUtils.asSet(positiveFeedback, Feedback::getValue),
-                CollectionUtils.asSet(negativeFeedback, Feedback::getValue)
+                CollectionUtils.asSet(pros, Feedback::getValue),
+                CollectionUtils.asSet(cons, Feedback::getValue)
         );
     }
 }

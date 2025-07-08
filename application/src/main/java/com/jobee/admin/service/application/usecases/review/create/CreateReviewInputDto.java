@@ -3,44 +3,38 @@ package com.jobee.admin.service.application.usecases.review.create;
 import java.util.Set;
 
 public record CreateReviewInputDto(
-        String title,
-        String summary,
         String userId,
-        String type,
-        String boughtFrom,
-        String url,
-        int overallRating,
-        int postSale,
-        int responseTime,
-        Set<String> positiveFeedback,
-        Set<String> negativeFeedback
+        String productId,
+        String title,
+        String comment,
+        String store,
+        int rating,
+        Boolean recommends,
+        Set<String> pros,
+        Set<String> cons
 ) {
 
     public static CreateReviewInputDto from(
-            String title,
-            String summary,
             String userId,
-            String type,
-            String boughtFrom,
-            String url,
-            int overallRating,
-            int postSale,
-            int responseTime,
-            Set<String> positiveFeedback,
-            Set<String> negativeFeedback
+            String productId,
+            String title,
+            String comment,
+            String store,
+            int rating,
+            Boolean recommends,
+            Set<String> pros,
+            Set<String> cons
     ) {
         return new CreateReviewInputDto(
-                title,
-                summary,
                 userId,
-                type,
-                boughtFrom,
-                url,
-                overallRating,
-                postSale,
-                responseTime,
-                positiveFeedback,
-                negativeFeedback
+                productId,
+                title,
+                comment,
+                store,
+                rating,
+                recommends,
+                pros,
+                cons
         );
     }
 }

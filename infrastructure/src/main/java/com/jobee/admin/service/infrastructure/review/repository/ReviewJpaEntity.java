@@ -5,13 +5,9 @@ import com.jobee.admin.service.domain.review.Review;
 import com.jobee.admin.service.domain.review.ReviewBuilder;
 import com.jobee.admin.service.domain.review.enums.Score;
 import com.jobee.admin.service.domain.review.enums.Status;
-import com.jobee.admin.service.domain.review.enums.Type;
 import com.jobee.admin.service.domain.review.valueobjects.Feedback;
-import com.jobee.admin.service.domain.review.valueobjects.Url;
-import com.jobee.admin.service.domain.user.valueobjects.UserId;
 import com.jobee.admin.service.domain.utils.CollectionUtils;
 import com.jobee.admin.service.domain.utils.EnumUtils;
-import com.jobee.admin.service.domain.utils.NullableUtils;
 
 import javax.persistence.*;
 import java.time.Instant;
@@ -26,17 +22,14 @@ public class ReviewJpaEntity {
     @Column(name = "title", nullable = false)
     private String title;
 
-    @Column(name = "summary", nullable = false, length = 4000)
-    private String summary;
+    @Column(name = "comment", nullable = false, length = 4000)
+    private String comment;
 
-    @Column(name = "negative_feedback")
-    private String negativeFeedback;
+    @Column(name = "cons")
+    private String cons;
 
-    @Column(name = "positive_feedback")
-    private String positiveFeedback;
-
-    @Column(name = "reclame_aqui")
-    private String urlReclameAqui;
+    @Column(name = "pros")
+    private String pros;
 
     @Column(name = "type", nullable = false)
     private String type;
@@ -47,14 +40,8 @@ public class ReviewJpaEntity {
     @Column(name = "ra_overall", nullable = false)
     private int overallRating;
 
-    @Column(name = "ra_response_time")
-    private Integer responseTime;
-
-    @Column(name = "ra_post_sale")
-    private Integer postSale;
-
-    @Column(name = "bought_from")
-    private String boughtFrom;
+    @Column(name = "store")
+    private String store;
 
     @Column(name = "recommend")
     private Boolean recommend;
@@ -77,23 +64,24 @@ public class ReviewJpaEntity {
     @Column(name = "user_id", nullable = false)
     private String userId;
 
+    @Column(name = "product_id", nullable = false)
+    private String productId;
+
     public ReviewJpaEntity() {
     }
 
     public ReviewJpaEntity(
             String id,
             String userId,
+            String productId,
             String title,
-            String summary,
-            String positiveFeedback,
-            String negativeFeedback,
-            String url,
+            String comment,
+            String pros,
+            String cons,
             String type,
             String status,
             int overallRating,
-            Integer responseTime,
-            Integer postSale,
-            String boughtFrom,
+            String store,
             Boolean recommend,
             boolean isVerified,
             boolean isActive,
@@ -102,17 +90,15 @@ public class ReviewJpaEntity {
             Instant deletedAt) {
         this.id = id;
         this.userId = userId;
+        this.productId = productId;
         this.title = title;
-        this.summary = summary;
-        this.negativeFeedback = negativeFeedback;
-        this.positiveFeedback = positiveFeedback;
-        this.urlReclameAqui = url;
+        this.comment = comment;
+        this.cons = cons;
+        this.pros = pros;
         this.type = type;
         this.status = status;
         this.overallRating = overallRating;
-        this.responseTime = responseTime;
-        this.postSale = postSale;
-        this.boughtFrom = boughtFrom;
+        this.store = store;
         this.recommend = recommend;
         this.isVerified = isVerified;
         this.isActive = isActive;
@@ -125,17 +111,15 @@ public class ReviewJpaEntity {
 
         return new ReviewJpaEntity(
                 review.getId().getValue(),
-                review.getUserId().getValue(),
+                review.getUserId(),
+                review.getProductId(),
                 review.getTitle(),
                 review.getComment(),
-                CollectionUtils.asString(review.getPositiveFeedback(), it -> it.getValue().trim()),
-                CollectionUtils.asString(review.getNegativeFeedback(), it -> it.getValue().trim()),
-                NullableUtils.mapOrNull(review.getUrl(), Url::getValue),
+                CollectionUtils.asString(review.getPros(), it -> it.getValue().trim()),
+                CollectionUtils.asString(review.getCons(), it -> it.getValue().trim()),
                 review.getType().getValue(),
                 review.getStatus().getValue(),
-                review.getRating().getOverall().getValue(),
-                NullableUtils.mapOrNull(review.getRating().getResponseTime(), Score::getValue),
-                NullableUtils.mapOrNull(review.getRating().getPostSale(), Score::getValue),
+                review.getRating().getValue(),
                 review.getStore(),
                 review.getRecommends(),
                 review.isVerifiedPurchase(),
@@ -147,22 +131,17 @@ public class ReviewJpaEntity {
     }
 
     public Review toAggregate() {
-        return new ReviewBuilder(
-                getTitle(),
-                getSummary(),
-                UserId.from(getUserId()),
-                EnumUtils.of(Type.values(), getType()),
-                getBoughtFrom(),
-                Url.from(getUrlReclameAqui()),
-                EnumUtils.of(Score.values(), this.getOverallRating()),
-                EnumUtils.of(Score.values(), this.getPostSale()),
-                EnumUtils.of(Score.values(), this.getResponseTime()),
-                CollectionUtils.asSet(getPositiveFeedback().split(","), Feedback::from),
-                CollectionUtils.asSet(getNegativeFeedback().split(","), Feedback::from)
-        )
+        return ReviewBuilder.create(
+                        getUserId(),
+                        getProductId(),
+                        EnumUtils.of(Score.values(), this.getOverallRating()),
+                        getTitle(),
+                        getComment(),
+                        CollectionUtils.asSet(getPros().split(","), Feedback::from),
+                        CollectionUtils.asSet(getCons().split(","), Feedback::from)
+                )
                 .withReviewId(getId())
-                .withUrl(getUrlReclameAqui())
-                .withIsRecommend(isRecommend())
+                .withRecommend(getRecommend())
                 .withCreatedAt(getCreatedAt())
                 .withStatus(EnumUtils.of(Status.values(), getStatus()))
                 .withActive(isActive())
@@ -188,12 +167,44 @@ public class ReviewJpaEntity {
         this.title = title;
     }
 
-    public String getSummary() {
-        return summary;
+    public String getComment() {
+        return comment;
     }
 
-    public void setSummary(String summary) {
-        this.summary = summary;
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public String getCons() {
+        return cons;
+    }
+
+    public void setCons(String cons) {
+        this.cons = cons;
+    }
+
+    public String getPros() {
+        return pros;
+    }
+
+    public void setPros(String pros) {
+        this.pros = pros;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public int getOverallRating() {
@@ -204,32 +215,20 @@ public class ReviewJpaEntity {
         this.overallRating = overallRating;
     }
 
-    public Integer getResponseTime() {
-        return responseTime;
+    public String getStore() {
+        return store;
     }
 
-    public void setResponseTime(int responseTime) {
-        this.responseTime = responseTime;
+    public void setStore(String store) {
+        this.store = store;
     }
 
-    public Integer getPostSale() {
-        return postSale;
-    }
-
-    public void setPostSale(int postSale) {
-        this.postSale = postSale;
-    }
-
-    public String getBoughtFrom() {
-        return boughtFrom;
-    }
-
-    public void setBoughtFrom(String boughtFrom) {
-        this.boughtFrom = boughtFrom;
-    }
-
-    public Boolean isRecommend() {
+    public Boolean getRecommend() {
         return recommend;
+    }
+
+    public void setRecommend(Boolean recommend) {
+        this.recommend = recommend;
     }
 
     public boolean isVerified() {
@@ -280,59 +279,11 @@ public class ReviewJpaEntity {
         this.userId = userId;
     }
 
-    public String getNegativeFeedback() {
-        return negativeFeedback;
+    public String getProductId() {
+        return productId;
     }
 
-    public void setNegativeFeedback(String negativeFeedback) {
-        this.negativeFeedback = negativeFeedback;
-    }
-
-    public String getPositiveFeedback() {
-        return positiveFeedback;
-    }
-
-    public void setPositiveFeedback(String positiveFeedback) {
-        this.positiveFeedback = positiveFeedback;
-    }
-
-    public String getUrlReclameAqui() {
-        return urlReclameAqui;
-    }
-
-    public void setUrlReclameAqui(String urlReclameAqui) {
-        this.urlReclameAqui = urlReclameAqui;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public void setResponseTime(Integer responseTime) {
-        this.responseTime = responseTime;
-    }
-
-    public void setPostSale(Integer postSale) {
-        this.postSale = postSale;
-    }
-
-    public Boolean getRecommend() {
-        return recommend;
-    }
-
-    public void setRecommend(Boolean recommend) {
-        this.recommend = recommend;
+    public void setProductId(String productId) {
+        this.productId = productId;
     }
 }

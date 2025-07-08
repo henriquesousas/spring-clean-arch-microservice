@@ -16,7 +16,7 @@ public class ReviewChangeRatingsTest  extends UnitTest {
 
         Assertions.assertEquals(expectedReview.getRating().getValue(), Fixture.expectedRating.getValue());
 
-        expectedReview.changeRating(Score.TWO);
+        expectedReview.changeRating(Score.TWO.getValue());
 
         Assertions.assertEquals(expectedReview.getRating().getValue(),Score.TWO.getValue());
         Assertions.assertTrue(expectedReview.getCreatedAt().isBefore(expectedReview.getUpdatedAt()));

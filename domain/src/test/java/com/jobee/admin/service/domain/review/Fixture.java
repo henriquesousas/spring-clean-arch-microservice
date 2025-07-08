@@ -28,7 +28,6 @@ public class Fixture {
     public static Instant expectedCreatedAt = InstantUtils.now();
     public static Instant expectedUpdateAt = InstantUtils.now();
     public static Instant expectedDeletedAt = InstantUtils.now();
-    public static String expectedUrl = "http://googgle.com.br";
     public static boolean expectedRecommend = true;
     public static Status expectedStatus = Status.IN_ANALYSIS;
     public static boolean expectedIsActive = true;
@@ -61,8 +60,7 @@ public class Fixture {
                 .withCreatedAt(expectedCreatedAt)
                 .withUpdatedAt(expectedUpdateAt)
                 .withDeletedAt(expectedDeletedAt)
-                .withIsRecommend(expectedRecommend)
-                .withUrl(expectedUrl)
+                .withRecommend(expectedRecommend)
                 .withVerifiedPurchase(true);
     }
 

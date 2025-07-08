@@ -22,9 +22,9 @@ public class ReviewAddFeedbackTest  extends UnitTest {
         expectedReview.addFeedback(expectedFeedbackValue, FeedbackType.PROS);
 
         Assertions.assertFalse(expectedReview.getNotification().hasError());
-        Assertions.assertEquals(expectedReview.getPositiveFeedback().size(), 1);
-        Assertions.assertEquals(expectedReview.getNegativeFeedback().size(), 0);
-        Assertions.assertEquals(expectedReview.getPositiveFeedback(), expectedFeedbackList);
+        Assertions.assertEquals(expectedReview.getPros().size(), 1);
+        Assertions.assertEquals(expectedReview.getCons().size(), 0);
+        Assertions.assertEquals(expectedReview.getPros(), expectedFeedbackList);
     }
 
     @Test
@@ -38,9 +38,9 @@ public class ReviewAddFeedbackTest  extends UnitTest {
         expectedReview.addFeedback(expectedFeedbackValue, FeedbackType.CONS);
 
         Assertions.assertFalse(expectedReview.getNotification().hasError());
-        Assertions.assertEquals(expectedReview.getNegativeFeedback().size(), 1);
-        Assertions.assertEquals(expectedReview.getPositiveFeedback().size(), 0);
-        Assertions.assertEquals(expectedReview.getNegativeFeedback(), expectedFeedbackList);
+        Assertions.assertEquals(expectedReview.getCons().size(), 1);
+        Assertions.assertEquals(expectedReview.getPros().size(), 0);
+        Assertions.assertEquals(expectedReview.getCons(), expectedFeedbackList);
     }
 
     @Test
@@ -66,9 +66,9 @@ public class ReviewAddFeedbackTest  extends UnitTest {
         expectedReview.addFeedback(expectedFeedbackValue, FeedbackType.CONS);
 
         Assertions.assertFalse(expectedReview.getNotification().hasError());
-        Assertions.assertEquals(expectedReview.getPositiveFeedback().size(), 2);
-        Assertions.assertEquals(expectedReview.getNegativeFeedback().size(), 2);
-        Assertions.assertEquals(expectedReview.getPositiveFeedback(), expectedPositiveFeedback);
-        Assertions.assertEquals(expectedReview.getNegativeFeedback(), expectedNegativeFeedBack);
+        Assertions.assertEquals(expectedReview.getPros().size(), 2);
+        Assertions.assertEquals(expectedReview.getCons().size(), 2);
+        Assertions.assertEquals(expectedReview.getPros(), expectedPositiveFeedback);
+        Assertions.assertEquals(expectedReview.getCons(), expectedNegativeFeedBack);
     }
 }
