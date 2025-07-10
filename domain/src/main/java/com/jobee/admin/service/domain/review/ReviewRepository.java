@@ -12,7 +12,7 @@ public interface ReviewRepository {
     Review update(Review review);
     Optional<Review> findById(ReviewId id);
     Pagination<Review> findAll(Search query);
-    List<Review> findBy(String status, String userId);
+    List<Review> findBy(String status, String userId, String productId);
     ReviewRating getRatings(String productId);
     void delete(ReviewId id);
 }

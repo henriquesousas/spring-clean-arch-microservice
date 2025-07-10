@@ -22,10 +22,14 @@ public class ListReviewUseCase extends UseCase<ListReviewCommand, Either<DomainE
 
     @Override
     public Either<DomainException, List<Review>> execute(ListReviewCommand command) {
-        if (command.status() == null && command.userId() == null) {
+        if (command.status() == null && command.userId() == null && command.productId() == null) {
             return left(new ReviewNullableParamException());
         }
 
-        return  right(this.repository.findBy(command.status(), command.userId())) ;
+        return  right(this.repository.findBy(
+                command.status(),
+                command.userId(),
+                command.productId()
+        )) ;
     }
 }

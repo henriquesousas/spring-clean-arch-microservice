@@ -52,7 +52,8 @@ public interface ReviewApi {
     @Operation(summary = "Get a review by status/userid or both")
     ResponseEntity<ApiListResponse<List<ReviewOutputPreview>>> get(
             @RequestParam(required = false) String status,
-            @RequestParam(required = false) String userId
+            @RequestParam(required = false) String userId,
+            @RequestParam(required = false) String productId
     );
 
     @DeleteMapping(value = "/{id}")

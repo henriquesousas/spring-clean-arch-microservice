@@ -114,8 +114,8 @@ public class ReviewController implements ReviewApi {
     }
 
     @Override
-    public ResponseEntity<ApiListResponse<List<ReviewOutputPreview>>> get(String status, String userId) {
-        final var command = new ListReviewCommand(status, userId);
+    public ResponseEntity<ApiListResponse<List<ReviewOutputPreview>>> get(String status, String userId, String productId) {
+        final var command = new ListReviewCommand(status, userId, productId);
         return this.listReviewUseCase.execute(command)
                 .map(reviews -> {
                     final var preview = ReviewOutputPreview.from(reviews);

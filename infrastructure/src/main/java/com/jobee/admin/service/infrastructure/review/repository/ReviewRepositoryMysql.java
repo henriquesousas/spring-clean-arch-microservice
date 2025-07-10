@@ -49,8 +49,8 @@ public class ReviewRepositoryMysql implements ReviewRepository {
     }
 
     @Override
-    public List<Review> findBy(String status, String userId) {
-        return this.repository.findBy(status, userId)
+    public List<Review> findBy(String status, String userId, String productId) {
+        return this.repository.findBy(status, userId, productId)
                 .stream()
                 .map(ReviewJpaEntity::toAggregate)
                 .collect(Collectors.toList());
