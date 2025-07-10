@@ -1,15 +1,16 @@
 package com.jobee.admin.service.infrastructure.review;
 
-import com.jobee.admin.service.application.usecases.review.average.GetReviewAverageInputCommand;
+import com.jobee.admin.service.application.usecases.review.ProductIdInputCommand;
 import com.jobee.admin.service.application.usecases.review.average.GetReviewAverageByProductIdUseCase;
-import com.jobee.admin.service.application.usecases.review.average.GetReviewAverageOutputCommand;
-import com.jobee.admin.service.application.usecases.review.create.CreateReviewInputDto;
+import com.jobee.admin.service.application.usecases.review.RatingSummaryOutputCommand;
+import com.jobee.admin.service.application.usecases.review.create.CreateReviewInputCommand;
 import com.jobee.admin.service.application.usecases.review.create.CreateReviewUseCase;
 import com.jobee.admin.service.application.usecases.review.delete.DeleteReviewUseCase;
 import com.jobee.admin.service.application.usecases.review.retrieve.list.ListReviewCommand;
 import com.jobee.admin.service.application.usecases.review.retrieve.list.ListReviewUseCase;
 import com.jobee.admin.service.application.usecases.review.retrieve.getbyid.GetReviewByIdUseCase;
 import com.jobee.admin.service.application.usecases.review.retrieve.getbyid.GetReviewIdCommand;
+import com.jobee.admin.service.application.usecases.review.summary.GetReviewSummaryUseCase;
 import com.jobee.admin.service.application.usecases.review.update.UpdateReviewDto;
 import com.jobee.admin.service.application.usecases.review.update.UpdateReviewUseCase;
 import com.jobee.admin.service.infrastructure.review.models.*;
@@ -47,12 +48,15 @@ public class ReviewController implements ReviewApi {
     private UpdateReviewUseCase updateReviewUseCase;
 
     @Autowired
+    private GetReviewSummaryUseCase getReviewSummaryUseCase;
+
+    @Autowired
     private GetReviewAverageByProductIdUseCase getReviewAverageByProductIdUseCase;
 
     @Override
     public ResponseEntity<CreateReviewResponseCommand> create(CreateReviewRequestCommand request) {
         logger.info("Start ReviewController with dto {}", request.toString());
-        final var command = CreateReviewInputDto.from(
+        final var command = CreateReviewInputCommand.from(
                 request.userId(),
                 request.productId(),
                 request.title(),
@@ -97,19 +101,32 @@ public class ReviewController implements ReviewApi {
         final var command = new GetReviewIdCommand(id);
         return this.getReviewByIdUseCase.execute(command)
                 .map(review -> {
-                    final var preview =ReviewOutputPreview.from(review);
-                   return ResponseEntity.ok(ApiSingleResponse.from(preview));
+                    final var preview = ReviewOutputPreview.from(review);
+                    return ResponseEntity.ok(ApiSingleResponse.from(preview));
                 })
                 .getOrElseThrow(error -> error);
     }
 
     @Override
-    public ResponseEntity<ApiSingleResponse<GetReviewAverageOutputCommand>> getReviewAverage(String productId) {
+    public ResponseEntity<ApiSingleResponse<RatingSummaryOutputCommand>> getReviewAverage(String productId) {
         //TODO: Change JSON response the property total_reviews to totalReviews
-        final var command = new GetReviewAverageInputCommand(productId);
+        final var command = new ProductIdInputCommand(productId);
         return this.getReviewAverageByProductIdUseCase.execute(command)
-                .map(getReviewAverageOutputCommand ->  {
-                    return ResponseEntity.ok(ApiSingleResponse.from(getReviewAverageOutputCommand));
+                .map(ratingSummaryOutputCommand -> {
+                    return ResponseEntity.ok(ApiSingleResponse.from(ratingSummaryOutputCommand));
+                })
+                .getOrElseThrow(error -> error);
+    }
+
+    @Override
+    public ResponseEntity<ApiSingleResponse<ReviewSummaryPreview>> getReviewSummary(String productId) {
+        final var command = new ProductIdInputCommand(productId);
+        return this.getReviewSummaryUseCase.execute(command)
+                .map(reviewSummary -> {
+                    final var ratingSummary = reviewSummary.ratingSummary();
+                    final var reviews = ReviewOutputPreview.from(reviewSummary.reviews());
+                    final var output = new ReviewSummaryPreview(ratingSummary, reviews);
+                    return ResponseEntity.ok(ApiSingleResponse.from(output));
                 })
                 .getOrElseThrow(error -> error);
     }

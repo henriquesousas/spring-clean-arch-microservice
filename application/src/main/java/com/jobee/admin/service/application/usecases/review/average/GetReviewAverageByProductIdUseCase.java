@@ -1,6 +1,8 @@
 package com.jobee.admin.service.application.usecases.review.average;
 
 import com.jobee.admin.service.application.usecases.UseCase;
+import com.jobee.admin.service.application.usecases.review.RatingSummaryOutputCommand;
+import com.jobee.admin.service.application.usecases.review.ProductIdInputCommand;
 import com.jobee.admin.service.domain.exceptions.DomainException;
 import com.jobee.admin.service.domain.review.ReviewRepository;
 import com.jobee.admin.service.domain.review.ReviewService;
@@ -9,7 +11,7 @@ import io.vavr.control.Either;
 
 import java.util.Objects;
 
-public class GetReviewAverageByProductIdUseCase extends UseCase<GetReviewAverageInputCommand, Either<DomainException, GetReviewAverageOutputCommand>> {
+public class GetReviewAverageByProductIdUseCase extends UseCase<ProductIdInputCommand, Either<DomainException, RatingSummaryOutputCommand>> {
 
     private final ReviewRepository repository;
     private final ReviewService service;
@@ -20,7 +22,7 @@ public class GetReviewAverageByProductIdUseCase extends UseCase<GetReviewAverage
     }
 
     @Override
-    public Either<DomainException, GetReviewAverageOutputCommand> execute(GetReviewAverageInputCommand command) {
+    public Either<DomainException, RatingSummaryOutputCommand> execute(ProductIdInputCommand command) {
 
         final var reviewRating = this.repository.getRatings(command.productId());
         if (reviewRating == null || reviewRating.totalReviews() == 0) {
@@ -29,6 +31,6 @@ public class GetReviewAverageByProductIdUseCase extends UseCase<GetReviewAverage
 
         final var average = this.service.calculateAverage(reviewRating);
 
-        return Either.right(GetReviewAverageOutputCommand.from(reviewRating, average));
+        return Either.right(RatingSummaryOutputCommand.from(reviewRating, average));
     }
 }

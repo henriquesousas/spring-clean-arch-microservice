@@ -15,7 +15,7 @@ import io.vavr.control.Either;
 
 
 //TODO: Fix
-public class CreateReviewUseCase extends UseCase<CreateReviewInputDto, Either<DomainException, ReviewId>> {
+public class CreateReviewUseCase extends UseCase<CreateReviewInputCommand, Either<DomainException, ReviewId>> {
 
     //    private static final Logger logger = LoggerFactory.getLogger(CreateReviewUseCase.class);
     private final ReviewRepository repository;
@@ -27,7 +27,7 @@ public class CreateReviewUseCase extends UseCase<CreateReviewInputDto, Either<Do
     }
 
     @Override
-    public Either<DomainException, ReviewId> execute(final CreateReviewInputDto dto) {
+    public Either<DomainException, ReviewId> execute(final CreateReviewInputCommand dto) {
         //logger.info("Calls CreateReviewUseCase with dto {}", dto.toString());
         final var review = ReviewBuilder.create(
                         dto.userId(),

@@ -1,6 +1,6 @@
 package com.jobee.admin.service.infrastructure.review;
 
-import com.jobee.admin.service.application.usecases.review.average.GetReviewAverageOutputCommand;
+import com.jobee.admin.service.application.usecases.review.RatingSummaryOutputCommand;
 import com.jobee.admin.service.infrastructure.review.models.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -46,7 +46,12 @@ public interface ReviewApi {
     ResponseEntity<ApiSingleResponse<ReviewOutputPreview>> getById(@PathVariable("id") String id);
 
     @GetMapping(value = "/average/{productId}")
-    ResponseEntity<ApiSingleResponse<GetReviewAverageOutputCommand>> getReviewAverage(@PathVariable("productId") String productId);
+    @Operation(summary = "Get a group of ratings")
+    ResponseEntity<ApiSingleResponse<RatingSummaryOutputCommand>> getReviewAverage(@PathVariable("productId") String productId);
+
+    @GetMapping(value = "/summary/{productId}")
+    @Operation(summary = "Get a review summary")
+    ResponseEntity<ApiSingleResponse<ReviewSummaryPreview>> getReviewSummary(@PathVariable("productId") String productId);
 
     @GetMapping
     @Operation(summary = "Get a review by status/userid or both")

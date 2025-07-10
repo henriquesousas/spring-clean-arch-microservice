@@ -1,8 +1,8 @@
-package com.jobee.admin.service.application.usecases.review.average;
+package com.jobee.admin.service.application.usecases.review;
 
 import com.jobee.admin.service.domain.review.ReviewRating;
 
-public record GetReviewAverageOutputCommand(
+public record RatingSummaryOutputCommand(
         long totalReviews,
         long rating1,
         long rating2,
@@ -12,8 +12,8 @@ public record GetReviewAverageOutputCommand(
         double average
 ) {
 
-    public static GetReviewAverageOutputCommand from(final ReviewRating reviewRating, double average) {
-        return  new GetReviewAverageOutputCommand(
+    public static RatingSummaryOutputCommand from(final ReviewRating reviewRating, double average) {
+        return  new RatingSummaryOutputCommand(
                 reviewRating.totalReviews(),
                 reviewRating.rating1(),
                 reviewRating.rating2(),
