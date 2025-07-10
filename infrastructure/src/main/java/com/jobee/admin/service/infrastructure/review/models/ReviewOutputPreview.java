@@ -12,7 +12,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @JsonInclude()
-public record ReviewResponse(
+public record ReviewOutputPreview(
         @JsonProperty("review_id") String reviewId,
         @JsonProperty("user_id") String userId,
         @JsonProperty("product_id") String productId,
@@ -25,12 +25,12 @@ public record ReviewResponse(
         @JsonProperty("is_verified") boolean isVerified,
         @JsonProperty("pros") Set<String> pros,
         @JsonProperty("cons") Set<String>  cons,
-        @JsonProperty("ratings") RatingResponse ratingResponse,
+        @JsonProperty("ratings") RatingOutputPreview ratingResponse,
         @JsonProperty("created_at")  Instant createdAt
 ) {
 
-    public static ReviewResponse from(final Review review) {
-        return new ReviewResponse(
+    public static ReviewOutputPreview from(final Review review) {
+        return new ReviewOutputPreview(
                 review.getId().getValue(),
                 review.getUserId(),
                 review.getProductId(),
@@ -43,14 +43,14 @@ public record ReviewResponse(
                 review.isVerifiedPurchase(),
                 CollectionUtils.asSet(review.getPros(), Feedback::getValue),
                 CollectionUtils.asSet(review.getCons(), Feedback::getValue),
-                RatingResponse.with(review.getRating()),
+                RatingOutputPreview.with(review.getRating()),
                 review.getCreatedAt()
         );
     }
 
-    public static List<ReviewResponse> from(final List<Review> reviews) {
+    public static List<ReviewOutputPreview> from(final List<Review> reviews) {
         return reviews.stream()
-                .map(ReviewResponse::from)
+                .map(ReviewOutputPreview::from)
                 .collect(Collectors.toList());
     }
 }

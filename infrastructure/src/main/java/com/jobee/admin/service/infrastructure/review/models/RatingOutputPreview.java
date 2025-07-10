@@ -3,9 +3,9 @@ package com.jobee.admin.service.infrastructure.review.models;
 import com.jobee.admin.service.domain.review.valueobjects.Rating;
 
 
-public record RatingResponse(int overall) {
+public record RatingOutputPreview(int overall) {
 
-    public static RatingResponse with(Rating rating) {
+    public static RatingOutputPreview with(Rating rating) {
 //        final var postSale = Optional.ofNullable(rating.getPostSale())
 //                .map(Score::getValue)
 //                .orElse(null);
@@ -14,6 +14,6 @@ public record RatingResponse(int overall) {
 //                .map(Score::getValue)
 //                .orElse(null);
 
-        return new RatingResponse(rating.getValue());
+        return new RatingOutputPreview(rating.getValue());
     }
 }

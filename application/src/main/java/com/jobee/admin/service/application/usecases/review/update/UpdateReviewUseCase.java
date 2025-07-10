@@ -4,7 +4,7 @@ import com.jobee.admin.service.application.usecases.UseCase;
 import com.jobee.admin.service.domain.exceptions.DomainException;
 import com.jobee.admin.service.domain.exceptions.NotFoundException;
 import com.jobee.admin.service.domain.exceptions.ValidationException;
-import com.jobee.admin.service.domain.review.FeedbackType;
+import com.jobee.admin.service.domain.review.enums.FeedbackType;
 import com.jobee.admin.service.domain.review.Review;
 import com.jobee.admin.service.domain.review.ReviewRepository;
 import com.jobee.admin.service.domain.review.valueobjects.ReviewId;

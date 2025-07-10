@@ -13,5 +13,6 @@ public interface ReviewRepository {
     Optional<Review> findById(ReviewId id);
     Pagination<Review> findAll(Search query);
     List<Review> findBy(String status, String userId);
+    ReviewRating getRatings(String productId);
     void delete(ReviewId id);
 }

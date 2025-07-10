@@ -1,6 +1,8 @@
 package com.jobee.admin.service.infrastructure.review;
 
+import com.jobee.admin.service.application.ReviewApplicationService;
 import com.jobee.admin.service.application.events.DomainEventHandler;
+import com.jobee.admin.service.application.usecases.review.average.GetReviewAverageByProductIdUseCase;
 import com.jobee.admin.service.application.usecases.review.create.CreateReviewUseCase;
 import com.jobee.admin.service.application.events.DomainEventMediator;
 import com.jobee.admin.service.application.handles.review.ReviewCreatedEventHandler;
@@ -28,6 +30,11 @@ public class ReviewBeanConfiguration {
 
     public ReviewBeanConfiguration(ReviewRepository repository) {
         this.repository = Objects.requireNonNull(repository);
+    }
+
+    @Bean
+    public ReviewApplicationService reviewApplicationService() {
+        return new ReviewApplicationService();
     }
 
     @Bean
@@ -59,5 +66,10 @@ public class ReviewBeanConfiguration {
     @Bean
     public UpdateReviewUseCase updateReviewUseCase() {
         return new UpdateReviewUseCase(repository);
+    }
+
+    @Bean
+    public GetReviewAverageByProductIdUseCase calculateReviewAvgUseCase(ReviewApplicationService service) {
+        return new GetReviewAverageByProductIdUseCase(repository, service);
     }
 }

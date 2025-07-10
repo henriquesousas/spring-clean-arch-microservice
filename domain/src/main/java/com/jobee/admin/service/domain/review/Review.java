@@ -1,6 +1,7 @@
 package com.jobee.admin.service.domain.review;
 
 import com.jobee.admin.service.domain.AggregateRoot;
+import com.jobee.admin.service.domain.review.enums.FeedbackType;
 import com.jobee.admin.service.domain.review.events.ReviewCreatedEvent;
 import com.jobee.admin.service.domain.review.enums.Type;
 import com.jobee.admin.service.domain.review.enums.Score;

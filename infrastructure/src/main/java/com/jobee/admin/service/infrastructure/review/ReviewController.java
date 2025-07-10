@@ -1,5 +1,8 @@
 package com.jobee.admin.service.infrastructure.review;
 
+import com.jobee.admin.service.application.usecases.review.average.GetReviewAverageInputCommand;
+import com.jobee.admin.service.application.usecases.review.average.GetReviewAverageByProductIdUseCase;
+import com.jobee.admin.service.application.usecases.review.average.GetReviewAverageOutputCommand;
 import com.jobee.admin.service.application.usecases.review.create.CreateReviewInputDto;
 import com.jobee.admin.service.application.usecases.review.create.CreateReviewUseCase;
 import com.jobee.admin.service.application.usecases.review.delete.DeleteReviewUseCase;
@@ -9,10 +12,7 @@ import com.jobee.admin.service.application.usecases.review.retrieve.getbyid.GetR
 import com.jobee.admin.service.application.usecases.review.retrieve.getbyid.GetReviewIdCommand;
 import com.jobee.admin.service.application.usecases.review.update.UpdateReviewDto;
 import com.jobee.admin.service.application.usecases.review.update.UpdateReviewUseCase;
-import com.jobee.admin.service.infrastructure.review.models.CreateReviewRequestCommand;
-import com.jobee.admin.service.infrastructure.review.models.CreateReviewResponseCommand;
-import com.jobee.admin.service.infrastructure.review.models.ReviewResponse;
-import com.jobee.admin.service.infrastructure.review.models.UpdateReviewRequestCommand;
+import com.jobee.admin.service.infrastructure.review.models.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,6 +45,9 @@ public class ReviewController implements ReviewApi {
 
     @Autowired
     private UpdateReviewUseCase updateReviewUseCase;
+
+    @Autowired
+    private GetReviewAverageByProductIdUseCase getReviewAverageByProductIdUseCase;
 
     @Override
     public ResponseEntity<CreateReviewResponseCommand> create(CreateReviewRequestCommand request) {
@@ -90,18 +93,34 @@ public class ReviewController implements ReviewApi {
     }
 
     @Override
-    public ResponseEntity<ReviewResponse> getById(String id) {
+    public ResponseEntity<ApiSingleResponse<ReviewOutputPreview>> getById(String id) {
         final var command = new GetReviewIdCommand(id);
         return this.getReviewByIdUseCase.execute(command)
-                .map(review -> ResponseEntity.ok(ReviewResponse.from(review)))
+                .map(review -> {
+                    final var preview =ReviewOutputPreview.from(review);
+                   return ResponseEntity.ok(ApiSingleResponse.from(preview));
+                })
                 .getOrElseThrow(error -> error);
     }
 
     @Override
-    public ResponseEntity<List<ReviewResponse>> get(String status, String userId) {
+    public ResponseEntity<ApiSingleResponse<GetReviewAverageOutputCommand>> getReviewAverage(String productId) {
+        final var command = new GetReviewAverageInputCommand(productId);
+        return this.getReviewAverageByProductIdUseCase.execute(command)
+                .map(getReviewAverageOutputCommand ->  {
+                    return ResponseEntity.ok(ApiSingleResponse.from(getReviewAverageOutputCommand));
+                })
+                .getOrElseThrow(error -> error);
+    }
+
+    @Override
+    public ResponseEntity<ApiListResponse<List<ReviewOutputPreview>>> get(String status, String userId) {
         final var command = new ListReviewCommand(status, userId);
         return this.listReviewUseCase.execute(command)
-                .map(reviews -> ResponseEntity.ok(ReviewResponse.from(reviews)))
+                .map(reviews -> {
+                    final var preview = ReviewOutputPreview.from(reviews);
+                    return ResponseEntity.ok(ApiListResponse.from(preview));
+                })
                 .getOrElseThrow(error -> error);
     }
 

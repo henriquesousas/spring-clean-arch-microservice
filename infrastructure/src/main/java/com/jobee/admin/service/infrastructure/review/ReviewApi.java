@@ -1,9 +1,7 @@
 package com.jobee.admin.service.infrastructure.review;
 
-import com.jobee.admin.service.infrastructure.category.models.CreateCategoryRequest;
-import com.jobee.admin.service.infrastructure.review.models.CreateReviewRequestCommand;
-import com.jobee.admin.service.infrastructure.review.models.ReviewResponse;
-import com.jobee.admin.service.infrastructure.review.models.UpdateReviewRequestCommand;
+import com.jobee.admin.service.application.usecases.review.average.GetReviewAverageOutputCommand;
+import com.jobee.admin.service.infrastructure.review.models.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -45,11 +43,14 @@ public interface ReviewApi {
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Get a review by identifier")
-    ResponseEntity<ReviewResponse> getById(@PathVariable("id") String id);
+    ResponseEntity<ApiSingleResponse<ReviewOutputPreview>> getById(@PathVariable("id") String id);
+
+    @GetMapping(value = "/average/{productId}")
+    ResponseEntity<ApiSingleResponse<GetReviewAverageOutputCommand>> getReviewAverage(@PathVariable("productId") String productId);
 
     @GetMapping
     @Operation(summary = "Get a review by status/userid or both")
-    ResponseEntity<List<ReviewResponse>> get(
+    ResponseEntity<ApiListResponse<List<ReviewOutputPreview>>> get(
             @RequestParam(required = false) String status,
             @RequestParam(required = false) String userId
     );

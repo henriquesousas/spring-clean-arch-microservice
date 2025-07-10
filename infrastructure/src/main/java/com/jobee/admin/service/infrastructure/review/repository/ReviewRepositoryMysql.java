@@ -3,6 +3,7 @@ package com.jobee.admin.service.infrastructure.review.repository;
 import com.jobee.admin.service.domain.pagination.Pagination;
 import com.jobee.admin.service.domain.pagination.Search;
 import com.jobee.admin.service.domain.review.Review;
+import com.jobee.admin.service.domain.review.ReviewRating;
 import com.jobee.admin.service.domain.review.ReviewRepository;
 import com.jobee.admin.service.domain.review.valueobjects.ReviewId;
 import com.jobee.admin.service.infrastructure.category.repository.CategoryModel;
@@ -53,6 +54,11 @@ public class ReviewRepositoryMysql implements ReviewRepository {
                 .stream()
                 .map(ReviewJpaEntity::toAggregate)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public ReviewRating getRatings(String productId) {
+      return this.repository.getReviewRatings(productId);
     }
 
     @Override
