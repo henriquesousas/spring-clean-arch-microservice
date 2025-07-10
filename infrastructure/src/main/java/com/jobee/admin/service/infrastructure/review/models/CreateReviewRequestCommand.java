@@ -5,8 +5,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Set;
 
 public record CreateReviewRequestCommand(
-        @JsonProperty("user_id") String userId,
-        @JsonProperty("product_id") String productId,
+        @JsonProperty("userId") String userId,
+        @JsonProperty("productId") String productId,
         @JsonProperty("title") String title,
         @JsonProperty("comment") String comment,
         @JsonProperty("store") String store,

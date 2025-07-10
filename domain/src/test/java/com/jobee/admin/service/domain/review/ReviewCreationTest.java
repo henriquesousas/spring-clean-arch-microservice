@@ -12,7 +12,7 @@ public class ReviewCreationTest  extends UnitTest {
 
         final var expectedReview = Fixture.reviewWithDefaultValues().build();
 
-        Assertions.assertEquals(expectedReview.getUserId(), Fixture.expectedUserId);
+        Assertions.assertEquals(expectedReview.getUser().userId(), Fixture.expectedUserId);
         Assertions.assertEquals(expectedReview.getTitle(), Fixture.expectedTitle);
         Assertions.assertEquals(expectedReview.getComment(), Fixture.expectedComment);
         Assertions.assertFalse(expectedReview.isActive());
@@ -34,7 +34,7 @@ public class ReviewCreationTest  extends UnitTest {
         final var expectedReview = Fixture.reviewWithAllValues().build();
 
         Assertions.assertEquals(expectedReview.getId(), Fixture.expectedReviewId);
-        Assertions.assertEquals(expectedReview.getUserId(), Fixture.expectedUserId);
+        Assertions.assertEquals(expectedReview.getUser().userId(), Fixture.expectedUserId);
         Assertions.assertEquals(expectedReview.getTitle(), Fixture.expectedTitle);
         Assertions.assertEquals(expectedReview.getComment(), Fixture.expectedComment);
         Assertions.assertEquals(expectedReview.getCreatedAt(), Fixture.expectedCreatedAt);

@@ -16,9 +16,9 @@ public interface ReviewJpaRepository extends JpaRepository<ReviewJpaEntity, Stri
                 SELECT a FROM Review a
                 WHERE (:status IS NULL OR a.status = :status)
                 AND (:userId IS NULL OR a.userId = :userId)
-                 AND (:productId IS NULL OR a.productId = :productId)
+                AND (:productId IS NULL OR a.productId = :productId)
             """)
-    List<ReviewJpaEntity> findBy(@Param("status") String status, @Param("userId") String userId, @Param("productId  ") String productId);
+    List<ReviewJpaEntity> findBy(@Param("status") String status, @Param("userId") String userId, @Param("productId") String productId);
 
     @Query("""
                 SELECT new com.jobee.admin.service.domain.review.ReviewRating(

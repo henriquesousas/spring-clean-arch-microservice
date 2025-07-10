@@ -64,6 +64,12 @@ public class ReviewJpaEntity {
     @Column(name = "user_id", nullable = false)
     private String userId;
 
+    @Column(name = "user_name")
+    private String userName;
+
+    @Column(name = "photo_url")
+    private String photoUrl;
+
     @Column(name = "product_id", nullable = false)
     private String productId;
 
@@ -73,6 +79,8 @@ public class ReviewJpaEntity {
     public ReviewJpaEntity(
             String id,
             String userId,
+            String userName,
+            String photoUrl,
             String productId,
             String title,
             String comment,
@@ -90,6 +98,8 @@ public class ReviewJpaEntity {
             Instant deletedAt) {
         this.id = id;
         this.userId = userId;
+        this.userName = userName;
+        this.photoUrl = photoUrl;
         this.productId = productId;
         this.title = title;
         this.comment = comment;
@@ -111,7 +121,9 @@ public class ReviewJpaEntity {
 
         return new ReviewJpaEntity(
                 review.getId().getValue(),
-                review.getUserId(),
+                review.getUser().userId(),
+                review.getUser().name(),
+                review.getUser().photoUrl(),
                 review.getProductId(),
                 review.getTitle(),
                 review.getComment(),
@@ -141,6 +153,8 @@ public class ReviewJpaEntity {
                         CollectionUtils.asSet(getCons().split(","), Feedback::from)
                 )
                 .withReviewId(getId())
+                .withUserName(getUserName())
+                .withPhotoUrl(getPhotoUrl())
                 .withRecommend(getRecommend())
                 .withCreatedAt(getCreatedAt())
                 .withStatus(EnumUtils.of(Status.values(), getStatus()))
@@ -285,5 +299,21 @@ public class ReviewJpaEntity {
 
     public void setProductId(String productId) {
         this.productId = productId;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getPhotoUrl() {
+        return photoUrl;
+    }
+
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
     }
 }

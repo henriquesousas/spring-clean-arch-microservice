@@ -14,7 +14,7 @@ import java.util.Set;
 
 public class Fixture {
 
-    public static final String expectedUserId = IdUtils.uuid();
+    public static final String expectedUserId =IdUtils.uuid();
     public static final String expectedProductId = IdUtils.uuid();
     public static final ReviewId expectedReviewId = ReviewId.unique();
     public static final String expectedTitle = "Produto excelente";

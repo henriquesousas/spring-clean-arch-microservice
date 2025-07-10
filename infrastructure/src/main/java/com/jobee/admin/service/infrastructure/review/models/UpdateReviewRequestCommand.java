@@ -9,7 +9,7 @@ public record UpdateReviewRequestCommand(
         @JsonProperty("comment") String summary,
         @JsonProperty("type") String type,
         @JsonProperty("store") String store,
-        @JsonProperty("overall_rating") int overallRating,
+        @JsonProperty("overallRating") int overallRating,
         @JsonProperty("pros") Set<String> pros,
         @JsonProperty("cons") Set<String> cons
 ) {

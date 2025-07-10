@@ -105,6 +105,7 @@ public class ReviewController implements ReviewApi {
 
     @Override
     public ResponseEntity<ApiSingleResponse<GetReviewAverageOutputCommand>> getReviewAverage(String productId) {
+        //TODO: Change JSON response the property total_reviews to totalReviews
         final var command = new GetReviewAverageInputCommand(productId);
         return this.getReviewAverageByProductIdUseCase.execute(command)
                 .map(getReviewAverageOutputCommand ->  {

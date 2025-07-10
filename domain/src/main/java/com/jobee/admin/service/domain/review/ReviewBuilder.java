@@ -20,7 +20,7 @@ import java.util.Set;
 public class ReviewBuilder {
 
     private ReviewId reviewId = ReviewId.unique();
-    private final String userId;
+    private   User user;
     private final String productId;
     private final String title;
     private final String comment;
@@ -46,7 +46,7 @@ public class ReviewBuilder {
             Set<Feedback> pros,
             Set<Feedback> cons
     ) {
-        this.userId = Objects.requireNonNull(userId);
+        this.user =  new User(Objects.requireNonNull(userId), null, null) ;
         this.productId = Objects.requireNonNull(productId);
         this.title = Objects.requireNonNull(title);
         this.comment = Objects.requireNonNull(comment);
@@ -117,6 +117,17 @@ public class ReviewBuilder {
         this.store = store;
         return this;
     }
+
+    public ReviewBuilder withUserName(String name) {
+        this.user = new User(this.user.userId(), name, this.getUser().photoUrl());
+        return this;
+    }
+
+    public ReviewBuilder withPhotoUrl(String photoUrl) {
+        this.user = new User(this.user.userId(), this.getUser().name(), photoUrl);
+        return this;
+    }
+
 
     public Review build() {
         return Review.newReview(this);

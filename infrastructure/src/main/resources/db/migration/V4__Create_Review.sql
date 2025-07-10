@@ -1,6 +1,8 @@
   CREATE TABLE reviews(
     id CHAR(32) NOT NULL PRIMARY KEY,
     user_id CHAR(32) NOT NULL,
+    user_name VARCHAR(255) NULL,
+    photo_url VARCHAR(255) NULL,
     product_id CHAR(32) NOT NULL,
     title VARCHAR(255) NOT NULL,
     comment VARCHAR(255) NOT NULL,

@@ -3,36 +3,32 @@ package com.jobee.admin.service.infrastructure.review.models;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.jobee.admin.service.domain.review.Review;
-import com.jobee.admin.service.domain.review.valueobjects.Feedback;
-import com.jobee.admin.service.domain.utils.CollectionUtils;
 
 import java.time.Instant;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @JsonInclude()
 public record ReviewOutputPreview(
-        @JsonProperty("review_id") String reviewId,
-        @JsonProperty("user_id") String userId,
-        @JsonProperty("product_id") String productId,
+        @JsonProperty("reviewId") String reviewId,
+        @JsonProperty("user") UserOutputPreview user,
+        @JsonProperty("productId") String productId,
         @JsonProperty("title") String title,
         @JsonProperty("comments") String summary,
         @JsonProperty("status") String status,
         @JsonProperty("store") String store,
         @JsonProperty("type") String type,
         @JsonProperty("recommends") Boolean recommends,
-        @JsonProperty("is_verified") boolean isVerified,
-        @JsonProperty("pros") Set<String> pros,
-        @JsonProperty("cons") Set<String>  cons,
+        @JsonProperty("verified") boolean isVerified,
+        @JsonProperty("opinions") OpinionsPreview opinionsPreview,
         @JsonProperty("ratings") RatingOutputPreview ratingResponse,
-        @JsonProperty("created_at")  Instant createdAt
+        @JsonProperty("createdAt") Instant createdAt
 ) {
 
     public static ReviewOutputPreview from(final Review review) {
         return new ReviewOutputPreview(
                 review.getId().getValue(),
-                review.getUserId(),
+                UserOutputPreview.from(review),
                 review.getProductId(),
                 review.getTitle(),
                 review.getComment(),
@@ -41,8 +37,7 @@ public record ReviewOutputPreview(
                 review.getType().getValue(),
                 review.getRecommends(),
                 review.isVerifiedPurchase(),
-                CollectionUtils.asSet(review.getPros(), Feedback::getValue),
-                CollectionUtils.asSet(review.getCons(), Feedback::getValue),
+                OpinionsPreview.from(review),
                 RatingOutputPreview.with(review.getRating()),
                 review.getCreatedAt()
         );

@@ -22,7 +22,7 @@ import java.util.Set;
 @Getter
 public class Review extends AggregateRoot<ReviewId> {
 
-    private String userId;
+    private User user;
     private String productId;
     private Rating rating;
     private String store;
@@ -42,7 +42,7 @@ public class Review extends AggregateRoot<ReviewId> {
 
     private Review(
             ReviewId reviewId,
-            String userId,
+            User user,
             String productId,
             String title,
             String comment,
@@ -60,7 +60,7 @@ public class Review extends AggregateRoot<ReviewId> {
             Instant deletedAt
     ) {
         super(reviewId);
-        this.userId = userId;
+        this.user = user;
         this.productId = productId;
         this.title = title;
         this.comment = comment;
@@ -84,7 +84,7 @@ public class Review extends AggregateRoot<ReviewId> {
     public static Review newReview(ReviewBuilder builder) {
         return new Review(
                 builder.getReviewId(),
-                builder.getUserId(),
+                builder.getUser(),
                 builder.getProductId(),
                 builder.getTitle(),
                 builder.getComment(),
