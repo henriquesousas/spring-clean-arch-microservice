@@ -2,7 +2,7 @@ package com.jobee.admin.service.domain.genre;
 
 import com.jobee.admin.service.domain.UnitTest;
 import com.jobee.admin.service.domain.category.CategoryId;
-import com.jobee.admin.service.domain.utils.InstantUtils;
+import com.opinai.shared.domain.utils.InstantUtils;
 import com.jobee.admin.service.domain.validation.handler.Notification;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

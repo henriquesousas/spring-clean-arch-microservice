@@ -11,10 +11,14 @@ repositories {
 
 
 dependencies {
-    // Pasar usar o Either e outros recursos
-    implementation("io.vavr:vavr:0.10.6")
 //    implementation 'ch.qos.logback:logback-classic:1.4.14'
 //    implementation 'org.slf4j:slf4j-api:2.0.13'
+
+    //Either
+    implementation("io.vavr:vavr:0.10.6")
+    //Lombok
+    compileOnly("org.projectlombok:lombok:1.18.38")
+    annotationProcessor 'org.projectlombok:lombok:1.18.38'
 
     // Para testes
     testImplementation platform('org.junit:junit-bom:5.10.0')

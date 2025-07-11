@@ -1,7 +1,7 @@
 package com.jobee.admin.service.domain.reviewanalysis;
 
-import com.jobee.admin.service.domain.utils.IdUtils;
-import com.jobee.admin.service.domain.utils.NullableUtils;
+import com.opinai.shared.domain.utils.IdUtils;
+import com.opinai.shared.domain.utils.NullableUtils;
 import com.jobee.admin.service.domain.validation.Error;
 import com.jobee.admin.service.domain.validation.ValidationHandler;
 import com.jobee.admin.service.domain.validation.Validator;

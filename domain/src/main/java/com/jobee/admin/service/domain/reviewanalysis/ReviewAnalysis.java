@@ -2,7 +2,7 @@ package com.jobee.admin.service.domain.reviewanalysis;
 
 import com.jobee.admin.service.domain.AggregateRoot;
 import com.jobee.admin.service.domain.reviewanalysis.events.ReviewAnalysisStartedEvent;
-import com.jobee.admin.service.domain.utils.InstantUtils;
+import com.opinai.shared.domain.utils.InstantUtils;
 import com.jobee.admin.service.domain.validation.Error;
 import com.jobee.admin.service.domain.validation.ValidationHandler;
 import lombok.Getter;

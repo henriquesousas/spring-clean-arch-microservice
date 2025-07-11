@@ -1,0 +1,12 @@
+plugins {
+    id 'java-conventions'
+    id 'java-library'
+}
+
+group = 'com.opinai.review.application'
+
+dependencies {
+    implementation(project(":review-service:domain"))
+    implementation(project(":shared"))
+}
+

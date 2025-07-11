@@ -7,7 +7,6 @@ import com.jobee.admin.service.domain.category.Category;
 import com.jobee.admin.service.domain.category.CategoryBuilder;
 import com.jobee.admin.service.domain.category.CategoryId;
 import com.jobee.admin.service.domain.category.CategoryRepository;
-import com.jobee.admin.service.domain.exceptions.NotFoundException;
 import com.jobee.admin.service.domain.validation.handler.Notification;
 import com.jobee.admin.service.infrastructure.category.repository.CategoryJpaRepository;
 import com.jobee.admin.service.infrastructure.category.repository.CategoryModel;

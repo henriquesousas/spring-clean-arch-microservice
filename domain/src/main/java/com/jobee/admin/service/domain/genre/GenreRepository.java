@@ -1,8 +1,8 @@
 package com.jobee.admin.service.domain.genre;
 
 
-import com.jobee.admin.service.domain.pagination.Pagination;
-import com.jobee.admin.service.domain.pagination.Search;
+import com.opinai.shared.domain.pagination.Pagination;
+import com.opinai.shared.domain.pagination.Search;
 
 import java.util.List;
 import java.util.Optional;

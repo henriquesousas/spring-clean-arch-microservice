@@ -5,7 +5,7 @@ import com.jobee.admin.service.domain.reviewanalysis.ReviewAnalysis;
 import com.jobee.admin.service.domain.events.DomainEvent;
 import com.jobee.admin.service.domain.events.EventPayload;
 import com.jobee.admin.service.domain.events.IntegrationEvent;
-import com.jobee.admin.service.domain.utils.InstantUtils;
+import com.opinai.shared.domain.utils.InstantUtils;
 
 import java.time.Instant;
 import java.util.List;

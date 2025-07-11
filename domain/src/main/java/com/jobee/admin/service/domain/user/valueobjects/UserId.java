@@ -1,7 +1,7 @@
 package com.jobee.admin.service.domain.user.valueobjects;
 
 import com.jobee.admin.service.domain.Identifier;
-import com.jobee.admin.service.domain.utils.IdUtils;
+import com.opinai.shared.domain.utils.IdUtils;
 
 public class UserId extends Identifier {
 

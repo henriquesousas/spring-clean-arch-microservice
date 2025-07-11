@@ -3,7 +3,7 @@ package com.jobee.admin.service.domain.category;
 
 
 import com.jobee.admin.service.domain.Identifier;
-import com.jobee.admin.service.domain.utils.IdUtils;
+import com.opinai.shared.domain.utils.IdUtils;
 
 import java.util.List;
 import java.util.UUID;

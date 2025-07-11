@@ -1,0 +1,15 @@
+plugins {
+    id 'java-conventions'
+    id 'java-library'
+}
+
+group = 'com.opinai.shared.domain'
+
+dependencies {
+//    testImplementation platform('org.junit:junit-bom:5.10.0')
+//    testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+test {
+    useJUnitPlatform()
+}
