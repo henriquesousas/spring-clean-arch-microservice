@@ -1,0 +1,14 @@
+plugins {
+    id 'java-conventions'
+    id 'java-library'
+}
+
+group = 'com.opinai.reviewanalyze.application'
+
+
+
+dependencies {
+    implementation(project(":reviewanalyze-service:domain"))
+    implementation(project(":shared"))
+}
+
