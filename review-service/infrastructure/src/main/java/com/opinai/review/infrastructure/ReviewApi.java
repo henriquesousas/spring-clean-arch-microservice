@@ -12,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @Tag(name = "Review")
 public interface ReviewApi {
@@ -43,19 +42,19 @@ public interface ReviewApi {
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Get a review by identifier")
-    ResponseEntity<ApiSingleResponse<ReviewOutputPreview>> getById(@PathVariable("id") String id);
+    ResponseEntity<ObjectResponse<ReviewOutputPreview>> getById(@PathVariable("id") String id);
 
     @GetMapping(value = "/average/{productId}")
     @Operation(summary = "Get a group of ratings")
-    ResponseEntity<ApiSingleResponse<RatingSummaryOutputCommand>> getReviewAverage(@PathVariable("productId") String productId);
+    ResponseEntity<ObjectResponse<RatingSummaryOutputCommand>> getReviewAverage(@PathVariable("productId") String productId);
 
     @GetMapping(value = "/summary/{productId}")
     @Operation(summary = "Get a review summary")
-    ResponseEntity<ApiSingleResponse<ReviewSummaryPreview>> getReviewSummary(@PathVariable("productId") String productId);
+    ResponseEntity<ObjectResponse<ReviewSummaryPreview>> getReviewSummary(@PathVariable("productId") String productId);
 
     @GetMapping
     @Operation(summary = "Get a review by status/userid or both")
-    ResponseEntity<ApiListResponse<List<ReviewOutputPreview>>> get(
+    ResponseEntity<ListResponse<ReviewOutputPreview>> get(
             @RequestParam(required = false) String status,
             @RequestParam(required = false) String userId,
             @RequestParam(required = false) String productId

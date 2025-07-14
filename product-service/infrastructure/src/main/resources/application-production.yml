@@ -1,0 +1,12 @@
+mysql:
+  username: ${DATABASE_MYSQL_USERNAME:root}
+  password: ${DATABASE_MYSQL_PASSWORD:admin}
+  schema: ${DATABASE_MYSQL_SCHEMA:services}
+  url: ${DATABASE_MYSQL_URL:localhost:3307}
+
+spring:
+  jpa:
+    open-in-view: false # Permite ou não abrir uma conexão desde o controller (transaction) muito custoso, vamos desabilitar
+    show-sql: false # Habilita log de query
+    hibernate:
+      ddl-auto: none

@@ -1,0 +1,20 @@
+amqp:
+  admin:
+    auto-create: true
+  host: localhost
+  port: 5672
+  username: admin
+  password: admin
+
+mysql:
+  username: root
+  password: admin
+  schema: services
+  url: localhost:3307
+
+server:
+  port: 8083
+  undertow:
+    threads:
+      worker: 10 # recommned 10 per cpu
+      io: 2      # One IO threadr per cpu

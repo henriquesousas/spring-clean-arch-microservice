@@ -24,7 +24,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.net.URI;
-import java.util.List;
 
 @RestController
 @RequestMapping(value = "reviews")
@@ -97,47 +96,47 @@ public class ReviewController implements ReviewApi {
     }
 
     @Override
-    public ResponseEntity<ApiSingleResponse<ReviewOutputPreview>> getById(String id) {
+    public ResponseEntity<ObjectResponse<ReviewOutputPreview>> getById(String id) {
         final var command = new GetReviewIdCommand(id);
         return this.getReviewByIdUseCase.execute(command)
                 .map(review -> {
                     final var preview = ReviewOutputPreview.from(review);
-                    return ResponseEntity.ok(ApiSingleResponse.from(preview));
+                    return ResponseEntity.ok( ObjectResponse.from(preview));
                 })
                 .getOrElseThrow(error -> error);
     }
 
     @Override
-    public ResponseEntity<ApiSingleResponse<RatingSummaryOutputCommand>> getReviewAverage(String productId) {
+    public ResponseEntity<ObjectResponse<RatingSummaryOutputCommand>> getReviewAverage(String productId) {
         //TODO: Change JSON response the property total_reviews to totalReviews
         final var command = new ProductIdInputCommand(productId);
         return this.getReviewAverageByProductIdUseCase.execute(command)
                 .map(ratingSummaryOutputCommand -> {
-                    return ResponseEntity.ok(ApiSingleResponse.from(ratingSummaryOutputCommand));
+                    return ResponseEntity.ok(ObjectResponse.from(ratingSummaryOutputCommand));
                 })
                 .getOrElseThrow(error -> error);
     }
 
     @Override
-    public ResponseEntity<ApiSingleResponse<ReviewSummaryPreview>> getReviewSummary(String productId) {
+    public ResponseEntity<ObjectResponse<ReviewSummaryPreview>> getReviewSummary(String productId) {
         final var command = new ProductIdInputCommand(productId);
         return this.getReviewSummaryUseCase.execute(command)
                 .map(reviewSummary -> {
                     final var ratingSummary = reviewSummary.ratingSummary();
                     final var reviews = ReviewOutputPreview.from(reviewSummary.reviews());
                     final var output = new ReviewSummaryPreview(ratingSummary, reviews);
-                    return ResponseEntity.ok(ApiSingleResponse.from(output));
+                    return ResponseEntity.ok(ObjectResponse.from(output));
                 })
                 .getOrElseThrow(error -> error);
     }
 
     @Override
-    public ResponseEntity<ApiListResponse<List<ReviewOutputPreview>>> get(String status, String userId, String productId) {
+    public ResponseEntity<ListResponse<ReviewOutputPreview>> get(String status, String userId, String productId) {
         final var command = new ListReviewCommand(status, userId, productId);
         return this.listReviewUseCase.execute(command)
                 .map(reviews -> {
                     final var preview = ReviewOutputPreview.from(reviews);
-                    return ResponseEntity.ok(ApiListResponse.from(preview));
+                    return ResponseEntity.ok(ListResponse.from(preview));
                 })
                 .getOrElseThrow(error -> error);
     }

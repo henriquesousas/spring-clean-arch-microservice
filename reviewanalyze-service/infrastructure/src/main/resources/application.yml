@@ -1,0 +1,63 @@
+amqp:
+  admin:
+    auto-create: false
+  queues:
+    review-created:
+      exchange: review.events
+      routing-key: review.created
+      queue: review.created.queue
+
+server:
+  port: 8083
+  servlet:
+    context-path: /api
+  compression:
+    enabled: true
+    mime-types: text/html,text/xml,text/plan,text/css,text/javascript,application/javascript,text/json
+    min-response-size: 1024
+  undertow:
+    threads:
+      worker: 10 # recommned 10 per cpu
+      io: 4      # One IO threadr per cpu
+
+spring:
+  datasource:
+    url: jdbc:mysql://${mysql.url}/${mysql.schema}?useSSL=true&serverTimezone=UTC&characterEncoding=UTF-8
+    username: ${mysql.username}
+    password: ${mysql.password}
+    # Gerenciador de Poll de conexões com mysql
+    hikari:
+      auto-commit: false
+      connection-timeout: 250 # É uma configuração em milisegundos. O ideal é manter baixo para que estou timeout logo
+      max-lifetime: 600000 # Tempo máximo que uma conexão pode ficar aberta  (10 min) - security
+      maximum-pool-sise: 20 # Mantemos até 20 conexões com o banco de dados. O ideal é manter baixo mesmo
+      minimum-idle: 10
+      poll-name: master
+  jpa:
+    open-in-view: false # Permite ou não abrir uma conexão desde o controller (transaction) muito custoso, vamos desabilitar
+    show-sql: true # Habilita log
+    hibernate:
+      ddl-auto: none
+    properties:
+      "[hibernate.dialect]": org.hibernate.dialect.MySQL5InnoDBDialect
+      "[hibernate.generate_statistics]": false
+      "[hibernate.connection.provider_disable_autocommit]": true
+  rabbitmq:
+    dynamic: ${amqp.admin.auto-create}
+    host: ${amqp.host}
+    port: ${amqp.port}
+    username: ${amqp.username}
+    password: ${amqp.password}
+
+    listener:
+      simple:
+        default-requeue-rejected: "false"
+        retry:
+          enabled: "true"
+          max-attempts: 3
+          initial-interval: 5s
+          multiplier: "2"
+  jackson:
+    default-property-inclusion: always
+    property-naming-strategy: LOWER_CAMEL_CASE
+
