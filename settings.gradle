@@ -41,4 +41,5 @@ include 'reviewanalyze-service:application'
 findProject(':reviewanalyze-service:application')?.name = 'application'
 include 'reviewanalyze-service:infrastructure'
 findProject(':reviewanalyze-service:infrastructure')?.name = 'infrastructure'
+include 'database'
 
