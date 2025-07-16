@@ -11,8 +11,8 @@ import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 
-@Entity(name = "Genre")
-@Table(name = "genres")
+@Entity(name = "Subcategories")
+@Table(name = "subcategories")
 public class GenreJpaEntity {
     @Id
     @Column(name = "id", nullable = false)
