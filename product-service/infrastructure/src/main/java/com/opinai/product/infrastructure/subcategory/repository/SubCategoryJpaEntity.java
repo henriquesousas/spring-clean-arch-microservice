@@ -5,12 +5,16 @@ import com.opinai.product.domain.category.CategoryId;
 import com.opinai.product.domain.subcategory.Subcategory;
 import com.opinai.product.domain.subcategory.SubcategoryBuilder;
 import com.opinai.product.domain.subcategory.SubcategoryId;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 
+@Data
+@NoArgsConstructor
 @Entity(name = "Subcategories")
 @Table(name = "subcategories")
 public class SubCategoryJpaEntity {
@@ -36,9 +40,6 @@ public class SubCategoryJpaEntity {
     //user property from GenreCategoryJpaEntity (subcategoryId)
     @OneToMany(mappedBy = "subcategoryId", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private Set<SubcategoryCategoryJapEntity> categories;
-
-    public SubCategoryJpaEntity() {
-    }
 
     public SubCategoryJpaEntity(
             final String id,
@@ -92,61 +93,5 @@ public class SubCategoryJpaEntity {
 
     public void removeCategory(final CategoryId categoryId) {
         this.categories.remove(SubcategoryCategoryJapEntity.from(this, categoryId));
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Set<SubcategoryCategoryJapEntity> getCategories() {
-        return categories;
-    }
-
-    public void setCategories(Set<SubcategoryCategoryJapEntity> categories) {
-        this.categories = categories;
-    }
-
-    public boolean isActive() {
-        return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
-    }
-
-    public Instant getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Instant createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public Instant getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(Instant updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
-    public Instant getDeletedAt() {
-        return deletedAt;
-    }
-
-    public void setDeletedAt(Instant deletedAt) {
-        this.deletedAt = deletedAt;
     }
 }
