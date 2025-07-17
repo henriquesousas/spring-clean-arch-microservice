@@ -1,8 +1,8 @@
 package com.opinai.product.infrastructure.subcategory;
 
-import com.opinai.product.application.subcategory.create.CreateSubcategoryInputDto;
+import com.opinai.product.application.subcategory.create.CreateSubcategoryCommand;
 import com.opinai.product.application.subcategory.create.CreateSubcategoryUseCase;
-import com.opinai.product.application.subcategory.retrieve.GetSubcategoryByIdDto;
+import com.opinai.product.application.subcategory.retrieve.GetSubcategoryCommand;
 import com.opinai.product.application.subcategory.retrieve.GetSubcategoryByIdUseCase;
 import com.opinai.product.infrastructure.subcategory.models.CreateSubcategoryResponse;
 import com.opinai.product.infrastructure.subcategory.models.SubcategoryResponse;
@@ -25,7 +25,7 @@ public class SubcategoryController implements HttpSubcategoryController {
     @Override
     public ResponseEntity<CreateSubcategoryResponse> create(CreateSubcategoryRequest request) {
 
-        final var command = CreateSubcategoryInputDto.with(
+        final var command = CreateSubcategoryCommand.with(
                 request.name(),
                 request.categories()
         );
@@ -40,7 +40,7 @@ public class SubcategoryController implements HttpSubcategoryController {
 
     @Override
     public ResponseEntity<SubcategoryResponse> getById(String id) {
-        final var command = new GetSubcategoryByIdDto(id);
+        final var command = new GetSubcategoryCommand(id);
         return getSubcategoryByIdUseCase.execute(command)
                 .map(data -> ResponseEntity.ok(SubcategoryResponse.with(data))
                 )

@@ -1,4 +1,4 @@
 package com.opinai.product.domain.product;
 
-public class Brand {
+public record Url(String value){
 }

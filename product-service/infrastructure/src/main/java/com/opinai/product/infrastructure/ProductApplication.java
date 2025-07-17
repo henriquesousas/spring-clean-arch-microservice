@@ -16,7 +16,7 @@ import org.springframework.core.env.AbstractEnvironment;
  */
 
 @SpringBootApplication
-public class SubcategoryApplication {
+public class ProductApplication {
     public static void main(String[] args) {
         System.setProperty(AbstractEnvironment.ACTIVE_PROFILES_PROPERTY_NAME, "development");
         SpringApplication.run(WebServiceConfig.class, args);

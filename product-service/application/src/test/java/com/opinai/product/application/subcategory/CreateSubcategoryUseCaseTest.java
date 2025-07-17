@@ -1,7 +1,7 @@
 package com.opinai.product.application.subcategory;
 
 import com.opinai.product.application.UseCaseTest;
-import com.opinai.product.application.subcategory.create.CreateSubcategoryInputDto;
+import com.opinai.product.application.subcategory.create.CreateSubcategoryCommand;
 import com.opinai.product.application.subcategory.create.CreateSubcategoryUseCase;
 import com.opinai.product.domain.category.CategoryId;
 import com.opinai.product.domain.category.CategoryRepository;
@@ -51,7 +51,7 @@ public class CreateSubcategoryUseCaseTest extends UseCaseTest {
         when(categoryRepository.existByIds(any()))
                 .thenReturn(expectedCategories);
 
-        final var dto = new CreateSubcategoryInputDto(
+        final var dto = new CreateSubcategoryCommand(
                 "any",
                List.of(cat1.getValue(), cat2.getValue())
         );
@@ -79,7 +79,7 @@ public class CreateSubcategoryUseCaseTest extends UseCaseTest {
         when(categoryRepository.existByIds(any()))
                 .thenReturn(List.of(cat1));
 
-        final var dto = new CreateSubcategoryInputDto(
+        final var dto = new CreateSubcategoryCommand(
                 "any",
                List.of(cat1.getValue(), cat1.getValue(), cat3)
         );

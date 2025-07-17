@@ -1,6 +1,6 @@
 package com.opinai.product.infrastructure.category;
 
-import com.opinai.product.application.category.create.CreateCategoryOutputDto;
+import com.opinai.product.application.category.create.CreateCategoryOutput;
 import com.opinai.product.infrastructure.category.models.CategoryResponse;
 import com.opinai.product.infrastructure.category.models.CreateCategoryRequest;
 import io.swagger.v3.oas.annotations.Operation;
@@ -28,7 +28,7 @@ public interface HttpCategoryController {
             @ApiResponse(responseCode = "422", description = "Unprocessable error"),
             @ApiResponse(responseCode = "500", description = "Internal server error"),
     })
-    ResponseEntity<CreateCategoryOutputDto> create(@RequestBody @Valid CreateCategoryRequest dto);
+    ResponseEntity<CreateCategoryOutput> create(@RequestBody @Valid CreateCategoryRequest dto);
 
     @PutMapping(
             value = "/{id}",

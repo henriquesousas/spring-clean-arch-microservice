@@ -1,11 +1,11 @@
 package com.opinai.product.domain.product;
 
-import com.opinai.product.domain.category.CategoryId;
 import com.opinai.shared.domain.AggregateRoot;
 import com.opinai.shared.domain.validation.ValidationHandler;
 import lombok.Getter;
 
-import java.util.Map;
+import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Getter
@@ -13,21 +13,44 @@ public class Product extends AggregateRoot<ProductId> {
 
     private String name;
     private String description;
-    private Brand brand;
+    private BrandRef brandRef;
     private Model model;
-    private CategoryId categoryId;
+    private CategoryRef categoryRef;
+    private SubcategoryRef subcategoryRef;
     private String color;
     private Set<Photo> photos;
     private Set<Tags> tags;
-    private OficialSite oficialSite;
-    private Map<String, Object> specs;
+    private Url site;
 
-    public Product(final ProductId productId) {
+    public Product(
+            final ProductId productId,
+            final String name,
+            final String description,
+            final BrandRef brandRef,
+            final Model model,
+            final CategoryRef categoryRef,
+            final SubcategoryRef subcategoryRef,
+            final String color,
+            final Set<Photo> photos,
+            final Set<Tags> tags,
+            final Url site
+    ) {
         super(productId);
+        this.name = name;
+        this.description = description;
+        this.brandRef = brandRef;
+        this.model = model;
+        this.categoryRef = categoryRef;
+        this.subcategoryRef = subcategoryRef;
+        this.color = color;
+        this.photos = Objects.requireNonNullElse(photos, new HashSet<>());
+        this.tags = Objects.requireNonNullElse(tags, new HashSet<>());
+        this.site= site;
+
     }
 
     @Override
     public void validate(ValidationHandler handler) {
-
+        //TODO: implement
     }
 }

@@ -9,7 +9,7 @@ import com.opinai.shared.domain.validation.handler.Notification;
 import io.vavr.control.Either;
 
 
-public class CreateCategoryUseCase extends UseCase<CreateCategoryInputDto, Either<DomainException, CreateCategoryOutputDto>> {
+public class CreateCategoryUseCase extends UseCase<CreateCategoryCommand, Either<DomainException, CreateCategoryOutput>> {
 
     private final CategoryRepository repository;
 
@@ -18,7 +18,7 @@ public class CreateCategoryUseCase extends UseCase<CreateCategoryInputDto, Eithe
     }
 
     @Override
-    public Either<DomainException, CreateCategoryOutputDto> execute(final CreateCategoryInputDto dto) {
+    public Either<DomainException, CreateCategoryOutput> execute(final CreateCategoryCommand dto) {
 
         final var category = CategoryBuilder.newCategory(dto.name()).build();
 
@@ -27,6 +27,6 @@ public class CreateCategoryUseCase extends UseCase<CreateCategoryInputDto, Eithe
 
         return notification.hasError()
                 ? Either.left(ValidationException.with(notification.getErrors()))
-                : Either.right(CreateCategoryOutputDto.from(this.repository.create(category)));
+                : Either.right(CreateCategoryOutput.from(this.repository.create(category)));
     }
 }

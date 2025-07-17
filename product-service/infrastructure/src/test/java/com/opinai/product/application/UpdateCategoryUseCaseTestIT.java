@@ -1,7 +1,7 @@
 package com.opinai.product.application;
 
 import com.opinai.product.IntegrationTest;
-import com.opinai.product.application.category.update.UpdateCategoryInputDto;
+import com.opinai.product.application.category.update.UpdateCategoryCommand;
 import com.opinai.product.application.category.update.UpdateCategoryOutputDto;
 import com.opinai.product.application.category.update.UpdateCategoryUseCase;
 import com.opinai.product.domain.category.CategoryBuilder;
@@ -54,7 +54,7 @@ public class UpdateCategoryUseCaseTestIT {
         assertNull(currentCategory.getDeletedAt());
 
         //Update the category
-        final var updateCategoryInputDto = new UpdateCategoryInputDto(
+        final var updateCategoryInputDto = new UpdateCategoryCommand(
                 expectedCategory.getId().getValue(),
                 expectedName,
                 expectedDescription

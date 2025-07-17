@@ -1,6 +1,6 @@
 package com.opinai.product.application.category.update;
 
-public record UpdateCategoryInputDto(
+public record UpdateCategoryCommand(
         String id,
         String name
 ) {

@@ -3,7 +3,7 @@ package com.opinai.product.infrastructure.subcategory.repository;
 import com.opinai.product.domain.subcategory.Subcategory;
 import com.opinai.product.domain.subcategory.SubcategoryId;
 import com.opinai.product.domain.subcategory.SubcategoryRepository;
-import com.opinai.product.infrastructure.SpecificationUtils;
+import com.opinai.product.infrastructure.core.SpecificationUtils;
 import com.opinai.shared.domain.pagination.Pagination;
 import com.opinai.shared.domain.pagination.Search;
 import org.springframework.data.domain.PageRequest;

@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.time.Instant;
 
+//TODOÇ Rename from CategoryModel to CategoryJpaEntity
 @Data
 @NoArgsConstructor
 @Entity(name = "category")

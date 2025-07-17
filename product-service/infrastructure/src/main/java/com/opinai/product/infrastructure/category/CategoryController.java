@@ -1,12 +1,12 @@
 package com.opinai.product.infrastructure.category;
 
-import com.opinai.product.application.category.create.CreateCategoryInputDto;
-import com.opinai.product.application.category.create.CreateCategoryOutputDto;
+import com.opinai.product.application.category.create.CreateCategoryCommand;
+import com.opinai.product.application.category.create.CreateCategoryOutput;
 import com.opinai.product.application.category.create.CreateCategoryUseCase;
 import com.opinai.product.application.category.delete.DeleteCategoryUseCase;
 import com.opinai.product.application.category.retrieve.GetCategoryByIdUseCase;
 import com.opinai.product.application.category.retrieve.ListCategoryUseCase;
-import com.opinai.product.application.category.update.UpdateCategoryInputDto;
+import com.opinai.product.application.category.update.UpdateCategoryCommand;
 import com.opinai.product.application.category.update.UpdateCategoryUseCase;
 import com.opinai.product.infrastructure.category.models.CreateCategoryRequest;
 import com.opinai.product.infrastructure.category.models.CategoryResponse;
@@ -40,8 +40,8 @@ public class CategoryController implements HttpCategoryController {
 
 
     @Override
-    public ResponseEntity<CreateCategoryOutputDto> create(final CreateCategoryRequest dto) {
-        CreateCategoryInputDto command = CreateCategoryInputDto.with(dto.name());
+    public ResponseEntity<CreateCategoryOutput> create(final CreateCategoryRequest dto) {
+        CreateCategoryCommand command = CreateCategoryCommand.with(dto.name());
 
         return this.createCategoryUseCase.execute(command)
                 .map(data -> ResponseEntity.created(URI.create("/categories/" + data.categoryId())).body(data))
@@ -50,7 +50,7 @@ public class CategoryController implements HttpCategoryController {
 
     @Override
     public ResponseEntity<Void> update(final @PathVariable String id, final CreateCategoryRequest dto) {
-        final var response = this.updateCategoryUseCase.execute(new UpdateCategoryInputDto(
+        final var response = this.updateCategoryUseCase.execute(new UpdateCategoryCommand(
                 id,
                 dto.name()
         ));

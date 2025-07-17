@@ -37,7 +37,7 @@ public class UpdateCategoryUseCaseTest  extends UseCaseTest {
         final var expectedCategory = new CategoryBuilder("any name", "description").build();
         final var expectedUpdatedAt = expectedCategory.getUpdatedAt();
 
-        final var updateCategoryInputDto = new UpdateCategoryInputDto(
+        final var updateCategoryInputDto = new UpdateCategoryCommand(
                 expectedCategory.getId().getValue(),
                 expectedName,
                 expectedDescription);
@@ -75,7 +75,7 @@ public class UpdateCategoryUseCaseTest  extends UseCaseTest {
                 expectedCategoryId
         );
 
-        final var updateCategoryInputDto = new UpdateCategoryInputDto(
+        final var updateCategoryInputDto = new UpdateCategoryCommand(
                 expectedCategoryId,
                 "any",
                 "description");
@@ -100,7 +100,7 @@ public class UpdateCategoryUseCaseTest  extends UseCaseTest {
                 new Error("'name' must be between 3 and 255 characters"));
 
         final var category = new CategoryBuilder("any name", "description").build();
-        final var updateCategoryInputDto = new UpdateCategoryInputDto(
+        final var updateCategoryInputDto = new UpdateCategoryCommand(
                 category.getId().getValue(),
                 "",
                 category.getDescription());

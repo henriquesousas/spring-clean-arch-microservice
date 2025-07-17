@@ -34,7 +34,7 @@ public class CreateCategoryUseCaseTest extends UseCaseTest {
         when(repository.create(any()))
                 .thenReturn(expectedCategory);
 
-        final var categoryOutputDto = sut.execute(CreateCategoryInputDto.with(
+        final var categoryOutputDto = sut.execute(CreateCategoryCommand.with(
                 expectedCategory.getName(),
                 expectedCategory.getDescription())).get();
 
@@ -62,7 +62,7 @@ public class CreateCategoryUseCaseTest extends UseCaseTest {
         final var expectedErrorMessage = "UnprocessableEntity";
         final var expectedCategory = new CategoryBuilder("", "any description").build();
 
-        DomainException exception = sut.execute(CreateCategoryInputDto.with(
+        DomainException exception = sut.execute(CreateCategoryCommand.with(
                 expectedCategory.getName(),
                 expectedCategory.getDescription())).getLeft();
                                                                                                                                                                                                                                                                                                                                                                                                                                  Assertions.assertEquals(exception.getErrors().size(), 2);

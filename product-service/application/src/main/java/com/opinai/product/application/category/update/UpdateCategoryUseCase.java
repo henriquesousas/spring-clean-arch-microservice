@@ -12,11 +12,8 @@ import com.opinai.shared.domain.validation.handler.Notification;
 import io.vavr.API;
 import io.vavr.control.Either;
 
-import static io.vavr.API.Try;
-import static io.vavr.control.Either.left;
 
-
-public class UpdateCategoryUseCase extends UseCase<UpdateCategoryInputDto, Either<DomainException, UpdateCategoryOutputDto>> {
+public class UpdateCategoryUseCase extends UseCase<UpdateCategoryCommand, Either<DomainException, UpdateCategoryOutputDto>> {
 
     private final CategoryRepository repository;
 
@@ -25,7 +22,7 @@ public class UpdateCategoryUseCase extends UseCase<UpdateCategoryInputDto, Eithe
     }
 
     @Override
-    public Either<DomainException, UpdateCategoryOutputDto> execute(UpdateCategoryInputDto dto) {
+    public Either<DomainException, UpdateCategoryOutputDto> execute(UpdateCategoryCommand dto) {
 
         CategoryId categoryId = CategoryId.from(dto.id());
         Notification notification = Notification.create();

@@ -2,7 +2,7 @@ package com.opinai.product.infrastructure;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.opinai.product.ControllerTest;
-import com.opinai.product.application.category.create.CreateCategoryOutputDto;
+import com.opinai.product.application.category.create.CreateCategoryOutput;
 import com.opinai.product.application.category.create.CreateCategoryUseCase;
 import com.opinai.product.application.category.delete.DeleteCategoryUseCase;
 import com.opinai.product.application.category.retrieve.CategoryOutput;
@@ -78,7 +78,7 @@ public class CategoryControllerTest {
         );
 
         when(createCategoryUseCase.execute(any()))
-                .thenReturn(API.Right(CreateCategoryOutputDto.from("123")));
+                .thenReturn(API.Right(CreateCategoryOutput.from("123")));
 
         final var request = MockMvcRequestBuilders.post("/categories")
                 .contentType(MediaType.APPLICATION_JSON)

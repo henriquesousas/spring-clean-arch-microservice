@@ -9,7 +9,7 @@ import com.opinai.shared.domain.exceptions.NotFoundException;
 import com.opinai.shared.domain.exceptions.ValidationException;
 import io.vavr.control.Either;
 
-public class GetSubcategoryByIdUseCase extends UseCase<GetSubcategoryByIdDto, Either<DomainException, Subcategory>> {
+public class GetSubcategoryByIdUseCase extends UseCase<GetSubcategoryCommand, Either<DomainException, Subcategory>> {
 
     private final SubcategoryRepository repository;
 
@@ -18,7 +18,7 @@ public class GetSubcategoryByIdUseCase extends UseCase<GetSubcategoryByIdDto, Ei
     }
 
     @Override
-    public Either<DomainException, Subcategory> execute(final GetSubcategoryByIdDto dto) {
+    public Either<DomainException, Subcategory> execute(final GetSubcategoryCommand dto) {
         final var genreId = SubcategoryId.from(dto.subcategoryId());
 
         if (genreId.getNotification().hasError()) {

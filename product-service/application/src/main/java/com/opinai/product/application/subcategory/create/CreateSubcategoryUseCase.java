@@ -17,7 +17,7 @@ import static io.vavr.control.Either.left;
 import static io.vavr.control.Either.right;
 
 
-public class CreateSubcategoryUseCase extends UseCase<CreateSubcategoryInputDto, Either<DomainException, Subcategory>> {
+public class CreateSubcategoryUseCase extends UseCase<CreateSubcategoryCommand, Either<DomainException, Subcategory>> {
     private final SubcategoryRepository subcategoryRepository;
     private final CategoryRepository categoryRepository;
 
@@ -28,7 +28,7 @@ public class CreateSubcategoryUseCase extends UseCase<CreateSubcategoryInputDto,
     }
 
     @Override
-    public Either<DomainException, Subcategory> execute(final CreateSubcategoryInputDto dto) {
+    public Either<DomainException, Subcategory> execute(final CreateSubcategoryCommand dto) {
 
         final var ids = CategoryId.from(dto.categories());
 

@@ -1,4 +1,4 @@
-package com.opinai.product.infrastructure;
+package com.opinai.product.infrastructure.core;
 
 import org.springframework.data.jpa.domain.Specification;
 

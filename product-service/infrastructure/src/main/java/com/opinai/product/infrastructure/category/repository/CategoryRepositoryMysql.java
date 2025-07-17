@@ -3,13 +3,12 @@ package com.opinai.product.infrastructure.category.repository;
 import com.opinai.product.domain.category.Category;
 import com.opinai.product.domain.category.CategoryId;
 import com.opinai.product.domain.category.CategoryRepository;
-import com.opinai.product.infrastructure.SpecificationUtils;
+import com.opinai.product.infrastructure.core.SpecificationUtils;
 import com.opinai.shared.domain.pagination.Pagination;
 import com.opinai.shared.domain.pagination.Search;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
@@ -70,7 +69,7 @@ public class CategoryRepositoryMysql implements CategoryRepository {
 
 
         // Paginacao
-        final var pageResult = this.repository.findAll (specifications, page);
+        final var pageResult = this.repository.findAll(specifications, page);
         return new Pagination<>(
                 page.getPageNumber(),
                 pageResult.getSize(),

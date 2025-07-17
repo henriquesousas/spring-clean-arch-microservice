@@ -1,7 +1,7 @@
 package com.opinai.product.application;
 
 import com.opinai.product.IntegrationTest;
-import com.opinai.product.application.category.create.CreateCategoryInputDto;
+import com.opinai.product.application.category.create.CreateCategoryCommand;
 import com.opinai.product.application.category.create.CreateCategoryUseCase;
 import com.opinai.product.domain.category.CategoryBuilder;
 import com.opinai.product.domain.category.CategoryRepository;
@@ -37,7 +37,7 @@ public class CreateCategoryUseCaseTestIT {
 
         Assertions.assertEquals(repository.count(), 0);
 
-        final var command = CreateCategoryInputDto.with(
+        final var command = CreateCategoryCommand.with(
                 expectedCategory.getName(),
                 expectedCategory.getDescription());
 
@@ -65,7 +65,7 @@ public class CreateCategoryUseCaseTestIT {
 
         final var expectedCategory = CategoryBuilder.newCategory("", "any description").build();
 
-        final var command = CreateCategoryInputDto.with(
+        final var command = CreateCategoryCommand.with(
                 expectedCategory.getName(),
                 expectedCategory.getDescription());
 
