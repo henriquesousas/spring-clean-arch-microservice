@@ -5,15 +5,13 @@ import java.time.Instant;
 public class CategoryBuilder {
     private CategoryId categoryId;
     private final String name;
-    private final String description;
     private boolean isActive = true;
     private Instant createdAt = Instant.now();
     private Instant updateAt = Instant.now();
     private Instant deletedAt = null;
 
-    public CategoryBuilder(String name, String description) {
+    public CategoryBuilder(String name) {
         this.name = name;
-        this.description = description;
     }
 
     public CategoryBuilder withCategoryId(String id) {
@@ -21,8 +19,8 @@ public class CategoryBuilder {
         return this;
     }
 
-    public static CategoryBuilder newCategory(String name, String description) {
-        return new CategoryBuilder(name, description);
+    public static CategoryBuilder newCategory(String name) {
+        return new CategoryBuilder(name);
     }
 
     public CategoryBuilder withActive(boolean isActive) {
@@ -54,7 +52,6 @@ public class CategoryBuilder {
         return new Category(
                 resolvedCategoryId,
                 name,
-                description,
                 this.isActive,
                 this.createdAt,
                 this.updateAt,

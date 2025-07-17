@@ -37,7 +37,7 @@ public class UpdateCategoryUseCase extends UseCase<UpdateCategoryInputDto, Eithe
             return Either.left(NotFoundException.with(Category.class, categoryId));
         }
 
-        category.update(dto.name(), dto.description()).validate(notification);
+        category.update(dto.name()).validate(notification);
 
         if (notification.hasError()) {
             return Either.left(ValidationException.with(notification.getErrors()));

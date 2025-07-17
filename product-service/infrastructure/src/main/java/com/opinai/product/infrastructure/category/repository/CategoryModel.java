@@ -25,9 +25,6 @@ public class CategoryModel {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "description", length = 4000)
-    private String description;
-
     @Column(name = "active", nullable = false)
     private boolean active;
 
@@ -43,7 +40,6 @@ public class CategoryModel {
     private CategoryModel(
             final String id,
             final String name,
-            final String description,
             final boolean active,
             final Instant createdAt,
             final Instant updatedAt,
@@ -51,7 +47,6 @@ public class CategoryModel {
     ) {
         this.id = id;
         this.name = name;
-        this.description = description;
         this.active = active;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
@@ -63,7 +58,6 @@ public class CategoryModel {
         return new CategoryModel(
                 category.getId().getValue(),
                 category.getName(),
-                category.getDescription(),
                 category.isActive(),
                 category.getCreatedAt(),
                 category.getUpdatedAt(),
@@ -72,7 +66,7 @@ public class CategoryModel {
     }
 
     public Category toAggregate() {
-        return new CategoryBuilder(this.getName(), this.getDescription())
+        return new CategoryBuilder(this.getName())
                 .withCategoryId(this.getId())
                 .withActive(this.isActive())
                 .withCreatedAt(this.getCreatedAt())

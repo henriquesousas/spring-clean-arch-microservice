@@ -1,15 +1,13 @@
 package com.opinai.product.application.category.create;
 
 public record CreateCategoryInputDto(
-        String name,
-        String description
+        String name
 ) {
 
 
     public static CreateCategoryInputDto with(
-            final String name,
-            final String description
+            final String name
     ) {
-        return new CreateCategoryInputDto(name, description);
+        return new CreateCategoryInputDto(name);
     }
 }

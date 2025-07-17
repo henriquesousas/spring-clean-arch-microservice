@@ -20,7 +20,7 @@ public class CreateCategoryUseCase extends UseCase<CreateCategoryInputDto, Eithe
     @Override
     public Either<DomainException, CreateCategoryOutputDto> execute(final CreateCategoryInputDto dto) {
 
-        final var category = CategoryBuilder.newCategory(dto.name(), dto.description()).build();
+        final var category = CategoryBuilder.newCategory(dto.name()).build();
 
         Notification notification = Notification.create();
         category.validate(notification);

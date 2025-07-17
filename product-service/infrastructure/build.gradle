@@ -2,10 +2,6 @@ buildscript {
     repositories {
         mavenCentral()
     }
-
-//    dependencies {
-//        classpath 'org.flywaydb:flyway-mysql:9.11.0'
-//    }
 }
 
 plugins {
@@ -15,7 +11,6 @@ plugins {
     id 'application'
     id 'org.springframework.boot' version '2.6.7'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
-//    id 'org.flywaydb.flyway' version '9.11.0'
 }
 
 group = 'com.opinai.product.infrastructure'
@@ -49,8 +44,6 @@ dependencies {
     implementation('mysql:mysql-connector-java')
     // Mapper
     implementation('com.fasterxml.jackson.module:jackson-module-afterburner')
-    //Flyway
-//    implementation('org.flywaydb:flyway-core')
     // H2 para testes local
     testRuntimeOnly('com.h2database:h2')
     // Tests
@@ -61,15 +54,6 @@ dependencies {
     testImplementation('org.testcontainers:mysql:1.21.0')
     testImplementation('org.testcontainers:junit-jupiter:1.21.0')
 }
-
-// Flyway é um gerenciador de migrações do nosso banco de dados
-//flyway {
-//    url = System.getenv('FLYWAY_DB') ?: 'jdbc:mysql://localhost:3307/services'
-//    user = System.getenv('FLYWAY_USER') ?: 'root'
-//    password = System.getenv('FLYWAY_PASSWORD') ?: 'admin'
-//    cleanDisabled = false
-//}
-
 //Coverage
 testCodeCoverageReport {
     reports {

@@ -12,7 +12,6 @@ import java.util.Objects;
 public class Category extends AggregateRoot<CategoryId> implements Cloneable {
 
     private String name;
-    private String description;
     private boolean isActive;
     private final Instant createdAt;
     private Instant updatedAt;
@@ -21,7 +20,6 @@ public class Category extends AggregateRoot<CategoryId> implements Cloneable {
     public Category(
             CategoryId id,
             String name,
-            String description,
             boolean isActive,
             Instant createdAt,
             Instant updatedAt,
@@ -29,7 +27,6 @@ public class Category extends AggregateRoot<CategoryId> implements Cloneable {
     ) {
         super(id);
         this.name = name;
-        this.description = description;
         this.isActive = isActive;
         this.createdAt = Objects.requireNonNull(createdAt);
         this.updatedAt = Objects.requireNonNull(updatedAt);
@@ -55,10 +52,9 @@ public class Category extends AggregateRoot<CategoryId> implements Cloneable {
         return this;
     }
 
-    public Category update(String name, String description) {
+    public Category update(String name) {
         if (this.isActive) {
             this.name = name;
-            this.description = description;
             this.updatedAt = Instant.now();
         }
         return this;

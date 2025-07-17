@@ -8,7 +8,6 @@ import java.time.Instant;
 public record CategoryResponse(
         @JsonProperty("id") String id,
         @JsonProperty("name") String name,
-        @JsonProperty("description") String description,
         @JsonProperty("is_active") Boolean active,
         @JsonProperty("created_at") Instant createdAt,
         @JsonProperty("updated_at") Instant updatedAt,
@@ -19,7 +18,6 @@ public record CategoryResponse(
         return new CategoryResponse(
                 data.id().getValue(),
                 data.name(),
-                data.description(),
                 true,
                 data.createdAt(),
                 data.updatedAt(),

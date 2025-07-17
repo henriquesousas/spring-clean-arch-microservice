@@ -41,7 +41,7 @@ public class CategoryController implements HttpCategoryController {
 
     @Override
     public ResponseEntity<CreateCategoryOutputDto> create(final CreateCategoryRequest dto) {
-        CreateCategoryInputDto command = CreateCategoryInputDto.with(dto.name(), dto.description());
+        CreateCategoryInputDto command = CreateCategoryInputDto.with(dto.name());
 
         return this.createCategoryUseCase.execute(command)
                 .map(data -> ResponseEntity.created(URI.create("/categories/" + data.categoryId())).body(data))
@@ -52,8 +52,7 @@ public class CategoryController implements HttpCategoryController {
     public ResponseEntity<Void> update(final @PathVariable String id, final CreateCategoryRequest dto) {
         final var response = this.updateCategoryUseCase.execute(new UpdateCategoryInputDto(
                 id,
-                dto.name(),
-                dto.description()
+                dto.name()
         ));
         ResponseEntity<Void> noContent = ResponseEntity.noContent().build();
         return response.map(data -> noContent)
