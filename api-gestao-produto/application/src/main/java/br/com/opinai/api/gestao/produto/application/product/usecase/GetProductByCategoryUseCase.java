@@ -6,6 +6,7 @@ import com.opinai.shared.application.UseCase;
 import com.opinai.shared.domain.exceptions.DomainException;
 import io.vavr.control.Either;
 
+//TODO: Remove
 public class GetProductByCategoryUseCase extends UseCase<String, Either<DomainException, ProductOutput>> {
 
     private final ProductRepository repository;
@@ -16,9 +17,6 @@ public class GetProductByCategoryUseCase extends UseCase<String, Either<DomainEx
 
     @Override
     public Either<DomainException, ProductOutput> execute(final String categoryId) {
-       return this.repository.getByCategoryId(categoryId)
-                .map(ProductOutput::from)
-                .map(Either::<DomainException, ProductOutput>right)
-                .orElseGet(() -> Either.left(new ProductNotFoundException()));
+       return null;
     }
 }

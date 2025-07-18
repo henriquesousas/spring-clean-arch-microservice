@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
 import javax.persistence.criteria.Join;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Component
 public class ProductRepositoryMsql implements ProductRepository {
@@ -33,12 +34,6 @@ public class ProductRepositoryMsql implements ProductRepository {
                 .map(ProductJpaEntity::toAggregate);
     }
 
-    @Override
-    public Optional<Product> getByCategoryId(String identifier) {
-        return this.repository
-                .findById(identifier)
-                .map(ProductJpaEntity::toAggregate);
-    }
 
     @Override
     public Pagination<Product> getAll(ProductSearch query) {

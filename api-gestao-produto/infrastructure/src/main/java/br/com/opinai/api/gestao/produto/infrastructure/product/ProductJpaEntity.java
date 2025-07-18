@@ -2,15 +2,25 @@ package br.com.opinai.api.gestao.produto.infrastructure.product;
 
 
 import br.com.opinai.api.gestao.produto.domain.product.*;
+import br.com.opinai.api.gestao.produto.domain.product.ref.BrandRef;
+import br.com.opinai.api.gestao.produto.domain.product.ref.CategoryRef;
+import br.com.opinai.api.gestao.produto.domain.product.ref.SubcategoryRef;
+import br.com.opinai.api.gestao.produto.domain.product.ref.TagRef;
 import br.com.opinai.api.gestao.produto.infrastructure.brand.BrandJpaEntity;
 import br.com.opinai.api.gestao.produto.infrastructure.category.models.CategoryJpaEntity;
 import br.com.opinai.api.gestao.produto.infrastructure.subcategory.models.SubCategoryJpaEntity;
+import br.com.opinai.api.gestao.produto.infrastructure.tags.TagJpaEntity;
+import com.opinai.shared.domain.utils.NullableUtils;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -33,7 +43,7 @@ public class ProductJpaEntity {
     private String model;
 
     @OneToOne
-    @JoinColumn(name = "brand_id", referencedColumnName = "id", nullable = false, unique = true)
+    @JoinColumn(name = "brand_id", referencedColumnName = "id", unique = true)
     private BrandJpaEntity brand;
 
     @OneToOne
@@ -62,24 +72,28 @@ public class ProductJpaEntity {
     @Column(name = "deleted_at", columnDefinition = "DATETIME(6)")
     private Instant deletedAt;
 
+    @ManyToMany()
+    @JoinTable(
+            name = "product_tags",
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "tag_id")
+    )
+    private Set<TagJpaEntity> tags = new HashSet<>();
+
     public Product toAggregate() {
-        final var brand = new BrandRef(getBrand().getId(), getBrand().getName());
-        final var category = new CategoryRef(getCategory().getId(), getCategory().getName());
-        final var subcategory = new SubcategoryRef(getSubCategory().getId(), getSubCategory().getName());
-        final var model = new Model(getModel());
-        final var site = new Url(getSite());
+        //TODO: Criar builder
         return new Product(
                 ProductId.from(getId()),
                 getName(),
                 getDescription(),
-                brand,
-                model,
-                category,
-                subcategory,
+                NullableUtils.mapOrNull(this.getBrand(), entity -> BrandRef.with(entity.getId(), entity.getName())),
+                new Model(getModel()),
+                new CategoryRef(getCategory().getId(), getCategory().getName()),
+                new SubcategoryRef(getSubCategory().getId(), getSubCategory().getName()),
                 getColor(),
                 null,
-                null,
-                site
+                getTags().stream().map(tag -> TagRef.with(tag.getId(), tag.getName())).collect(Collectors.toSet()),
+                new Url(getSite())
         );
     }
 }

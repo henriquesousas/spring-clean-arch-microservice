@@ -3,7 +3,7 @@
     name VARCHAR(255) NOT NULL,
     description TEXT,
     model VARCHAR(100),
-    brand_id VARCHAR(32) NOT NULL,
+    brand_id VARCHAR(32) NULL,
     category_id VARCHAR(32) NOT NULL,
     subcategory_id VARCHAR(32) NOT NULL,
     color VARCHAR(50),

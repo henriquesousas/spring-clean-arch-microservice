@@ -1,5 +1,9 @@
 package br.com.opinai.api.gestao.produto.domain.product;
 
+import br.com.opinai.api.gestao.produto.domain.product.ref.BrandRef;
+import br.com.opinai.api.gestao.produto.domain.product.ref.CategoryRef;
+import br.com.opinai.api.gestao.produto.domain.product.ref.SubcategoryRef;
+import br.com.opinai.api.gestao.produto.domain.product.ref.TagRef;
 import com.opinai.shared.domain.AggregateRoot;
 import com.opinai.shared.domain.validation.ValidationHandler;
 import lombok.Getter;
@@ -19,7 +23,7 @@ public class Product extends AggregateRoot<ProductId> {
     private SubcategoryRef subcategoryRef;
     private String color;
     private Set<Photo> photos;
-    private Set<Tags> tags;
+    private Set<TagRef> tags;
     private Url site;
 
     public Product(
@@ -32,7 +36,7 @@ public class Product extends AggregateRoot<ProductId> {
             final SubcategoryRef subcategoryRef,
             final String color,
             final Set<Photo> photos,
-            final Set<Tags> tags,
+            final Set<TagRef> tags,
             final Url site
     ) {
         super(productId);
