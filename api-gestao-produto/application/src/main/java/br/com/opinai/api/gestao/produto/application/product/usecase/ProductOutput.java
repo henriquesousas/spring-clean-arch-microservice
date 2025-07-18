@@ -2,6 +2,7 @@ package br.com.opinai.api.gestao.produto.application.product.usecase;
 
 import br.com.opinai.api.gestao.produto.domain.product.ref.BrandRef;
 import br.com.opinai.api.gestao.produto.domain.product.Product;
+import br.com.opinai.api.gestao.produto.domain.product.ref.PhotosRef;
 import br.com.opinai.api.gestao.produto.domain.product.ref.TagRef;
 
 import java.util.Set;
@@ -13,6 +14,7 @@ public record ProductOutput(
         String model,
         BrandRef brand,
         Set<TagRef> tags,
+        Set<PhotosRef> photos,
         String category,
         String subcategory,
         String color,
@@ -27,6 +29,7 @@ public record ProductOutput(
                 product.getModel().value(),
                 product.getBrandRef(),
                 product.getTags(),
+                product.getPhotos(),
                 product.getCategoryRef().name(),
                 product.getSubcategoryRef().name(),
                 product.getColor(),

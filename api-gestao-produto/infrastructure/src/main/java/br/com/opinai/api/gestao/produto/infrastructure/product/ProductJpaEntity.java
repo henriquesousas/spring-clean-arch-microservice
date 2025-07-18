@@ -2,12 +2,10 @@ package br.com.opinai.api.gestao.produto.infrastructure.product;
 
 
 import br.com.opinai.api.gestao.produto.domain.product.*;
-import br.com.opinai.api.gestao.produto.domain.product.ref.BrandRef;
-import br.com.opinai.api.gestao.produto.domain.product.ref.CategoryRef;
-import br.com.opinai.api.gestao.produto.domain.product.ref.SubcategoryRef;
-import br.com.opinai.api.gestao.produto.domain.product.ref.TagRef;
+import br.com.opinai.api.gestao.produto.domain.product.ref.*;
 import br.com.opinai.api.gestao.produto.infrastructure.brand.BrandJpaEntity;
 import br.com.opinai.api.gestao.produto.infrastructure.category.models.CategoryJpaEntity;
+import br.com.opinai.api.gestao.produto.infrastructure.photos.PhotoJpaEntity;
 import br.com.opinai.api.gestao.produto.infrastructure.subcategory.models.SubCategoryJpaEntity;
 import br.com.opinai.api.gestao.produto.infrastructure.tags.TagJpaEntity;
 import com.opinai.shared.domain.utils.NullableUtils;
@@ -17,9 +15,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.Instant;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Getter
@@ -80,6 +76,10 @@ public class ProductJpaEntity {
     )
     private Set<TagJpaEntity> tags = new HashSet<>();
 
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OrderBy("sortOrder ASC")
+    private Set<PhotoJpaEntity> photos = new HashSet<>();
+
     public Product toAggregate() {
         //TODO: Criar builder
         return new Product(
@@ -91,7 +91,7 @@ public class ProductJpaEntity {
                 new CategoryRef(getCategory().getId(), getCategory().getName()),
                 new SubcategoryRef(getSubCategory().getId(), getSubCategory().getName()),
                 getColor(),
-                null,
+                getPhotos().stream().map(photo -> PhotosRef.with(photo.getUrl(), photo.getAltText(), photo.isMain(), photo.getSortOrder())).collect(Collectors.toSet()),
                 getTags().stream().map(tag -> TagRef.with(tag.getId(), tag.getName())).collect(Collectors.toSet()),
                 new Url(getSite())
         );

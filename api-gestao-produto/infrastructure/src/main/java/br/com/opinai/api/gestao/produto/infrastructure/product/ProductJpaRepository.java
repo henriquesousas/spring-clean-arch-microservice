@@ -11,10 +11,12 @@ import org.springframework.data.repository.query.Param;
 import java.util.Optional;
 
 public interface ProductJpaRepository  extends JpaRepository<ProductJpaEntity, String> {
-    @EntityGraph(attributePaths = {"tags", "brand", "category", "subCategory"})
+    @EntityGraph(attributePaths = {"tags", "brand", "category", "subCategory", "photos"})
     Page<ProductJpaEntity> findAll(Specification<ProductJpaEntity> whereClause, Pageable page);
 
-    @Query("SELECT p FROM Products p LEFT JOIN FETCH p.tags WHERE p.id = :id")
+//    @Query("SELECT p FROM Products p LEFT JOIN FETCH p.tags WHERE p.id = :id")
+    @EntityGraph(attributePaths = {"tags", "brand", "category", "subCategory", "photos"})
+    @Query("SELECT p FROM Products p WHERE p.id = :id")
     Optional<ProductJpaEntity> findById(@Param("id") String id);
 
 }
