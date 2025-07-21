@@ -11,10 +11,9 @@ include 'api-gestao-produto:domain'
 include 'api-gestao-produto:application'
 include 'api-gestao-produto:infrastructure'
 
-//findProject(':api-gestao-produto:domain')?.name = 'domain'
-//findProject(':api-gestao-produto:application')?.name = 'application'
-//findProject(':api-gestao-produto:domain')?.name = 'domain'
-//findProject(':api-gestao-produto:infrastructure')?.name = 'infrastructure'
+findProject(':api-gestao-produto:domain')?.name = 'domain'
+findProject(':api-gestao-produto:application')?.name = 'application'
+findProject(':api-gestao-produto:infrastructure')?.name = 'infrastructure'
 
 include 'reviewanalyze-service'
 include 'review-service:domain'
