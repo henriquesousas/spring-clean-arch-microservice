@@ -1,8 +1,4 @@
-<<<<<<<< HEAD:product-service/domain/src/main/java/com/opinai/product/domain/category/CategoryRepository.java
-package com.opinai.product.domain.category;
-========
 package br.com.opinai.api.gestao.produto.domain.category;
->>>>>>>> feat/product:api-gestao-produto/domain/src/main/java/br/com/opinai/api/gestao/produto/domain/category/CategoryRepository.java
 
 
 import com.opinai.shared.domain.pagination.Pagination;

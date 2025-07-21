@@ -1,8 +1,5 @@
-<<<<<<<< HEAD:product-service/domain/src/main/java/com/opinai/product/domain/category/CategoryId.java
-package com.opinai.product.domain.category;
-========
+
 package br.com.opinai.api.gestao.produto.domain.category;
->>>>>>>> feat/product:api-gestao-produto/domain/src/main/java/br/com/opinai/api/gestao/produto/domain/category/CategoryId.java
 
 import com.opinai.shared.domain.Identifier;
 import com.opinai.shared.domain.utils.IdUtils;
