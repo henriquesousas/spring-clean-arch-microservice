@@ -1,5 +1,6 @@
 package br.com.opinai.api.gestao.produto.infrastructure.product;
 
+import br.com.opinai.api.gestao.produto.application.product.usecase.GetAllProductByTagsUseCase;
 import br.com.opinai.api.gestao.produto.application.product.usecase.GetAllProductsUseCase;
 import br.com.opinai.api.gestao.produto.application.product.usecase.GetProductByIdUseCase;
 import br.com.opinai.api.gestao.produto.domain.product.ProductRepository;
@@ -25,5 +26,10 @@ public class ProductBeans {
     @Bean
     public GetAllProductsUseCase getProductByCategoryUseCase() {
         return new GetAllProductsUseCase(repository);
+    }
+
+    @Bean
+    public GetAllProductByTagsUseCase getAllProductByTagsUseCase() {
+        return new GetAllProductByTagsUseCase(repository);
     }
 }

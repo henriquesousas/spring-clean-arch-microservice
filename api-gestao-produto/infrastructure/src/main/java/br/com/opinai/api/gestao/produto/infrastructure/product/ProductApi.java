@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RequestMapping(value = "products")
 @Tag(name = "Products")
 public interface ProductApi {
@@ -21,6 +23,16 @@ public interface ProductApi {
             @ApiResponse(responseCode = "500", description = "Error interno do servidor"),
     })
     ResponseEntity<ProductOutput> getById(final @PathVariable String id);
+
+
+    @GetMapping("/tags")
+    @Operation(summary = "Busca os produtos por tags")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "OK"),
+            @ApiResponse(responseCode = "404", description = "Produto não encontrado"),
+            @ApiResponse(responseCode = "500", description = "Error interno do servidor"),
+    })
+    ResponseEntity<List<ProductOutput>> getByTags(final @RequestHeader("tagsIs") String tagsIds);
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)

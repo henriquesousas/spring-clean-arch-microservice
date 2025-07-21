@@ -14,6 +14,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.criteria.Join;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -32,8 +33,15 @@ public class ProductRepositoryMsql implements ProductRepository {
         return this.repository
                 .findById(identifier.getValue())
                 .map(ProductJpaEntity::toAggregate);
+
     }
 
+    @Override
+    public List<Product> getByTags(List<String> tagsId) {
+       return this.repository.findByTagIds(tagsId)
+                .stream().map(ProductJpaEntity::toAggregate)
+                .toList();
+    }
 
     @Override
     public Pagination<Product> getAll(ProductSearch query) {
@@ -47,7 +55,7 @@ public class ProductRepositoryMsql implements ProductRepository {
         Specification<ProductJpaEntity> specifications = Specification.where(null);
 
         // Filtra por termos
-        if(StringUtils.isNotBlank(query.terms())) {
+        if (StringUtils.isNotBlank(query.terms())) {
             Specification<ProductJpaEntity> nameLike = SpecificationUtils.like("name", query.terms());
             Specification<ProductJpaEntity> descriptionLike = SpecificationUtils.like("description", query.terms());
             specifications = specifications.and(nameLike.or(descriptionLike));
