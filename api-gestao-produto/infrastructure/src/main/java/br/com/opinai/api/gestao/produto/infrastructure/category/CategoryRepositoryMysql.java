@@ -1,11 +1,3 @@
-<<<<<<<< HEAD:product-service/infrastructure/src/main/java/com/opinai/product/infrastructure/category/repository/CategoryRepositoryMysql.java
-package com.opinai.product.infrastructure.category.repository;
-
-import com.opinai.product.domain.category.Category;
-import com.opinai.product.domain.category.CategoryId;
-import com.opinai.product.domain.category.CategoryRepository;
-import com.opinai.product.infrastructure.SpecificationUtils;
-========
 package br.com.opinai.api.gestao.produto.infrastructure.category;
 
 import br.com.opinai.api.gestao.produto.domain.category.Category;
@@ -13,16 +5,11 @@ import br.com.opinai.api.gestao.produto.domain.category.CategoryId;
 import br.com.opinai.api.gestao.produto.domain.category.CategoryRepository;
 import br.com.opinai.api.gestao.produto.infrastructure.category.models.CategoryJpaEntity;
 import br.com.opinai.api.gestao.produto.infrastructure.core.SpecificationUtils;
->>>>>>>> feat/product:api-gestao-produto/infrastructure/src/main/java/br/com/opinai/api/gestao/produto/infrastructure/category/CategoryRepositoryMysql.java
 import com.opinai.shared.domain.pagination.Pagination;
 import com.opinai.shared.domain.pagination.Search;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
-<<<<<<<< HEAD:product-service/infrastructure/src/main/java/com/opinai/product/infrastructure/category/repository/CategoryRepositoryMysql.java
-import org.springframework.stereotype.Service;
-========
->>>>>>>> feat/product:api-gestao-produto/infrastructure/src/main/java/br/com/opinai/api/gestao/produto/infrastructure/category/CategoryRepositoryMysql.java
 
 import java.util.List;
 import java.util.Optional;
@@ -40,24 +27,14 @@ public class CategoryRepositoryMysql implements CategoryRepository {
 
     @Override
     public Category create(Category category) {
-<<<<<<<< HEAD:product-service/infrastructure/src/main/java/com/opinai/product/infrastructure/category/repository/CategoryRepositoryMysql.java
-        CategoryModel categoryModel = this.repository.save(CategoryModel.from(category));
-        return categoryModel.toAggregate();
-========
         CategoryJpaEntity categoryJpaEntity = this.repository.save(CategoryJpaEntity.from(category));
         return categoryJpaEntity.toAggregate();
->>>>>>>> feat/product:api-gestao-produto/infrastructure/src/main/java/br/com/opinai/api/gestao/produto/infrastructure/category/CategoryRepositoryMysql.java
     }
 
     @Override
     public Category update(Category category) {
-<<<<<<<< HEAD:product-service/infrastructure/src/main/java/com/opinai/product/infrastructure/category/repository/CategoryRepositoryMysql.java
-        CategoryModel categoryModel = this.repository.save(CategoryModel.from(category));
-        return categoryModel.toAggregate();
-========
         CategoryJpaEntity categoryJpaEntity = this.repository.save(CategoryJpaEntity.from(category));
         return categoryJpaEntity.toAggregate();
->>>>>>>> feat/product:api-gestao-produto/infrastructure/src/main/java/br/com/opinai/api/gestao/produto/infrastructure/category/CategoryRepositoryMysql.java
     }
 
     @Override
@@ -70,11 +47,7 @@ public class CategoryRepositoryMysql implements CategoryRepository {
     @Override
     public Optional<Category> findById(CategoryId identifier) {
         return this.repository.findById(identifier.getValue())
-<<<<<<<< HEAD:product-service/infrastructure/src/main/java/com/opinai/product/infrastructure/category/repository/CategoryRepositoryMysql.java
-                .map(CategoryModel::toAggregate);
-========
                 .map(CategoryJpaEntity::toAggregate);
->>>>>>>> feat/product:api-gestao-produto/infrastructure/src/main/java/br/com/opinai/api/gestao/produto/infrastructure/category/CategoryRepositoryMysql.java
     }
 
     @Override
@@ -90,16 +63,10 @@ public class CategoryRepositoryMysql implements CategoryRepository {
         final var specifications = Optional.ofNullable(query.terms())
                 .filter(str -> !str.isBlank())
                 .map(str -> {
-<<<<<<<< HEAD:product-service/infrastructure/src/main/java/com/opinai/product/infrastructure/category/repository/CategoryRepositoryMysql.java
-                    final var nameLike = SpecificationUtils.<CategoryModel>like("name", str);
-                    final var descriptionLike = SpecificationUtils.<CategoryModel>like("description", str);
-                    return nameLike.or(descriptionLike);
-========
 //                    final var nameLike = SpecificationUtils.<CategoryModel>like("name", str);
 //                    final var descriptionLike = SpecificationUtils.<CategoryModel>like("description", str);
 //                    return nameLike.or(descriptionLike);
                     return SpecificationUtils.<CategoryJpaEntity>like("name", str);
->>>>>>>> feat/product:api-gestao-produto/infrastructure/src/main/java/br/com/opinai/api/gestao/produto/infrastructure/category/CategoryRepositoryMysql.java
                 }).orElse(null);
 
 
@@ -109,11 +76,7 @@ public class CategoryRepositoryMysql implements CategoryRepository {
                 page.getPageNumber(),
                 pageResult.getSize(),
                 pageResult.getTotalElements(),
-<<<<<<<< HEAD:product-service/infrastructure/src/main/java/com/opinai/product/infrastructure/category/repository/CategoryRepositoryMysql.java
-                pageResult.map(CategoryModel::toAggregate).toList()
-========
                 pageResult.map(CategoryJpaEntity::toAggregate).toList()
->>>>>>>> feat/product:api-gestao-produto/infrastructure/src/main/java/br/com/opinai/api/gestao/produto/infrastructure/category/CategoryRepositoryMysql.java
 
         );
     }

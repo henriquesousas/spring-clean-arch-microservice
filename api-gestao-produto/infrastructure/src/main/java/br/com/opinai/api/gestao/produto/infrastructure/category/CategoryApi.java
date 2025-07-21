@@ -1,16 +1,8 @@
-<<<<<<<< HEAD:product-service/infrastructure/src/main/java/com/opinai/product/infrastructure/category/HttpCategoryController.java
-package com.opinai.product.infrastructure.category;
-
-import com.opinai.product.application.category.create.CreateCategoryOutputDto;
-import com.opinai.product.infrastructure.category.models.CategoryResponse;
-import com.opinai.product.infrastructure.category.models.CreateCategoryRequest;
-========
 package br.com.opinai.api.gestao.produto.infrastructure.category;
 
 import br.com.opinai.api.gestao.produto.application.category.create.CreateCategoryOutput;
 import br.com.opinai.api.gestao.produto.infrastructure.category.models.CategoryResponse;
 import br.com.opinai.api.gestao.produto.infrastructure.category.models.CreateCategoryRequest;
->>>>>>>> feat/product:api-gestao-produto/infrastructure/src/main/java/br/com/opinai/api/gestao/produto/infrastructure/category/CategoryApi.java
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -24,11 +16,7 @@ import javax.validation.Valid;
 
 @RequestMapping(value = "categories")
 @Tag(name = "Categories")
-<<<<<<<< HEAD:product-service/infrastructure/src/main/java/com/opinai/product/infrastructure/category/HttpCategoryController.java
-public interface HttpCategoryController {
-========
 public interface CategoryApi {
->>>>>>>> feat/product:api-gestao-produto/infrastructure/src/main/java/br/com/opinai/api/gestao/produto/infrastructure/category/CategoryApi.java
 
     @PostMapping(
             consumes = MediaType.APPLICATION_JSON_VALUE,
@@ -40,11 +28,7 @@ public interface CategoryApi {
             @ApiResponse(responseCode = "422", description = "Unprocessable error"),
             @ApiResponse(responseCode = "500", description = "Internal server error"),
     })
-<<<<<<<< HEAD:product-service/infrastructure/src/main/java/com/opinai/product/infrastructure/category/HttpCategoryController.java
-    ResponseEntity<CreateCategoryOutputDto> create(@RequestBody @Valid CreateCategoryRequest dto);
-========
     ResponseEntity<CreateCategoryOutput> create(@RequestBody @Valid CreateCategoryRequest dto);
->>>>>>>> feat/product:api-gestao-produto/infrastructure/src/main/java/br/com/opinai/api/gestao/produto/infrastructure/category/CategoryApi.java
 
     @PutMapping(
             value = "/{id}",

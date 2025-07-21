@@ -1,14 +1,7 @@
-<<<<<<<< HEAD:product-service/infrastructure/src/main/java/com/opinai/product/infrastructure/category/models/PaginationCategoryResponse.java
-package com.opinai.product.infrastructure.category.models;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.opinai.product.application.category.retrieve.CategoryOutput;
-========
 package br.com.opinai.api.gestao.produto.infrastructure.category.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import br.com.opinai.api.gestao.produto.application.category.retrieve.CategoryOutput;
->>>>>>>> feat/product:api-gestao-produto/infrastructure/src/main/java/br/com/opinai/api/gestao/produto/infrastructure/category/models/PaginationCategoryResponse.java
 import com.opinai.shared.domain.pagination.Pagination;
 
 import java.util.List;

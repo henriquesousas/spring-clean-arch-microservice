@@ -1,26 +1,14 @@
-<<<<<<<< HEAD:product-service/application/src/main/java/com/opinai/product/application/category/delete/DeleteCategoryUseCase.java
-package com.opinai.product.application.category.delete;
-
-import com.opinai.product.domain.category.Category;
-import com.opinai.product.domain.category.CategoryId;
-import com.opinai.product.domain.category.CategoryRepository;
-========
 package br.com.opinai.api.gestao.produto.application.category.delete;
 
 import br.com.opinai.api.gestao.produto.domain.category.Category;
 import br.com.opinai.api.gestao.produto.domain.category.CategoryId;
 import br.com.opinai.api.gestao.produto.domain.category.CategoryRepository;
->>>>>>>> feat/product:api-gestao-produto/application/src/main/java/br/com/opinai/api/gestao/produto/application/category/delete/DeleteCategoryUseCase.java
 import com.opinai.shared.application.Unit;
 import com.opinai.shared.application.UseCase;
 import com.opinai.shared.domain.exceptions.NotFoundException;
 import com.opinai.shared.domain.validation.handler.Notification;
 import io.vavr.control.Either;
 import io.vavr.control.Try;
-<<<<<<<< HEAD:product-service/application/src/main/java/com/opinai/product/application/category/delete/DeleteCategoryUseCase.java
-import static io.vavr.control.Either.left;
-========
->>>>>>>> feat/product:api-gestao-produto/application/src/main/java/br/com/opinai/api/gestao/produto/application/category/delete/DeleteCategoryUseCase.java
 
 public class DeleteCategoryUseCase extends UseCase<String, Either<Notification, Unit>> {
 
