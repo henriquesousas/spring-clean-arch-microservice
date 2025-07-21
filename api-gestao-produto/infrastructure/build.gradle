@@ -1,0 +1,84 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+}
+
+plugins {
+    id 'java-conventions'
+    id 'jacoco-report-aggregation'
+    //Nencessario para usar o spring
+    id 'application'
+    id 'org.springframework.boot' version '2.6.7'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+}
+
+group = 'com.opinai.api.gestao.produto.infrastructure'
+
+
+//Para buildar o modulo Infrastructure dentro da pasta build da raiz do projeto
+bootJar {
+    archiveFileName = 'application.jar'
+    destinationDirectory = rootProject.layout.buildDirectory.dir('libs').get().asFile
+}
+
+dependencies {
+    implementation(project(":shared"))
+    implementation(project(":api-gestao-produto:domain"))
+    implementation(project(":api-gestao-produto:application"))
+
+    implementation('org.springframework.boot:spring-boot-starter-web') {
+        exclude module: 'spring-boot-starter-tomcat'
+    }
+
+    // Starter do spring para Servidor
+    implementation('org.springframework.boot:spring-boot-starter-undertow')
+    // Starter do spring para JPA (abstracoes para persistir informacoes)
+    implementation('org.springframework.boot:spring-boot-starter-data-jpa')
+    // RabbitMQ
+    implementation('org.springframework.boot:spring-boot-starter-amqp')
+    // Spring docs
+    implementation('org.springdoc:springdoc-openapi-webmvc-core:1.6.8')
+    implementation('org.springdoc:springdoc-openapi-ui:1.6.8')
+    // Driver Mysql
+    implementation('mysql:mysql-connector-java')
+    // Mapper
+    implementation('com.fasterxml.jackson.module:jackson-module-afterburner')
+    // H2 para testes local
+    testRuntimeOnly('com.h2database:h2')
+    // Tests
+    testImplementation('org.springframework.amqp:spring-rabbit-test:2.4.4')
+    testImplementation('org.springframework.boot:spring-boot-starter-test')
+    // Tests container
+    testImplementation('org.testcontainers:testcontainers:1.21.0')
+    testImplementation('org.testcontainers:mysql:1.21.0')
+    testImplementation('org.testcontainers:junit-jupiter:1.21.0')
+}
+//Coverage
+testCodeCoverageReport {
+    reports {
+        xml {
+            enabled true
+            destination file("$rootDir/build/reports/jacoco/test/jacocoTestReport.xml")
+        }
+
+        html {
+            enabled true
+            destination file("$rootDir/build/reports/jacoco/test/")
+        }
+    }
+}
+
+task printLogbackDeps {
+    doLast {
+        configurations.runtimeClasspath.resolvedConfiguration.resolvedArtifacts.each {
+            if (it.moduleVersion.id.group == 'ch.qos.logback') {
+                println "Logback: ${it.moduleVersion.id}"
+            }
+        }
+    }
+}
+
+tasks.named("jacocoTestReport") {
+    dependsOn tasks.named("testCodeCoverageReport", JacocoReport)
+}

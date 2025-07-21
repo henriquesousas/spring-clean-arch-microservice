@@ -1,0 +1,12 @@
+plugins {
+    id 'java-conventions'
+    id 'java-library'
+}
+
+group = 'com.opinai.api.gestao.produto.application'
+
+
+dependencies {
+    implementation(project(":shared"))
+    implementation(project(":api-gestao-produto:domain"))
+}

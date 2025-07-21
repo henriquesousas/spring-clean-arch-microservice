@@ -3,7 +3,11 @@ plugins {
     id 'java-library'
 }
 
+<<<<<<<< HEAD:product-service/domain/build.gradle
 group = 'com.opinai.product.domain'
+========
+group = 'com.opinai.api.gestao.produto.domain'
+>>>>>>>> feat/product:api-gestao-produto/domain/build.gradle
 
 
 dependencies {

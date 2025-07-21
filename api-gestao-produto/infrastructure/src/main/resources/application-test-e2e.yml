@@ -1,0 +1,14 @@
+logging:
+  level:
+    ROOT: info
+
+mysql:
+  username: root
+  password: admin
+  schema: services
+  url: localhost:${mysql.port} #  container port from test container
+
+spring:
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.amqp.RabbitAutoConfiguration
