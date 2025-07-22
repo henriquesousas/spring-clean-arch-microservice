@@ -4,6 +4,7 @@ import com.opinai.shared.domain.ValueObject;
 import com.opinai.shared.domain.utils.InstantUtils;
 import com.opinai.shared.domain.validation.Error;
 
+import java.time.Instant;
 import java.time.Period;
 import java.time.ZoneId;
 import java.util.Objects;
@@ -38,6 +39,10 @@ public class BirthDate extends ValueObject<String> {
 
     public static BirthDate from(String date) {
         return new BirthDate(date);
+    }
+
+    public static BirthDate from(Instant date) {
+        return new BirthDate( InstantUtils.toDateFormat(date) );
     }
 
     @Override
