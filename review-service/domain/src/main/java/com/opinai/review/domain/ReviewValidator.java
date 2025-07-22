@@ -62,11 +62,4 @@ public class ReviewValidator extends Validator {
             this.handler.append(new Error(message));
         }
     }
-
-    private void copyIfHasError(final Notification notification) {
-        if (notification == null) return;
-        if (notification.hasError()) {
-            this.handler.copy(notification);
-        }
-    }
 }

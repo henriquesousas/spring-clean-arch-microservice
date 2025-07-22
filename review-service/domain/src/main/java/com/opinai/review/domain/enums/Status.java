@@ -15,10 +15,4 @@ public enum Status implements Valuable<String> {
     Status(final String value) {
         this.value = value;
     }
-
-//    public static Optional<Status> of(final String label) {
-//        return Arrays.stream(Status.values())
-//                .filter(it -> it.name().equalsIgnoreCase(label))
-//                .findFirst();
-//    }
 }
