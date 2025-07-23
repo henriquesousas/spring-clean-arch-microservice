@@ -1,8 +1,7 @@
-package br.com.opinai.api.conta.application.usecase;
+package br.com.opinai.api.conta.application.usecase.create;
 
-import br.com.opinai.api.conta.domain.Gender;
-import br.com.opinai.api.conta.domain.UserBuilder;
-import br.com.opinai.api.conta.domain.UserRepository;
+import br.com.opinai.api.conta.domain.*;
+import br.com.opinai.api.conta.domain.exceptions.EmailAlreadyExistException;
 import br.com.opinai.api.conta.domain.valueobjects.BirthDate;
 import com.opinai.shared.application.UseCase;
 import com.opinai.shared.domain.exceptions.DomainException;
@@ -10,7 +9,9 @@ import com.opinai.shared.domain.exceptions.ValidationException;
 import com.opinai.shared.domain.utils.EnumUtils;
 import io.vavr.control.Either;
 
-public class CreateUserUseCase extends UseCase<CreateUserCommand, Either<DomainException, UserOutput>> {
+import java.util.stream.Collectors;
+
+public class CreateUserUseCase extends UseCase<CreateUserCommand, Either<DomainException, User>> {
 
     private final UserRepository repository;
 
@@ -19,8 +20,7 @@ public class CreateUserUseCase extends UseCase<CreateUserCommand, Either<DomainE
     }
 
     @Override
-    public Either<DomainException, UserOutput> execute(CreateUserCommand command) {
-
+    public Either<DomainException, User> execute(CreateUserCommand command) {
         final var user = UserBuilder.create(
                 command.firstName(),
                 command.lastName(),
@@ -29,7 +29,7 @@ public class CreateUserUseCase extends UseCase<CreateUserCommand, Either<DomainE
                 BirthDate.from(command.birthDate()),
                 command.password(),
                 command.phone(),
-                command.roles()
+                command.roles().stream().map(s -> EnumUtils.of(Role.values(), s)).collect(Collectors.toSet())
         ).build();
 
         if (user.getNotification().hasError()) {
@@ -37,8 +37,14 @@ public class CreateUserUseCase extends UseCase<CreateUserCommand, Either<DomainE
             return Either.left(ValidationException.with(errors));
         }
 
+        final var userFromDb = this.repository.getByEmail(command.email());
+
+        if (userFromDb.isPresent()) {
+            return Either.left(new EmailAlreadyExistException());
+        }
+
         this.repository.create(user);
 
-        return Either.right(UserOutput.from(user));
+        return Either.right(user);
     }
 }

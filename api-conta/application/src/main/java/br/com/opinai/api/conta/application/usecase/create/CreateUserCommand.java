@@ -1,6 +1,4 @@
-package br.com.opinai.api.conta.application.usecase;
-
-import br.com.opinai.api.conta.domain.Role;
+package br.com.opinai.api.conta.application.usecase.create;
 
 import java.util.Set;
 
@@ -12,6 +10,6 @@ public record CreateUserCommand(
         String birthDate,
         String password,
         String phone,
-        Set<Role> roles
+        Set<String> roles
 ) {
 }

@@ -2,6 +2,8 @@ package br.com.opinai.api.conta.domain.infrastructure;
 
 import br.com.opinai.api.conta.domain.User;
 import br.com.opinai.api.conta.domain.UserRepository;
+import br.com.opinai.api.conta.domain.exceptions.UserNotFoundException;
+import br.com.opinai.api.conta.domain.infrastructure.models.UserJpaEntity;
 import br.com.opinai.api.conta.domain.valueobjects.UserId;
 import org.springframework.stereotype.Component;
 
@@ -29,8 +31,14 @@ public class UserRepositoryMsql implements UserRepository {
     }
 
     @Override
-    public Optional<User> getById(UserId id) {
+    public User getById(UserId id) {
         return this.repository.findById(id.getValue())
+                .map(UserJpaEntity::toAggregate).orElse(null);
+    }
+
+    @Override
+    public Optional<User> getByEmail(String email) {
+        return this.repository.findByEmail(email)
                 .map(UserJpaEntity::toAggregate);
     }
 }

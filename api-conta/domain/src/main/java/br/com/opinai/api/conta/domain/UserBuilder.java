@@ -26,14 +26,15 @@ public class UserBuilder {
     private Instant updatedAt;
     private Instant deletedAt;
 
-    private UserBuilder(String firstName,
-                        String lastName,
-                        String email,
-                        Gender gender,
-                        BirthDate birthDate,
-                        String password,
-                        String phone,
-                        Set<Role> roles
+    private UserBuilder(
+            String firstName,
+            String lastName,
+            String email,
+            Gender gender,
+            BirthDate birthDate,
+            String password,
+            String phone,
+            Set<Role> roles
     ) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -55,7 +56,7 @@ public class UserBuilder {
              String phone,
              Set<Role> roles
             ) {
-        return new UserBuilder(firstName,lastName,email,gender,birthDate,password,phone,roles);
+        return new UserBuilder(firstName, lastName, email, gender, birthDate, password, phone, roles);
     }
 
     public UserBuilder withUserId(String userId) {
@@ -83,7 +84,7 @@ public class UserBuilder {
         return this;
     }
 
-    public UserBuilder withPhotoUrl (String url) {
+    public UserBuilder withPhotoUrl(String url) {
         this.photoUrl = PhotoUrl.from(url);
         return this;
     }

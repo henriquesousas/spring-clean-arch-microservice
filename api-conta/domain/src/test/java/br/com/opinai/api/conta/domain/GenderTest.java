@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 public class GenderTest {
 
     @Test
-    public void givenAGender_when_shouldReturnAValueInString() {
+    public void givenAStringGender_whenCallOf_shouldReturnAnGenderEnum() {
         final var expectedGender = "MASCULINO";
         final var male = EnumUtils.of(Gender.values(), expectedGender);
         Assertions.assertEquals(expectedGender, male.getValue());

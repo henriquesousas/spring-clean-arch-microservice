@@ -2,11 +2,13 @@ package br.com.opinai.api.conta.domain;
 
 import br.com.opinai.api.conta.domain.valueobjects.*;
 import com.opinai.shared.domain.AggregateRoot;
+import com.opinai.shared.domain.utils.EnumUtils;
 import com.opinai.shared.domain.utils.InstantUtils;
 import com.opinai.shared.domain.validation.Error;
 import com.opinai.shared.domain.validation.ValidationHandler;
 import lombok.Getter;
 
+import javax.swing.plaf.synth.SynthRadioButtonMenuItemUI;
 import java.time.Instant;
 import java.util.Objects;
 import java.util.Set;
@@ -79,33 +81,59 @@ public class User extends AggregateRoot<UserId> {
                 builder.getDeletedAt());
     }
 
-    public void update(
-            final String firstName,
-            final String lastName,
-            final Email email,
-            final BirthDate birthdate
-    ) {
-        if (!isActive()) {
-            this.notification.append(new Error("Usuario invativo"));
-            return;
-        }
+    public void changeFirstName(String firstName) {
+        if (failIfInactive())  return;
 
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.birthdate = birthdate;
         this.updatedAt = InstantUtils.now();
-        this.deletedAt = null;
+        this.firstName = firstName;
+        validate(notification);
+
+    }
+
+    public void changeLastName(String firstName) {
+        if (failIfInactive())  return;
+
+        this.updatedAt = InstantUtils.now();
+        this.lastName = firstName;
+        validate(notification);
+    }
+
+    public void changeEmail(String email) {
+        if (failIfInactive())  return;
+        this.updatedAt = InstantUtils.now();
+        this.email = Email.from(email);
+        validate(notification);
+    }
+
+    public void changeBirthdate(String date) {
+        if (failIfInactive())  return;
+
+        this.updatedAt = InstantUtils.now();
+        this.birthdate = BirthDate.from(date);
+        validate(notification);
+    }
+
+    public void changeGender(String gender) {
+
+        if (failIfInactive())  return;
+
+        this.updatedAt = InstantUtils.now();
+        this.gender = EnumUtils.of(Gender.values(), gender);
         validate(notification);
     }
 
     public void addPhoto(String url) {
-        if (!isActive()) {
-            this.notification.append(new Error("Usúario inativo"));
-            return;
-        }
+        if (failIfInactive())  return;
         this.photoUrl = PhotoUrl.from(url);
         this.updatedAt = InstantUtils.now();
+    }
+
+    private boolean failIfInactive() {
+        if (!isActive()) {
+            this.notification.append(new Error("Usuário inativo"));
+            return true;
+        }
+        return false;
     }
 
     @Override

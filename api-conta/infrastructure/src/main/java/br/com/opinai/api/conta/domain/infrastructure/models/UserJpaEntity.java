@@ -1,12 +1,14 @@
-package br.com.opinai.api.conta.domain.infrastructure;
+package br.com.opinai.api.conta.domain.infrastructure.models;
 
 import br.com.opinai.api.conta.domain.Gender;
 import br.com.opinai.api.conta.domain.Role;
 import br.com.opinai.api.conta.domain.User;
 import br.com.opinai.api.conta.domain.UserBuilder;
 import br.com.opinai.api.conta.domain.valueobjects.BirthDate;
+import br.com.opinai.api.conta.domain.valueobjects.PhotoUrl;
 import com.opinai.shared.domain.utils.EnumUtils;
 import com.opinai.shared.domain.utils.InstantUtils;
+import com.opinai.shared.domain.utils.NullableUtils;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -55,7 +57,7 @@ public class UserJpaEntity {
     @Column(name = "photo_url")
     private String photoUrl;
 
-    @Column(name = "active", nullable = false)
+    @Column(name = "is_active", nullable = false)
     private boolean isActive;
 
     @Column(name = "created_at", nullable = false, columnDefinition = "DATETIME(6)")
@@ -66,7 +68,6 @@ public class UserJpaEntity {
 
     @Column(name = "deleted_at", columnDefinition = "DATETIME(6)")
     private Instant deletedAt;
-
 
     public static UserJpaEntity from(User user) {
 
@@ -84,7 +85,7 @@ public class UserJpaEntity {
                         .map(value -> EnumUtils.of(Role.values(), value.getValue()).getValue())
                         .toList()
                         .get(0),
-                user.getPhotoUrl().getValue(),
+                NullableUtils.mapOrNull(user.getPhotoUrl(), PhotoUrl::getValue),
                 user.isActive(),
                 user.getCreatedAt(),
                 user.getUpdatedAt(),
@@ -101,7 +102,7 @@ public class UserJpaEntity {
                 BirthDate.from(getBirthDate()),
                 getPassword(),
                 getPhone(),
-                Set.of(EnumUtils.of(Role.values(),getRole()))
-        ).build();
+                Set.of(EnumUtils.of(Role.values(), getRole()))
+        ).withUserId(getId()).build();
     }
 }

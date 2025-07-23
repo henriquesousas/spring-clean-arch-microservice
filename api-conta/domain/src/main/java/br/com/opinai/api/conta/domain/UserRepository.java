@@ -7,5 +7,6 @@ import java.util.Optional;
 public interface UserRepository {
     void create(User  user);
     User update(User user);
-    Optional<User> getById(UserId id);
+    User getById(UserId id);
+    Optional<User> getByEmail(String email);
 }

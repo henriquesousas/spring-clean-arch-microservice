@@ -1,4 +1,4 @@
-package br.com.opinai.api.gestao.produto.infrastructure.core.exceptions;
+package br.com.opinai.api.conta.domain.infrastructure;
 import com.opinai.shared.domain.exceptions.DomainException;
 import com.opinai.shared.domain.validation.Error;
 import io.undertow.util.BadRequestException;
@@ -16,18 +16,14 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(ex.getStatus()).body(ApiError.from(ex));
     }
 
-    @ExceptionHandler(value = {Exception.class})
-    public ResponseEntity<?> handleException(final Exception ex) {
-
-        System.out.println("ERROR Exception" + ex);
-        return ResponseEntity.status(500).body( ApiError.internalServerError(ex.getMessage()));
+    @ExceptionHandler(value = {BadRequestException.class})
+    public ResponseEntity<?> handleBadRequestException(final Exception ex) {
+        return ResponseEntity.status(400).body( ApiError.badRequestError(ex.getMessage()));
     }
 
-    @ExceptionHandler(value = {BadRequestException.class})
-    public ResponseEntity<?> handleBadException(final Exception ex) {
-
-        System.out.println("ERROR BadRequestException" + ex);
-        return ResponseEntity.status(400).body( ApiError.badRequestError(ex.getMessage()));
+    @ExceptionHandler(value = {Exception.class})
+    public ResponseEntity<?> handleException(final Exception ex) {
+        return ResponseEntity.status(500).body( ApiError.internalServerError(ex.getMessage()));
     }
 
     record ApiError(String message, List<String> errors) {
