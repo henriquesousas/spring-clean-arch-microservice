@@ -1,5 +1,6 @@
 package br.com.opinai.api.conta.application.usecase.create;
 
+import br.com.opinai.api.conta.application.cryptography.Encrypt;
 import br.com.opinai.api.conta.domain.*;
 import br.com.opinai.api.conta.domain.exceptions.EmailAlreadyExistException;
 import br.com.opinai.api.conta.domain.valueobjects.BirthDate;
@@ -9,14 +10,17 @@ import com.opinai.shared.domain.exceptions.ValidationException;
 import com.opinai.shared.domain.utils.EnumUtils;
 import io.vavr.control.Either;
 
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class CreateUserUseCase extends UseCase<CreateUserCommand, Either<DomainException, User>> {
 
     private final UserRepository repository;
+    private final Encrypt encrypter;
 
-    public CreateUserUseCase(UserRepository repository) {
-        this.repository = repository;
+    public CreateUserUseCase(final UserRepository repository, final Encrypt encrypt) {
+        this.repository = Objects.requireNonNull(repository);
+        this.encrypter = Objects.requireNonNull(encrypt);
     }
 
     @Override
@@ -42,6 +46,12 @@ public class CreateUserUseCase extends UseCase<CreateUserCommand, Either<DomainE
         if (userFromDb.isPresent()) {
             return Either.left(new EmailAlreadyExistException());
         }
+
+        final var passwordEncrypted = this.encrypter.encrypt(command.password());
+
+        System.out.println(passwordEncrypted);
+
+        user.changePassword(passwordEncrypted);
 
         this.repository.create(user);
 

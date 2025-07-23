@@ -36,6 +36,8 @@ dependencies {
     implementation('org.springframework.boot:spring-boot-starter-undertow')
     // Starter do spring para JPA (abstracoes para persistir informacoes)
     implementation('org.springframework.boot:spring-boot-starter-data-jpa')
+    // Secutity
+    implementation 'org.springframework.boot:spring-boot-starter-security'
     // RabbitMQ
     implementation('org.springframework.boot:spring-boot-starter-amqp')
     // Spring docs

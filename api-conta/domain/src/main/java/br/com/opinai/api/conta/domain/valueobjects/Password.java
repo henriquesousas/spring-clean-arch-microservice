@@ -16,7 +16,6 @@ public class Password extends ValueObject<String> {
         return new Password(value);
     }
 
-
     protected void selfValidate() {
         if (value == null || value.isBlank()) {
             notification.append(new Error("Password inválido"));

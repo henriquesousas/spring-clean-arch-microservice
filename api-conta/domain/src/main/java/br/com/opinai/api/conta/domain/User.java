@@ -122,6 +122,11 @@ public class User extends AggregateRoot<UserId> {
         validate(notification);
     }
 
+    public void changePassword(String password) {
+        this.password = Password.from(password);
+        validate(notification);
+    }
+
     public void addPhoto(String url) {
         if (failIfInactive())  return;
         this.photoUrl = PhotoUrl.from(url);

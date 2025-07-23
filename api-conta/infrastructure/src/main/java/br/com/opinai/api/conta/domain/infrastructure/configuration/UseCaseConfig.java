@@ -1,5 +1,6 @@
-package br.com.opinai.api.conta.domain.infrastructure;
+package br.com.opinai.api.conta.domain.infrastructure.configuration;
 
+import br.com.opinai.api.conta.application.cryptography.Encrypt;
 import br.com.opinai.api.conta.application.usecase.create.CreateUserUseCase;
 import br.com.opinai.api.conta.application.usecase.getByEmail.GetUserByIdUseCase;
 import br.com.opinai.api.conta.application.usecase.update.UpdateUserUseCase;
@@ -10,17 +11,19 @@ import org.springframework.context.annotation.Configuration;
 import java.util.Objects;
 
 @Configuration
-public class UserBean {
+public class UseCaseConfig {
 
     private final UserRepository repository;
+    private final Encrypt encrypt;
 
-    public UserBean(final UserRepository repository) {
+    public UseCaseConfig(final UserRepository repository, final Encrypt encrypt) {
         this.repository = Objects.requireNonNull(repository);
+        this.encrypt = Objects.requireNonNull(encrypt);
     }
 
     @Bean
     public CreateUserUseCase createUserUseCase() {
-        return new CreateUserUseCase(repository);
+        return new CreateUserUseCase(repository, encrypt);
     }
 
     @Bean
