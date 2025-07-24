@@ -23,19 +23,16 @@ findProject(':api-conta:domain')?.name = 'domain'
 findProject(':api-conta:application')?.name = 'application'
 findProject(':api-conta:infrastructure')?.name = 'infrastructure'
 
+//Microserviço api-review
+include 'api-review:domain'
+include 'api-review:infrastructure'
+include 'api-review:application'
+findProject(':api-review:domain')?.name = 'domain'
+findProject(':api-review:infrastructure')?.name = 'infrastructure'
+findProject(':api-review:application')?.name = 'application'
+
 
 include 'reviewanalyze-service'
-include 'review-service:domain'
-findProject(':review-service:domain')?.name = 'domain'
-include 'review-service:infrastructure'
-findProject(':review-service:infrastructure')?.name = 'infrastructure'
-include 'review-service:application'
-findProject(':review-service:application')?.name = 'application'
-include 'review-service:infrastructure'
-findProject(':review-service:infrastructure')?.name = 'infrastructure'
-include 'review-service:application'
-findProject(':review-service:application')?.name = 'application'
-
 include 'reviewanalyze-service:domain'
 findProject(':reviewanalyze-service:domain')?.name = 'domain'
 include 'reviewanalyze-service:domain'
