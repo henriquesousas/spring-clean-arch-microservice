@@ -19,10 +19,6 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/account-service" />
-            <option value="$PROJECT_DIR$/account-service/application" />
-            <option value="$PROJECT_DIR$/account-service/domain" />
-            <option value="$PROJECT_DIR$/account-service/infrastructure" />
             <option value="$PROJECT_DIR$/api-conta" />
             <option value="$PROJECT_DIR$/api-conta/application" />
             <option value="$PROJECT_DIR$/api-conta/domain" />
@@ -32,19 +28,15 @@
             <option value="$PROJECT_DIR$/api-gestao-produto/domain" />
             <option value="$PROJECT_DIR$/api-gestao-produto/infrastructure" />
             <option value="$PROJECT_DIR$/api-review" />
+            <option value="$PROJECT_DIR$/api-review-analise" />
+            <option value="$PROJECT_DIR$/api-review-analise/application" />
+            <option value="$PROJECT_DIR$/api-review-analise/domain" />
+            <option value="$PROJECT_DIR$/api-review-analise/infrastructure" />
             <option value="$PROJECT_DIR$/api-review/application" />
             <option value="$PROJECT_DIR$/api-review/domain" />
             <option value="$PROJECT_DIR$/api-review/infrastructure" />
-            <option value="$PROJECT_DIR$/application" />
             <option value="$PROJECT_DIR$/buildSrc" />
             <option value="$PROJECT_DIR$/database" />
-            <option value="$PROJECT_DIR$/domain" />
-            <option value="$PROJECT_DIR$/infrastructure" />
-            <option value="$PROJECT_DIR$/review-service" />
-            <option value="$PROJECT_DIR$/reviewanalyze-service" />
-            <option value="$PROJECT_DIR$/reviewanalyze-service/application" />
-            <option value="$PROJECT_DIR$/reviewanalyze-service/domain" />
-            <option value="$PROJECT_DIR$/reviewanalyze-service/infrastructure" />
             <option value="$PROJECT_DIR$/shared" />
           </set>
         </option>
