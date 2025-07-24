@@ -42,10 +42,10 @@ public class ReviewAnalysisValidator extends Validator {
         }
     }
 
-    private void copyIfHasError(final Notification notification) {
-        if (notification == null) return;
-        if (notification.hasError()) {
-            this.handler.copy(notification);
-        }
-    }
+//    private void copyIfHasError(final Notification notification) {
+//        if (notification == null) return;
+//        if (notification.hasError()) {
+//            this.handler.copy(notification);
+//        }
+//    }
 }
